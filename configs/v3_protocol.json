@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "protocol": "solo-v3-anli",
+  "status": "prespecified_before_anli_model_predictions",
+  "seed": 6998,
+  "scope": "ANLI three-way inference; fallback scale and optional positive-gain routing; quality collection sequentially on a single GPU",
+  "data": {
+    "task": "anli",
+    "source_url": "https://dl.fbaipublicfiles.com/anli/anli_v1.0.zip",
+    "source_sha256": "e5c058f2bb4e6190b0651badca2c590e45db95248f8b28cde674615ee40820bf",
+    "rounds": ["R1", "R2", "R3"],
+    "labels": ["entailment", "neutral", "contradiction"],
+    "calibration_per_round_class": 200,
+    "validation_per_round_class": 100,
+    "development_per_round_class": 10,
+    "training_role_proportions": {"calibration": 0.6, "validation": 0.3, "development": 0.1},
+    "duplicates": "exclude contradictory training input groups; same-label duplicates retain lexicographically first uid; preserve all official test",
+    "holdout": "All 3200 official test examples across R1/R2/R3; never select rounds using scores",
+    "grouping": "Normalized premise SHA256; no premise overlap between development, calibration, validation or holdout",
+    "sampling": "Deterministic hash order, whole-premise role assignment before within-role per-round/class subsampling; training candidates exclude test premises and normalized inputs",
+    "inputs": "Only premise and hypothesis, fixed label descriptions; never reason, gold or adversarial metadata",
+    "target": "Question-weighted accuracy on the complete official test pool; R1/R2/R3 reported separately as descriptive results",
+    "contamination": "Project-unseen task, not a claim of pretraining-unseen data"
+  },
+  "models": {
+    "startlux4b": {"interface": "startlux", "repo": "startlux-models/StartLux-Decision-v1.1-4B-Instant", "revision": "416088f77cfce09633906a3675c7cd2e5dabcf10", "gpu_memory_utilization": 0.4},
+    "qwen4b": {"interface": "qwen", "repo": "Qwen/Qwen3.5-4B", "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a", "gpu_memory_utilization": 0.4},
+    "qwen9b": {"interface": "qwen", "repo": "Qwen/Qwen3.5-9B", "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a", "gpu_memory_utilization": 0.8}
+  },
+  "inference": {
+    "precision": "bfloat16",
+    "max_model_len": 8192,
+    "qwen_max_output_tokens": 64,
+    "qwen_thinking": false,
+    "qwen_temperature": 0,
+    "startlux_think_mode": "never",
+    "concurrency": 1,
+    "max_attempts": 2,
+    "timeout_seconds": 120,
+    "model_order": ["startlux4b", "qwen4b", "qwen9b"],
+    "no_truncation": true,
+    "no_automatic_precision_or_model_fallback": true,
+    "no_concurrent_model_residency_claim": true
+  },
+  "policies": {
+    "primary_fallback": "qwen9b",
+    "primary_candidate": "positive_gain",
+    "primary_reference": "confidence",
+    "validation_budget": 0.1,
+    "policies_per_fallback": ["confidence", "class_conditional", "fixed_gain", "positive_gain"],
+    "l2": 0.01,
+    "gain_features": ["logit_max_probability", "predicted_class_onehot", "log1p_state_characters"],
+    "fit": "Separate regularized local/fallback correctness logistic regressions; calibration only; fixed L2; standardized using calibration statistics only",
+    "threshold": "Descending complete score-tie groups; largest validation count not above 10% budget; no holdout top-k",
+    "positive_gain": "Only score strictly greater than zero is eligible; leave budget unused; if none eligible freeze no-deferral; runtime local failure still forces deferral",
+    "selection": "No validation-driven choice of primary model, policy, task round or hyperparameters",
+    "actual_budget": "Report observed holdout deferral; frozen policies may consume different actual budgets"
+  },
+  "evaluation": {
+    "primary": "Accuracy(positive_gain with Qwen9B fallback) minus accuracy(confidence with Qwen9B fallback)",
+    "bootstrap_unit": "normalized_premise_group_id",
+    "bootstrap_reps": 2000,
+    "confidence_level": 0.95,
+    "weighting": "Question-weighted pooled accuracy; resample complete premise clusters with replacement, retaining cross-round grouping",
+    "secondary": "Direct model accuracies, all frozen policies with both fallbacks, round-level outcomes, rescue/harm, failures, actual deferral and oracle complementarity are descriptive; no unadjusted multi-comparison significance claims",
+    "holdout_access": "All fit and holdout jobs complete, policy freeze validated, and immutable first-access receipt written before parsing holdout gold",
+    "reuse": "No v1/v2 evaluation data for prospective v3 model or policy selection; no retuning after first v3 evaluation"
+  },
+  "stopping": {
+    "technical": "Stop on exact-token preflight failure, smoke failure, model/runtime identity mismatch or more than 1% terminal runtime errors after 50 new inputs",
+    "quality": "Do not stop, replace models or alter thresholds based on holdout accuracy; no guarantee of improvement",
+    "session": "Bind the actual allocation and observed remaining time; resume stored shards without renewing the same allocation deadline"
+  },
+  "performance": {
+    "this_round": "Record per-request serial collection latency and device/resource provenance only; not a steady-state/cascade benchmark",
+    "next_stage": "Real co-resident 9B cascade feasibility and longer open-arrival measurements require a separately frozen configuration after development-only feasibility checks"
+  }
+}

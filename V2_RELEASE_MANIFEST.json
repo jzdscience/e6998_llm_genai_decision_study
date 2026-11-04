@@ -1,0 +1,71 @@
+{
+  "release": "decision-study-v2-2026-11-02-r1",
+  "scope": "Additive v2 implementation and CPU evidence viewer; no new GPU results",
+  "files": {
+    "configs/v2_protocol.json": "e9b371b7f6d42c11a8b91d83ac0fd991b834af0d91936f0ee26b8481ab9a4df2",
+    "decision_study/v2/__init__.py": "71ad1931f724337987a3d2a6d2773e03b6089fbd2969ac719e074254b4f35e55",
+    "decision_study/v2/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "decision_study/v2/cli.py": "c7cba20b35d0cafad6a635fea4d73619ee94b5b1159cf687c153561503d0d298",
+    "decision_study/v2/data_v2.py": "ea2b5667782f578d4ae631da1459cfc0975c3d828db2b90d954fd17190df65d5",
+    "decision_study/v2/identity.py": "5415c581fa6d617fa592a8afb4eab7a4e7c3fcdbbdc50af017a546f967ca7c64",
+    "decision_study/v2/lab/__init__.py": "2512471eba8ab8109626ac348f6ca6121751d80d16b2cebba2c0aa966d0dea8c",
+    "decision_study/v2/lab/app.py": "6195b8104e9995f192b2a01602db2211cc29314062c20d6b35937a1cd8137b2a",
+    "decision_study/v2/lab/bundle.py": "2fe8e84b7be3229a5d15b08370bb0827b6686856c300fad4b02b50ffcc61ccad",
+    "decision_study/v2/openloop.py": "ffb903d0cdb044ab7eb5a29b6df3fa55314c9e9b03a1dc6e2bf437364222c7e8",
+    "decision_study/v2/policies.py": "e30415579549c7713f4e9f6386e6fa8117a5488f46ee378b1946063a14994e5e",
+    "decision_study/v2/runner_v2.py": "a3b552fc24950d18136436955cea5aab3f950178eac1720dfaa16bae6fc3e207",
+    "decision_study/v2/study.py": "8c512ef6501068f7f529673ad8a78a0abcd1ae12de9760767132e7230b6ac691",
+    "docs/CONTINUE_V2_ZH.md": "7e72fe6f5409d583049844bb1ef2b02c4c6d41959416e431b80a58f865398dd4",
+    "docs/LAB.md": "0be8bd24fc9cb779f03f010992586e5041aaa1e68b8bf65663dd8354cf4170b6",
+    "docs/V2_PROTOCOL_ZH.md": "059d6d355d93339cd44883536734481a82daf42c56bba8c93e2e3215a825e9c6",
+    "reports/decision-lab-2026-11-02/lab.json": "927d6d3b253b0f43d5990b067cc12ff56bb911000d9ea8eaf0b4b597eb5c5b3c",
+    "reports/decision-lab-2026-11-02/manifest.json": "a4606ed31ea5b45bc2a81abf027b4d59c8258c64d80d7386b8267634f5c6767d",
+    "results/solo-v2/data/examples.jsonl": "f29fac859f0324e7ed7d4cf54bdc674472a27451695ee9fff545d635d23bb25b",
+    "results/solo-v2/data/fit_gold.json": "e44283e1775f8085c09ee9770e98038d527e4810a7e50626cc4240ab76078e9b",
+    "results/solo-v2/data/manifest.json": "75d13d4cf5a0c55bcf18956871cb5fa6c300b155b9eaff75ea5d40cdf525e575",
+    "results/solo-v2/sealed/holdout_gold.json": "8fc3e0e6c58b21cfcc3caa1ed4174eda3b47b9962fa3196995e97c8d84018c52",
+    "scripts/run_v2.sh": "60bf3a9875da2c267d246d049da7f2efe8c702a2c941f55a1f98b1b310dca4ce",
+    "scripts/verify_v2_release.py": "852b63353f377bae0919f17bdf281fb635b45f9922c1defc9bcb111f26289bc9",
+    "tests/test_v2_data.py": "eec648fcfa9990c7c5e1e1a0fa92438acc892c847f4e4880d19faa9d53f43073",
+    "tests/test_v2_lab.py": "86e6f4a533275c767318774707fe7b59842a9cdee906b573a8411da444edd679",
+    "tests/test_v2_openloop.py": "6053f80f8d35baeae6793b8c25aadd88a2ef7761926ba986c4a1e8aba29247fa",
+    "tests/test_v2_policies.py": "135756928e0859c592a82829b80d88e5be122c6de557c10bfecebe8c6632b1b7",
+    "tests/test_v2_runtime.py": "c219671501ef138b0e3bc8bed7d75242019f6be5d35bd3861efecd9737e39a9d",
+    "tests/test_v2_study.py": "e2f6a7958c0c3602ef0e11c97a24e7fba36b9a34d7c8fb336aa661fc387c6ed1"
+  },
+  "required_existing_files": {
+    "decision_study/__init__.py": "8ece15f88269f4b1ee701ad57ea96c3815bdcdb251bf207bf391099465f78af1",
+    "decision_study/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "decision_study/adapters.py": "ddfe0c1847790a044bad821d82dd97f1e8d47415c1b2cb661a4d0ab0164ee6c4",
+    "decision_study/analysis.py": "4f011a1eac06f74553b4cbe68bf42a10dd5719950ba6603b005dff7e3789248e",
+    "decision_study/artifacts.py": "4a24522738ef5a75e926bb0b757da60cf11a6cea86d7acf1a1a0f18454c93338",
+    "decision_study/benchmark.py": "26d6a9b459c1ee2c134c1534febe0c983cfc91beafa4d98e55bd3553a57bea81",
+    "decision_study/budget.py": "4700ed2013019f892cdfdcc65dcae03202cb3a2036e35513a4a1d86e4326ddd4",
+    "decision_study/cli.py": "fe990e1dc82b5acd276bb725b378e0570ed2298a11ed19ca5833b2020374a939",
+    "decision_study/common.py": "47b3192632789f830da69b7c3a43c0d2ad0dba2a25a5edb00183945e5176cd95",
+    "decision_study/data.py": "967327ee2e43fff7201618cab63a00d31ec3c6bcc2c4dea0bf66d8853083f8d4",
+    "decision_study/demo.py": "a0fe8039a31dc72711855d1c5b78f39ebaeb89fd2aba29e78ad4f076f5e39d10",
+    "decision_study/plots.py": "65fdad8267963624064f80d7ecb48622415593479502a741f786692565a371fe",
+    "decision_study/runner.py": "673022dbfeab732a4dd28c28a5ce5e617bc1c9c2d02a232b53ee67016c3319b4",
+    "decision_study/runtime.py": "3d1295e5e7cf5ea0c80c475016b2159fd1a1ae6974587ff08af7467a97509c5e",
+    "decision_study/selftest.py": "690922fde3dca875aa6a9c0280cea2b3b0e96c75dad922dac0856e2ce288ae1d",
+    "decision_study/storage.py": "af02699c82d313a2860c52a17f03962446511b595945d80443ed9ac27cd45481",
+    "scripts/run_with_cuda_tools.py": "5063ece62182955d192129bc64ad113009f173e37262f0409c19430e8e5e76a2",
+    "scripts/prepare_cuda_toolkit.py": "0a5f3eacb3be762d7b18699ed201d39708fde00f1f2a4ca14f23e0a0e4979c24",
+    "scripts/cuda_toolchain_preflight.py": "78a93f98f7805f44644a4a34158fe52f0a6959f0837435c7e780b65ece8e13ed",
+    "scripts/model_probe.py": "e29b455f750b1f349599dd061fad6421fd667a65572100a26489c92709948ed1",
+    "configs/cuda_build_toolkit_13_0_flashinfer.txt": "5fd9773bdc8bacad2e5ba2a1ee6e7687526d0c490339bfc911a2b3cab97a60b0",
+    "configs/runtime_defaults.json": "861e88b8c1f7b0174d17f65f2a69764bc2ce7b980bd5e2bdeac2358c74f2a9e2"
+  },
+  "frozen_v1": {
+    "controller_source_hash": "9f25b6350da44fb22cb5f8a644e1cb68b707a82272a024c931701f84c701551f",
+    "analysis_source_hash": "4f011a1eac06f74553b4cbe68bf42a10dd5719950ba6603b005dff7e3789248e"
+  },
+  "prepared_manifest_hash": "256ce56041ca2ef6717a9e7b8c5983772b2ee1ab800ecf356d6ddb2eefc44137",
+  "compatible_existing_files": {
+    "decision_study/artifacts.py": [
+      "b0586c1bad4ea6ba645e96daaf845f00763dad758d40a5c547680f04d8281831",
+      "d7c87342e501ae346cabc397d3afbc8199274efce3c06f940e15c75e0c2d9dd2"
+    ]
+  }
+}

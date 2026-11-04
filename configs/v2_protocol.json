@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "protocol": "solo-v2",
+  "status": "preregistered_before_new_predictions",
+  "seed": 6998,
+  "scope": "Frozen StartLux/Qwen routing on fresh SQuAD articles; CLINC fitting data retained for exploration; CPU evidence demo",
+  "data": {
+    "holdout_per_class": 2000,
+    "holdout_source": "unused articles in pinned SQuAD2 train after excluding every article used by v1",
+    "fit_roles": ["calibration", "validation"],
+    "qwen_fit_count": 2800,
+    "primary_task": "squad",
+    "sampling": "fixed-seed hash order within gold class; question-weighted balanced target",
+    "holdout_models": ["startlux", "qwen"],
+    "optional_holdout_models": ["kev"]
+  },
+  "policies": {
+    "primary_budget": 0.1,
+    "secondary_budgets": [0.05, 0.2],
+    "baseline": "confidence: 1 minus released maximum probability",
+    "candidates": ["class_conditional", "gain"],
+    "class_conditional_features": ["confidence_logit", "predicted_class"],
+    "gain_features": ["confidence_logit", "predicted_class", "log1p_input_characters"],
+    "gain_target": "P(Qwen correct given features) minus P(StartLux correct given features), both fitted from labels",
+    "l2": 0.01,
+    "fit_split": "calibration",
+    "selection_split": "validation",
+    "threshold": "whole score-tie groups, largest validation deferral count not exceeding budget; runtime failures force deferral",
+    "selection": "highest validation cascade correct count; ties choose class_conditional",
+    "original_gate": "v1 refitted risk gate retained as secondary descriptive reference"
+  },
+  "evaluation": {
+    "primary": "fresh SQuAD paired accuracy difference of validation-selected v2 online policy minus validation-frozen confidence policy at target budget 10%",
+    "actual_deferral": "report holdout deferral rates; do not retune thresholds to force test quota",
+    "bootstrap_reps": 2000,
+    "bootstrap_unit": "article",
+    "confidence_level": 0.95,
+    "secondary": "descriptive direct baselines, rescue/harm, old gate and budget sensitivity; no unadjusted multiple significance claims",
+    "power": "no promised detectable effect; report interval width and source/cluster limitations",
+    "holdout_access": "evaluation requires valid policy freeze; idempotent verification allowed, policy changes after first evaluation rejected"
+  },
+  "openloop": {
+    "task": "squad",
+    "workload_split": "validation",
+    "unique_inputs": 200,
+    "conditions": ["local_only", "resident_idle", "selected_cascade", "qwen_only"],
+    "arrival_rates_per_second": [10.0, 25.0, 40.0],
+    "arrival_process": "seeded Poisson",
+    "duration_seconds": 30.0,
+    "repeats": 3,
+    "workers": 8,
+    "max_inflight": 64,
+    "slo_ms": 500.0,
+    "policy_timing": "fit and freeze before selected-cascade measurement; include policy CPU time",
+    "goodput": "successful requests meeting arrival-to-completion SLO per offered-window second; all offered, rejected and failed counted",
+    "order": "seeded randomized condition order within repeat; matched arrival schedule within rate/repeat",
+    "startup_warmup": "record separately, exclude from steady-state offered window",
+    "drain": "record all offered request outcomes after bounded submission, count late completion against SLO"
+  },
+  "optional": {"startlux9b": "deferred until core results and resource feasibility are confirmed", "live_ui": "deferred", "anli": "future scope"}
+}

@@ -1,0 +1,6 @@
+{
+  "scripts/repair_startlux_reference.py": "f87e176904449f790b7065d5d630226657483a26e23a9f6f10e745df2fa49cb7",
+  "scripts/recover_startlux.sh": "c4f078700574146c254c7b882708466d9ef78185740290f6f32c59f451a9ec1b",
+  "tests/test_startlux_repair.py": "70c89e5e69884c1d40d597481bb5c8fce010176011c73bcadf12cc0a0c534de8",
+  "docs/RECOVER_STARTLUX_ZH.md": "b9c14d3f8b64038c97b36549fcaf6e353b7234fd765ed79910b8479360ad87d7"
+}

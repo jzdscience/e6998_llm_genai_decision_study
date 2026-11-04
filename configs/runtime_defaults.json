@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-10-30",
+  "python": "3.12",
+  "max_model_len": 8192,
+  "max_output_tokens": 64,
+  "gpu_memory_utilization": 0.4,
+  "startup_timeout_seconds": 1800,
+  "models": {
+    "kev": {
+      "repo": "jaredpalmer/kev-4b",
+      "revision": "139fdd94f1b6a6ad80cc15e08fcb99cac885a101",
+      "base_repo": "Qwen/Qwen3.5-4B-Base",
+      "base_revision": "1001bb4d826a52d1f399e183466143f4da7b741b",
+      "native_temperature": 2.406050072164233,
+      "code_repo": "jaredpalmer/kev",
+      "code_revision": "2074cc44256200bb37540103fa4572901faa10f3",
+      "port": 18008
+    },
+    "startlux": {
+      "repo": "startlux-models/StartLux-Decision-v1.1-4B-Instant",
+      "revision": "416088f77cfce09633906a3675c7cd2e5dabcf10",
+      "native_temperature": 1.1103,
+      "code_repo": "StartLuxLabs/StartLux-Decision",
+      "code_revision": "a99977d9332decc9fb27a2488b4a83b533b6cd5f",
+      "port": 18090,
+      "engine_port": 18091
+    },
+    "qwen": {
+      "repo": "Qwen/Qwen3.5-4B",
+      "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+      "port": 18000
+    }
+  },
+  "packages": {
+    "vllm_primary": "0.31.0",
+    "vllm_fallback": "0.19.1",
+    "kev_fla": "0.5.2",
+    "reference_transformers": ">=5.8,<5.9"
+  }
+}

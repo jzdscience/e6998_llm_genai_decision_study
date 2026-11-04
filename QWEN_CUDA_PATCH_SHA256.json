@@ -1,0 +1,17 @@
+{
+  "purpose": "Reuse existing CUDA toolchain for Qwen sampling JIT; no dependencies or frozen core changes",
+  "created_at": "2026-11-02T07:26:51.332468+00:00",
+  "files": {
+    "scripts/run_with_cuda_tools.sh": "819b53c5b9612f49a3031f779461c15be5c45c4e2cc463356da21695e6d7316d",
+    "scripts/run_with_cuda_tools.py": "25364405454a85851479f49af6d816d32ea1b6ed48ddae7cd1c48f56eb5e84be",
+    "scripts/cuda_toolchain_preflight.py": "8462f75f0b68b2d1527af7b8911ae6b36b71ece5cf36aacaa84a582a5ea52561",
+    "scripts/run_with_vllm_tools.sh": "5663b2e657801d02fc8e6dcb4cf7baf9b0105b38ac237d8ccfcfbf79113d27e1",
+    "docs/RECOVER_QWEN_CUDA_ZH.md": "f2e40d64c2a909bf97dafb9c83f4350bd4f652592cf8b0a67371c9412cb67f53"
+  },
+  "core_fingerprint": "9f25b6350da44fb22cb5f8a644e1cb68b707a82272a024c931701f84c701551f",
+  "local_validation": {
+    "launcher_cases": 18,
+    "probe_cases": 26,
+    "gpu_validation": "pending"
+  }
+}
