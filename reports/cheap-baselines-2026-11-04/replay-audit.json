@@ -1,0 +1,147 @@
+{
+  "all_feature_ids_and_normalized_inputs_unique": true,
+  "archive_sha256": "7f00178c7bd1d86eeeb121929131447675d0053c10072f687f88d7e3ae77b2be",
+  "audit_kind": "Independent saved-parameter replay; no fitting, ONNX execution or test-label reads",
+  "calibration_exact_subset_count": 400,
+  "embedding_dtype": "float32",
+  "embedding_max_unit_norm_error": 1.1920928955078125e-07,
+  "embedding_shape": [
+    3450,
+    384
+  ],
+  "environment": {
+    "numpy": "2.3.5",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "python": "3.13.3",
+    "tokenizers": "0.23.3"
+  },
+  "exported_protocol_sha256": "2c409f6f39619a21546bc15fce4d065b53efb05196f193b31a61dc459a084a12",
+  "feature_ids_text_hashes_order_verified": true,
+  "full_training_count": 1600,
+  "limits": [
+    "Uses archived embedding values; encoder hidden-state provenance needs separate replay.",
+    "Does not rerun or prove classifier optimization history; checks the declared saved-parameter prediction mapping.",
+    "Integrity hashes are not signatures or forensic proof of historical label reads.",
+    "No elapsed-time remeasurement, model selection or new task-quality evaluation is performed."
+  ],
+  "max_tokens_including_special": 25,
+  "models": {
+    "minilm1600": {
+      "class_column_remap": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        7
+      ],
+      "coefficient_shape": [
+        16,
+        384
+      ],
+      "feature_count": 384,
+      "iterations": [
+        25
+      ],
+      "label_matches": 1850,
+      "max_probability_absolute_error": 1.3322676295501878e-15,
+      "mean_probability_absolute_error": 2.5844460504448106e-17,
+      "prediction_count": 1850,
+      "training_count": 1600
+    },
+    "minilm400": {
+      "class_column_remap": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        7
+      ],
+      "coefficient_shape": [
+        16,
+        384
+      ],
+      "feature_count": 384,
+      "iterations": [
+        19
+      ],
+      "label_matches": 1850,
+      "max_probability_absolute_error": 1.5543122344752192e-15,
+      "mean_probability_absolute_error": 2.3859026264619556e-17,
+      "prediction_count": 1850,
+      "training_count": 400
+    },
+    "tfidf1600": {
+      "class_column_remap": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        7
+      ],
+      "coefficient_shape": [
+        16,
+        4717
+      ],
+      "feature_count": 4717,
+      "idf_max_absolute_error": 0.0,
+      "iterations": [
+        23
+      ],
+      "label_matches": 1850,
+      "max_probability_absolute_error": 4.440892098500626e-16,
+      "mean_probability_absolute_error": 5.5164426306773106e-18,
+      "prediction_count": 1850,
+      "training_count": 1600,
+      "vocabulary_exact_training_match": true,
+      "zero_feature_rows": 4
+    }
+  },
+  "prepared_hashes": {
+    "manifest.json": "abcb276997e62d2d53dce4a3cbe745d25d78b3462c31524b1687bba23cc5899b",
+    "train1600.jsonl": "cec43d033880b75b77933bed0b03d345a36321a63f105f53e279851bd654f468"
+  },
+  "probability_atol": 1e-12,
+  "protocol_content_identical_despite_serialization": true,
+  "source_commit": "1b70899bbcf15ee686df04b36e0c333a2fc21e5c",
+  "source_hash_chain_verified": true,
+  "source_protocol_sha256": "3ccc9c362267df70597d0fe301f85f22caff65054a6644fd7cc1e84f4ab9157e",
+  "status": "PASS",
+  "token_count": 3450,
+  "token_lengths_exactly_match": true,
+  "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+  "total_labels_replayed": 5550,
+  "truncated_count": 0
+}

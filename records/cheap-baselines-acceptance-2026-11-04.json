@@ -1,0 +1,177 @@
+{
+  "date": "2026-11-04",
+  "timezone": "America/Los_Angeles",
+  "experiment_id": "clinc-cheap-v1",
+  "status": "complete_independently_verified",
+  "source_commit": "1b70899bbcf15ee686df04b36e0c333a2fc21e5c",
+  "uploaded_path": "/Users/zhanj289/Desktop/cheap_baseline_bundle.zip",
+  "archive": {
+    "id": "cheap-baselines-20261105-073350",
+    "archive": "records/bundles/cheap-baselines-20261105-073350-7f00178c7bd1.zip",
+    "sha256": "7f00178c7bd1d86eeeb121929131447675d0053c10072f687f88d7e3ae77b2be",
+    "bytes": 6793864,
+    "evaluation_access_at_utc": "2026-11-05T07:33:50.228579+00:00",
+    "bundle_kind": "clinc-cheap-v1",
+    "verified_file_count": 15,
+    "original_filename": "cheap_baseline_bundle.zip",
+    "extracted_directory": "results/returned-cheap-baselines-2026-11-04-233350",
+    "prepared_directory": "results/cheap-baselines-prepared",
+    "reported_state": "COMPLETE",
+    "reported_state_source": "evaluation.json/status",
+    "verified_state": "complete_independently_verified",
+    "integrity_validation": "all_members_artifacts_self_hashes_source_inputs_and_full_freeze_access_evaluation_chain_verified",
+    "source_commit": "1b70899bbcf15ee686df04b36e0c333a2fc21e5c",
+    "training_label_counts": {
+      "tfidf1600": 1600,
+      "minilm400": 400,
+      "minilm1600": 1600
+    },
+    "cpu_classifier_prediction_count": 5550,
+    "shared_embedding_inputs": 3450,
+    "note": "Retrospective supervised baselines; all three predictions frozen before scoring. Main/mixed share450banking. MiniLM1600 main559/600 vsStartLux561/600 is a descriptive near-tie, not equivalence. Shared CPU encoder timing is not per-request or GPU service performance."
+  },
+  "external_artifact_root": "/Users/zhanj289/Desktop/COMS6998/project/solo-experiments-2026-10-30/decision-study",
+  "external_audit_directory": ".validation/cheap-baselines-complete-2026-11-04",
+  "previous_preparation_receipt": "records/cheap-baselines-preparation-2026-11-04.json",
+  "report": "reports/cheap-baselines-2026-11-04/RESULTS_ZH.md",
+  "audits": {
+    "identity": "reports/cheap-baselines-2026-11-04/identity-audit.json",
+    "metrics": "reports/cheap-baselines-2026-11-04/metrics-audit.json",
+    "replay": "reports/cheap-baselines-2026-11-04/replay-audit.json",
+    "encoder": "reports/cheap-baselines-2026-11-04/encoder-audit.json"
+  },
+  "validation": {
+    "archive_members": 15,
+    "source_files": 8,
+    "input_files": 5,
+    "prepared_files": 2,
+    "model_files": 8,
+    "counts": {
+      "distinct_evaluation_inputs": 1850,
+      "new_prediction_rows": 5550,
+      "new_recipes": 3,
+      "predictions_per_recipe": 1850,
+      "shared_embedding_inputs": 3450
+    },
+    "all_reported_metrics_match": true,
+    "classifier_replay_label_matches": 5550,
+    "encoder_replay": {
+      "byte_identical": false,
+      "float32_absolute_tolerance": 1e-05,
+      "max_absolute_error": 2.980232238769531e-07,
+      "max_row_l2_difference": 1.6456942325292666e-06,
+      "mean_absolute_error": 3.324435752781013e-08,
+      "minimum_cosine_similarity": 0.9999999999986482,
+      "replay_max_unit_norm_error": 1.0463755772960326e-07,
+      "rows_over_tolerance": 0,
+      "saved_max_unit_norm_error": 1.0018311003001656e-07
+    },
+    "encoder_replayed_classifier_labels": {
+      "minilm1600": {
+        "count": 1850,
+        "label_changes": 0,
+        "maximum_probability_absolute_error": 9.170949804016004e-07
+      },
+      "minilm400": {
+        "count": 1850,
+        "label_changes": 0,
+        "maximum_probability_absolute_error": 4.512110896581767e-07
+      }
+    },
+    "permanent_identity_metrics_parameter_replay_scripts_reexecuted": true,
+    "three_reexecuted_receipts_byte_identical": true,
+    "encoder_final_script_and_receipt_copied_without_changes": true,
+    "independent_report_reviews": [
+      "metrics_and_scope_pass",
+      "encoder_and_timing_pass"
+    ]
+  },
+  "main_test_summary": {
+    "kev": {
+      "correct": 465,
+      "count": 600,
+      "accuracy": 0.775,
+      "banking_correct": 317,
+      "oos_correct": 148
+    },
+    "minilm1600": {
+      "correct": 559,
+      "count": 600,
+      "accuracy": 0.9316666666666666,
+      "banking_correct": 428,
+      "oos_correct": 131
+    },
+    "minilm400": {
+      "correct": 544,
+      "count": 600,
+      "accuracy": 0.9066666666666666,
+      "banking_correct": 404,
+      "oos_correct": 140
+    },
+    "qwen": {
+      "correct": 528,
+      "count": 600,
+      "accuracy": 0.88,
+      "banking_correct": 380,
+      "oos_correct": 148
+    },
+    "startlux": {
+      "correct": 561,
+      "count": 600,
+      "accuracy": 0.935,
+      "banking_correct": 413,
+      "oos_correct": 148
+    },
+    "tfidf1600": {
+      "correct": 507,
+      "count": 600,
+      "accuracy": 0.845,
+      "banking_correct": 412,
+      "oos_correct": 95
+    },
+    "tfidf400": {
+      "correct": 443,
+      "count": 600,
+      "accuracy": 0.7383333333333333,
+      "banking_correct": 297,
+      "oos_correct": 146
+    }
+  },
+  "actions": {
+    "raw_archive_preserved": true,
+    "original_parameters_and_embeddings_preserved": true,
+    "classifier_refit": false,
+    "fresh_gpu_or_model_service_calls": false,
+    "frozen_cpu_encoder_replay": true,
+    "new_evaluation_access_receipt": false,
+    "scientific_source_changes": false
+  },
+  "interpretation": [
+    "Already-viewed data; descriptive comparisons, no model selection or fresh confirmation.",
+    "400-to1600 changes label count and OOS prior; the1600 pool includes60 engineering-development inputs.",
+    "Supervised classifiers differ from the original LLM prompting/calibration setting.",
+    "Main600 and mixed1300 share450banking samples; pureOOS850 is recall, not a multiclass recognition benchmark.",
+    "Hash chains verify stored identities, not independent historical OS read order.",
+    "This audit does not remeasure timings or replay model numeric computations.",
+    "Hashes are integrity checks, not signatures or historical OS access traces. Original embeddings/predictions remain unchanged; replay matrix is not substituted into published task metrics."
+  ],
+  "remaining": [
+    "StartLux9B matched-size control",
+    "Longer systems measurement; consider a matched CPU classifier service condition",
+    "Final report and demo integration"
+  ],
+  "report_files_sha256": {
+    "reports/cheap-baselines-2026-11-04/.DS_Store": "5b0efcd3e7f4130a9bf54f68cedff51d0303459ff15cddbb30e4e282d3a120bb",
+    "reports/cheap-baselines-2026-11-04/RESULTS_ZH.md": "2c1adba89cf6d8862f87c3cb38098bc5b3338c89bfcb95065116b0492afcb13b",
+    "reports/cheap-baselines-2026-11-04/audit/README.md": "f07b70b9470142b5ef91584358f940eab14f9229326310d3cbec04f25d913f36",
+    "reports/cheap-baselines-2026-11-04/audit/audit_encoder.py": "542ebd91dfc94797ec7f2556172610ecff3a1414371a735f41bd6f4451f28e39",
+    "reports/cheap-baselines-2026-11-04/audit/audit_identity.py": "b8d01632eece7684ccc116069442b41d1207983e3dd65edeacc2a6ce0c4a8fe4",
+    "reports/cheap-baselines-2026-11-04/audit/audit_metrics.py": "ec3bf0075cb39865c49292383ba8ebec87e436c1d028a10e47851e5a5811d313",
+    "reports/cheap-baselines-2026-11-04/audit/replay.py": "1caa3cef323c00496324630ec03e237c05bc11e7d5994d52d3de8197e8b93367",
+    "reports/cheap-baselines-2026-11-04/encoder-audit.json": "0bc17df854de4df66555f0d94b370958b0814b427f739dc78e50b85af79646e6",
+    "reports/cheap-baselines-2026-11-04/identity-audit.json": "a948cd8a093ba946262dcb9d6ee1f1a1d27b871556b8e8ff2ea95cf89ab04d88",
+    "reports/cheap-baselines-2026-11-04/metrics-audit.json": "ae3c57bc607b6773e71e1222564cec5f160f6cd3d6a2dc5c49faab1ec240f21a",
+    "reports/cheap-baselines-2026-11-04/replay-audit.json": "d8164a5f7f9459d97eb4a268acaa900c21ec5d0cae4a1fde2b5f05698ec50503",
+    "reports/cheap-baselines-2026-11-04/summary.csv": "641e60466633634cb6622ff7d6574673798fbb587dc2226c4c36579945a052f1"
+  }
+}

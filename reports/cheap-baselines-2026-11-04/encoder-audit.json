@@ -1,0 +1,175 @@
+{
+  "all_input_ids_and_text_hashes_match": true,
+  "all_token_lengths_match": true,
+  "archive_sha256": "7f00178c7bd1d86eeeb121929131447675d0053c10072f687f88d7e3ae77b2be",
+  "audit_environment": {
+    "machine": "arm64",
+    "packages": {
+      "numpy": "2.3.5",
+      "onnxruntime": "1.31.1",
+      "tokenizers": "0.23.3"
+    },
+    "provider": [
+      "CPUExecutionProvider"
+    ],
+    "python": "3.13.3",
+    "system": "Darwin",
+    "threads": 1
+  },
+  "audit_kind": "Independent fixed ONNX replay; no fitting, new protocol or gold-file scoring",
+  "classifiers_using_replayed_encoder": {
+    "minilm1600": {
+      "count": 1850,
+      "label_changes": 0,
+      "maximum_probability_absolute_error": 9.170949804016004e-07
+    },
+    "minilm400": {
+      "count": 1850,
+      "label_changes": 0,
+      "maximum_probability_absolute_error": 4.512110896581767e-07
+    }
+  },
+  "cross_platform_replay": {
+    "byte_identical": false,
+    "float32_absolute_tolerance": 1e-05,
+    "max_absolute_error": 2.980232238769531e-07,
+    "max_row_l2_difference": 1.6456942325292666e-06,
+    "mean_absolute_error": 3.324435752781013e-08,
+    "minimum_cosine_similarity": 0.9999999999986482,
+    "replay_max_unit_norm_error": 1.0463755772960326e-07,
+    "rows_over_tolerance": 0,
+    "saved_max_unit_norm_error": 1.0018311003001656e-07
+  },
+  "dimension": 384,
+  "encoder_component_seconds_sum": 14.966354997828603,
+  "encoder_unassigned_clock_overhead_seconds": 0.001970497891306877,
+  "limits": "Hashes are integrity checks, not signatures or historical OS access traces. Original embeddings/predictions remain unchanged; replay matrix is not substituted into published task metrics.",
+  "max_tokens_including_special": 25,
+  "model_identity": {
+    "files": {
+      "1_Pooling/config.json": {
+        "bytes": 190,
+        "sha256": "4be450dde3b0273bb9787637cfbd28fe04a7ba6ab9d36ac48e92b11e350ffc23"
+      },
+      "config.json": {
+        "bytes": 612,
+        "sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41"
+      },
+      "modules.json": {
+        "bytes": 349,
+        "sha256": "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf"
+      },
+      "onnx/model.onnx": {
+        "bytes": 90405214,
+        "sha256": "6fd5d72fe4589f189f8ebc006442dbb529bb7ce38f8082112682524616046452"
+      },
+      "sentence_bert_config.json": {
+        "bytes": 53,
+        "sha256": "fc1993fde0a95c24ec6c022539d41cf6e2f7c9721e5415d6fb6897472a9cd4b7"
+      },
+      "special_tokens_map.json": {
+        "bytes": 112,
+        "sha256": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3"
+      },
+      "tokenizer.json": {
+        "bytes": 466247,
+        "sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037"
+      },
+      "tokenizer_config.json": {
+        "bytes": 350,
+        "sha256": "acb92769e8195aabd29b7b2137a9e6d6e25c476a4f15aa4355c233426c61576b"
+      }
+    },
+    "provider": "CPUExecutionProvider",
+    "repository": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+  },
+  "pooling_replay_implementation": "Independent float32 einsum masked sum, token-count division and L2 normalization; observed small differences may combine platform/backend and reduction-order effects, not an isolated hardware causal comparison.",
+  "reported_classifier_timings": {
+    "minilm1600": {
+      "prediction_count": 1850,
+      "reported_seconds": {
+        "batch_predict_seconds": 0.0017087478190660477,
+        "fit_seconds": 0.06262174062430859
+      },
+      "shared_encoder_metadata": "embeddings.json",
+      "training_count": 1600
+    },
+    "minilm400": {
+      "prediction_count": 1850,
+      "reported_seconds": {
+        "batch_predict_seconds": 0.0016857236623764038,
+        "fit_seconds": 0.019655389711260796
+      },
+      "shared_encoder_metadata": "embeddings.json",
+      "training_count": 400
+    },
+    "tfidf1600": {
+      "prediction_count": 1850,
+      "prediction_feature_and_classifier_seconds_sum": 0.01828867569565773,
+      "reported_seconds": {
+        "batch_predict_seconds": 0.0009860079735517502,
+        "feature_fit_seconds": 0.021615346893668175,
+        "feature_predict_seconds": 0.01730266772210598,
+        "fit_seconds": 0.11878017149865627
+      },
+      "shared_encoder_metadata": null,
+      "training_count": 1600,
+      "training_feature_and_classifier_seconds_sum": 0.14039551839232445
+    }
+  },
+  "reported_encoder_timing_seconds": {
+    "inference_pool_seconds": 14.597739767283201,
+    "session_load_seconds": 0.19062983430922031,
+    "tokenize_seconds": 0.08797137625515461,
+    "tokenizer_load_seconds": 0.02284141257405281,
+    "total_seconds": 14.96832549571991,
+    "verification_seconds": 0.06717260740697384
+  },
+  "reported_node_environment": {
+    "machine": "x86_64",
+    "packages": {
+      "certifi": "2026.10.23",
+      "charset-normalizer": "3.5.2",
+      "cloudpickle": "3.1.2",
+      "filelock": "4.2.9",
+      "flatbuffers": "25.12.19",
+      "fsspec": "2026.9.0",
+      "hf-xet": "1.8.0",
+      "huggingface-hub": "0.36.0",
+      "idna": "3.20",
+      "joblib": "1.6.0",
+      "narwhals": "2.28.0",
+      "numpy": "2.3.5",
+      "onnxruntime": "1.31.1",
+      "packaging": "26.3",
+      "protobuf": "7.36.2",
+      "pyyaml": "6.0.3",
+      "requests": "2.34.2",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.16.3",
+      "threadpoolctl": "3.7.0",
+      "tokenizers": "0.23.3",
+      "tqdm": "4.70.1",
+      "typing-extensions": "4.16.0",
+      "urllib3": "2.8.0"
+    },
+    "processor": "x86_64",
+    "python": "3.11.5",
+    "system": "Linux",
+    "threads": 1
+  },
+  "rows": 3450,
+  "saved_embedding_sha256": "32fcb03b3a394589f05c4f64346d6054d848d86f45aa8210a577639530093df7",
+  "source_commit": "1b70899bbcf15ee686df04b36e0c333a2fc21e5c",
+  "status": "PASS",
+  "timing_review": [
+    "Encoder total is one 3450-input CPU pass, including verification/tokenizer/session loads; inference_pool includes batch padding, ONNX calls, pooling and concatenation.",
+    "Encoder work covers1600 training and1850 evaluation rows, shared between two heads. It is not1850-only inference latency and must not be omitted from either deployment cost discussion.",
+    "Classifier fit/predict clocks exclude encoder, input verification, object construction, array float64 conversion, serialization, process startup and HTTP/queue overhead.",
+    "TFIDF feature fit/transform clocks can be added to corresponding classifier clocks as arithmetic component sums, not independently measured end-to-end times.",
+    "Stored Linux elapsed times cannot be independently remeasured from this bundle. This cross-platform replay is numerical validation, not a new performance benchmark or measured GPU speedup.",
+    "Recorded processor is only x86_64; no detailed CPU model, repeat trials or service traces are present."
+  ],
+  "truncated_count": 0
+}

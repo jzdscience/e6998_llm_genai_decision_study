@@ -22,11 +22,13 @@
 | V2 | 10,800 条正式预测；36/36 性能单元；4,000 题最终评价 | gain−confidence 为 −0.225pp，95% CI [−0.908,+0.478]pp，未显示主方法改善 |
 | V3 | 17,700 条正式预测；六组 completion、freeze 和 3,200 题 ANLI 评价 | positive_gain9B−confidence9B 为 +0.594pp，95% CI [−0.528,+1.674]pp；主政策零转交，与直接 StartLux 相同 |
 | CLINC 轻量基线 | 400 标签 TF-IDF＋LR；1,850 条 CPU 预测；独立参数/指标重放通过 | main 73.83%、banking 66.00%；mixed stress 87.23%，回顾性监督对照 |
+| CLINC 完整预算与 embedding | TF-IDF1600、MiniLM400/1600；5,550 条 CPU 预测；四项独立审计通过 | MiniLM1600 main 93.17%、banking 95.11%、main OOS recall 87.33%；与 StartLux 总正确数差2条，错误分布不同 |
 
 合计 **44,450 条正式模型预测**，不含 smoke 或性能请求。预定 V1/V2/V3 均无需为补齐
 流程而重跑 GPU。V3 独立采集了 Qwen 输出；政策零转交不表示实验没有调用后级模型。
 V3 验证了 Qwen9B 单模型顺序运行，没有验证 9B 共驻留级联性能。
-上面的 44,450 条仅计 V1–V3 的 LLM 预测，本轮 1,850 条 CPU 分类器预测另计。
+上面的 44,450 条仅计 V1–V3 的 LLM 预测，两批轻量基线 7,400 条 CPU 分类器预测另计；
+这些模型重复预测同一评价池，不能按预测条数累计独立样本量。
 
 ## 本次仓库核对
 
@@ -90,18 +92,28 @@ validation 仅诊断，600 条 main test 与 stress 保留回顾性解释；850 
 运行入口见 [RUN_LIGHT_BASELINE_ZH.md](RUN_LIGHT_BASELINE_ZH.md)，
 历史准备边界保留于 [准备记录](../records/light-baseline-preparation-2026-11-04.json)。
 
-下一批 `clinc-cheap-v1` 已实现于独立 `decision_study/cheap_baselines/`，固定三项
+`clinc-cheap-v1` 已实现于独立 `decision_study/cheap_baselines/`，固定三项
 `tfidf1600`、`minilm400`、`minilm1600`，使用同一 MiniLM ONNX 编码器和固定 LR 配方。
 真实训练池整理及输入长度预检通过，最长25tokens；人工句子的真实CPU encoder smoke
 通过。新38项与原baseline27项测试通过，9项隔离mutation检出。24项运行依赖单独固定，
-Linux/Python3.11 wheel解析通过；这些不代替node实际运行。
-三项共同freeze后才评分；本机没有进行这批真实拟合、实验embedding或质量评价。
-可用入口与阶段边界见 [运行说明](RUN_CHEAP_BASELINES_ZH.md)、
+Linux/Python3.11 wheel解析通过。上述准备记录与后续回传验收分开保存。
+
+用户已在node完成三项实验，回传绑定 `1b70899bbcf15ee686df04b36e0c333a2fc21e5c`；
+15成员及全局freeze/access/evaluation身份通过，5,550条预测与全部指标独立复算一致。
+保存参数重放全部标签一致；独立ONNX重放3,450行最大特征差2.98e−7，两个保存分类头
+的全部标签仍一致。保留原矩阵和报告，没有重新训练或按test调整参数。
+TF-IDF1600、MiniLM400、MiniLM1600的main准确率分别为84.50%、90.67%、93.17%。
+MiniLM1600在银行子集比StartLux多对15条、OOS少对17条；总体接近不代表等效或相同行为。
+两种特征400→1600均main改善而mixed下降；训练量与OOS先验变化未分离。
+原计划中的轻量分类基线已补齐，结果见
+[完整报告](../reports/cheap-baselines-2026-11-04/RESULTS_ZH.md)与
+[验收记录](../records/cheap-baselines-acceptance-2026-11-04.json)。
+运行入口与阶段边界见 [运行说明](RUN_CHEAP_BASELINES_ZH.md)、
 [方案](CHEAP_BASELINES_PROTOCOL_ZH.md)、[准备记录](../records/cheap-baselines-preparation-2026-11-04.json)。
 
 1. 浏览三轮演示并准备课程讲述，突出“何时转交值得”、负结果及真实服务成本。
-2. 400 标签 TF-IDF 已完成；在 node 运行并回传已交付的完整 1,600 标签 TF-IDF 与
-   400/1,600 标签冻结 embedding 分类头，再安排 StartLux9B 与加强性能测量。
+2. TF-IDF400/1600与MiniLM400/1600已完成；接着安排StartLux9B与加强性能测量。
+   加强测量值得纳入MiniLM CPU部署条件，以同口径连接质量和服务成本；该新增条件仍待协议。
    每轮单独固定数据角色与评价范围；
    不能用已看的 holdout 选优后称确认结果。
 3. 结合最终证据完成课程报告、演示排练和固定版本交付。Git已恢复，可继续检查差异并

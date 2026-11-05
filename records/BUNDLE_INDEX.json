@@ -325,6 +325,31 @@
       "training_label_count": 400,
       "cpu_classifier_prediction_count": 1850,
       "note": "Retrospective supervised auxiliary baseline. No new LLM/GPU predictions. CPU batch timing is not HTTP/SLO performance. Main600 and mixed1300 share450 banking inputs; OOS-only850 reported as recall."
+    },
+    {
+      "id": "cheap-baselines-20261105-073350",
+      "archive": "records/bundles/cheap-baselines-20261105-073350-7f00178c7bd1.zip",
+      "sha256": "7f00178c7bd1d86eeeb121929131447675d0053c10072f687f88d7e3ae77b2be",
+      "bytes": 6793864,
+      "evaluation_access_at_utc": "2026-11-05T07:33:50.228579+00:00",
+      "bundle_kind": "clinc-cheap-v1",
+      "verified_file_count": 15,
+      "original_filename": "cheap_baseline_bundle.zip",
+      "extracted_directory": "results/returned-cheap-baselines-2026-11-04-233350",
+      "prepared_directory": "results/cheap-baselines-prepared",
+      "reported_state": "COMPLETE",
+      "reported_state_source": "evaluation.json/status",
+      "verified_state": "complete_independently_verified",
+      "integrity_validation": "all_members_artifacts_self_hashes_source_inputs_and_full_freeze_access_evaluation_chain_verified",
+      "source_commit": "1b70899bbcf15ee686df04b36e0c333a2fc21e5c",
+      "training_label_counts": {
+        "tfidf1600": 1600,
+        "minilm400": 400,
+        "minilm1600": 1600
+      },
+      "cpu_classifier_prediction_count": 5550,
+      "shared_embedding_inputs": 3450,
+      "note": "Retrospective supervised baselines; all three predictions frozen before scoring. Main/mixed share450banking. MiniLM1600 main559/600 vsStartLux561/600 is a descriptive near-tie, not equivalence. Shared CPU encoder timing is not per-request or GPU service performance."
     }
   ],
   "copied_from_project_root": "/Users/zhanj289/Documents/ChatGPT/COMS6998/decision-study",

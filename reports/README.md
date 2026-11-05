@@ -10,6 +10,7 @@ SHA 清单；原始预测、审计脚本和大包位于 [外部证据目录](../
 | [V2](v2-complete-2026-11-03/RESULTS_ZH.md) | 10,800 条预测；4,000 题 holdout；36 个性能单元 | gain−confidence −0.225pp，95% CI [−0.908,+0.478]pp |
 | [V3](v3-complete-2026-11-03/RESULTS_ZH.md) | 17,700 条预测；3,200 题 ANLI holdout | positive_gain9B−confidence9B +0.594pp，95% CI [−0.528,+1.674]pp |
 | [CLINC 轻量基线](light-baseline-2026-11-04/RESULTS_ZH.md) | 400 个训练标签；另计 1,850 条 CPU 分类器预测 | TF-IDF＋LR main 73.83%、banking 66.00%；回顾性对照，独立重放通过 |
+| [CLINC 完整预算与 MiniLM](cheap-baselines-2026-11-04/RESULTS_ZH.md) | TF-IDF1600、MiniLM400/1600；另计 5,550 条 CPU 预测 | MiniLM1600 main93.17%，银行95.11%、OOS recall87.33%；主测试接近StartLux，mixed排名不同 |
 
 两个主比较区间均跨零，未显示主方法改善。V3 positive_gain 冻结为零转交，与直接
 StartLux 一致；实验仍完整采集了后级预测。Qwen9B 已做顺序质量实验，未测同卡共驻留性能。

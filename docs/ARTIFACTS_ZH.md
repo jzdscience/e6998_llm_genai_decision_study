@@ -87,3 +87,9 @@ prepared 文件足以做发布文件核验，不能代替模型安装、真实 r
 这些输入留在旧runtime的新 `results/aux-clinc-cheap-v1-inputs/` 下；训练输出在并列的
 `results/aux-clinc-cheap-v1/`，不进入Git。完整prepared数据约255KB，编码器约90.9MB；
 prepare阶段与fit阶段的标签访问边界见 [协议](CHEAP_BASELINES_PROTOCOL_ZH.md)。
+
+本轮回传已验收。原ZIP和解压目录按 [BUNDLE_INDEX.json](../records/BUNDLE_INDEX.json)
+记录保存在外部证据根；两份训练专用prepared另存外部根的 `results/cheap-baselines-prepared/`。
+本机编码器缓存仍在源码仓库忽略的 `.validation/cheap-baselines-2026-11-04/model/`，
+新clone需按协议恢复权重，不把该本机缓存路径视作仓库自带。
+独立审计脚本及完整结果见 [回传报告](../reports/cheap-baselines-2026-11-04/RESULTS_ZH.md)。

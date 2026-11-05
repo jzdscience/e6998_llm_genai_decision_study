@@ -1,0 +1,207 @@
+{
+  "archive_bytes": 6793864,
+  "archive_sha256": "7f00178c7bd1d86eeeb121929131447675d0053c10072f687f88d7e3ae77b2be",
+  "checks": [
+    "exact15 safe unique ZIP members and CRC",
+    "three self hashes",
+    "twelve frozen artifact hashes",
+    "complete freeze-access-evaluation chain",
+    "released commit/eight sources/protocol identity",
+    "five project and two prepared inputs",
+    "eight actual encoder files",
+    "24 dependency versions",
+    "encoder metadata identities",
+    "fit metadata consistency"
+  ],
+  "evaluation_access_at_utc": "2026-11-05T07:33:50.228579+00:00",
+  "input_sources": {
+    "v1_examples_sha256": {
+      "relative_path": "results/returned-experiment-2026-11-02-101054/data/examples.jsonl",
+      "sha256": "a0b699e5fe48e003ddcbb6cab751b0f088edb0b5d297ee46c250121bfdd10703"
+    },
+    "v1_gold_sha256": {
+      "relative_path": "results/returned-experiment-2026-11-02-101054/data/gold.json",
+      "sha256": "bc5ec4891caed470970115a41e2f6debe2a2967b3f5ff3496622a3d29311fc35"
+    },
+    "v1_manifest_sha256": {
+      "relative_path": "results/returned-experiment-2026-11-02-101054/data/manifest.json",
+      "sha256": "7364419fcf52eaf691a40282c6027eec62a026cef0b41a6c9aa31eb06a593d4b"
+    },
+    "v2_examples_sha256": {
+      "relative_path": "results/solo-v2-prepared/data/examples.jsonl",
+      "sha256": "f29fac859f0324e7ed7d4cf54bdc674472a27451695ee9fff545d635d23bb25b"
+    },
+    "v2_fit_gold_sha256": {
+      "relative_path": "results/solo-v2-prepared/data/fit_gold.json",
+      "sha256": "e44283e1775f8085c09ee9770e98038d527e4810a7e50626cc4240ab76078e9b"
+    }
+  },
+  "limits": [
+    "Local hash chains are integrity evidence, not signatures or OS file-access traces.",
+    "Original Linux elapsed durations and hardware were not independently remeasured.",
+    "This script performs no classifier fitting or model service calls."
+  ],
+  "members": {
+    "embeddings.json": {
+      "bytes": 580211,
+      "sha256": "577075173276a99bc5c51c9a9097565d403a17d5cd071fcea8e7a002f563a89f"
+    },
+    "embeddings.npy": {
+      "bytes": 5299328,
+      "sha256": "32fcb03b3a394589f05c4f64346d6054d848d86f45aa8210a577639530093df7"
+    },
+    "evaluation-access.json": {
+      "bytes": 458,
+      "sha256": "1da8a99a719b180f814ad30c218c2cbd491ccc5bae4872bebcc4f3cd42e7f755"
+    },
+    "evaluation.json": {
+      "bytes": 48235,
+      "sha256": "1935fa2fde23dc3810f7a222ecc7e7716c420f6b7b2e507ff22e43e1eb154a8b"
+    },
+    "freeze.json": {
+      "bytes": 162083,
+      "sha256": "c233e62eea500b795e3c0b22d46f62ceec100f13958ab92f1f4e04f3dbe44986"
+    },
+    "minilm1600.fit.json": {
+      "bytes": 2503,
+      "sha256": "3075abb5a6a550b14c77a4b25d84c5075232ad50472bc91bd5e54cc82a610e07"
+    },
+    "minilm1600.model.json": {
+      "bytes": 169339,
+      "sha256": "4e8f16765aa0e196d768d8c7f8fd42e089cbadaf2e9261a92d6909b3efb84dc6"
+    },
+    "minilm1600.predictions.jsonl": {
+      "bytes": 860740,
+      "sha256": "26d22ed7d3a861770887cf14a7a39f2f6beeff2c7495899824eeeddeb45c0534"
+    },
+    "minilm400.fit.json": {
+      "bytes": 2487,
+      "sha256": "3068d4402de93b85e3f9e0854a7919156e857b532378f754a0eb45b40495fbdf"
+    },
+    "minilm400.model.json": {
+      "bytes": 170738,
+      "sha256": "103247d32c6bd123cdfe37e9cb2fe78ed0e44c43523e3f08ca6ec960f91a5663"
+    },
+    "minilm400.predictions.jsonl": {
+      "bytes": 855222,
+      "sha256": "30c678ab3aaefdcd86e2d1edc8a43b16ee420665d6161af7dc22af68f6bb149e"
+    },
+    "protocol.json": {
+      "bytes": 6357,
+      "sha256": "2c409f6f39619a21546bc15fce4d065b53efb05196f193b31a61dc459a084a12"
+    },
+    "tfidf1600.fit.json": {
+      "bytes": 2591,
+      "sha256": "2380cbc048231e213e4d2f59e2d51690bf3309b8f5cb3f74c885436cd33871a5"
+    },
+    "tfidf1600.model.json": {
+      "bytes": 2368151,
+      "sha256": "acc147ac006a9f0b1b3d72eb624c69045273db1751dbec00e60ec95448e13083"
+    },
+    "tfidf1600.predictions.jsonl": {
+      "bytes": 852233,
+      "sha256": "3cf18fe9f8f917980a73118d7eeeb7a3368e9e1f3dd191a53f528dae760268a9"
+    }
+  },
+  "model_identity": {
+    "files": {
+      "1_Pooling/config.json": {
+        "bytes": 190,
+        "sha256": "4be450dde3b0273bb9787637cfbd28fe04a7ba6ab9d36ac48e92b11e350ffc23"
+      },
+      "config.json": {
+        "bytes": 612,
+        "sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41"
+      },
+      "modules.json": {
+        "bytes": 349,
+        "sha256": "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf"
+      },
+      "onnx/model.onnx": {
+        "bytes": 90405214,
+        "sha256": "6fd5d72fe4589f189f8ebc006442dbb529bb7ce38f8082112682524616046452"
+      },
+      "sentence_bert_config.json": {
+        "bytes": 53,
+        "sha256": "fc1993fde0a95c24ec6c022539d41cf6e2f7c9721e5415d6fb6897472a9cd4b7"
+      },
+      "special_tokens_map.json": {
+        "bytes": 112,
+        "sha256": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3"
+      },
+      "tokenizer.json": {
+        "bytes": 466247,
+        "sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037"
+      },
+      "tokenizer_config.json": {
+        "bytes": 350,
+        "sha256": "acb92769e8195aabd29b7b2137a9e6d6e25c476a4f15aa4355c233426c61576b"
+      }
+    },
+    "provider": "CPUExecutionProvider",
+    "repository": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+  },
+  "prepared_hashes": {
+    "manifest.json": "abcb276997e62d2d53dce4a3cbe745d25d78b3462c31524b1687bba23cc5899b",
+    "train1600.jsonl": "cec43d033880b75b77933bed0b03d345a36321a63f105f53e279851bd654f468"
+  },
+  "protocol_parsed_content_equal": true,
+  "protocol_saved_sha256": "2c409f6f39619a21546bc15fce4d065b53efb05196f193b31a61dc459a084a12",
+  "protocol_source_sha256": "3ccc9c362267df70597d0fe301f85f22caff65054a6644fd7cc1e84f4ab9157e",
+  "recorded_node_input_roots": {
+    "model": "/home/zhanj289/e6998/decision-study/results/aux-clinc-cheap-v1-inputs/model",
+    "prepared": "/home/zhanj289/e6998/decision-study/results/aux-clinc-cheap-v1-inputs/prepared",
+    "v1": "/home/zhanj289/e6998/decision-study/results/solo-v1",
+    "v2": "/home/zhanj289/e6998/decision-study-src/results/solo-v2"
+  },
+  "reported_environment": {
+    "machine": "x86_64",
+    "packages": {
+      "certifi": "2026.10.23",
+      "charset-normalizer": "3.5.2",
+      "cloudpickle": "3.1.2",
+      "filelock": "4.2.9",
+      "flatbuffers": "25.12.19",
+      "fsspec": "2026.9.0",
+      "hf-xet": "1.8.0",
+      "huggingface-hub": "0.36.0",
+      "idna": "3.20",
+      "joblib": "1.6.0",
+      "narwhals": "2.28.0",
+      "numpy": "2.3.5",
+      "onnxruntime": "1.31.1",
+      "packaging": "26.3",
+      "protobuf": "7.36.2",
+      "pyyaml": "6.0.3",
+      "requests": "2.34.2",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.16.3",
+      "threadpoolctl": "3.7.0",
+      "tokenizers": "0.23.3",
+      "tqdm": "4.70.1",
+      "typing-extensions": "4.16.0",
+      "urllib3": "2.8.0"
+    },
+    "processor": "x86_64",
+    "python": "3.11.5",
+    "system": "Linux",
+    "threads": 1
+  },
+  "source_identity": {
+    "files": {
+      "configs/cheap_baseline_requirements.txt": "b0635640bb9dd73b845fbdefeb011bc9c82c2037c4d8f77cf425720ae65f6f4b",
+      "decision_study/cheap_baselines/__init__.py": "2889438c1780929e701d0a93713c0640701bfc0f52bd894488b5d1d85ae9c184",
+      "decision_study/cheap_baselines/__main__.py": "8498949eae3320cb53ca6c7487d126172884ad02baf19bf4afadf9b7c88c8914",
+      "decision_study/cheap_baselines/data.py": "21d6205cf428c89ca05658252b6185584e8d36170fd5d75fca6c6ec9ca46f831",
+      "decision_study/cheap_baselines/encoder.py": "c6645091d2669ed8c9559a54c56747e17536ad7fd27d22d9483491f46ed6a431",
+      "decision_study/cheap_baselines/study.py": "842e12be5f26a0d3c9d552b49c44c1f85db5571d7415569f1328e033112b4621",
+      "scripts/run_cheap_baseline_suite.sh": "1b33f672d44ba39f846657b8de1c599f8c1859c7f6e448d4c0fd6e764f8e267f",
+      "scripts/run_cheap_baselines.sh": "21046e6819832c3daa0ef3b569f0204d913d9e0b7cab0a526dc0b8342f0bd57c"
+    },
+    "git_available": true,
+    "git_commit": "1b70899bbcf15ee686df04b36e0c333a2fc21e5c",
+    "git_dirty": false
+  },
+  "status": "PASS"
+}
