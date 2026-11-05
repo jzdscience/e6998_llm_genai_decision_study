@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-04",
+  "timezone": "America/Los_Angeles",
+  "status": "locally_verified_node_execution_pending",
+  "base_commit": "4d573513f7990b8149ef22bd48be59043f980d65",
+  "source_files": {
+    "scripts/prepare_node_checkout.py": "03be92d12b9e7f1cfc18e509888a5382e8ecb6e912951a8cd71fb40a81bdbae7",
+    "tests/test_node_checkout.py": "67cc41649875b5b175fb7d7eeeda6987c49f73a0d418c47badb3b32d72ebc347"
+  },
+  "scope": "Prepare a separate pinned Git source checkout while preserving the existing runtime tree. No new experiment implementation or GPU run.",
+  "checks": {
+    "focused_pytest": {
+      "command": ".venv-lab/bin/python -m pytest -q tests/test_node_checkout.py",
+      "passed": 14
+    },
+    "isolated_mutations": [
+      {
+        "mutation": "skip-source-sha",
+        "test": "test_last_file_mismatch_blocks_all_copies[runtime]",
+        "detected": true,
+        "exit_code": 1
+      },
+      {
+        "mutation": "skip-import-origin",
+        "test": "test_wrong_import_origin_rejected_before_copy",
+        "detected": true,
+        "exit_code": 1
+      },
+      {
+        "mutation": "lexical-overlap",
+        "test": "test_symlink_parent_cannot_hide_overlapping_runtime_root",
+        "detected": true,
+        "exit_code": 1
+      },
+      {
+        "mutation": "overwrite-install",
+        "test": "test_concurrent_destination_creation_is_never_overwritten",
+        "detected": true,
+        "exit_code": 1
+      }
+    ],
+    "end_to_end": {
+      "exact_prepared_files": 8,
+      "first_run": {
+        "copied": 8,
+        "reused": 0
+      },
+      "second_run": {
+        "copied": 0,
+        "reused": 8
+      },
+      "release_verifiers": [
+        "scripts/verify_v2_release.py",
+        "scripts/verify_v3_release.py"
+      ],
+      "cli_help_modules": [
+        "decision_study",
+        "decision_study.v2",
+        "decision_study.v3"
+      ],
+      "legacy_fixture_files_unchanged": 9,
+      "source_checkout_clean": true,
+      "controller": "Existing local .venv-lab interpreter with new checkout as cwd",
+      "recorded_fixture_commit": "a12328a61f5b370f2f470fb0983b534feecc60b5"
+    }
+  },
+  "preserved": [
+    "Existing scientific source and release manifests",
+    "Original prepared-data sources",
+    "Controller environment packages and editable install",
+    "Existing model/runtime/session/result directories"
+  ],
+  "remote_status": "User confirmed node access is only through company code-server; commands must be executed there. No node-side success asserted.",
+  "local_detail_directory": ".validation/node-git-2026-11-04"
+}

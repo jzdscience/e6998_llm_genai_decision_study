@@ -7,7 +7,8 @@
 `decision_study_repo` 已作为当前源码工作仓库。用户导入基线为 `main` 上的
 `fa113e5f0594fa35164ce4321332d143a9242295`，核对时工作区干净，共 112 个已跟踪文件。
 该基线已经包含 V2 和 V3 源码，并非只有 V3 之前的代码。本次整理保留原提交，补充文档、
-忽略规则、精选报告和证据索引；没有提交或推送。
+忽略规则、精选报告和证据索引。用户已提交并推送为
+`4d573513f7990b8149ef22bd48be59043f980d65`，2026-11-04 通过远端查询核实。
 
 原始结果及审计保留在外部旧项目树，不随本次源码整理搬移。位置、SHA 和恢复边界见
 [ARTIFACTS_ZH.md](ARTIFACTS_ZH.md)，报告入口见 [reports/README.md](../reports/README.md)，
@@ -62,6 +63,13 @@ V2主政策表是validation10%目标；confidence实际validation转交9.6%、ho
 [lab-2026-11-04.json](../records/lab-2026-11-04.json)。本次没有模型调用或GPU操作。
 
 ## 接下来做什么
+
+用户已授权通过 Git 交付 node 源码。新增 `scripts/prepare_node_checkout.py` 和
+[NODE_GIT_ZH.md](NODE_GIT_ZH.md)，采用独立 `decision-study-src` clone，保留旧运行根。
+本机已验证八份真实 prepared 数据的首次复制与重复配置、原 V2/V3 verifier、三个 CLI
+帮助入口及 14 项针对性测试。公司端仅能通过用户的 code-server 访问，node 配置尚待执行；
+本机通过不代表远端配置或新实验完成。验收记录见
+[node-git-preparation-2026-11-04.json](../records/node-git-preparation-2026-11-04.json)。
 
 1. 浏览三轮演示并准备课程讲述，突出“何时转交值得”、负结果及真实服务成本。
 2. 按原扩展计划先补轻量分类基线，再安排StartLux9B规模对照与更充分性能测量；每轮

@@ -76,3 +76,22 @@ clone 的对象库或 index 完成最终验收。恢复时 182 个工作文件 S
 .DS_Store）；未实际 add、commit、push 或改动科学源码。检查时锁不存在，dataless 为 0。
 验收记录见 `records/git-recovery-2026-11-04.json`。同步策略未修改，不能保证未来不再
 出现占位文件。本次已验证经验补入现有 `macos-dataless-copy-timeouts` 技能。
+
+## 2026-11-04：Git 交付与 node 源码准备
+
+用户已提交并推送 `4d573513f7990b8149ef22bd48be59043f980d65`，本次从远端核实一致，
+并授权继续用 Git 更新 node。公司端只能通过用户的 code-server 操作，本机 SSH 探测未能
+建立连接；没有远端文件变更或 GPU 操作。
+
+新增 `scripts/prepare_node_checkout.py`、针对性测试和 `docs/NODE_GIT_ZH.md`。新源码
+clone 放在旧运行根旁边，使用原 controller，保留模型、环境与 runtime 的绝对路径。
+脚本要求指定完整 commit、干净工作区、独立根目录和正确导入位置，只按发布清单复制
+八份缺失 prepared 文件，已有冲突在复制前退出。原科学源码、清单和校验器不变。
+
+14 项针对性测试通过。在临时 Git clone 上，使用原始八份 prepared 数据完成首次配置
+和重复运行：8 copied/0 reused 与 0 copied/8 reused；每次均运行原 V2/V3 verifier 和
+三个 CLI 帮助入口。模拟旧运行根九项文件字节不变，源码 checkout 保持干净。没有安装
+或升级旧环境依赖。文件身份、测试及边界见 `records/node-git-preparation-2026-11-04.json`。
+
+源码同步是下一轮的准备步骤；轻量分类基线、StartLux9B 和加强性能测量尚未实现或冻结为
+新协议，不将旧 V3 pipeline 当作新实验启动。node 实际配置等待用户回传 READY 输出。

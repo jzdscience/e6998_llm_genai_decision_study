@@ -6,6 +6,7 @@
 - [当前进度与下一步](docs/CURRENT_STATE.md)
 - [结果与图表](reports/README.md)
 - [源码仓库和服务器协作](docs/REPO_MANAGEMENT_ZH.md)
+- [node 首次配置与 Git 更新命令](docs/NODE_GIT_ZH.md)
 - [数据、环境与结果包的取得方式](docs/ARTIFACTS_ZH.md)
 - [原计划与后续扩展对照](docs/POST_V3_SCOPE_ZH.md)
 - [CPU Decision Lab](docs/LAB_CURRENT_ZH.md)（已接入 V1–V3，运行 `bash scripts/run_lab.sh`）
