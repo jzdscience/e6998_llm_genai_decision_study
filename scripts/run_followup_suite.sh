@@ -32,11 +32,11 @@ SERVICE_ARGS=(start \
   --bundle-dir "$RUNTIME_ROOT/results/aux-clinc-cheap-v1" \
   --model-dir "$RUNTIME_ROOT/results/aux-clinc-cheap-v1-inputs/model" \
   --cpu-python "$CPU_PYTHON" \
-  --output-dir "$RUNTIME_ROOT/results/aux-clinc-service-v1")
+  --output-dir "$RUNTIME_ROOT/results/aux-clinc-service-v1-r2")
 SIZE_ARGS=(start \
   --v1-dir "$RUNTIME_ROOT/results/solo-v1" \
   --v3-dir "$RUNTIME_ROOT/results/solo-v3" \
-  --output-dir "$RUNTIME_ROOT/results/aux-size-control-v1")
+  --output-dir "$RUNTIME_ROOT/results/aux-size-control-v1-r2")
 if [[ "$NEW_ALLOCATION" == 1 ]]; then
   SERVICE_ARGS+=(--new-allocation)
   SIZE_ARGS+=(--new-allocation)
@@ -48,5 +48,5 @@ bash scripts/run_service_study.sh "${SERVICE_ARGS[@]}"
 echo "Service experiment complete; starting standalone StartLux9B quality control."
 bash scripts/run_size_control.sh "${SIZE_ARGS[@]}"
 echo "FOLLOWUPS_COMPLETE — both pipelines finished; return both final bundles for independent audit."
-echo "$RUNTIME_ROOT/results/aux-clinc-service-v1/exports/service_study_bundle.zip"
-echo "$RUNTIME_ROOT/results/aux-size-control-v1/exports/size_control_bundle.zip"
+echo "$RUNTIME_ROOT/results/aux-clinc-service-v1-r2/exports/service_study_bundle.zip"
+echo "$RUNTIME_ROOT/results/aux-size-control-v1-r2/exports/size_control_bundle.zip"

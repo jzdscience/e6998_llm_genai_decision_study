@@ -21,7 +21,7 @@ LABELS = ["entailment", "neutral", "contradiction"]
 class SizeRuntimeTests(unittest.TestCase):
     def setUp(self):
         temp = tempfile.TemporaryDirectory(); self.addCleanup(temp.cleanup)
-        self.root = Path(temp.name); self.v1 = self.root / 'v1'; self.out = self.root / 'size'
+        self.root = Path(temp.name); self.v1 = self.root / 'legacy/results/solo-v1'; self.out = self.root / 'size'
         env = patch.dict(os.environ, {'SLURM_JOB_ID': '111'}); env.start(); self.addCleanup(env.stop)
         defaults = read_json(runtime.PROJECT / 'configs/runtime_defaults.json')
         self.lock = {**defaults, 'lock_hash': fingerprint(defaults), 'defaults_hash': fingerprint(defaults)}

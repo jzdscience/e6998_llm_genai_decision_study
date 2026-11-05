@@ -53,6 +53,7 @@ def source_identity(require_clean=True):
     paths += [PROJECT/name for name in (
         "decision_study/common.py", "decision_study/adapters.py", "decision_study/runtime.py",
         "decision_study/budget.py", "decision_study/v3/runtime.py", "decision_study/baselines/study.py",
+        "decision_study/runtime_compat.py",
         "decision_study/v3/cli.py", "decision_study/v3/identity.py",
         "scripts/model_probe.py", "scripts/prepare_cuda_toolkit.py", "scripts/cuda_toolchain_preflight.py",
         "scripts/run_service_study.sh", "scripts/run_followup_suite.sh")]

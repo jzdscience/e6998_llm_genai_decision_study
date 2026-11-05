@@ -1,0 +1,112 @@
+{
+  "date": "2026-11-05",
+  "timezone": "America/Los_Angeles",
+  "status": "blocked_before_service",
+  "source_commit": "81e390cadee501153f020f1d9386c0b3109e6a4a",
+  "uploaded_path": "/Users/zhanj289/.codex/attachments/aab47381-40c1-4f4a-a0cb-f59162393dbe/service_study_bundle.zip",
+  "external_artifact_root": "/Users/zhanj289/Desktop/COMS6998/project/solo-experiments-2026-10-30/decision-study",
+  "archive": {
+    "id": "service-startup-20261105-171322",
+    "archive": "records/bundles/service-startup-20261105-171322-cbdfea79daee.zip",
+    "sha256": "cbdfea79daee12f6074e2b7e719d9acc7033dedc79eb59620ecce3ce4cc5a287",
+    "bytes": 3091808,
+    "diagnostic_at_utc": "2026-11-05T17:13:22.877845+00:00",
+    "diagnostic_at_local": "2026-11-05T09:13:22.877845-08:00",
+    "bundle_kind": "clinc-service-v1",
+    "verified_file_count": 28,
+    "original_filename": "service_study_bundle.zip",
+    "extracted_directory": "results/returned-service-startup-2026-11-05-091322",
+    "reported_state": "blocked",
+    "reported_state_source": "diagnostics/last_error.json",
+    "verified_state": "blocked_before_service",
+    "integrity_validation": "unique_safe_members_crc_exact_archival_bytes_source_and_workload_schedule_hashes_verified",
+    "source_commit": "81e390cadee501153f020f1d9386c0b3109e6a4a",
+    "completed_cells": 0,
+    "formal_gpu_inference_calls": 0,
+    "note": "First StartLux4B condition blocked in dependency-freeze verification before service startup. Returned freeze differs from original by exactly missing decision-study==0.1.0; no environment repair or resumed execution established by this diagnostic."
+  },
+  "preservation": {
+    "archive_action": "created",
+    "extracted_members": 28,
+    "all_extracted_bytes_match_original": true,
+    "prior_bundle_entries_unchanged": 17,
+    "no_original_archive_or_frozen_evidence_replaced": true
+  },
+  "failure": {
+    "at_utc": "2026-11-05T17:13:22.877845+00:00",
+    "at_local": "2026-11-05T09:13:22.877845-08:00",
+    "error": "Model dependencies changed after installation; restore the resolved environment or use a new OUTPUT_DIR",
+    "stage": "v3._cuda_preflight -> frozen._verify_environment; before GPU service startup",
+    "first_planned_cell": {
+      "cell_id": "r0-startlux4b-rate25",
+      "condition": "startlux4b",
+      "rate": 25,
+      "repeat": 0,
+      "schedule_file": "schedules/r0-rate25.json"
+    }
+  },
+  "environment_comparison": {
+    "expected_original_sha256": "3a97f698c87b307f3d5618e039fcd2c0b7a818d1c34d4c49973626ede49d6d8a",
+    "observed_sha256": "e2ca3328b7071fcccae072d1bf6c0f0cca55f888bfaed371e4973e5de72e6e26",
+    "expected_lines": 202,
+    "observed_lines": 201,
+    "sole_missing_line": "decision-study==0.1.0",
+    "all_other_bytes_identical": true,
+    "exact_original_sha_reproduced_by_restoring_original_line": true,
+    "original_archive": {
+      "path": "/Users/zhanj289/Desktop/COMS6998/project/solo-experiments-2026-10-30/decision-study/records/bundles/formal-experiment-20261102-181054-be748917f2f2.zip",
+      "sha256": "be748917f2f2184e3a7d3468b4fa222e7d1b77c0abbba863fce64f395c1840e7",
+      "freeze_member": "runtime/resolved/vllm-0.31.0.txt",
+      "extracted_copy_matches": true
+    }
+  },
+  "validation": {
+    "all_source_hashes_match_submitted_commit": true,
+    "all_public_input_and_schedule_hashes_match": true,
+    "completed_cells": 0,
+    "service_startup_artifacts": 0,
+    "evaluation_access_present": false,
+    "evaluation_present": false,
+    "no_new_task_model_inference_reached_in_verified_execution_path": true
+  },
+  "member_sha256": {
+    "settings.json": "fe017525d0030b83644dd6faa2ad7df7dbec808977bb353152fc9fd1351d3234",
+    "workload.json": "d66bdc7b84f441d10618748ee4ec03a970a91c463b93b6547c6a220faad5f4fc",
+    "warmup.json": "91bce893f2dd97ae306ed10d8dc8687b3ce5ee13874eb13b5f21a053fd0c45ff",
+    "schedules/r0-rate100.json": "5804b27cff8d28fa1add61990b668b0f73877163123cae6ee5046a038a37d1e5",
+    "schedules/r0-rate25.json": "eca31fc8d86ea1a77f2a8ca033f2f0a9c4bc3f5875f47be4993602a02396a1d0",
+    "schedules/r0-rate5.json": "99ddbf3dfd6b19513ba6379ae2187df869359bc55e244a8815aa363cf4c4a15b",
+    "schedules/r1-rate100.json": "d9bceb77f0be38e04cdc81c3c1fe5f26f7757da0e93a3ac0423e105222c34dd8",
+    "schedules/r1-rate25.json": "1dfd2718be54115d6eb675245f55a4c1d59e1759f3e89c27298c3187ce167179",
+    "schedules/r1-rate5.json": "01503d43837af03f513a8be9abc2e8d2da47bb486d1d5b3b372cbf98b7b98cf5",
+    "schedules/r2-rate100.json": "0dc69609efd63e6fdfe469e44fd37d7a22f41b65e116480d7cb09c7b650da9a5",
+    "schedules/r2-rate25.json": "a13280e0e0a5003fcb4e246db58037f79e1dcc12b08a2d0204bc867a7d7f6982",
+    "schedules/r2-rate5.json": "ea666032767282d2a85e4a74d155dcc3f17563eb8eac135a7638fc807e44d977",
+    "schedules/r3-rate100.json": "eb327ea31a5a43280ccd35470dba8ce87a63f3f36125b6daeecd04fbb8aac0bb",
+    "schedules/r3-rate25.json": "e3ffb7f3df236097e79e713c56f3bb4d3a47e3afc8aa2710a4e56c192e9254be",
+    "schedules/r3-rate5.json": "eb65fc8ea1ed6534034a1d663b064af432e5238ed7fb972f9242dff22aabe330",
+    "schedules/r4-rate100.json": "5c478df80a165ece579418fd63560018322db0b944fbed0467c890a6be337651",
+    "schedules/r4-rate25.json": "83bbffd4e223901a1fa9fdaa8e81bc94a9529086327f46133e665c0f0a6ff4db",
+    "schedules/r4-rate5.json": "ad0c84c79fa0668213a004202a2abb9cc47e9812beb8481a06b1d41805e5a5ec",
+    "runtime/binding.json": "9ba09f7cdb187671dc0c46899a2d494b15d3b8b2dee0ff71f4829f511036c81f",
+    "runtime/session.json": "e2b0756469daead569d14c6a0b1047408f9785182deb8844546211280e3515f2",
+    "runtime-control/runtime/doctor.json": "01666f4c5845564a2b755b0d1d9e9b0d6aeb467a92de4b760eb74fcceef83af1",
+    "runtime-control/runtime/installations.json": "494896a5609e5da1ab72896b29322981b4f31877e0f53448d1521fe2a3caa711",
+    "runtime-control/runtime/lock.json": "1f05ba138f9ce9ad244dda08860b22173b582bbe0ff168230337b1d80094979a",
+    "runtime-control/runtime/logs/environment-check.log": "d56018277467b68dcd2d3b372d5268b0c1cefe4d6adcc95b666ea7087013f4b9",
+    "runtime-control/runtime/selected_memory.json": "8508c065dcf4bfbf8462032bcedfd7c3ef914186fb91586c83fbc535cf05b730",
+    "runtime-control/runtime/selected_profiles.json": "a8c1783f78d08143802f0a6c553cc3471d8727c80ae7cce69a4513866f744e3f",
+    "runtime-control/runtime/session.json": "e2b0756469daead569d14c6a0b1047408f9785182deb8844546211280e3515f2",
+    "diagnostics/last_error.json": "f193682d24c3db292ca48ad0dd3755c379a952be1185f6b03aba7696e3207a36"
+  },
+  "independent_audit": {
+    "path": ".validation/service-freeze-2026-11-05/independent-diagnosis.json",
+    "sha256": "6d763795a8f105d7515763ababa6d1f8517984eac89ec1776ad7e3161588a0c3"
+  },
+  "interpretation": [
+    "The exact missing metadata line is proved by original archive byte comparison; the cwd/egg-info explanation is an inference from the frozen code and execution context until separately reproduced.",
+    "The observed listing does not establish package upgrades, a broken GPU installation, OOM, or a failed model load.",
+    "The completed-cell and inference counts refer to this blocked new run; old V1-V3 and CPU-baseline results are unchanged.",
+    "No remote package install, environment mutation, hash rewrite or renewed allocation was performed by this diagnosis."
+  ]
+}

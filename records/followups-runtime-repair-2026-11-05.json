@@ -1,0 +1,101 @@
+{
+  "date": "2026-11-05",
+  "timezone": "America/Los_Angeles",
+  "status": "local_compatibility_repair_verified_awaiting_company_node_execution",
+  "base_commit": "81e390cadee501153f020f1d9386c0b3109e6a4a",
+  "diagnosis_record": "records/service-startup-diagnosis-2026-11-05.json",
+  "diagnostic_archive_sha256": "cbdfea79daee12f6074e2b7e719d9acc7033dedc79eb59620ecce3ce4cc5a287",
+  "fix": {
+    "scope": [
+      "clinc-service-v1",
+      "size-control-anli-v1"
+    ],
+    "subprocess_cwd": "new source checkout",
+    "subprocess_pythonpath_order": [
+      "new source checkout",
+      "original runtime project with existing egg-info",
+      "absolute resolved inherited entries"
+    ],
+    "controller_imports": "new source first; validate package and frozen runtime module origin; stabilize relative entries",
+    "restoration": "cwd, sys.path, and PYTHONPATH restored on normal, nested, or exceptional exit",
+    "environment_verifier": "unchanged decision_study.runtime._verify_environment; complete original SHA-256 required",
+    "no_installed_package_metadata_modified": true,
+    "no_expected_hash_rewritten": true,
+    "old_failed_output_preserved": true,
+    "fresh_output_suffix": "-r2"
+  },
+  "validation": {
+    "full_repository_cpu_regression": {
+      "command": ".venv-cheap-baselines/bin/python -m pytest -q",
+      "passed": 430,
+      "skipped": 9,
+      "subtests_passed": 64,
+      "duration_seconds": 25.82
+    },
+    "new_compatibility_tests": 9,
+    "real_pip_fixture": {
+      "python": "3.13",
+      "pip": "25.0.1",
+      "inherited_pythonpath_absent": true,
+      "unchanged_verifier_rejects_missing_metadata": true,
+      "exact_original_fixture_hash_restored": true,
+      "installed_fixture_version_change_rejected": true,
+      "child_imports_new_source": true
+    },
+    "isolated_mutations_detected": 12,
+    "mutation_names": [
+      "skip-cwd",
+      "skip-child-metadata-path",
+      "skip-import-pinning",
+      "skip-cwd-restoration",
+      "skip-environment-restoration",
+      "skip-thread-guard",
+      "skip-package-origin-guard",
+      "skip-runtime-origin-guard",
+      "skip-physical-overlap-guard",
+      "skip-service-context",
+      "skip-size-context",
+      "skip-exact-freeze-verification"
+    ],
+    "mutation_receipt": {
+      "path": ".validation/runtime-compat-2026-11-05/mutation-results.json",
+      "sha256": "66805140c1cc3c7d84d3ff4c5689297632bedae2559e2476953bffd1415d5a48"
+    },
+    "independent_read_only_review": "Checked vLLM -m, StartLux console entrypoint, explicit model/CUDA scripts, cell controller, and nested environment restoration; no source-precedence blocker found",
+    "git_diff_check": "passed"
+  },
+  "protected_original_files_sha256": {
+    "decision_study/adapters.py": "ddfe0c1847790a044bad821d82dd97f1e8d47415c1b2cb661a4d0ab0164ee6c4",
+    "decision_study/runner.py": "673022dbfeab732a4dd28c28a5ce5e617bc1c9c2d02a232b53ee67016c3319b4",
+    "decision_study/runtime.py": "3d1295e5e7cf5ea0c80c475016b2159fd1a1ae6974587ff08af7467a97509c5e",
+    "decision_study/storage.py": "af02699c82d313a2860c52a17f03962446511b595945d80443ed9ac27cd45481",
+    "decision_study/common.py": "47b3192632789f830da69b7c3a43c0d2ad0dba2a25a5edb00183945e5176cd95",
+    "configs/service_study_protocol.json": "fbf922bbe8168e2b8ef1845518fd6c5d1198529c8e81907544d0629ab76d62be",
+    "configs/size_control_protocol.json": "b3412d947ec7413d9ca8f2f2d23558c320904a7add54771abb3a3495bd86224e",
+    "configs/runtime_defaults.json": "861e88b8c1f7b0174d17f65f2a69764bc2ce7b980bd5e2bdeac2358c74f2a9e2",
+    "configs/cuda_build_toolkit_13_0_flashinfer.txt": "5fd9773bdc8bacad2e5ba2a1ee6e7687526d0c490339bfc911a2b3cab97a60b0",
+    "records/followups-preparation-2026-11-05.json": "d2d4df07a25e496cf03628540f423bc64b73099a2e273240f6731e64d1666caf"
+  },
+  "repair_files_sha256": {
+    "decision_study/runtime_compat.py": "45d335c6d68321b7a58ba75b872947a6c133978d32c27852ba3cb9442595491e",
+    "decision_study/service_study/runtime.py": "59cb00b64b18eab8bf6345f23ba9a0e9f345f607668c8708c3b8631c540a6d5f",
+    "decision_study/service_study/identity.py": "715c1571e48ab26bcbb3d80d0b5ec567c65ac3335d8a6476e3c8b7acbd1011bb",
+    "decision_study/size_control/runtime.py": "61ad03f195dc54f1dc72b9e179f4863edf82542d6e3d775dcb2af194ce029f7b",
+    "decision_study/size_control/identity.py": "54ae8d4a15608e3e1739d1fe02b89647bbad625dbbb6dee6d32746f09558000d",
+    "scripts/run_followup_suite.sh": "dd81ed21e072da24bfda901701791e863c59494262fd8a37c33a19d38e411168",
+    "tests/test_runtime_compat.py": "860b94bf92876ca2f3dda1ce6dbed57ec7d116a0a0085799fb278009a800de57",
+    "tests/test_followup_launcher.py": "8a18c791bc30ffe88be339fcc2769542a7a8113adbb20bf9e3c484a06a2e2441",
+    "tests/test_size_control.py": "4d3de7bd27c0adc2f203c76f3adaa1fc80df6652a9e8b26e10a3a5843d181ba4"
+  },
+  "node_entrypoint": "bash scripts/run_followup_suite.sh /home/zhanj289/e6998/decision-study",
+  "node_outputs": [
+    "results/aux-clinc-service-v1-r2/exports/service_study_bundle.zip",
+    "results/aux-size-control-v1-r2/exports/size_control_bundle.zip"
+  ],
+  "limits": [
+    "Returned node freeze proves only the missing decision-study==0.1.0 line; exact historical Python search configuration was not recorded",
+    "The local reproduction uses isolated software metadata and real pip 25.0.1, not the remote Python 3.12.8/pip 26.2.2 GPU environment",
+    "Company node is only accessible through the user code-server terminal; no remote install, GPU startup, new inference or session renewal performed here",
+    "Actual restored node freeze and both experiments must still pass and return evidence; local tests do not establish new model accuracy or service performance"
+  ]
+}

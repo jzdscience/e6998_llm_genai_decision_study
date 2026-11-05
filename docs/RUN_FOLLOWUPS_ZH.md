@@ -1,5 +1,11 @@
 # 运行服务性能与 StartLux9B 两项收尾实验
 
+11/5启动兼容修复：当前联合入口改用两个`-r2`结果根。第一次`81e390c`运行在服务启动前
+阻断，原`aux-clinc-service-v1`原位保留，不删除、不改settings/安装记录。修复将新checkout
+固定为cwd和第一导入位置，子进程搜索路径的第二位置指向原项目根，以发现已有egg-info；
+controller与任务renderer仍来自新checkout。完整pip-freeze校验、原环境、依赖版本及
+expected SHA不变。无需重装、修改hash或添加`--resume-interrupted`。
+
 2026-11-05。两套源码、固定协议与本机软件验证已交付；实际GPU运行仍在公司code-server
 终端执行。本机无法进入该终端，所以这里不把准备完成写成实验完成。
 
@@ -32,8 +38,8 @@ drain及导出。StartLux9B另需约19.3GB tensor下载、加载、开发smoke�
 只有看到`FOLLOWUPS_COMPLETE`才代表两个pipeline都走到最终评价。分别回传：
 
 ```text
-/home/zhanj289/e6998/decision-study/results/aux-clinc-service-v1/exports/service_study_bundle.zip
-/home/zhanj289/e6998/decision-study/results/aux-size-control-v1/exports/size_control_bundle.zip
+/home/zhanj289/e6998/decision-study/results/aux-clinc-service-v1-r2/exports/service_study_bundle.zip
+/home/zhanj289/e6998/decision-study/results/aux-size-control-v1-r2/exports/size_control_bundle.zip
 ```
 
 `MEASUREMENT BUNDLE`或`DIAGNOSTIC BUNDLE`只是阶段/故障快照，存在ZIP不代表最终完成。
@@ -59,8 +65,8 @@ bash scripts/run_followup_suite.sh /home/zhanj289/e6998/decision-study --resume-
 
 ```bash
 export PYTHON_BIN=/home/zhanj289/e6998/decision-study/.venv-controller/bin/python
-bash scripts/run_service_study.sh status --output-dir /home/zhanj289/e6998/decision-study/results/aux-clinc-service-v1
-bash scripts/run_service_study.sh export --output-dir /home/zhanj289/e6998/decision-study/results/aux-clinc-service-v1
+bash scripts/run_service_study.sh status --output-dir /home/zhanj289/e6998/decision-study/results/aux-clinc-service-v1-r2
+bash scripts/run_service_study.sh export --output-dir /home/zhanj289/e6998/decision-study/results/aux-clinc-service-v1-r2
 ```
 
 服务CLI也支持`prepare`、`init-runtime`、`pipeline`、`evaluate`。`prepare/start`需显式给

@@ -234,3 +234,29 @@ smoke。实际child→HTTP→trace→receipt软件fixture及watchdog退出竞争
 准备记录 `records/followups-preparation-2026-11-05.json`；联合运行说明
 `docs/RUN_FOLLOWUPS_ZH.md`。下一步用户node运行后回传service_study_bundle.zip和
 size_control_bundle.zip，分别验收后再写实测结论与整合前端。不把软件准备标成实验完成。
+
+## 2026-11-05：服务启动依赖清单阻断与 Git checkout 兼容修复
+
+用户在提交81e390c启动联合入口后回传诊断包，SHA256
+`cbdfea79daee12f6074e2b7e719d9acc7033dedc79eb59620ecce3ce4cc5a287`。
+28个成员及源码/输入/到达表身份通过，原包按SHA归档。第一计划cell的StartLux4B在
+CUDA预检中的完整pip-freeze哈希检查阻断，服务与正式cell未启动，9B阶段尚未进入。
+不是由该记录证明的OOM或模型加载失败；不能将诊断ZIP算作完成结果。
+
+原202行清单与回传201行仅差`decision-study==0.1.0`，其他字节完全相同，补入原行
+可精确重现原SHA。旧项目元数据未被发现与该差异一致，但节点历史Python搜索路径
+没有记录，不能断言其具体配置。本机真实pip表明只切cwd不足以保证发现旧egg-info。
+
+新增独立runtime_compat上下文，让新checkout作为cwd与第一导入位置，并显式把原项目根
+作为子进程搜索路径第二项，复用真实现存egg-info。旧完整哈希校验未改；不创建元数据、
+重装依赖、过滤清单或改expected SHA。兼容入口覆盖两项新辅助runtime；原V1五个科学
+文件、两个新实验协议、CUDA配置及原准备收据逐字节保持。联合入口使用新的两个-r2根，
+保留首次失败根，避免新源码与旧准备身份混用；无正式cell中断，无需resume-interrupted。
+
+9项新增测试与12项隔离mutation通过；最终全仓430 passed、9 skipped、64 subtests。
+真实隔离pip测试在没有继承PYTHONPATH时恢复精确hash，改变已安装fixture版本仍被拒绝；
+子进程使用新源码，嵌套/异常恢复正确。独立源码复核覆盖vLLM、StartLux入口和model/CUDA
+脚本。实际节点pip与GPU启动仍待用户执行，未记任何新质量/性能结果或续期allocation。
+
+诊断见`records/service-startup-diagnosis-2026-11-05.json`，修复验证见
+`records/followups-runtime-repair-2026-11-05.json`，执行入口仍为`docs/RUN_FOLLOWUPS_ZH.md`。

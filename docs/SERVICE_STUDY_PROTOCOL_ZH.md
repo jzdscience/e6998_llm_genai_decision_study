@@ -60,5 +60,5 @@ completed记录绑定plan、traces、occupancy、resources，plan另绑定实际
 只复用不重跑；中断attempt保留，必须显式`--resume-interrupted`后新建attempt。watchdog
 竞争产生的completion另存unaccepted，不能冒充正常完成。
 
-原始结果写入独立`results/aux-clinc-service-v1`，导出`service_study_bundle.zip`。
+原始结果写入独立`results/aux-clinc-service-v1-r2`，导出`service_study_bundle.zip`。
 权重、旧运行目录和环境不随包传输。入口见[两项联合运行说明](RUN_FOLLOWUPS_ZH.md)。

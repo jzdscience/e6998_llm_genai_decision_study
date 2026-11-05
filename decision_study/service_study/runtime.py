@@ -12,6 +12,7 @@ import urllib.request
 from .. import runtime as frozen
 from ..common import StudyError, file_hash, fingerprint, read_json, utc_now, write_json
 from ..v3 import runtime as shared
+from ..runtime_compat import legacy_environment
 from .identity import PROJECT, fixed_write, protocol, safe
 
 
@@ -131,7 +132,7 @@ def gpu_service(output_dir, condition, examples):
     model = {"startlux4b": "startlux", "qwen4b": "qwen"}[condition]
     control, binding, session, installed = validate(output_dir)
     write_json(safe(control, "runtime/session.json"), session)
-    with shared._environment(binding, session):
+    with legacy_environment(binding, PROJECT), shared._environment(binding, session):
         doctor = frozen.doctor(control, require_gpu=True)
         if len(doctor.get("gpu", [])) != 1 or doctor["gpu"][0]["name"] != "NVIDIA L40S" or doctor["gpu"][0]["memory_mb"] < 44000:
             raise StudyError("Service protocol requires one L40S with >=44000MiB")

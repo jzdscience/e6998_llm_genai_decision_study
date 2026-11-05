@@ -2,6 +2,28 @@
 
 最后核对：2026-11-05，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+## 最新故障与修复：Git checkout 的环境元数据发现
+
+用户回传首次服务诊断包（原UTC17:13:22/PST09:13:22），提交`81e390c`。第一条件
+StartLux4B在`pip freeze --all`哈希检查阻断，尚无service或cell产物，9B未进入。
+原202行清单与新201行清单只差`decision-study==0.1.0`；其他字节完全一致，恢复该原行
+可精确重现原SHA。该差异与旧项目egg-info不再被发现一致；原节点当时的Python搜索路径
+未随包记录，不能仅凭这个包确定其具体路径配置。
+
+新增兼容上下文固定新checkout为cwd和第一导入位置，并在子进程PYTHONPATH的第二位置
+加入原项目根，发现其已有egg-info。只切cwd不足以保证pip能发现该元数据，显式路径使
+修复不依赖继承的相对PYTHONPATH。继续调用未修改的GPU环境完整SHA校验；不安装、
+过滤依赖或替换expected SHA。两项辅助runtime均接入，覆盖CUDA预检、下载、token检查及
+服务启动；新联合入口使用`aux-clinc-service-v1-r2`和`aux-size-control-v1-r2`，原失败根保留。
+此次仍是修复交付，实际node续跑和新结果待回传。诊断见
+[原包核验](../records/service-startup-diagnosis-2026-11-05.json)，运行见
+[联合入口](RUN_FOLLOWUPS_ZH.md)。后面的最初准备记录保留其历史状态。
+
+修复后全仓CPU回归430 passed、9 skipped、64 subtests；9项新增兼容测试包含真实pip
+完整哈希恢复、真实版本变化拒绝和子进程源码来源；12项隔离mutation全部检出。
+本机pip25.0.1/Python3.13验证不能代替节点pip26.2.2/Python3.12.8和实际GPU启动。
+修复与原文件保护核验见[修复记录](../records/followups-runtime-repair-2026-11-05.json)。
+
 ## 最新交付：两项收尾实验已准备，待 node 执行
 
 用户于11/5授权完成CPU/GPU同口径服务测量与StartLux9B规模对照。本机已经实现两个独立

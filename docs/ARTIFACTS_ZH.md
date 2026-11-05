@@ -3,7 +3,8 @@
 11/5新增两项独立实验的准备记录与运行入口见
 [followups-preparation-2026-11-05.json](../records/followups-preparation-2026-11-05.json)和
 [RUN_FOLLOWUPS_ZH.md](RUN_FOLLOWUPS_ZH.md)。实际新结果尚未产生，不添加到已验收bundle索引。
-node输出分别为旧运行根下`results/aux-clinc-service-v1`与`results/aux-size-control-v1`；
+11/5启动兼容修复后，node新输出分别为旧运行根下`results/aux-clinc-service-v1-r2`与
+`results/aux-size-control-v1-r2`；原无后缀失败根保留，已作为diagnostic条目加入索引。
 旧`solo-v1`、完整`solo-v3`、已验收`aux-clinc-cheap-v1`与MiniLM模型均原位只读复用。
 
 2026-11-03。本仓库保存源码、协议和精选报告。原始结果包、准备数据、审计产物和环境

@@ -13,7 +13,7 @@ export PYTHON_BIN=/home/zhanj289/e6998/decision-study/.venv-controller/bin/pytho
 bash scripts/run_size_control.sh start \
   --v1-dir /home/zhanj289/e6998/decision-study/results/solo-v1 \
   --v3-dir /home/zhanj289/e6998/decision-study/results/solo-v3 \
-  --output-dir /home/zhanj289/e6998/decision-study/results/aux-size-control-v1
+  --output-dir /home/zhanj289/e6998/decision-study/results/aux-size-control-v1-r2
 ```
 
 `--v3-dir`必须是包含六组prediction job、policy_freeze和最终evaluation的**完整旧V3输出**，
@@ -53,7 +53,7 @@ bash scripts/run_size_control.sh start \
 结束时必须看到 `SIZE_CONTROL_COMPLETE`，回传：
 
 ```text
-/home/zhanj289/e6998/decision-study/results/aux-size-control-v1/exports/size_control_bundle.zip
+/home/zhanj289/e6998/decision-study/results/aux-size-control-v1-r2/exports/size_control_bundle.zip
 ```
 
 若报错，回传同一路径诊断包及末尾日志。模型weights和环境不会进入ZIP。

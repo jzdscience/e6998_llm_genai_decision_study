@@ -16,7 +16,7 @@ def source_identity():
     files = list(Path(__file__).parent.glob("*.py")) + [PROTOCOL_PATH]
     files += list((PROJECT / "decision_study/v3").glob("*.py"))
     files += [PROJECT / "decision_study" / name for name in
-              ("adapters.py", "runner.py", "runtime.py", "storage.py", "common.py", "budget.py")]
+              ("adapters.py", "runner.py", "runtime.py", "storage.py", "common.py", "budget.py", "runtime_compat.py")]
     files += [PROJECT / name for name in (
         "scripts/model_probe.py", "scripts/run_with_cuda_tools.py", "scripts/prepare_cuda_toolkit.py",
         "scripts/cuda_toolchain_preflight.py", "scripts/run_size_control.sh",

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "maintained_as_of": "2026-11-04",
+  "maintained_as_of": "2026-11-05",
   "note": "archive and extracted_directory paths are relative to external_artifact_root, NOT this source checkout. Original archives and extraction trees are not included in Git. Historical receipt fields are preserved; inspect docs/ARTIFACTS_ZH.md.",
   "bundles": [
     {
@@ -350,6 +350,26 @@
       "cpu_classifier_prediction_count": 5550,
       "shared_embedding_inputs": 3450,
       "note": "Retrospective supervised baselines; all three predictions frozen before scoring. Main/mixed share450banking. MiniLM1600 main559/600 vsStartLux561/600 is a descriptive near-tie, not equivalence. Shared CPU encoder timing is not per-request or GPU service performance."
+    },
+    {
+      "id": "service-startup-20261105-171322",
+      "archive": "records/bundles/service-startup-20261105-171322-cbdfea79daee.zip",
+      "sha256": "cbdfea79daee12f6074e2b7e719d9acc7033dedc79eb59620ecce3ce4cc5a287",
+      "bytes": 3091808,
+      "diagnostic_at_utc": "2026-11-05T17:13:22.877845+00:00",
+      "diagnostic_at_local": "2026-11-05T09:13:22.877845-08:00",
+      "bundle_kind": "clinc-service-v1",
+      "verified_file_count": 28,
+      "original_filename": "service_study_bundle.zip",
+      "extracted_directory": "results/returned-service-startup-2026-11-05-091322",
+      "reported_state": "blocked",
+      "reported_state_source": "diagnostics/last_error.json",
+      "verified_state": "blocked_before_service",
+      "integrity_validation": "unique_safe_members_crc_exact_archival_bytes_source_and_workload_schedule_hashes_verified",
+      "source_commit": "81e390cadee501153f020f1d9386c0b3109e6a4a",
+      "completed_cells": 0,
+      "formal_gpu_inference_calls": 0,
+      "note": "First StartLux4B condition blocked in dependency-freeze verification before service startup. Returned freeze differs from original by exactly missing decision-study==0.1.0; no environment repair or resumed execution established by this diagnostic."
     }
   ],
   "copied_from_project_root": "/Users/zhanj289/Documents/ChatGPT/COMS6998/decision-study",

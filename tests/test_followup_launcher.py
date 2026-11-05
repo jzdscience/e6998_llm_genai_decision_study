@@ -54,7 +54,8 @@ def test_first_run_has_no_empty_optional_arguments_and_uses_correct_source(launc
     assert calls[1]['args'][:3]==['-m','decision_study.service_study','start']
     assert calls[2]['args'][:3]==['-m','decision_study.size_control','start']
     assert all(c['cwd']==str(source) and '' not in c['args'] for c in calls)
-    assert str(runtime/'results/aux-clinc-service-v1') in calls[1]['args']
+    assert str(runtime/'results/aux-clinc-service-v1-r2') in calls[1]['args']
+    assert str(runtime/'results/aux-size-control-v1-r2') in calls[2]['args']
 
 
 def test_resume_flags_apply_only_to_intended_pipeline(launch):

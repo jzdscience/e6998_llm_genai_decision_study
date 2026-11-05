@@ -18,6 +18,7 @@ import warnings
 from .. import runtime as frozen
 from ..budget import Budget
 from ..common import StudyError, file_hash, fingerprint, read_json, utc_now, write_json
+from ..runtime_compat import legacy_environment
 
 
 PROJECT = Path(__file__).resolve().parents[2]
@@ -288,7 +289,8 @@ def _environment(binding, session):
                            "PYTHONDONTWRITEBYTECODE": "1", "PYTHONPYCACHEPREFIX": str(work / "pycache"),
                            "XDG_CACHE_HOME": str(work / "cache"), "TRITON_CACHE_DIR": str(work / "cache/triton"),
                            "TORCHINDUCTOR_CACHE_DIR": str(work / "cache/torchinductor"), "CUDA_CACHE_PATH": str(work / "cache/cuda")})
-        yield
+        with legacy_environment(binding, PROJECT):
+            yield
     finally:
         os.environ.clear()
         os.environ.update(previous)
