@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "status": "implemented_and_locally_verified",
+  "scope": "CPU viewer of completed V1–V3; no new model experiment",
+  "entry_command": "bash scripts/run_lab.sh",
+  "url_at_handoff": "http://127.0.0.1:7860",
+  "model_calls": 0,
+  "environment": {
+    "python": "3.13.3",
+    "gradio": "6.31.0",
+    "numpy": "2.5.4",
+    "pytest": "9.2.0",
+    "location": ".venv-lab"
+  },
+  "portable_artifact": {
+    "directory": "reports/decision-lab-2026-11-04",
+    "study_bytes": 174060,
+    "deterministic_rebuild": "both study.json and manifest.json byte-identical",
+    "experiments": {
+      "v2": {
+        "n": 4000,
+        "illustrative_cases": 12,
+        "primary": {
+          "candidate_id": "gain",
+          "cluster_count": 57,
+          "confidence_level": 0.95,
+          "estimate_pp": -0.22499999999999998,
+          "label": "Gain − confidence",
+          "lower_pp": -0.9077920587048214,
+          "method": "paired_article_percentile_bootstrap",
+          "reference_id": "confidence",
+          "upper_pp": 0.4775369885651242
+        },
+        "source_bundle_sha256": "f340f4b159cb21a0df35a6386db1800e263e85fc012ff85cd2449e7d21f2cdec"
+      },
+      "v3": {
+        "n": 3200,
+        "illustrative_cases": 12,
+        "primary": {
+          "candidate_id": "qwen9b/positive_gain",
+          "cluster_count": 2854,
+          "confidence_level": 0.95,
+          "estimate_pp": 0.59375,
+          "label": "Positive gain 9B − confidence 9B",
+          "lower_pp": -0.5276719051845663,
+          "method": "paired_normalized_premise_percentile_bootstrap",
+          "reference_id": "qwen9b/confidence",
+          "upper_pp": 1.6741242135245225
+        },
+        "source_bundle_sha256": "a8d0dc672d83c3edcb85d005e66fa4b3d000132729f98f0beaab6865dfc57a9e"
+      }
+    }
+  },
+  "verification": {
+    "full_suite": {
+      "passed": 255,
+      "skipped": 9,
+      "subtests_passed": 7,
+      "seconds": 9.77,
+      "skip_reasons": {
+        "official_source_cache_missing": 1,
+        "archived_v1_evidence_missing": 8
+      }
+    },
+    "after_mobile_adjustment": {
+      "focused_tests_passed": 22
+    },
+    "browser": {
+      "checks": [
+        "Overview primary intervals render",
+        "V2 measured performance updates from40 to10 requests/s",
+        "V3 confidence9B rescues selected recorded case",
+        "V3 positivegain retains local error on samecase",
+        "Original V1 sandbox callback works within newviewer",
+        "390px overview shows both responsiveCIplots withoutdocumentoverflow",
+        "390px V3 navigation and layout work withoutdocumentoverflow"
+      ],
+      "page_errors": [],
+      "external_requests": []
+    },
+    "mutation_checks": {
+      "ui": {
+        "html_escape_removed": {
+          "exit_code": 1,
+          "caught": true
+        },
+        "selected_route_ignored": {
+          "exit_code": 1,
+          "caught": true
+        },
+        "target_budget_displayed": {
+          "exit_code": 1,
+          "caught": true
+        },
+        "fallback_size_label_removed": {
+          "exit_code": 1,
+          "caught": true
+        }
+      },
+      "evidence": [
+        {
+          "mutation": "hash",
+          "test": "test_loader_rejects_changed_payload_before_schema",
+          "exit_code": 1,
+          "detected": true
+        },
+        {
+          "mutation": "route",
+          "test": "test_rehashed_case_route_tamper_is_rejected",
+          "exit_code": 1,
+          "detected": true
+        }
+      ]
+    },
+    "unchanged_existing_scientific_files": true,
+    "existing_snapshotted_files": 129,
+    "existing_changed_paths": [
+      "reports/README.md"
+    ],
+    "audit_directory": ".validation/lab-2026-11-04"
+  },
+  "files_sha256": {
+    "decision_study/lab/__init__.py": "fc8eb5796ad7c262026a90c6c622aea11b7e57edc4be8ba289f06c4299c5454c",
+    "decision_study/lab/cli.py": "de52990f86006f0f7ba49aecb7f984be6e9416aa4da759392df2f7ea2066202f",
+    "decision_study/lab/app.py": "4cfcb04fc7e3d04eb4f23b0c960f5be0f7b4fc800e9f1ee7b31b73b02a28baa3",
+    "decision_study/lab/evidence.py": "9d68e6eb44f84b310e9c5c454b2b3d5e1e1cdb876ad16640983dcd818de47854",
+    "decision_study/lab/__main__.py": "307299fda7b77d22c64cb51430ec75e5f59d78e9c948786afb3b2544fe45e4b7",
+    "scripts/run_lab.sh": "605041f377ab2fb86244b5b9d15597af736fd6a764801dfc8964d8b09d99bbf7",
+    "tests/test_lab_app.py": "f143b0324adb53c35e258396475b3fc9d4eea73d573996d28e4d6c0d91d1b100",
+    "tests/test_lab_evidence.py": "60efa0026db5632926c5f82289d4eedcaf2c36ddca88925a8fdab53ab55421ce",
+    "pyproject.toml": "7082c9df417f6a54db6aa78cdd2bd43b1fa6b32e72c830ddd3f0571bc28b25b6",
+    "docs/LAB_CURRENT_ZH.md": "005fb0f3d2bd0aaaaa3991e753f6247daf7be69f3a613cb4c268b1e886a8782a",
+    "reports/decision-lab-2026-11-04/study.json": "49c19f7907b15c3cb6752f86885ba66023ececa36630e67ee71906e075b9c94a",
+    "reports/decision-lab-2026-11-04/manifest.json": "8e203be607304430e119f2d30d15eb60b838a0609951342aa8759b6d6f1aec00"
+  },
+  "limitations": [
+    "Illustrative cases are selected by known outcomes and are not representative samples.",
+    "No V3 co-resident performance was measured.",
+    "Existing Git cloud-placeholder issue is not repaired by this viewer change.",
+    "No commit, push, V4 protocol or GPU execution in this work."
+  ]
+}

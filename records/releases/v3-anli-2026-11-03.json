@@ -1,0 +1,14 @@
+{
+  "release": "decision-study-v3-anli-2026-11-03",
+  "archive": "/Users/zhanj289/Desktop/COMS6998/project/solo-experiments-2026-10-30/decision-study-v3-ready.zip",
+  "sha256": "8fdd6f8dbbff4f9daac2cd342ebc0a2a67ac77f1f5d8a7b805862fdfb2237fb9",
+  "bytes": 2065217,
+  "members": 26,
+  "new_files": 25,
+  "required_existing_files": 22,
+  "validation": "78 tests and 5 subtests; 3 real historical/current receivers; 24 isolated guard mutations and 9 delivery mismatches detected",
+  "data_manifest_hash": "775d236a3ba55ee0b07d1c51bdedd732b7e6960105595236c76553c92fe7b3c4",
+  "protocol_file_sha256": "20bd90f93939a5324bff6ef10bc2fc8c48a480284051125f9eee6aed7e16c7a2",
+  "runtime_status": "prepared_only_no_gpu_execution_no_model_predictions_no_policy_freeze_no_holdout_evaluation",
+  "delivery_report": ".validation/v3-preparation-2026-11-03/delivery-validation.json"
+}

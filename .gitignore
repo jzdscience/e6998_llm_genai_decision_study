@@ -1,1 +1,33 @@
 .DS_Store
+
+# Local environments, generated packages and caches
+.venv*/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+.ipynb_checkpoints/
+
+# Experiment artifacts are indexed in records/BUNDLE_INDEX.json
+/results/
+/.validation/
+/records/bundles/
+/artifacts/
+/models/
+/runtime/
+/reports/**/demo-input/
+/reports/**/demo-replays/
+
+# Machine-specific settings and credentials
+.env
+.env.*
+!.env.example
+*.local.json
+*.local.toml

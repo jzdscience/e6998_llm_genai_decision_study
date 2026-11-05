@@ -1,0 +1,28 @@
+{
+  "created_date": "2026-11-03",
+  "source_bundle_sha256": "a8d0dc672d83c3edcb85d005e66fa4b3d000132729f98f0beaab6865dfc57a9e",
+  "status": "complete_independently_verified",
+  "sha256": {
+    ".validation/v3-complete-2026-11-03-152529/archive-audit.json": "5602a13e7f039c3d4c451b5fadc488e502831767e044f34b2fa597f1204ca540",
+    ".validation/v3-complete-2026-11-03-152529/archive-integrity.json": "ebee5f5464d970cf1cf9797906322070339afa3b068318e55fb5786fa35f0fe9",
+    ".validation/v3-complete-2026-11-03-152529/audit_archive.py": "20bf595a26b24446727ba506d1e475fe8024da8dc8cc370d487e2d6a0dbd37ce",
+    ".validation/v3-complete-2026-11-03-152529/audit_identity.py": "65317fb773f46566c9681378838727b6ac95bbeeb57386f394ee51c7ab6841ec",
+    ".validation/v3-complete-2026-11-03-152529/audit_runtime.py": "529e9e19d59618ec505a2fbbb27cd66bb631486049ca83fe68636a89bfd3a79c",
+    ".validation/v3-complete-2026-11-03-152529/audit_statistics.py": "70bcf651101ab9b4aa52b2a54ea55e6e64c426796ff5740530aa54145d9dfd2a",
+    ".validation/v3-complete-2026-11-03-152529/direct-metrics.csv": "eea4da1c1dc3a7c4e5c0ff58c78f96892f4cee7af26070ceae0c0d4de82b2cd5",
+    ".validation/v3-complete-2026-11-03-152529/identity-audit.json": "63895777f40f59f07201a8b4714d6ea5e72ed7620835fcf7fe1862a4b9e0c026",
+    ".validation/v3-complete-2026-11-03-152529/policy-metrics.csv": "e864eb2f82987ccd77cd3c415c07e1a8c98ec8fa33a4a3225abd3cc81c267818",
+    ".validation/v3-complete-2026-11-03-152529/primary-bootstrap-draws.csv": "903b23bf3fc34cfcd31701eff2899b2d3617b62dedc712ceb4011a2882984f96",
+    ".validation/v3-complete-2026-11-03-152529/protected-before.json": "a2db818e8345492cbe13ed38346214d21cda735e6024348e62f2166f923bb2f2",
+    ".validation/v3-complete-2026-11-03-152529/render_figures.py": "36d8970b90e648990d85c690e55f71befaff7aaa212a33e563f82ba0a7dd7207",
+    ".validation/v3-complete-2026-11-03-152529/runtime-audit.json": "f265824c5c708c68ae315e3a358fccdecd9d8002d3f811418c5a60c80f8dea19",
+    ".validation/v3-complete-2026-11-03-152529/split-direct-metrics.csv": "5d5c76406091ea89f5904c59300a6416f16db6f2a19b85c394362f8d895ca1f9",
+    ".validation/v3-complete-2026-11-03-152529/statistics-audit.json": "4314dbf0a636be941834ddd929076c9ada698bf6d49ab64a0c16e64d03a6e294",
+    "reports/v3-complete-2026-11-03/RESULTS_ZH.md": "494fdf24a6945cf1013282ae4a25a999519961ea3b75a433a2ea68ed32fb2cba",
+    "reports/v3-complete-2026-11-03/accuracy.pdf": "78e6085624bdc6846243699f8d751384f2566f87b1c8ca7b1b88c5c5676aab51",
+    "reports/v3-complete-2026-11-03/accuracy.png": "67d560dcb19230c46c1e325939e7f2c2b21076114dc7567811db5ed778550693",
+    "reports/v3-complete-2026-11-03/chart_data.json": "5947027b3ba0089299b589a01b0ed1cd07cdd1740e977b20214d00f07712452f",
+    "reports/v3-complete-2026-11-03/routing_budget_and_primary.pdf": "c3519e74f530aa53c86aa3e331f43ab9ed4c873504f0c3a7e46c6f7a01a84d1b",
+    "reports/v3-complete-2026-11-03/routing_budget_and_primary.png": "d05383a11c55f7e1f412a21df09c8416131a7dd74b45be98bbf42376186c0b48"
+  }
+}

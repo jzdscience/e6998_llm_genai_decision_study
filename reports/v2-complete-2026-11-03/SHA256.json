@@ -1,0 +1,23 @@
+{
+  "created_date": "2026-11-03",
+  "source_bundle_sha256": "f340f4b159cb21a0df35a6386db1800e263e85fc012ff85cd2449e7d21f2cdec",
+  "sha256": {
+    ".validation/v2-complete-2026-11-03-002852/archive-audit.json": "c1f6d8facd8463d5677f13ef3eda67f9c79315e0eb592220e2c8f002f811cd9a",
+    ".validation/v2-complete-2026-11-03-002852/archive_audit.py": "c59202452071373ef83684df2e7a4616f399ea0bcece42e29a901a4e45155b57",
+    ".validation/v2-complete-2026-11-03-002852/audit_evaluation.py": "29ba57698f8a18b3d9a45a2e35216ea502476c8990c7c7eccbcd4f38ab729b01",
+    ".validation/v2-complete-2026-11-03-002852/audit_openloop.py": "c2bcc328aff7c310f2f498a34a0b0c5231f332b191ad02a232af5f9b5df41772",
+    ".validation/v2-complete-2026-11-03-002852/audit_runtime.py": "ceb80811a5e033981dddd53d4a043e6ee434467d2b7e12963d19db51dd25ec2a",
+    ".validation/v2-complete-2026-11-03-002852/cell-metrics.csv": "909b2d73249a3043e553d5c5782ff493b77769e74e2e16c29b6902573b0d8722",
+    ".validation/v2-complete-2026-11-03-002852/condition-rate-summary.csv": "6622f52bf19fa747615bc20d21393b907bed1b5b020eb40dae44d3cd56342b86",
+    ".validation/v2-complete-2026-11-03-002852/evaluation-audit.json": "ed67ae75860ba04d65ce0303536247f5dd73fa26614c34a2cb2d8d8040bc3ef8",
+    ".validation/v2-complete-2026-11-03-002852/openloop-audit.json": "2b9b2fdc9bb145e6e68b859ece6483192aa4736c75e1f95f7759f08b0bab411c",
+    ".validation/v2-complete-2026-11-03-002852/render_report.py": "fa2e9317f31a60edf917229d25638a78248aee392df39cad3b68d13a8766f409",
+    ".validation/v2-complete-2026-11-03-002852/report-validation.json": "500acd061ec57e080d001403b88639d9498fd865b0b1a5aa7973aaaa54705c3f",
+    ".validation/v2-complete-2026-11-03-002852/runtime-audit.json": "68e328cf1de66adb5f13e3c1134942eae2feec56bd20dbcc3b75e83209093b74",
+    ".validation/v2-complete-2026-11-03-002852/same-gpu-condition-rate-summary.csv": "fc82646760a6027f68720cf6762c9025880276e493cb0944681158f4e51867fd",
+    "reports/v2-complete-2026-11-03/RESULTS_ZH.md": "9477545d28bccf6bf53b0f042645243e1af66f0e515fe0e2e85d18d336aa8ee1",
+    "reports/v2-complete-2026-11-03/chart_data.json": "c191c581580bc35eb9c47eb632caee19e591f6b983528e4a68488395eb18d218",
+    "reports/v2-complete-2026-11-03/primary_difference.png": "d87e25208ed42bacc443fda1ec3c7d052c61d9b2972fbfa42d56949dda31f4db",
+    "reports/v2-complete-2026-11-03/slo_goodput.png": "28408dc5852c52438d60b9ff4fa52f62fdd84a10f9a4f6eae5ac8e4aa100165f"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "archive_sha256": "72138989815c042223cf990517bb32306aec692fe3278055e40d88571fd1f4e8",
+  "paths_relative_to": "decision-study project root",
+  "sha256": {
+    ".validation/benchmark-2026-11-02/COMSE6998_007_2026_3_syllabus.txt": "d3dbe6da32ece4eea00c449abeabc28f020d65ca83550fcf385c5ededbf896f3",
+    ".validation/benchmark-2026-11-02/Project-Deliverables-slides.txt": "8e61a2f51b6acbdece3b9f3085a4290702f072fcd7b2da3d8aead917e334f75a",
+    ".validation/benchmark-2026-11-02/audit_archive.json": "e789519fd6d0c60764e3c90d527d6221ebc7d8d2d78f729e7ebf09bb7eb92d75",
+    ".validation/benchmark-2026-11-02/audit_archive.py": "ee92ea30fec0f85cd8b9f399fe4a4dd86a82c4b549db19edeb797cf31205d883",
+    ".validation/benchmark-2026-11-02/audit_identity.json": "bfc29f63b16208e3604d8f7d6567f2bfa2d490b478b3bcd4f303965ff80d1f25",
+    ".validation/benchmark-2026-11-02/audit_identity.py": "211885b5f6bbdf0e85bddf45c3d55acf6216520fffb6f4e9ff03ef596e687e1e",
+    ".validation/benchmark-2026-11-02/audit_methodology.py": "e3b5c3c6fb421bb2111da28ee1a19fb7d4f513ecbc780142a52f9dee273529ae",
+    ".validation/benchmark-2026-11-02/documentation-checks.json": "cc958a8d6779e7ed96fcf7c6a935d1b75baa52c8775591b4cf220076dcf189cc",
+    ".validation/benchmark-2026-11-02/independent_metrics.json": "bb5f33c11a63801c229e8b5850420c1376733198c33c9bf8e5248580817de949",
+    ".validation/benchmark-2026-11-02/independent_metrics.py": "14c0dfd30550e21c663709ea7fd2de4fc67969bd90a499fb2acd0f17bb5b0eec",
+    ".validation/benchmark-2026-11-02/methodology-metrics.json": "e715b178fd096587f4673c3c5034ea2bf2ff55557a305076e20c9257e26dd68e",
+    ".validation/benchmark-2026-11-02/methodology-review.md": "dc2ca3e9641acad7d34f019d9b3452e4c2f50049b6d2a20fa5ab0da4cacf26ba",
+    "reports/benchmark-2026-11-02/BENCHMARK_ZH.md": "af0e9f4f0dd074cc56010438b46358871a9be1a36f9a64d480e5bdec37345dc8",
+    "reports/benchmark-2026-11-02/RESULTS_SECTION_DRAFT.md": "5982428cc2f597dcc163ba245a094ab1b232f33e162824906fa3c1f58c71e6bc",
+    "reports/benchmark-2026-11-02/figures/request_latency_p95.pdf": "3e6dd05e18ea1fce68059e15d79b59d4303ad5637e159872e801fc9239b06368",
+    "reports/benchmark-2026-11-02/figures/request_latency_p95.png": "c4b2b5bae9ace5f55d9f5ba1fca9679e21c704e2899b3deadf2d87f77ae4da43",
+    "reports/benchmark-2026-11-02/figures/throughput.pdf": "53d8890328f66718aad83ae40b03aaffafdd959a2738f008977c08055c02f0cd",
+    "reports/benchmark-2026-11-02/figures/throughput.png": "954f4d4cb3f7bc6a781428ddbc93ff6d881ad1e769e597c8a2c2d9a77812e9f5",
+    "reports/benchmark-2026-11-02/plot_summary.py": "411cd2d32b808d62106be673449e94e512e9f821730998139a43d7a1e72de728",
+    "reports/benchmark-2026-11-02/summary.csv": "4d95ae6f352067d2673b936966e41df146fbc9859443b17291b81c1e5485e757"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "archive_sha256": "be748917f2f2184e3a7d3468b4fa222e7d1b77c0abbba863fce64f395c1840e7",
+  "paths_relative_to": "decision-study project root",
+  "note": "Snapshot of report and verification artifacts; raw evidence remains governed by its archive manifest. demo-input is a disposable replay copy, not canonical evidence.",
+  "sha256": {
+    "reports/formal-2026-11-02/DEMO_REPLAY_ZH.md": "e7aaa336720c030b5e2c347047cf19d6b7ba2f9064336988a738f061e98dbe46",
+    "reports/formal-2026-11-02/RESULTS_ZH.md": "f1939e338859155b84a83fe05e06fd37edb6d62a51055e30e3309938bf4e6ee6",
+    "reports/formal-2026-11-02/demo-replays/01-local_helps.json": "5932da8a2c03089801f22aba7b0c142c0b63b5d0a14a1831d52c21367a4187cf",
+    "reports/formal-2026-11-02/demo-replays/02-qwen_rescue.json": "e6dc90270e7083d7354c388112a874221bb04abe7e5c94137be95e9c497a5436",
+    "reports/formal-2026-11-02/demo-replays/03-fallback_harms.json": "03bbfde033d46837490cf146f23f483738783137cf2a1abcd3776adbe4e4a64a",
+    "reports/formal-2026-11-02/demo-replays/04-confident_miss.json": "deece95ca243326645a0171fce1f5216fd5c836be94cd8a1fd3aa61692da2420",
+    "reports/formal-2026-11-02/demo-replays/selection-and-verification.json": "8ad350775f3f3c88106e07d80fa49fdb6f394288489f9b14c891c1ea6d77bb53",
+    ".validation/formal-experiment-2026-11-02/audit.json": "8d0802c67c21f30cec5c66186a11641b4bebf1c8d5b22e3c859b7bad16618b7c",
+    ".validation/formal-experiment-2026-11-02/documentation-checks.json": "7b880d641e1378f8750808f9c4e49c425195b50560bdb57262adf612406f8039",
+    ".validation/formal-experiment-2026-11-02/independent-metrics-recheck.json": "4e7768039b612f8f968b630027f2788f09ac99f28ea6dbd05ce912371e92ebe5",
+    ".validation/formal-experiment-2026-11-02/independent-metrics.json": "892c01de4a64abc67c90c042f01749333daa15c249e346d01a69955306024d1a",
+    ".validation/formal-experiment-2026-11-02/check_independent_metrics.py": "cf79a9a4183ec86398ef45557b991f73a1482702f96602953d26a5e1bf1c4e54",
+    ".validation/formal-experiment-2026-11-02/verify.py": "bad3135da0da761c05eb2f2f477fbae52fb5c4ecd0b31b64d786f470b2e5d6f9"
+  }
+}

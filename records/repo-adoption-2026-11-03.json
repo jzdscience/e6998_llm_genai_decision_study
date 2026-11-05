@@ -1,0 +1,570 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-03",
+  "purpose": "Adopt user-created Git source repository; preserve scientific releases and external evidence",
+  "base_commit": "fa113e5f0594fa35164ce4321332d143a9242295",
+  "base_branch": "main",
+  "initial_tracked_files": 112,
+  "initial_worktree_clean": true,
+  "commit_created": false,
+  "pushed": false,
+  "modified_existing_files": [
+    ".gitignore",
+    "README.md"
+  ],
+  "unchanged_original_files": 110,
+  "source_changes": false,
+  "baseline_sha256": {
+    ".gitignore": "cf237c7aff44efbe6e502e645c3e06da03a69d7bdeb43392108ef3348143417e",
+    "QWEN_CUDA_PATCH_SHA256.json": "43f29054bbe61c014bf8c374c9413a2204cc3d168cd9c38debc901f4422914c1",
+    "QWEN_CUDA_V2_PATCH_SHA256.json": "ed128d1399e2849addd66557f6b8ee0e426188359888a4264bc5baeaa59ed7d3",
+    "QWEN_CUDA_V3_PATCH_SHA256.json": "853ac327d6aef78f00ebadcfc786dc2b62a310adb7bef33da34d16421d9d2b75",
+    "QWEN_TOOLS_PATCH_SHA256.json": "1329bce77194207955672acb1e02ed58dc0aed11eced0f83c521b8104da61090",
+    "README.md": "585a686272e72895e930c2d30bc5cc9d99cb59ca9a4898a86122f9de22722199",
+    "SOURCE_SHA256.json": "e37624e3de076fc35e3df874ecf6fcc905049d974a80289e8eef0d60cb4056e5",
+    "STARTLUX_REPAIR_SHA256.json": "afb57226e125fc074885e595cdb65c5d0ec91f9b9f65e7fddab296109ec1d054",
+    "V2_RELEASE_MANIFEST.json": "5b6b5a56322f8f09b9274e34f6911580ba38732d6f12256ac4799abd90157424",
+    "V3_RELEASE_MANIFEST.json": "69d5f1ba7cd25a21d06385cd695fa112b6b82e5f21592fba51381fbeccb25eec",
+    "VALIDATION.md": "2bd8b62ea83c14a253b3a894de47109e670e814b1fe0d892521628d8ca00b27b",
+    "configs/cuda_build_toolkit_13_0.txt": "99c31fea26e63439a41c23895dc9d098f31e29df6d2c6e56d30bd68e35761ac2",
+    "configs/cuda_build_toolkit_13_0_flashinfer.txt": "5fd9773bdc8bacad2e5ba2a1ee6e7687526d0c490339bfc911a2b3cab97a60b0",
+    "configs/runtime_defaults.json": "861e88b8c1f7b0174d17f65f2a69764bc2ce7b980bd5e2bdeac2358c74f2a9e2",
+    "configs/v2_protocol.json": "e9b371b7f6d42c11a8b91d83ac0fd991b834af0d91936f0ee26b8481ab9a4df2",
+    "configs/v3_protocol.json": "20bd90f93939a5324bff6ef10bc2fc8c48a480284051125f9eee6aed7e16c7a2",
+    "decision_study/__init__.py": "8ece15f88269f4b1ee701ad57ea96c3815bdcdb251bf207bf391099465f78af1",
+    "decision_study/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "decision_study/adapters.py": "ddfe0c1847790a044bad821d82dd97f1e8d47415c1b2cb661a4d0ab0164ee6c4",
+    "decision_study/analysis.py": "4f011a1eac06f74553b4cbe68bf42a10dd5719950ba6603b005dff7e3789248e",
+    "decision_study/artifacts.py": "b0586c1bad4ea6ba645e96daaf845f00763dad758d40a5c547680f04d8281831",
+    "decision_study/benchmark.py": "26d6a9b459c1ee2c134c1534febe0c983cfc91beafa4d98e55bd3553a57bea81",
+    "decision_study/budget.py": "4700ed2013019f892cdfdcc65dcae03202cb3a2036e35513a4a1d86e4326ddd4",
+    "decision_study/cli.py": "fe990e1dc82b5acd276bb725b378e0570ed2298a11ed19ca5833b2020374a939",
+    "decision_study/common.py": "47b3192632789f830da69b7c3a43c0d2ad0dba2a25a5edb00183945e5176cd95",
+    "decision_study/data.py": "967327ee2e43fff7201618cab63a00d31ec3c6bcc2c4dea0bf66d8853083f8d4",
+    "decision_study/demo.py": "a0fe8039a31dc72711855d1c5b78f39ebaeb89fd2aba29e78ad4f076f5e39d10",
+    "decision_study/plots.py": "65fdad8267963624064f80d7ecb48622415593479502a741f786692565a371fe",
+    "decision_study/runner.py": "673022dbfeab732a4dd28c28a5ce5e617bc1c9c2d02a232b53ee67016c3319b4",
+    "decision_study/runtime.py": "3d1295e5e7cf5ea0c80c475016b2159fd1a1ae6974587ff08af7467a97509c5e",
+    "decision_study/selftest.py": "690922fde3dca875aa6a9c0280cea2b3b0e96c75dad922dac0856e2ce288ae1d",
+    "decision_study/storage.py": "af02699c82d313a2860c52a17f03962446511b595945d80443ed9ac27cd45481",
+    "decision_study/v2/__init__.py": "71ad1931f724337987a3d2a6d2773e03b6089fbd2969ac719e074254b4f35e55",
+    "decision_study/v2/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "decision_study/v2/cli.py": "c7cba20b35d0cafad6a635fea4d73619ee94b5b1159cf687c153561503d0d298",
+    "decision_study/v2/data_v2.py": "ea2b5667782f578d4ae631da1459cfc0975c3d828db2b90d954fd17190df65d5",
+    "decision_study/v2/identity.py": "5415c581fa6d617fa592a8afb4eab7a4e7c3fcdbbdc50af017a546f967ca7c64",
+    "decision_study/v2/lab/__init__.py": "2512471eba8ab8109626ac348f6ca6121751d80d16b2cebba2c0aa966d0dea8c",
+    "decision_study/v2/lab/app.py": "6195b8104e9995f192b2a01602db2211cc29314062c20d6b35937a1cd8137b2a",
+    "decision_study/v2/lab/bundle.py": "2fe8e84b7be3229a5d15b08370bb0827b6686856c300fad4b02b50ffcc61ccad",
+    "decision_study/v2/openloop.py": "ffb903d0cdb044ab7eb5a29b6df3fa55314c9e9b03a1dc6e2bf437364222c7e8",
+    "decision_study/v2/policies.py": "e30415579549c7713f4e9f6386e6fa8117a5488f46ee378b1946063a14994e5e",
+    "decision_study/v2/runner_v2.py": "a3b552fc24950d18136436955cea5aab3f950178eac1720dfaa16bae6fc3e207",
+    "decision_study/v2/study.py": "8c512ef6501068f7f529673ad8a78a0abcd1ae12de9760767132e7230b6ac691",
+    "decision_study/v3/__init__.py": "7ff777ed6965632b2fd9014bd75523644890c516ccd71e1e5634b0a563f72ce3",
+    "decision_study/v3/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "decision_study/v3/cli.py": "d7237d2c46b194724b09a0fa07976a1e560640168c4c0f1b2e252ddf274e1bae",
+    "decision_study/v3/data.py": "c89806686249342592c8c2a56c4ee883a4922aa95f826dd1c4a0cba1bb9fdbcc",
+    "decision_study/v3/identity.py": "963259d2fac1bcfcd54fa0766164503c22d8a919772235802c37569ad8953bab",
+    "decision_study/v3/policies.py": "4e088b7bf584b3f1af3bb10d71b00782e1f50e121c78c26add6aae972998b886",
+    "decision_study/v3/runtime.py": "dbb301bd5f9ab9e1fda0386194fd7dc8510b0c64367f83301b41d4f37f2e7ad3",
+    "decision_study/v3/stats.py": "d2e8fcb1b456b574dad1afcfbdba01c0fdd352567943bbf301feae26e965cbf6",
+    "decision_study/v3/study.py": "857c34762925d2cc08aed242abe8d020c2c52dae800fefc5172e497efb587c68",
+    "docs/CONTINUE_V2_ZH.md": "7e72fe6f5409d583049844bb1ef2b02c4c6d41959416e431b80a58f865398dd4",
+    "docs/LAB.md": "0be8bd24fc9cb779f03f010992586e5041aaa1e68b8bf65663dd8354cf4170b6",
+    "docs/QUICKSTART_ZH.md": "9254a6710100d9a21c1c69a32df32579f6208e1f5fc39141d0f880d14f106f78",
+    "docs/RECOVER_KEV_ZH.md": "17bf92fb3be4cc8993b945453bcb554548b277f974fe29de726d690a65d3a2be",
+    "docs/RECOVER_QWEN_CUDA_V2_ZH.md": "e8d09df8583c0c51e3e1fb6b1b44619ae8531def46d822ff31281bdf3e466439",
+    "docs/RECOVER_QWEN_CUDA_V3_ZH.md": "c0ffe7aa68f10171ef0e3b52a37c11f5c02338aed428ec7bf82304d0372aadc7",
+    "docs/RECOVER_QWEN_CUDA_ZH.md": "f2e40d64c2a909bf97dafb9c83f4350bd4f652592cf8b0a67371c9412cb67f53",
+    "docs/RECOVER_QWEN_TOOLS_ZH.md": "9bb697171a2c595eca59a0a7a284d59656879340806174aa762562d9ecde4d76",
+    "docs/RECOVER_STARTLUX_ZH.md": "b9c14d3f8b64038c97b36549fcaf6e353b7234fd765ed79910b8479360ad87d7",
+    "docs/RUN_V3_ZH.md": "e798bf0140091a87cc079b17c58e0ea224a8f7bc6af06bb0f1839cbbe4dd60e1",
+    "docs/V2_PROTOCOL_ZH.md": "059d6d355d93339cd44883536734481a82daf42c56bba8c93e2e3215a825e9c6",
+    "docs/V3_PROTOCOL_ZH.md": "050f0f0c6eede64de8b13e81016b2cf2d098ed2aaab59414eb3994ab45318ed9",
+    "docs/data_protocol.md": "ceaf7f17a7af73975cba7fd1c083d44e71614823e2f8aec3156d185d0b92bbed",
+    "docs/metrics.md": "4eea565a158f2592c0cb560bf8ec92a71601d9024ac4e3548859ce008625e111",
+    "docs/runtime.md": "17d7175c5a0fadb0769df19439b7dc1ebc38a20551bdafd1d0579b9858b09b81",
+    "notebooks/Analyze_and_Demo.ipynb": "faf31c466b177acaa7e9fcc3b9ec085b844daf96385b40bb607ca680c58cc360",
+    "notebooks/Run_Experiments.ipynb": "0460aa66727b7fdeea95934b8ce910dcac433ec7bf5ea12b247a772e34415c82",
+    "pyproject.toml": "dcd4ddb907c65e036f236fa6b39136d787e38b9c8ee0b7ca6b446f8525f660e4",
+    "records/release-repairs/v2-release-r1/before/V2_RELEASE_MANIFEST.json": "44c9820edec5a8b10b282d34ed396cbc990ba9072b6a7f5c632ca4c36f1ea02e",
+    "records/release-repairs/v2-release-r1/before/scripts/verify_v2_release.py": "7094dd2b0e72c78c1cf9f0d049e2e9adea0e38ba72cbfb5760a15c000248d328",
+    "reports/decision-lab-2026-11-02/lab.json": "927d6d3b253b0f43d5990b067cc12ff56bb911000d9ea8eaf0b4b597eb5c5b3c",
+    "reports/decision-lab-2026-11-02/manifest.json": "a4606ed31ea5b45bc2a81abf027b4d59c8258c64d80d7386b8267634f5c6767d",
+    "scripts/bootstrap_models.py": "c92346f1d9c1e027a23679bd0a81cc3cda3562249db37639bc944af0b34b527e",
+    "scripts/build_notebooks.py": "30c4bf07ed2109dfaeaf847e850d0e52f5c5731fab056a2c7b233b2379282a50",
+    "scripts/build_v3_release.py": "16999ed7a9edafac8929bc9d11cdca9218838b7a36ac463bf8d2385b1e1eb4f9",
+    "scripts/cleanup_legacy_cache.py": "3577b00b89e53d8661588800c1a9c846fa23cba9a2d5115a9618c8d203ec40de",
+    "scripts/cuda_toolchain_preflight.py": "78a93f98f7805f44644a4a34158fe52f0a6959f0837435c7e780b65ece8e13ed",
+    "scripts/model_probe.py": "e29b455f750b1f349599dd061fad6421fd667a65572100a26489c92709948ed1",
+    "scripts/package_release.py": "47bd37486d6bd885e6706a8e6128024850b55ec25bd333dfb96db8323aafc27a",
+    "scripts/prepare_cuda_toolkit.py": "0a5f3eacb3be762d7b18699ed201d39708fde00f1f2a4ca14f23e0a0e4979c24",
+    "scripts/recover_kev.sh": "cd1981676b5c518170180a4d43670bb3c55f9b6b40ae388dfd7e7218343d3d67",
+    "scripts/recover_startlux.sh": "c4f078700574146c254c7b882708466d9ef78185740290f6f32c59f451a9ec1b",
+    "scripts/repair_startlux_reference.py": "f87e176904449f790b7065d5d630226657483a26e23a9f6f10e745df2fa49cb7",
+    "scripts/run_v2.sh": "60bf3a9875da2c267d246d049da7f2efe8c702a2c941f55a1f98b1b310dca4ce",
+    "scripts/run_v3.sh": "889cb69d46df577d6d74325fd3b28b8bd3f50ffa2e057c3eec05d9eaa474aba9",
+    "scripts/run_vm.sh": "8f1fdef63f44f1de4ade91dd3e4accabb9c9d56f13e31d0fcb532f4a05f19590",
+    "scripts/run_with_cuda_tools.py": "5063ece62182955d192129bc64ad113009f173e37262f0409c19430e8e5e76a2",
+    "scripts/run_with_cuda_tools.sh": "819b53c5b9612f49a3031f779461c15be5c45c4e2cc463356da21695e6d7316d",
+    "scripts/run_with_vllm_tools.sh": "5663b2e657801d02fc8e6dcb4cf7baf9b0105b38ac237d8ccfcfbf79113d27e1",
+    "scripts/verify_v2_release.py": "852b63353f377bae0919f17bdf281fb635b45f9922c1defc9bcb111f26289bc9",
+    "scripts/verify_v3_release.py": "9de4eec96b2593d87bdbcb3cb1f58be3cdf057321ccc0b872e43dd801743ce96",
+    "tests/test_analysis.py": "e7ac87c3934e2ab1264e4945719a03a35534149ffd72cddfd07b98a9df620cc5",
+    "tests/test_cache_cleanup.py": "35d879d577a698407a0d6882f93a8f7445f99785b90e47b0f09483e750ffd1f8",
+    "tests/test_controller.py": "1dfdd42cffb27eededf0d0c762ad0ff0716fc469de10a786826f48c49522215d",
+    "tests/test_data.py": "c646224c60538759f5747bb5b249e7a404f63ec03df3ec960544d3d48d78cf2a",
+    "tests/test_runtime.py": "3318e7c44ad6d4ddd7cc4ef5ad8107fa5260970745448d5b582779c0306bb132",
+    "tests/test_startlux_repair.py": "70c89e5e69884c1d40d597481bb5c8fce010176011c73bcadf12cc0a0c534de8",
+    "tests/test_v2_data.py": "eec648fcfa9990c7c5e1e1a0fa92438acc892c847f4e4880d19faa9d53f43073",
+    "tests/test_v2_lab.py": "86e6f4a533275c767318774707fe7b59842a9cdee906b573a8411da444edd679",
+    "tests/test_v2_openloop.py": "6053f80f8d35baeae6793b8c25aadd88a2ef7761926ba986c4a1e8aba29247fa",
+    "tests/test_v2_policies.py": "135756928e0859c592a82829b80d88e5be122c6de557c10bfecebe8c6632b1b7",
+    "tests/test_v2_runtime.py": "c219671501ef138b0e3bc8bed7d75242019f6be5d35bd3861efecd9737e39a9d",
+    "tests/test_v2_study.py": "e2f6a7958c0c3602ef0e11c97a24e7fba36b9a34d7c8fb336aa661fc387c6ed1",
+    "tests/test_v3_collection.py": "4b9135935f16fce0627376529cfec4ca0740214e86726f7dff6099f1890f8fdd",
+    "tests/test_v3_data.py": "63f28e0c532b03ebcec08609281d458fbf2621d56f5bc79410f80011c4be3518",
+    "tests/test_v3_policies.py": "f5a5d2dbd0031aa5f1ffa5ed3560be3f79d7a950ecc1dbb699160f2c6bfb1435",
+    "tests/test_v3_runtime.py": "1feb298e7e29e6fd3a1a816e77a732c166fc1537cb64c8dc3e8c20a9a004e682",
+    "tests/test_v3_stats.py": "36236207101aa2dba22a4adf91582089dff5f2148c397ca2fe7bf4530a63d282",
+    "tests/test_v3_study.py": "8f287e40d3c978f3f71596563cce2cd1fcc0b05bfb139abd4b1710cdedc563a5"
+  },
+  "copied_files": [
+    {
+      "repository_path": "docs/LEGACY_V1_README.md",
+      "source_path": "/Users/zhanj289/Desktop/COMS6998/decision_study_repo/README.md",
+      "sha256": "585a686272e72895e930c2d30bc5cc9d99cb59ca9a4898a86122f9de22722199",
+      "bytes": 6310,
+      "role": "historical_document"
+    },
+    {
+      "repository_path": "docs/MONTH_SCOPE_ZH.md",
+      "source_path": "docs/MONTH_SCOPE_ZH.md",
+      "sha256": "100fd492b0971f1d964a4e1670345aa38ea231a9482f08d5a8e49502ce020b01",
+      "bytes": 6034,
+      "role": "historical_plan"
+    },
+    {
+      "repository_path": "docs/CLAUDE_V2_REVIEW_ZH.md",
+      "source_path": "docs/CLAUDE_V2_REVIEW_ZH.md",
+      "sha256": "6a16072fad927d8ab3b186841f28bcaa29d6076b7889c5d72e47e1a80c7787a5",
+      "bytes": 13562,
+      "role": "historical_plan"
+    },
+    {
+      "repository_path": "docs/FINISH_PROJECT_ZH.md",
+      "source_path": "docs/FINISH_PROJECT_ZH.md",
+      "sha256": "7983bba46741431d2805c22a149cbc0198c3c28269b55167293d0700e024a761",
+      "bytes": 5564,
+      "role": "historical_plan"
+    },
+    {
+      "repository_path": "docs/EXTENSION_ROADMAP_ZH.md",
+      "source_path": "docs/EXTENSION_ROADMAP_ZH.md",
+      "sha256": "a72ca834537d3151a2808f4b7c23cd3a74b778c59e70ecf0a0504da2ae5254c8",
+      "bytes": 20347,
+      "role": "historical_plan"
+    },
+    {
+      "repository_path": "docs/ORIGINAL_PROPOSAL.md",
+      "source_path": "/Users/zhanj289/Desktop/COMS6998/project/final-proposal-2026-10-26/final_proposal_2026-10-26.md",
+      "sha256": "ae6254561e89f46d9afc526aca8360881bdab7f41918557d86be16dedf1a91c2",
+      "bytes": 4241,
+      "role": "historical_proposal"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/DEMO_REPLAY_ZH.md",
+      "source_path": "reports/formal-2026-11-02/DEMO_REPLAY_ZH.md",
+      "sha256": "e7aaa336720c030b5e2c347047cf19d6b7ba2f9064336988a738f061e98dbe46",
+      "bytes": 5780,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/RESULTS_ZH.md",
+      "source_path": "reports/formal-2026-11-02/RESULTS_ZH.md",
+      "sha256": "f1939e338859155b84a83fe05e06fd37edb6d62a51055e30e3309938bf4e6ee6",
+      "bytes": 14179,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/SHA256.json",
+      "source_path": "reports/formal-2026-11-02/SHA256.json",
+      "sha256": "f8984589fb6ea96df85e2c69f8cc7372622ee5e91b7615bf0ca3b652cc54fc00",
+      "bytes": 2094,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/benchmark-2026-11-02/BENCHMARK_ZH.md",
+      "source_path": "reports/benchmark-2026-11-02/BENCHMARK_ZH.md",
+      "sha256": "af0e9f4f0dd074cc56010438b46358871a9be1a36f9a64d480e5bdec37345dc8",
+      "bytes": 12480,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/benchmark-2026-11-02/RESULTS_SECTION_DRAFT.md",
+      "source_path": "reports/benchmark-2026-11-02/RESULTS_SECTION_DRAFT.md",
+      "sha256": "5982428cc2f597dcc163ba245a094ab1b232f33e162824906fa3c1f58c71e6bc",
+      "bytes": 5890,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/benchmark-2026-11-02/SHA256.json",
+      "source_path": "reports/benchmark-2026-11-02/SHA256.json",
+      "sha256": "7636d4e504c5708e8ecf634f39a6b43c438861b1a08a8f38e6038df36217c3e0",
+      "bytes": 2752,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/benchmark-2026-11-02/figures/request_latency_p95.pdf",
+      "source_path": "reports/benchmark-2026-11-02/figures/request_latency_p95.pdf",
+      "sha256": "3e6dd05e18ea1fce68059e15d79b59d4303ad5637e159872e801fc9239b06368",
+      "bytes": 26074,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/benchmark-2026-11-02/figures/request_latency_p95.png",
+      "source_path": "reports/benchmark-2026-11-02/figures/request_latency_p95.png",
+      "sha256": "c4b2b5bae9ace5f55d9f5ba1fca9679e21c704e2899b3deadf2d87f77ae4da43",
+      "bytes": 146010,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/benchmark-2026-11-02/figures/throughput.pdf",
+      "source_path": "reports/benchmark-2026-11-02/figures/throughput.pdf",
+      "sha256": "53d8890328f66718aad83ae40b03aaffafdd959a2738f008977c08055c02f0cd",
+      "bytes": 25393,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/benchmark-2026-11-02/figures/throughput.png",
+      "source_path": "reports/benchmark-2026-11-02/figures/throughput.png",
+      "sha256": "954f4d4cb3f7bc6a781428ddbc93ff6d881ad1e769e597c8a2c2d9a77812e9f5",
+      "bytes": 132732,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/benchmark-2026-11-02/plot_summary.py",
+      "source_path": "reports/benchmark-2026-11-02/plot_summary.py",
+      "sha256": "411cd2d32b808d62106be673449e94e512e9f821730998139a43d7a1e72de728",
+      "bytes": 4137,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/benchmark-2026-11-02/summary.csv",
+      "source_path": "reports/benchmark-2026-11-02/summary.csv",
+      "sha256": "4d95ae6f352067d2673b936966e41df146fbc9859443b17291b81c1e5485e757",
+      "bytes": 8002,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v2-complete-2026-11-03/RESULTS_ZH.md",
+      "source_path": "reports/v2-complete-2026-11-03/RESULTS_ZH.md",
+      "sha256": "9477545d28bccf6bf53b0f042645243e1af66f0e515fe0e2e85d18d336aa8ee1",
+      "bytes": 11533,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v2-complete-2026-11-03/SHA256.json",
+      "source_path": "reports/v2-complete-2026-11-03/SHA256.json",
+      "sha256": "41dded9f5943a6a542b14572d461418257d7726d8379688bc91d38c215b8342c",
+      "bytes": 2433,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v2-complete-2026-11-03/chart_data.json",
+      "source_path": "reports/v2-complete-2026-11-03/chart_data.json",
+      "sha256": "c191c581580bc35eb9c47eb632caee19e591f6b983528e4a68488395eb18d218",
+      "bytes": 121323,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v2-complete-2026-11-03/primary_difference.png",
+      "source_path": "reports/v2-complete-2026-11-03/primary_difference.png",
+      "sha256": "d87e25208ed42bacc443fda1ec3c7d052c61d9b2972fbfa42d56949dda31f4db",
+      "bytes": 73681,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v2-complete-2026-11-03/slo_goodput.png",
+      "source_path": "reports/v2-complete-2026-11-03/slo_goodput.png",
+      "sha256": "28408dc5852c52438d60b9ff4fa52f62fdd84a10f9a4f6eae5ac8e4aa100165f",
+      "bytes": 202482,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v3-complete-2026-11-03/RESULTS_ZH.md",
+      "source_path": "reports/v3-complete-2026-11-03/RESULTS_ZH.md",
+      "sha256": "494fdf24a6945cf1013282ae4a25a999519961ea3b75a433a2ea68ed32fb2cba",
+      "bytes": 10072,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v3-complete-2026-11-03/SHA256.json",
+      "source_path": "reports/v3-complete-2026-11-03/SHA256.json",
+      "sha256": "764fa702dde7831907c49a3dcb99b6ef988617590ee30e3eb1819564f94aad93",
+      "bytes": 3009,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v3-complete-2026-11-03/accuracy.pdf",
+      "source_path": "reports/v3-complete-2026-11-03/accuracy.pdf",
+      "sha256": "78e6085624bdc6846243699f8d751384f2566f87b1c8ca7b1b88c5c5676aab51",
+      "bytes": 29305,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v3-complete-2026-11-03/accuracy.png",
+      "source_path": "reports/v3-complete-2026-11-03/accuracy.png",
+      "sha256": "67d560dcb19230c46c1e325939e7f2c2b21076114dc7567811db5ed778550693",
+      "bytes": 99450,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v3-complete-2026-11-03/chart_data.json",
+      "source_path": "reports/v3-complete-2026-11-03/chart_data.json",
+      "sha256": "5947027b3ba0089299b589a01b0ed1cd07cdd1740e977b20214d00f07712452f",
+      "bytes": 1342,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v3-complete-2026-11-03/routing_budget_and_primary.pdf",
+      "source_path": "reports/v3-complete-2026-11-03/routing_budget_and_primary.pdf",
+      "sha256": "c3519e74f530aa53c86aa3e331f43ab9ed4c873504f0c3a7e46c6f7a01a84d1b",
+      "bytes": 32517,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/v3-complete-2026-11-03/routing_budget_and_primary.png",
+      "source_path": "reports/v3-complete-2026-11-03/routing_budget_and_primary.png",
+      "sha256": "d05383a11c55f7e1f412a21df09c8416131a7dd74b45be98bbf42376186c0b48",
+      "bytes": 135847,
+      "role": "immutable_report_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/clinc_probability_quality.png",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/clinc_probability_quality.png",
+      "sha256": "a1304a3fcb87a8c062f73d20b751fd7e810e53f9953251d71bb981fc9daa5089",
+      "bytes": 94334,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/clinc_probability_quality.pdf",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/clinc_probability_quality.pdf",
+      "sha256": "01c65865c3074189cb42fdce6cf2eff2fc93c47aebbf38452f62c014b7fe36b5",
+      "bytes": 19186,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/squad_accuracy_complementarity.png",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/squad_accuracy_complementarity.png",
+      "sha256": "006bc338966c2d0b321c4a3c67863e70f190cb652368ece6f795e51b38c45a9a",
+      "bytes": 88054,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/squad_probability_quality.pdf",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/squad_probability_quality.pdf",
+      "sha256": "e7957cdae0842de13c6200fa69acd4d3f020b8c34bfad483a7dcd829fcdc5cf5",
+      "bytes": 18699,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/squad_probability_quality.png",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/squad_probability_quality.png",
+      "sha256": "a29d423fc9e289e5c6bc1d25bc516cd24a604eb5452bbcada5832c7770dbbb5b",
+      "bytes": 81225,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/squad_accuracy_complementarity.pdf",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/squad_accuracy_complementarity.pdf",
+      "sha256": "38284d96ec9308a9461e98d8c2e64c3188bf7420e2431d10daf6d9ec4ea71f47",
+      "bytes": 19843,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/clinc_calibration_risk.pdf",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/clinc_calibration_risk.pdf",
+      "sha256": "fe97ed338114ec53c6afcb97b349cd1499d1df69c7a80087ba8bdae93d7c51b0",
+      "bytes": 44943,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/clinc_routing.pdf",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/clinc_routing.pdf",
+      "sha256": "68caef55f6d52d286e4ad119be75c618bc459d7b9b788a3316e4795b700e5929",
+      "bytes": 26369,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/squad_routing.pdf",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/squad_routing.pdf",
+      "sha256": "5f5763b4eff06f2b4b3fa0682b937f0b5d112fcc71d78b7ff1794ea2f02cf3f9",
+      "bytes": 28833,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/clinc_routing.png",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/clinc_routing.png",
+      "sha256": "f143a8afbd9b906d6ecee9c59f0103e039f093f4d9e09da0b0279041ea0a3b83",
+      "bytes": 132005,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/squad_routing.png",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/squad_routing.png",
+      "sha256": "98628e056572ae68a7d542426bffad0fd13cc2dd7d7ff75a725a7e6c715009ed",
+      "bytes": 134826,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/clinc_calibration_risk.png",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/clinc_calibration_risk.png",
+      "sha256": "12808ee86cd4ba455dc8639660f895e353399b1a7d6b3a1e5bb0169618f12cdd",
+      "bytes": 186999,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/clinc_prevalence.pdf",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/clinc_prevalence.pdf",
+      "sha256": "188d948d57136e7a164e1f85b0fda40e677cd37b8ce93fb433507ccb0d79c92d",
+      "bytes": 19529,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/clinc_prevalence.png",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/clinc_prevalence.png",
+      "sha256": "292fc32c22fab053077b49b8b2bb3eb893e1280a3a2ba20e53f129cde3c1929f",
+      "bytes": 131848,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/clinc_accuracy_complementarity.pdf",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/clinc_accuracy_complementarity.pdf",
+      "sha256": "84b29f2c272d8b5021895c88fe3b140dbc773d19e9b2a9a701d2ab6083631d7b",
+      "bytes": 21748,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/squad_calibration_risk.pdf",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/squad_calibration_risk.pdf",
+      "sha256": "ee1a7be8b5ed8a9334c9eda89a9a1457fa20b757daea5b6d24ca199d06866b9c",
+      "bytes": 57980,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/clinc_accuracy_complementarity.png",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/clinc_accuracy_complementarity.png",
+      "sha256": "a9d48368b042c38a84d76efbf6b4b4bd43183e08eb0810d367c5c90da5d9474c",
+      "bytes": 85521,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "reports/formal-2026-11-02/figures/squad_calibration_risk.png",
+      "source_path": "results/returned-experiment-2026-11-02-101054/analysis/figures/squad_calibration_risk.png",
+      "sha256": "1bae6673d755e5d134bb4ba6ea287b6f981d8b8228f64304cfe7d697731d9a13",
+      "bytes": 165127,
+      "role": "figure_copy"
+    },
+    {
+      "repository_path": "records/releases/v3-anli-2026-11-03.json",
+      "source_path": "records/releases/v3-anli-2026-11-03.json",
+      "sha256": "8ce57784d99397362d4fe122db4c1892ae733b1c179bebc72e57a8630decec9e",
+      "bytes": 866,
+      "role": "historical_release_receipt"
+    }
+  ],
+  "v2_release_verification": {
+    "status": "verified",
+    "release": "decision-study-v2-2026-11-02-r1",
+    "checked": {
+      "files": 30,
+      "required_existing_files": 22
+    },
+    "compatible_existing_files": [
+      {
+        "file": "decision_study/artifacts.py",
+        "actual_sha256": "b0586c1bad4ea6ba645e96daaf845f00763dad758d40a5c547680f04d8281831",
+        "canonical_sha256": "4a24522738ef5a75e926bb0b757da60cf11a6cea86d7acf1a1a0f18454c93338",
+        "source": "original v1 bundle"
+      }
+    ],
+    "notice": "Read-only file verification. No allocation renewal, model calls or new v2 results."
+  },
+  "v3_release_verification": {
+    "status": "verified",
+    "release": "decision-study-v3-anli-2026-11-03",
+    "checked": {
+      "files": 25,
+      "required_existing_files": 22
+    },
+    "compatible_exporters": [
+      {
+        "file": "decision_study/artifacts.py",
+        "sha256": "b0586c1bad4ea6ba645e96daaf845f00763dad758d40a5c547680f04d8281831",
+        "reason": "Previously audited exporter-only variant, imported by CUDA preflight; v3 uses its own exporter"
+      }
+    ],
+    "notice": "File verification only; GPU feasibility and accuracy await real execution."
+  },
+  "release_verification_scope": "Temporary copy of repository plus eight exact prepared data files. Actual source checkout has no prepared data or GPU environment.",
+  "cpu_tests": {
+    "passed": 233,
+    "skipped": 9,
+    "subtests_passed": 7,
+    "seconds": 9.51,
+    "skips": {
+      "official_source_cache_not_installed": 1,
+      "archived_v1_evidence_not_installed": 8
+    },
+    "note": "Initial sandbox run denied socket bind; final complete suite allowed temporary test sockets and passed. No GPU/model calls."
+  },
+  "entrypoints": {
+    "package_paths": [
+      "/Users/zhanj289/Desktop/COMS6998/decision_study_repo/decision_study/__init__.py",
+      "/Users/zhanj289/Desktop/COMS6998/decision_study_repo/decision_study/v2/cli.py",
+      "/Users/zhanj289/Desktop/COMS6998/decision_study_repo/decision_study/v3/cli.py"
+    ],
+    "decision_study": {
+      "exit_code": 0,
+      "usage_present": true
+    },
+    "decision_study.v2": {
+      "exit_code": 0,
+      "usage_present": true
+    },
+    "decision_study.v3": {
+      "exit_code": 0,
+      "usage_present": true
+    },
+    "lab_bundle": "hash/schema validated"
+  },
+  "complete_archives_rehashed": [
+    "formal-experiment-20261102-181054",
+    "benchmark-complete-20261102-210735",
+    "v2-complete-20261103-082852",
+    "v3-complete-20261103-232529"
+  ],
+  "ignore_probes": {
+    "ignored": [
+      "results/probe.json",
+      ".validation/probe.json",
+      ".venv/bin/python",
+      "records/bundles/probe.zip",
+      "decision_study/__pycache__/probe.pyc",
+      "demo.egg-info/PKG-INFO",
+      ".env"
+    ],
+    "not_ignored": [
+      "reports/README.md",
+      "docs/CURRENT_STATE.md",
+      "records/BUNDLE_INDEX.json"
+    ]
+  },
+  "git_metadata": {
+    "status_command_exit_code": 0,
+    "diff_complete": false,
+    "diff_error": "fatal: mmap failed: Operation timed out",
+    "dataless_files_remaining": 84,
+    "note": "Some .git/objects remain cloud placeholders. Working file hashes were checked against the initial snapshot; Git object integrity/full diff are not yet verified. Finder action was unavailable while Mac locked. Download/keep this folder locally, then rerun git diff and git fsck --full; do not replace .git."
+  }
+}

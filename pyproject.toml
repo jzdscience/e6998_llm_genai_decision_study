@@ -12,9 +12,11 @@ dependencies = ["numpy>=2.0,<3", "matplotlib>=3.9,<4"]
 [project.optional-dependencies]
 notebook = ["nbformat>=5.10,<6", "nbclient>=0.10,<1", "ipykernel>=6.29,<8"]
 test = ["pytest>=8,<10"]
+lab = ["gradio==6.31.0"]
 
 [project.scripts]
 decision-study = "decision_study.cli:main"
+decision-lab = "decision_study.lab.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["decision_study*"]

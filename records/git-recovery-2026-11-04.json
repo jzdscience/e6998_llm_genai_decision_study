@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-04",
+  "timezone": "America/Los_Angeles",
+  "scope": "Local Git metadata recovery; no scientific source or model execution changes",
+  "head_before_and_after": "fa113e5f0594fa35164ce4321332d143a9242295",
+  "initial_findings": {
+    "index_missing": true,
+    "index_lock_missing_at_final_preflight": true,
+    "active_git_writers": 0,
+    "original_83_objects_became_readable": true,
+    "different_dataless_objects_at_recheck": 31
+  },
+  "recovery": {
+    "object_action": "Bounded reads succeeded; original objects were not manually replaced",
+    "loose_objects_read_and_oid_verified": 159,
+    "dataless_git_files_after": 0,
+    "index_entries_restored": 112,
+    "saved_index_sha256": "bef18ba112d585b9f96d490f990d1aaab1ec5d5d677786300b03b01ef661686f",
+    "persistent_backup_directory": ".git/recovery-2026-11-04",
+    "object_manifest_sha256": "5df1e015c4284e3aa8ff8eda530c4df75c3712e5c55cc97d894dd6ea942c5fd7",
+    "staged_changes_after_restore": 0,
+    "working_file_hashes_verified_before_documentation": 182,
+    "working_file_content_changes_during_recovery": [],
+    "excluded_from_working_hash_comparison": [
+      ".git/**",
+      "**/.DS_Store"
+    ]
+  },
+  "verification": {
+    "performed_on": "original repository with no alternate index or object-directory overrides",
+    "commands": {
+      "fsck": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "staged": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "diff": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "add_dry_run": {
+        "exit_code": 0,
+        "stderr": ""
+      }
+    },
+    "fsck_dangling_blobs_preserved": 31,
+    "fsck_corruption_errors": 0,
+    "index_lock_remained": false
+  },
+  "subsequent_documentation_changes": [
+    "docs/CURRENT_STATE.md",
+    "docs/EXPERIMENT_LOG.md",
+    "records/git-recovery-2026-11-04.json"
+  ],
+  "not_performed": [
+    "git add (actual staging)",
+    "commit",
+    "push",
+    "reset",
+    "object pruning",
+    "file-provider retention policy change"
+  ],
+  "limitation": "This verifies current readability and Git operation, not permanent cloud retention."
+}
