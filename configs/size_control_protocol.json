@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "protocol": "size-control-anli-v1",
+  "scope": "Retrospective direct-model size control; no policy fitting, tuning or unseen-holdout claim",
+  "model": {
+    "role": "startlux9b",
+    "interface": "startlux",
+    "repo": "startlux-models/StartLux-Decision-v1.1-9B-Instant",
+    "revision": "18a17f734966b213b2f00fa9c915e8b9af2a9b20",
+    "native_temperature": 1.1014,
+    "gpu_memory_utilization": 0.8,
+    "precision": "bfloat16",
+    "max_model_len": 8192,
+    "think_mode": "never",
+    "bidirectional": true,
+    "none_check": false,
+    "allow_none": false,
+    "prefix_cache": false,
+    "truncate": false,
+    "metadata_sha256": {
+      "config.json": "d2379a69df44645e47f5b01e13590f2558f9e780455a5243a2507cb3daf8ba43",
+      "decision_config.json": "7941d0886698e7f9ed5591777422fb718c33f5c730e5c14c64b653ec534ab2ca",
+      "model.safetensors.index.json": "d90d4db17bd8afdbef88db7a84ff65cc056a49b8db450a583f3621284e776ec6"
+    },
+    "metadata_verified_on": "2026-11-05",
+    "metadata_source": "https://huggingface.co/api/models/startlux-models/StartLux-Decision-v1.1-9B-Instant/revision/18a17f734966b213b2f00fa9c915e8b9af2a9b20"
+  },
+  "data": {
+    "source_protocol": "solo-v3-anli",
+    "formal_role": "holdout",
+    "formal_count": 3200,
+    "development_count": 90,
+    "round_counts": {"R1": 1000, "R2": 1000, "R3": 1200},
+    "source_sha256": {
+      "data/examples.jsonl": "a470ad0143224dd87906059651efc74b1c8342445dcfbffcea11768f37618544",
+      "data/fit_gold.json": "11549e5ecf9467fcfe7d6a30366d08acd2a9340ea0ebfcfecca491bb458cda73",
+      "data/manifest.json": "176177766356fd857303a4aa4974358ae652eff9462331d8e1e142fc42fcfaaf",
+      "sealed/holdout_gold.json": "ed3525b721ed564a4cdf733e94ac381cfebb4ba06eb4a3a6844a1a0b37824f14",
+      "evaluation.json": "5bd4cf2a677a8ccb831e861b636db5d0b4ed05ceed30a774b5984c28b86a7296",
+      "policy_freeze.json": "28efefe7814ef234e5ea96503386b577b1db34e6acafa90b57f421e5f39acf50",
+      "holdout_access.json": "6fd1b88b99119d804e65a874ceba4d58a1456ceb23ca64e6d8896830d3a145c4"
+    },
+    "reference_roles": ["startlux4b", "qwen4b", "qwen9b"]
+  },
+  "collection": {"concurrency": 1, "max_attempts": 2, "timeout_seconds": 120, "smoke": "two serial passes over all 90 development inputs; repeatability only"},
+  "evaluation": {
+    "primary_descriptive_comparison": ["startlux9b", "qwen9b"],
+    "secondary_descriptive_comparison": ["startlux9b", "startlux4b"],
+    "bootstrap_repetitions": 2000,
+    "bootstrap_seed": 6998,
+    "bootstrap_unit": "normalized premise across rounds",
+    "errors_count_as_wrong": true,
+    "rounds": "report every round; no outcome-based selection",
+    "claim_limit": "No equivalence, architecture-causal effect, new routing gain or GPU serving throughput claim"
+  }
+}

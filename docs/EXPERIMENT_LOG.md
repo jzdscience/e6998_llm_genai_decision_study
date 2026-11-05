@@ -206,3 +206,31 @@ MiniLM400→1600 main+15但mixed−41；TF-IDF400→1600 main+64但mixed−141�
 `reports/cheap-baselines-2026-11-04/`与`records/cheap-baselines-acceptance-2026-11-04.json`，
 更新索引、当前状态和原范围。旧科学源码、准备记录、原报告不变。下一步保留StartLux9B
 与加强系统测量，后者可考虑加入MiniLM CPU服务，但本次没有启动或冻结新实验。
+
+## 2026-11-05：交付服务性能与 StartLux9B 两项独立实验
+
+用户明确授权完成CPU/GPU同口径服务测量与StartLux9B规模对照。本机已实现两套独立
+namespace、固定协议、node入口与文档，旧科学源码/配置/原报告/冻结参数保持原字节。
+公司端只能由用户code-server启动，本次没有远端GPU执行或新正式模型结果。
+
+服务协议固定MiniLM400/1600、StartLux4B、Qwen4B四直接部署；同CLINC main600，公共
+Poisson schedule，5/25/100每秒，180秒×5，共60cells、3小时offered窗口、469804计划请求。
+CPU每请求真实编码，保留保存分类头与类别轴；实际HTTP标签在全部测量freeze后评价，
+计算及时且正确goodput，不将旧准确率乘吞吐量。各cell重新启动服务/64条dev预热，防止
+超时后后端残留工作跨rate；启动/预热不混入正式窗口，原始资源及失败请求均保存。
+
+StartLux9B只补原ANLI3200，复用三模型9600条原预测；90条dev两遍smoke，3290输入exact-token。
+固定revision18a17f734966b213b2f00fa9c915e8b9af2a9b20、BF16、原生温度1.1014、0.8显存份额。
+新runtime/session/cache和新评价链独立；已完成阶段先验收再跳过，避免为了导出重新初始化
+allocation。实际单卡加载可行性仍待node。两阶段均阻断已有GPU工作，不杀其他进程。
+
+全仓CPU回归418 passed、9 skipped、64 subtests；随后联合Bash入口3项测试通过，验证首次
+无可选参数、路径含空格、恢复flag分流和前阶段失败不继续。修复本机Bash3.2中set-u展开
+空数组报unbound variable的问题；改为始终非空的完整命令参数数组。
+实际输入prepare在gold读取guard下通过且重复字节一致；真实CPU模型仅用人工文本做HTTP
+smoke。实际child→HTTP→trace→receipt软件fixture及watchdog退出竞争检查通过。
+关键身份/预算/评价/调度隔离mutations被独立断言检出，生产源码无变异残留。
+
+准备记录 `records/followups-preparation-2026-11-05.json`；联合运行说明
+`docs/RUN_FOLLOWUPS_ZH.md`。下一步用户node运行后回传service_study_bundle.zip和
+size_control_bundle.zip，分别验收后再写实测结论与整合前端。不把软件准备标成实验完成。

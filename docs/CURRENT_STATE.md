@@ -1,6 +1,26 @@
 # 当前状态
 
-最后核对：2026-11-04，America/Los_Angeles。证据内的原始 UTC 时间不改写。
+最后核对：2026-11-05，America/Los_Angeles。证据内的原始 UTC 时间不改写。
+
+## 最新交付：两项收尾实验已准备，待 node 执行
+
+用户于11/5授权完成CPU/GPU同口径服务测量与StartLux9B规模对照。本机已经实现两个独立
+namespace、冻结配置、源码/数据校验、可恢复运行、评价与导出；没有远端GPU执行或新质量
+结果。联合入口见 [RUN_FOLLOWUPS_ZH.md](RUN_FOLLOWUPS_ZH.md)。
+
+- `clinc-service-v1`：MiniLM400/1600、StartLux4B、Qwen4B；同一CLINC600输入和配对到达表，
+  5/25/100请求每秒，180秒×5重复，共60cells、3小时offered窗口、469,804次计划请求。
+  每cell新服务/预热，真实每请求编码，报告实际HTTP输出的及时且正确goodput；不由缓存准确率
+  推算。保留全部失败、中断、原始trace与资源样本，CPU单线程不等于独占CPU或零GPU allocation成本。
+- `size-control-anli-v1`：新增StartLux9B在原ANLI3200上的顺序采集，与原三模型配对。
+  固定官方revision和9B原生温度1.1014；90条dev两遍smoke，3290输入token检查，无新路由。
+- 两项使用独立输出/session；实际Slurm剩余时间自动查询，不能续同一allocation。联合入口先
+  服务实验再9B；完成阶段先校验证据再跳过，不要求为导出已完成结果启动GPU或新session。
+
+全仓CPU回归418 passed、9 skipped、64 subtests；新增Bash联合入口3项针对性检查通过。
+真实公开输入准备在gold-read guard下通过；两个CPU分类头的人工文本HTTP smoke通过。
+实际L40S显存、服务性能与9B准确率仍待运行和回传验收。软件验证/源码身份见
+[准备记录](../records/followups-preparation-2026-11-05.json)。旧V1–V3及CPU基线结果保持原字节。
 
 ## 源码与证据位置
 
@@ -112,13 +132,13 @@ MiniLM1600在银行子集比StartLux多对15条、OOS少对17条；总体接近�
 [方案](CHEAP_BASELINES_PROTOCOL_ZH.md)、[准备记录](../records/cheap-baselines-preparation-2026-11-04.json)。
 
 1. 浏览三轮演示并准备课程讲述，突出“何时转交值得”、负结果及真实服务成本。
-2. TF-IDF400/1600与MiniLM400/1600已完成；接着安排StartLux9B与加强性能测量。
-   加强测量值得纳入MiniLM CPU部署条件，以同口径连接质量和服务成本；该新增条件仍待协议。
+2. TF-IDF400/1600与MiniLM400/1600已完成；StartLux9B与同口径CPU/GPU服务测量已经实现。
+   当前需按联合入口在公司node启动，回传两份最终结果包后分别验收；尚无这两项的实测结论。
    每轮单独固定数据角色与评价范围；
    不能用已看的 holdout 选优后称确认结果。
 3. 结合最终证据完成课程报告、演示排练和固定版本交付。Git已恢复，可继续检查差异并
    整理提交；CPU演示与本机开发环境保持原位。
 4. 稳健性/live仍是可选待办；预算控制和语义router是新增候选，不替代原计划事项。
 
-范围对照见 [POST_V3_SCOPE_ZH.md](POST_V3_SCOPE_ZH.md)。未冻结V4协议、未启动新GPU
-实验，历史结果包不证明当前allocation仍在运行。
+范围对照见 [POST_V3_SCOPE_ZH.md](POST_V3_SCOPE_ZH.md)。11/5新增两个独立auxiliary协议，
+没有将其称为新路由V4；本机未启动GPU，历史结果包不证明当前allocation仍在运行。
