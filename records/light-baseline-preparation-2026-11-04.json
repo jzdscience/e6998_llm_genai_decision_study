@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-04",
+  "timezone": "America/Los_Angeles",
+  "experiment_id": "clinc-tfidf400-v1",
+  "status": "implementation_verified_real_run_pending",
+  "base_commit": "3dc18faa6c20edf8dc0c6824489f5b8297625186",
+  "source_sha256": {
+    "configs/clinc_tfidf400_protocol.json": "a3a3e628dfa2095ff54424bf2d21824b1d4845f560a27dc6ffbe92e6f9972011",
+    "configs/baseline_cpu_requirements.txt": "4c6e9fbd767eac6186408db2ca164f8840d3917874c540b5f4ace3ce69fc1c12",
+    "decision_study/baselines/__init__.py": "da5994853740c81a019d58a88c83aef5b3dee29b0f2500dd3309e132a68399b9",
+    "decision_study/baselines/__main__.py": "79cfff5daf2e1ff1f9b1f63fe641ed18906aeb27bae1838ec5100d93c038d19b",
+    "decision_study/baselines/study.py": "811484517d595f3e4635b8d0718ff8a0fa2c4aafa0a2aac6f7b606bd38b9a98e",
+    "scripts/run_light_baseline.sh": "b080b4714784ed3a970a23ba32d7146ca7be2d90bb38beb1cd3c4730e4acf76b",
+    "tests/test_light_baseline.py": "1c090a0978d842735cb7944a445d46067474548046b6a695bb6887e608d98333"
+  },
+  "software_validation": {
+    "focused_tests": {
+      "command": ".venv-baselines/bin/python -m pytest -q tests/test_light_baseline.py",
+      "passed": 27,
+      "data": "Artificial full-size fixtures; not experimental model results"
+    },
+    "final_metadata_targeted_cli_check": {
+      "passed": 1
+    },
+    "existing_environment_compatibility": {
+      "command": ".venv-lab/bin/python -m pytest -q tests/test_node_checkout.py tests/test_light_baseline.py",
+      "passed": 14,
+      "skipped": 1,
+      "skip_reason": "Optional baseline module requires its isolated sklearn environment"
+    },
+    "isolated_mutations": [
+      {
+        "mutation": "early-gold-read",
+        "test": "test_fit_never_reads_or_hashes_v1_gold_and_preserves_sources",
+        "detected": true,
+        "exit_code": 1
+      },
+      {
+        "mutation": "vocabulary-leaks-evaluation",
+        "test": "test_vocabulary_and_idf_fit_only_calibration",
+        "detected": true,
+        "exit_code": 1
+      },
+      {
+        "mutation": "skip-model-artifact-hash",
+        "test": "test_tampered_or_missing_freeze_evidence_rejected_before_gold[model.json]",
+        "detected": true,
+        "exit_code": 1
+      },
+      {
+        "mutation": "skip-label-remapping",
+        "test": "test_label_remapping_and_stress_workload_denominators",
+        "detected": true,
+        "exit_code": 1
+      }
+    ],
+    "bash_syntax": true,
+    "cli_help": true,
+    "dependency_pip_check": true,
+    "frozen_scientific_source_changes": []
+  },
+  "real_input_preflight": {
+    "source_hashes_checked": [
+      "v1_manifest_sha256",
+      "v1_examples_sha256",
+      "v2_examples_sha256",
+      "v2_fit_gold_sha256"
+    ],
+    "roles": {
+      "calibration": 400,
+      "validation": 400,
+      "test": 600,
+      "stress": 850
+    },
+    "v1_v2_fit_rows_exactly_equal": true,
+    "prediction_rows_planned": 1850,
+    "v1_gold_file_opened_or_hashed": false,
+    "actual_model_training_performed": false,
+    "actual_evaluation_performed": false
+  },
+  "interpretation": "Fixed supervised400-label retrospective CLINC baseline; no new confirmatory holdout, no newLLM inference, no measuredGPU/HTTP performance. Main600/OOS850/mixed1300 are distinct populations, with450banking shared betweenmain andmixedstress.",
+  "remaining": [
+    "Run on node and preserve returned bundle",
+    "Independent result audit",
+    "Full1600-label budget and frozenembedding baseline",
+    "StartLux9B and longer systems measurement"
+  ],
+  "local_validation_directory": ".validation/light-baseline-2026-11-04"
+}

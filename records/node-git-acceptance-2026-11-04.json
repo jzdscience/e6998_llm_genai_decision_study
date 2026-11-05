@@ -1,0 +1,20 @@
+{
+  "date_received": "2026-11-04",
+  "timezone": "America/Los_Angeles",
+  "evidence_type": "user_pasted_company_code_server_terminal_output",
+  "commit": "3dc18faa6c20edf8dc0c6824489f5b8297625186",
+  "status": "READY",
+  "source_root": "/home/zhanj289/e6998/decision-study-src",
+  "runtime_root": "/home/zhanj289/e6998/decision-study",
+  "prepared_files_copied": 8,
+  "prepared_files_reused": 0,
+  "verified_by_ready_code_path": [
+    "expected commit and clean source checkout",
+    "distinct source/runtime roots and controller import origin",
+    "eight source/target prepared file hashes",
+    "unchanged V2 and V3 release verifiers",
+    "three CLI --help checks"
+  ],
+  "terminal_output": "HEAD is now at 3dc18fa Add verified node checkout preparation and Git workflow\nREADY 3dc18faa6c20edf8dc0c6824489f5b8297625186\nSource: /home/zhanj289/e6998/decision-study-src\nRuntime: /home/zhanj289/e6998/decision-study\nPrepared files: 8 copied, 0 reused\nSource/data verification only; no GPU, session initialization or experiment run.\n",
+  "limits": "Operator-supplied terminal evidence, not direct remote filesystem inspection. No GPU/session or new experiment execution is established. The separate local preparation receipt remains unchanged."
+}

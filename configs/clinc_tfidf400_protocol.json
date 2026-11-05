@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "experiment_id": "clinc-tfidf400-v1",
+  "seed": 6998,
+  "sources": {
+    "v1_manifest_sha256": "7364419fcf52eaf691a40282c6027eec62a026cef0b41a6c9aa31eb06a593d4b",
+    "v1_examples_sha256": "a0b699e5fe48e003ddcbb6cab751b0f088edb0b5d297ee46c250121bfdd10703",
+    "v1_gold_sha256": "bc5ec4891caed470970115a41e2f6debe2a2967b3f5ff3496622a3d29311fc35",
+    "v2_examples_sha256": "f29fac859f0324e7ed7d4cf54bdc674472a27451695ee9fff545d635d23bb25b",
+    "v2_fit_gold_sha256": "e44283e1775f8085c09ee9770e98038d527e4810a7e50626cc4240ab76078e9b"
+  },
+  "labels": ["account_blocked", "balance", "bill_balance", "bill_due", "freeze_account", "interest_rate", "min_payment", "order_checks", "pay_bill", "pin_change", "report_fraud", "routing", "spending_history", "transactions", "transfer", "oos"],
+  "counts": {"calibration": 400, "validation": 400, "test": 600, "stress": 850},
+  "vectorizer": {
+    "analyzer": "word",
+    "ngram_range": [1, 2],
+    "lowercase": true,
+    "strip_accents": null,
+    "token_pattern": "(?u)\\b\\w\\w+\\b",
+    "stop_words": null,
+    "min_df": 1,
+    "max_df": 1.0,
+    "max_features": null,
+    "binary": false,
+    "norm": "l2",
+    "use_idf": true,
+    "smooth_idf": true,
+    "sublinear_tf": false
+  },
+  "classifier": {
+    "C": 1.0,
+    "l1_ratio": 0.0,
+    "solver": "lbfgs",
+    "tol": 0.0001,
+    "max_iter": 1000,
+    "fit_intercept": true,
+    "class_weight": null,
+    "random_state": 6998
+  },
+  "environment": {
+    "scikit-learn": "1.9.1",
+    "numpy": "2.3.5",
+    "scipy": "1.16.3",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.7.0",
+    "narwhals": "2.28.0",
+    "cloudpickle": "3.1.2"
+  },
+  "interpretation": {
+    "training": "Direct supervised 16-class baseline, exactly 400 v1 calibration labels; vocabulary, IDF and classifier fitted on calibration only.",
+    "selection": "One fixed recipe. Validation is diagnostic only; no hyperparameter, threshold or model selection.",
+    "evaluation": "Retrospective descriptive comparison on previously seen v1 test/stress. No new confirmatory holdout or zero-shot claim.",
+    "stress": "Stored 850-row stress is OOS-only. Historical mixed stress combines 450 banking test rows with those 850 OOS rows; overlaps main test.",
+    "timing": "CPU classifier-only batch timing, not HTTP/SLO goodput and not matched to prior L40S deployment measurements.",
+    "scope": "First 400-label TF-IDF baseline only. Full official 1600-label training and frozen embedding baselines remain pending. No language-model inference, GPU allocation, or old pipeline rerun."
+  }
+}

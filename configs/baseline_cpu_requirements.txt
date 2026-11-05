@@ -1,0 +1,8 @@
+# Separate CPU environment; do not install into the frozen controller/GPU envs.
+scikit-learn==1.9.1
+numpy==2.3.5
+scipy==1.16.3
+joblib==1.6.0
+threadpoolctl==3.7.0
+narwhals==2.28.0
+cloudpickle==3.1.2

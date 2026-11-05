@@ -67,13 +67,25 @@ V2主政策表是validation10%目标；confidence实际validation转交9.6%、ho
 用户已授权通过 Git 交付 node 源码。新增 `scripts/prepare_node_checkout.py` 和
 [NODE_GIT_ZH.md](NODE_GIT_ZH.md)，采用独立 `decision-study-src` clone，保留旧运行根。
 本机已验证八份真实 prepared 数据的首次复制与重复配置、原 V2/V3 verifier、三个 CLI
-帮助入口及 14 项针对性测试。公司端仅能通过用户的 code-server 访问，node 配置尚待执行；
-本机通过不代表远端配置或新实验完成。验收记录见
-[node-git-preparation-2026-11-04.json](../records/node-git-preparation-2026-11-04.json)。
+帮助入口及 14 项针对性测试。用户随后回传公司 code-server 输出，node 在
+`3dc18faa6c20edf8dc0c6824489f5b8297625186` 打印 READY，8 copied / 0 reused，
+源码和旧运行根位置与计划一致。源码配置已完成；这不代表 GPU/session 或新实验已执行。
+本机准备记录与远端终端验收分开保留：
+[本机验证](../records/node-git-preparation-2026-11-04.json)、
+[node 验收](../records/node-git-acceptance-2026-11-04.json)。
+
+第一批轻量分类基线已实现于独立 `decision_study/baselines/`，方案
+`clinc-tfidf400-v1` 固定使用 400 个 calibration 标签训练 TF-IDF＋LogisticRegression。
+validation 仅诊断，600 条 main test 与 stress 保留回顾性解释；850 条 OOS 与 1,300 条
+混合 stress 分开报告。依赖安装于独立 `.venv-baselines`，原 controller/GPU 环境不变。
+27 项人工软件 fixture 测试通过，真实输入身份与角色预检通过；未进行真实拟合/评分。
+运行入口见 [RUN_LIGHT_BASELINE_ZH.md](RUN_LIGHT_BASELINE_ZH.md)，
+验收边界见 [准备记录](../records/light-baseline-preparation-2026-11-04.json)。
 
 1. 浏览三轮演示并准备课程讲述，突出“何时转交值得”、负结果及真实服务成本。
-2. 按原扩展计划先补轻量分类基线，再安排StartLux9B规模对照与更充分性能测量；每轮
-   在执行前单独冻结数据角色、比较和评价范围。不能用已看的holdout选优后称确认结果。
+2. 在 node 执行并回传这批 400 标签 TF-IDF 基线，再安排完整 1,600 标签预算、冻结
+   embedding 分类头、StartLux9B 与加强性能测量。每轮单独固定数据角色与评价范围；
+   不能用已看的 holdout 选优后称确认结果。
 3. 结合最终证据完成课程报告、演示排练和固定版本交付。Git已恢复，可继续检查差异并
    整理提交；CPU演示与本机开发环境保持原位。
 4. 稳健性/live仍是可选待办；预算控制和语义router是新增候选，不替代原计划事项。

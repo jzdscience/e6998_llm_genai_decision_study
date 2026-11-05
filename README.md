@@ -10,6 +10,7 @@
 - [数据、环境与结果包的取得方式](docs/ARTIFACTS_ZH.md)
 - [原计划与后续扩展对照](docs/POST_V3_SCOPE_ZH.md)
 - [CPU Decision Lab](docs/LAB_CURRENT_ZH.md)（已接入 V1–V3，运行 `bash scripts/run_lab.sh`）
+- [下一轮：400 标签 CLINC 轻量分类基线](docs/RUN_LIGHT_BASELINE_ZH.md)（代码就绪，真实结果待回传）
 
 | 阶段 | 任务与内容 | 状态 |
 |---|---|---|

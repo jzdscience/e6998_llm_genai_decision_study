@@ -95,3 +95,33 @@ clone 放在旧运行根旁边，使用原 controller，保留模型、环境与
 
 源码同步是下一轮的准备步骤；轻量分类基线、StartLux9B 和加强性能测量尚未实现或冻结为
 新协议，不将旧 V3 pipeline 当作新实验启动。node 实际配置等待用户回传 READY 输出。
+
+## 2026-11-04：node Git 配置回传验收
+
+用户回传 code-server 完整成功输出，固定提交为
+`3dc18faa6c20edf8dc0c6824489f5b8297625186`，READY、8 copied / 0 reused。
+新源码根为 `/home/zhanj289/e6998/decision-study-src`，旧运行根仍为
+`/home/zhanj289/e6998/decision-study`。按该提交的 READY 执行路径，版本、导入位置、
+八份 prepared 文件、两个 release verifier 和三个 CLI 帮助检查均已通过。
+终端证据另存 `records/node-git-acceptance-2026-11-04.json`，不改写先前的本机验证收据。
+未据此宣称 GPU 可用、allocation 续期或新实验运行；接下来准备独立的 CLINC 轻量分类基线。
+
+## 2026-11-04：交付第一批 CLINC 400 标签 CPU 基线
+
+新增独立 `decision_study/baselines/`、机器可读 `clinc-tfidf400-v1` 方案、隔离环境依赖、
+launcher、运行说明与测试，未修改已冻结科学源码、V1/V2/V3 release manifest 或旧报告。
+本机仅新建 `.venv-baselines`，原 Lab/controller/GPU 环境不升级。
+
+TF-IDF 词表/IDF 与 multinomial LR 只使用原 calibration 400 条；一套固定参数，validation
+不选参。训练读取 V2 fitting 标签，不读取或哈希包含 test 标签的 V1 gold；全部模型与
+1,850 条预测先冻结，评价验证身份并记录访问后才打开 V1 gold。已有 test/stress 已见，
+新结果定位为预算明确的回顾性监督基线，不称未见确认结果。
+
+本机原始输入预检通过，CLINC 角色为 400/400/600/850，V2 fitting 行与 V1 一致。软件
+测试使用完整规模的人工 fixture，27 项通过；原 Lab 环境的 14 项 node 配置测试通过，
+新 baseline 测试模块因可选依赖不存在跳过 1 项。没有训练真实模型或计算真实评价结果。
+400 标签以外的官方 1,600 标签方案、冻结 embedding、StartLux9B 和加强系统测量仍待办。
+
+质量口径显式区分 main600、OOS-only850 与 mixed-stress1300（共享 main 的450条banking）。
+CPU 成本记录为一次1,850条批量预测，不冒充原 GPU HTTP/SLO 测量。软件验收与源码 SHA
+见 `records/light-baseline-preparation-2026-11-04.json`；实际运行待 node 回传新 bundle。

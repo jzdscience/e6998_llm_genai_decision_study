@@ -108,4 +108,7 @@ Prepared files: 0 copied, 8 reused
 两次均通过原 V2/V3 发布校验和三个 CLI 帮助检查；临时旧运行根的八份数据及 session
 哨兵文件共九项字节未变，新源码 clone 保持干净。14 项针对性测试通过，含目标冲突、
 源哈希错误、源码导入错误、版本/工作区检查、路径别名和并发目标保护。
-这属于本机 CPU 验证；公司 node 只能由用户在 code-server 执行，尚未收到 node 验收输出。
+以上属于本机 CPU 验证。用户随后回传公司 code-server 的 READY 输出，提交为
+`3dc18faa6c20edf8dc0c6824489f5b8297625186`，8 copied / 0 reused，路径与本文一致。
+见 [node 验收记录](../records/node-git-acceptance-2026-11-04.json)。这次验收限于源码与数据
+配置，不表示 GPU/session 初始化或下一轮实验已经执行。
