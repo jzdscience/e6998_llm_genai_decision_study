@@ -125,3 +125,29 @@ TF-IDF 词表/IDF 与 multinomial LR 只使用原 calibration 400 条；一套�
 质量口径显式区分 main600、OOS-only850 与 mixed-stress1300（共享 main 的450条banking）。
 CPU 成本记录为一次1,850条批量预测，不冒充原 GPU HTTP/SLO 测量。软件验收与源码 SHA
 见 `records/light-baseline-preparation-2026-11-04.json`；实际运行待 node 回传新 bundle。
+
+## 2026-11-04：400 标签 TF-IDF 回传完成并独立验收
+
+用户回传 `light_baseline_bundle.zip`，SHA256
+`7fcd28785a06bf235ee46ca829e4d839cf88743894c5b965cc3e04fcb215414f`，531,979 字节。
+源提交为 `797aff1edfe17d7daaf93551e6cfc236035b6945`。评价访问原时间为
+2026-11-05T06:41:05.568966+00:00，即本地 11/4 22:41；未改写原证据时间。
+
+7 个成员、self-hash、freeze/access/evaluation 链、三份源码、协议、五个输入 SHA 通过。
+400 个训练 ID 与 calibration 精确一致；validation400、test600、stress850 共1,850条预测
+完整。独立计数器复算所有指标和混淆矩阵，全部一致。V1 三个原对照的 641 份 config/shard
+从原 formal ZIP 校验并按 ID 比较，没有重跑模型或复用性能请求冒充独立样本。
+
+独立从保存 JSON 重构 TF-IDF/logits/softmax/列重排，1,850 条标签一致，概率最大差
+4.44e−16；2,184 维词表与训练文本吻合，IDF 误差为0，原模型记录18次迭代。没有重新拟合
+或生成新的评价访问收据。包内训练52.10ms、一次合并预测18.46ms仅是CPU内部计时，
+不与GPU服务相除计算速度比。
+
+主测试443/600=73.83%，银行297/450=66.00%；157个错误包括136个银行误拒、17个业务间
+错分、4个OOS漏拒。mixed stress1134/1300=87.23%，复用相同银行子集；850条OOS-only
+recall为98.47%。400标签监督条件与原提示式LLM不同，结果仍是已见数据上的回顾性比较。
+
+原包、解压与三项独立审计归档于外部证据根；源码仓库新增
+`reports/light-baseline-2026-11-04/`、验收记录与 bundle 索引，更新当前状态和原范围对照。
+准备记录和既有V1–V3报告保持原字节。未改科学源码/配置，未启动新GPU实验。
+下一批仍为完整1,600标签及冻结embedding基线，其后StartLux9B和加强性能测量。

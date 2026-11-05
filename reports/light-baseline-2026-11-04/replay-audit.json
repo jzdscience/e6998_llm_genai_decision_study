@@ -1,0 +1,115 @@
+{
+  "status": "PASS",
+  "audit_kind": "Independent saved-parameter mathematical replay; no fitting or production prediction/evaluation API calls",
+  "archive_sha256": "7fcd28785a06bf235ee46ca829e4d839cf88743894c5b965cc3e04fcb215414f",
+  "source_commit": "797aff1edfe17d7daaf93551e6cfc236035b6945",
+  "source_files_verified": {
+    "decision_study/baselines/__init__.py": "da5994853740c81a019d58a88c83aef5b3dee29b0f2500dd3309e132a68399b9",
+    "decision_study/baselines/__main__.py": "79cfff5daf2e1ff1f9b1f63fe641ed18906aeb27bae1838ec5100d93c038d19b",
+    "decision_study/baselines/study.py": "811484517d595f3e4635b8d0718ff8a0fa2c4aafa0a2aac6f7b606bd38b9a98e"
+  },
+  "protocol_source_sha256": "a3a3e628dfa2095ff54424bf2d21824b1d4845f560a27dc6ffbe92e6f9972011",
+  "protocol_export_sha256": "74e16b184834e3fd9777a0136d2cdc83ebf8db175c54aecabd9dfcd45b5772eb",
+  "protocol_semantically_equal": true,
+  "protocol_formatting_explains_different_hashes": true,
+  "archive_hash_chain_verified": true,
+  "examples_sha256": "a0b699e5fe48e003ddcbb6cab751b0f088edb0b5d297ee46c250121bfdd10703",
+  "train_rows": 400,
+  "prediction_rows": 1850,
+  "prediction_split_counts": {
+    "validation": 400,
+    "test": 600,
+    "stress": 850
+  },
+  "feature_count": 2184,
+  "coefficient_shape": [
+    16,
+    2184
+  ],
+  "iterations": [
+    18
+  ],
+  "training_vocabulary_exact_match": true,
+  "training_idf_max_absolute_error": 0.0,
+  "classes": [
+    "account_blocked",
+    "balance",
+    "bill_balance",
+    "bill_due",
+    "freeze_account",
+    "interest_rate",
+    "min_payment",
+    "oos",
+    "order_checks",
+    "pay_bill",
+    "pin_change",
+    "report_fraud",
+    "routing",
+    "spending_history",
+    "transactions",
+    "transfer"
+  ],
+  "prediction_label_order": [
+    "account_blocked",
+    "balance",
+    "bill_balance",
+    "bill_due",
+    "freeze_account",
+    "interest_rate",
+    "min_payment",
+    "order_checks",
+    "pay_bill",
+    "pin_change",
+    "report_fraud",
+    "routing",
+    "spending_history",
+    "transactions",
+    "transfer",
+    "oos"
+  ],
+  "class_column_remap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    7
+  ],
+  "model_parameters_finite": true,
+  "label_matches": 1850,
+  "probability_max_absolute_error": 4.440892098500626e-16,
+  "probability_mean_absolute_error": 3.892403010268635e-18,
+  "replay_probability_atol": 1e-12,
+  "zero_feature_rows": 8,
+  "zero_feature_split_counts": {
+    "validation": 1,
+    "stress": 7
+  },
+  "audit_environment": {
+    "python": "3.13.3",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "numpy": "2.3.5"
+  },
+  "reported_timing": {
+    "batch_predict_seconds": 0.01846327632665634,
+    "fit_seconds": 0.052095383405685425,
+    "prediction_count": 1850,
+    "scope": "CPU classifier-only batch timing, not HTTP/SLO goodput and not matched to prior L40S deployment measurements.",
+    "threads": 1
+  },
+  "timing_scope_review": {
+    "fit_clock": "Includes calibration-only vocabulary/IDF fit_transform and logistic-regression fit; starts inside threadpool/warnings context, after object construction.",
+    "prediction_clock": "One combined 1,850-row transform + predict_proba + class-column remap; excludes model/row JSON serialization, process startup, imports, input verification, service and queues.",
+    "evidence_limit": "Stored elapsed durations are not independently remeasured by this audit. Single batch, no repetitions and no CPU hardware model recorded; cannot claim request latency, SLO goodput, whole-session cost, energy or a measured speedup over GPU service."
+  }
+}

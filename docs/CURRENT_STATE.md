@@ -21,10 +21,12 @@
 | V1 | 15,950 条正式预测；60 个性能单元、60,200 次请求 | CLINC、SQuAD 可答性及三种 4B 模型比较完成；质量与性能采用各自固定样本口径 |
 | V2 | 10,800 条正式预测；36/36 性能单元；4,000 题最终评价 | gain−confidence 为 −0.225pp，95% CI [−0.908,+0.478]pp，未显示主方法改善 |
 | V3 | 17,700 条正式预测；六组 completion、freeze 和 3,200 题 ANLI 评价 | positive_gain9B−confidence9B 为 +0.594pp，95% CI [−0.528,+1.674]pp；主政策零转交，与直接 StartLux 相同 |
+| CLINC 轻量基线 | 400 标签 TF-IDF＋LR；1,850 条 CPU 预测；独立参数/指标重放通过 | main 73.83%、banking 66.00%；mixed stress 87.23%，回顾性监督对照 |
 
 合计 **44,450 条正式模型预测**，不含 smoke 或性能请求。预定 V1/V2/V3 均无需为补齐
 流程而重跑 GPU。V3 独立采集了 Qwen 输出；政策零转交不表示实验没有调用后级模型。
 V3 验证了 Qwen9B 单模型顺序运行，没有验证 9B 共驻留级联性能。
+上面的 44,450 条仅计 V1–V3 的 LLM 预测，本轮 1,850 条 CPU 分类器预测另计。
 
 ## 本次仓库核对
 
@@ -78,13 +80,19 @@ V2主政策表是validation10%目标；confidence实际validation转交9.6%、ho
 `clinc-tfidf400-v1` 固定使用 400 个 calibration 标签训练 TF-IDF＋LogisticRegression。
 validation 仅诊断，600 条 main test 与 stress 保留回顾性解释；850 条 OOS 与 1,300 条
 混合 stress 分开报告。依赖安装于独立 `.venv-baselines`，原 controller/GPU 环境不变。
-27 项人工软件 fixture 测试通过，真实输入身份与角色预检通过；未进行真实拟合/评分。
+准备阶段 27 项人工软件 fixture 测试与真实输入预检通过；随后用户已在 node 完成真实运行。
+回传绑定源码 `797aff1edfe17d7daaf93551e6cfc236035b6945`，7 个包成员与身份链核验通过，
+全部指标独立复算一致，1,850 条保存参数重放标签一致，最大概率差 4.44e−16。
+主测试 443/600=73.83%，银行子集 297/450=66.00%；136 条银行请求误判 OOS。
+原始 ZIP 已按 SHA 保存，真实回传验收见
+[报告](../reports/light-baseline-2026-11-04/RESULTS_ZH.md)和
+[验收记录](../records/light-baseline-acceptance-2026-11-04.json)。
 运行入口见 [RUN_LIGHT_BASELINE_ZH.md](RUN_LIGHT_BASELINE_ZH.md)，
-验收边界见 [准备记录](../records/light-baseline-preparation-2026-11-04.json)。
+历史准备边界保留于 [准备记录](../records/light-baseline-preparation-2026-11-04.json)。
 
 1. 浏览三轮演示并准备课程讲述，突出“何时转交值得”、负结果及真实服务成本。
-2. 在 node 执行并回传这批 400 标签 TF-IDF 基线，再安排完整 1,600 标签预算、冻结
-   embedding 分类头、StartLux9B 与加强性能测量。每轮单独固定数据角色与评价范围；
+2. 400 标签 TF-IDF 已完成；接着准备完整 1,600 标签预算、冻结 embedding 分类头，
+   然后安排 StartLux9B 与加强性能测量。每轮单独固定数据角色与评价范围；
    不能用已看的 holdout 选优后称确认结果。
 3. 结合最终证据完成课程报告、演示排练和固定版本交付。Git已恢复，可继续检查差异并
    整理提交；CPU演示与本机开发环境保持原位。

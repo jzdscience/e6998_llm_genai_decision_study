@@ -1,0 +1,106 @@
+{
+  "archive_bytes": 531979,
+  "archive_sha256": "7fcd28785a06bf235ee46ca829e4d839cf88743894c5b965cc3e04fcb215414f",
+  "checks": [
+    "exact safe unique ZIP inventory and CRC",
+    "three self hashes",
+    "four frozen artifact hashes",
+    "freeze-access-evaluation links",
+    "released commit and three source files",
+    "raw source protocol and canonical saved protocol",
+    "five historical input hashes",
+    "pinned package versions and node roots",
+    "fit size/count and interpretation consistency"
+  ],
+  "evaluation_access_at_utc": "2026-11-05T06:41:05.568966+00:00",
+  "input_sources": {
+    "v1_examples_sha256": {
+      "path_relative_to_external_artifact_root": "results/returned-experiment-2026-11-02-101054/data/examples.jsonl",
+      "sha256": "a0b699e5fe48e003ddcbb6cab751b0f088edb0b5d297ee46c250121bfdd10703"
+    },
+    "v1_gold_sha256": {
+      "path_relative_to_external_artifact_root": "results/returned-experiment-2026-11-02-101054/data/gold.json",
+      "sha256": "bc5ec4891caed470970115a41e2f6debe2a2967b3f5ff3496622a3d29311fc35"
+    },
+    "v1_manifest_sha256": {
+      "path_relative_to_external_artifact_root": "results/returned-experiment-2026-11-02-101054/data/manifest.json",
+      "sha256": "7364419fcf52eaf691a40282c6027eec62a026cef0b41a6c9aa31eb06a593d4b"
+    },
+    "v2_examples_sha256": {
+      "path_relative_to_external_artifact_root": "results/solo-v2-prepared/data/examples.jsonl",
+      "sha256": "f29fac859f0324e7ed7d4cf54bdc674472a27451695ee9fff545d635d23bb25b"
+    },
+    "v2_fit_gold_sha256": {
+      "path_relative_to_external_artifact_root": "results/solo-v2-prepared/data/fit_gold.json",
+      "sha256": "e44283e1775f8085c09ee9770e98038d527e4810a7e50626cc4240ab76078e9b"
+    }
+  },
+  "limits": [
+    "Hash chains are integrity evidence, not signatures or independent OS file-access traces.",
+    "Recorded Linux environment and elapsed times were not remeasured remotely.",
+    "This read-only audit performs no fitting, evaluation command, or model-service call."
+  ],
+  "protocol_note": "The source config and saved canonical JSON have different bytes but identical parsed content.",
+  "recorded_node_input_roots": {
+    "v1": "/home/zhanj289/e6998/decision-study/results/solo-v1",
+    "v2": "/home/zhanj289/e6998/decision-study-src/results/solo-v2"
+  },
+  "reported_environment": {
+    "machine": "x86_64",
+    "packages": {
+      "cloudpickle": "3.1.2",
+      "joblib": "1.6.0",
+      "narwhals": "2.28.0",
+      "numpy": "2.3.5",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.16.3",
+      "threadpoolctl": "3.7.0"
+    },
+    "python": "3.11.5",
+    "system": "Linux",
+    "threads": 1
+  },
+  "saved_protocol_canonical_sha256": "74e16b184834e3fd9777a0136d2cdc83ebf8db175c54aecabd9dfcd45b5772eb",
+  "source_identity": {
+    "files": {
+      "decision_study/baselines/__init__.py": "da5994853740c81a019d58a88c83aef5b3dee29b0f2500dd3309e132a68399b9",
+      "decision_study/baselines/__main__.py": "79cfff5daf2e1ff1f9b1f63fe641ed18906aeb27bae1838ec5100d93c038d19b",
+      "decision_study/baselines/study.py": "811484517d595f3e4635b8d0718ff8a0fa2c4aafa0a2aac6f7b606bd38b9a98e"
+    },
+    "git_available": true,
+    "git_commit": "797aff1edfe17d7daaf93551e6cfc236035b6945",
+    "git_dirty": false
+  },
+  "source_protocol_file_sha256": "a3a3e628dfa2095ff54424bf2d21824b1d4845f560a27dc6ffbe92e6f9972011",
+  "status": "PASS",
+  "verified_members": {
+    "evaluation-access.json": {
+      "bytes": 450,
+      "sha256": "7fb4e1a2b9f0679353f0d897d0a8ef2e6aa81f0e7fd124b2dbdb8a8c76ebeff3"
+    },
+    "evaluation.json": {
+      "bytes": 14692,
+      "sha256": "5c9162cb5cda3ad9e5875c5c2da2558de6bc70191630cf98f4157a7cf924f8b6"
+    },
+    "fit.json": {
+      "bytes": 1673,
+      "sha256": "f1dcb0aedc0bef8725b933db3b1ff5e00748b3bfbbc0011fbb3cbb0aa5f8ca47"
+    },
+    "freeze.json": {
+      "bytes": 19057,
+      "sha256": "1ddd3ab42cd68a225d2cfd11b649889e1f3871164be765e386f14408e3dd47b3"
+    },
+    "model.json": {
+      "bytes": 1095685,
+      "sha256": "f567eb07b72efc481e1e5ba5135eb567130584271e5363ec87afbe5397a84d8b"
+    },
+    "predictions.jsonl": {
+      "bytes": 845945,
+      "sha256": "9473489e928505d52c51d39952af1eceeb49eaab9b865923cfdd501dd55e57ab"
+    },
+    "protocol.json": {
+      "bytes": 2683,
+      "sha256": "74e16b184834e3fd9777a0136d2cdc83ebf8db175c54aecabd9dfcd45b5772eb"
+    }
+  }
+}

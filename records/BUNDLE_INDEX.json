@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "maintained_as_of": "2026-11-03",
+  "maintained_as_of": "2026-11-04",
   "note": "archive and extracted_directory paths are relative to external_artifact_root, NOT this source checkout. Original archives and extraction trees are not included in Git. Historical receipt fields are preserved; inspect docs/ARTIFACTS_ZH.md.",
   "bundles": [
     {
@@ -306,6 +306,25 @@
         1.6741242135245225
       ],
       "note": "Positive-gain policies froze no-deferral; result equals direct local. Sequential quality collection only, no 9B co-resident performance benchmark."
+    },
+    {
+      "id": "light-baseline-20261105-064105",
+      "archive": "records/bundles/light-baseline-20261105-064105-7fcd28785a06.zip",
+      "sha256": "7fcd28785a06bf235ee46ca829e4d839cf88743894c5b965cc3e04fcb215414f",
+      "bytes": 531979,
+      "evaluation_access_at_utc": "2026-11-05T06:41:05.568966+00:00",
+      "bundle_kind": "clinc-tfidf400-v1",
+      "verified_file_count": 7,
+      "original_filename": "light_baseline_bundle.zip",
+      "extracted_directory": "results/returned-light-baseline-2026-11-04-224105",
+      "reported_state": "COMPLETE",
+      "reported_state_source": "evaluation.json/status",
+      "verified_state": "complete_independently_verified",
+      "integrity_validation": "exact_inventory_crc_self_hashes_artifact_hashes_and_freeze_access_evaluation_chain_verified",
+      "source_commit": "797aff1edfe17d7daaf93551e6cfc236035b6945",
+      "training_label_count": 400,
+      "cpu_classifier_prediction_count": 1850,
+      "note": "Retrospective supervised auxiliary baseline. No new LLM/GPU predictions. CPU batch timing is not HTTP/SLO performance. Main600 and mixed1300 share450 banking inputs; OOS-only850 reported as recall."
     }
   ],
   "copied_from_project_root": "/Users/zhanj289/Documents/ChatGPT/COMS6998/decision-study",

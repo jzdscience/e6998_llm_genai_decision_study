@@ -1,0 +1,100 @@
+{
+  "date": "2026-11-04",
+  "timezone": "America/Los_Angeles",
+  "experiment_id": "clinc-tfidf400-v1",
+  "status": "complete_independently_verified",
+  "source_commit": "797aff1edfe17d7daaf93551e6cfc236035b6945",
+  "uploaded_path": "/Users/zhanj289/Desktop/light_baseline_bundle.zip",
+  "archive": {
+    "id": "light-baseline-20261105-064105",
+    "archive": "records/bundles/light-baseline-20261105-064105-7fcd28785a06.zip",
+    "sha256": "7fcd28785a06bf235ee46ca829e4d839cf88743894c5b965cc3e04fcb215414f",
+    "bytes": 531979,
+    "evaluation_access_at_utc": "2026-11-05T06:41:05.568966+00:00",
+    "bundle_kind": "clinc-tfidf400-v1",
+    "verified_file_count": 7,
+    "original_filename": "light_baseline_bundle.zip",
+    "extracted_directory": "results/returned-light-baseline-2026-11-04-224105",
+    "reported_state": "COMPLETE",
+    "reported_state_source": "evaluation.json/status",
+    "verified_state": "complete_independently_verified",
+    "integrity_validation": "exact_inventory_crc_self_hashes_artifact_hashes_and_freeze_access_evaluation_chain_verified",
+    "source_commit": "797aff1edfe17d7daaf93551e6cfc236035b6945",
+    "training_label_count": 400,
+    "cpu_classifier_prediction_count": 1850,
+    "note": "Retrospective supervised auxiliary baseline. No new LLM/GPU predictions. CPU batch timing is not HTTP/SLO performance. Main600 and mixed1300 share450 banking inputs; OOS-only850 reported as recall."
+  },
+  "external_artifact_root": "/Users/zhanj289/Desktop/COMS6998/project/solo-experiments-2026-10-30/decision-study",
+  "external_audit_directory": ".validation/light-baseline-complete-2026-11-04",
+  "report": "reports/light-baseline-2026-11-04/RESULTS_ZH.md",
+  "previous_preparation_receipt": "records/light-baseline-preparation-2026-11-04.json",
+  "audits": {
+    "identity": "reports/light-baseline-2026-11-04/identity-audit.json",
+    "metrics": "reports/light-baseline-2026-11-04/metrics-audit.json",
+    "saved_parameter_replay": "reports/light-baseline-2026-11-04/replay-audit.json"
+  },
+  "validation": {
+    "archive_members": 7,
+    "source_inputs_verified": 5,
+    "v1_config_and_shards_verified": 641,
+    "prediction_count": 1850,
+    "prediction_splits": {
+      "validation": 400,
+      "test": 600,
+      "stress": 850
+    },
+    "training_count": 400,
+    "all_reported_metrics_match": true,
+    "labels_replayed_matching": 1850,
+    "probability_max_absolute_error": 4.440892098500626e-16,
+    "vocabulary_exact_calibration_match": true,
+    "idf_max_absolute_error": 0.0,
+    "model_feature_count": 2184,
+    "permanent_audit_scripts_reexecuted": true,
+    "reexecuted_receipts_byte_identical": true,
+    "independent_report_review": "Passed after clarifying Qwen supervision and updating scope header."
+  },
+  "main_test": {
+    "correct": 443,
+    "count": 600,
+    "accuracy": 0.7383333333333333,
+    "macro_f1": 0.7493302330927417,
+    "banking_correct": 297,
+    "banking_count": 450,
+    "banking_to_oos": 136
+  },
+  "actions": {
+    "raw_archive_preserved": true,
+    "original_result_bytes_preserved": true,
+    "real_model_refit_in_audit": false,
+    "new_model_service_calls": false,
+    "new_evaluation_access_receipt": false,
+    "scientific_source_changes": false
+  },
+  "interpretation": [
+    "Post-hoc descriptive comparison on previously viewed test/stress; no new confirmation or model selection.",
+    "400 supervised calibration labels differ from original prompted LLM decision setting.",
+    "Timing evidence is not replayed or validated by this metric audit.",
+    "Receipt hash chain documents declared lifecycle; not an independent forensic proof of historical reads.",
+    "CPU timing is a single batch internal duration; not matched service latency or GPU speedup.",
+    "Main600 and mixed1300 overlap in450banking inputs."
+  ],
+  "remaining": [
+    "Full1600-label fixed baseline protocol/run",
+    "Frozen embedding classifier baseline",
+    "StartLux9B size-matched control",
+    "Longer systems measurements"
+  ],
+  "report_files_sha256": {
+    "reports/light-baseline-2026-11-04/.DS_Store": "860fda13c596d456d1d9e06d759eb5c711a907bcf73c85f4fd69d10037c40c46",
+    "reports/light-baseline-2026-11-04/RESULTS_ZH.md": "89637ba6d951d6ecda826b2e0e623c9eb12770cfdaf176b531d9057b2f101b04",
+    "reports/light-baseline-2026-11-04/audit/README.md": "4a99ef1b9435d3346180cc60a669d5335fb440c85ac98b129dbee2fd3fd4f799",
+    "reports/light-baseline-2026-11-04/audit/audit_identity.py": "522d503def171fb5942b86baf0afbff950f30be7760bb6622a460f72481386ee",
+    "reports/light-baseline-2026-11-04/audit/audit_metrics.py": "35982db3f9af464c2fa20306552f80000131c3e828c46920d37643855565a282",
+    "reports/light-baseline-2026-11-04/audit/replay.py": "ac0704271858db058a5cb3e50a7fcca027081e26fbd16f7506fecf9843f38f1f",
+    "reports/light-baseline-2026-11-04/identity-audit.json": "43d15344002a8c105a4032aa80b2351f96e25a76247fb755e2c3b55d2eae22c1",
+    "reports/light-baseline-2026-11-04/metrics-audit.json": "e5f1ce30f53679b5b6d5d72417f60c0ba7b73215e36276a380a022d2a61254b7",
+    "reports/light-baseline-2026-11-04/replay-audit.json": "4838e79a426c4723b65d7c7604e6ed213a301f39868de0b3334efc43a78c9e9f",
+    "reports/light-baseline-2026-11-04/summary.csv": "afd0b3d608acd4bd23907b4997b9bf6c1ea8ca35f19172643c97e4ca3241f455"
+  }
+}
