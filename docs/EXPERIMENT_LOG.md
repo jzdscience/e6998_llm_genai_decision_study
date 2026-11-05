@@ -151,3 +151,30 @@ recall为98.47%。400标签监督条件与原提示式LLM不同，结果仍是�
 `reports/light-baseline-2026-11-04/`、验收记录与 bundle 索引，更新当前状态和原范围对照。
 准备记录和既有V1–V3报告保持原字节。未改科学源码/配置，未启动新GPU实验。
 下一批仍为完整1,600标签及冻结embedding基线，其后StartLux9B和加强性能测量。
+
+## 2026-11-04：交付完整标签预算与冻结 MiniLM 分类器
+
+用户要求继续。本次新增独立 `decision_study/cheap_baselines/`，固定TF-IDF1600、
+MiniLM400、MiniLM1600三个条件及统一评分流程。原400标签baseline、V1/V2/V3源码、
+配置、发布清单和已验收结果保持不变；不是重跑旧pipeline或新V4路由实验。
+
+官方完整训练1600包含calibration400及原engineering-dev的60条银行文本，不含4条
+authored OOS；与validation400/test600/stress850的ID和规范化文本均零重叠。数据准备
+从固定revision原始文件提取训练专用文件，两次字节相同；fit/preflight不读raw或V1 gold。
+训练预算指实际传入LR的标签，400/1600同时改变OOS先验，不声称纯样本量效应。
+
+MiniLM固定官方revision及八份文件SHA，使用未量化ONNX、maskedmean+L2、CPU1线程、
+batch32，256token上限拒绝截断。真实3450输入仅做tokenize预检，max25；人工33句
+encoder smoke验证批次/padding、CPU签名、长文本阻断和离线缓存复用。没有对真实
+实验数据执行embedding、拟合或评分。编码器成本和LR成本单列，不能省略共享编码成本。
+
+新38项人工fixture测试加原baseline27项通过，9项隔离mutation被检出；原node配置
+测试单独运行。新环境固定24项CPU运行依赖，pip check通过，Linux/Python3.11全量
+binary wheel解析通过。处理了跨目录launcher导入旧包风险：入口先cd到新源码根；
+模型根在resolve前拒绝symlink。依赖锁生成时排除了当前目录可发现的本项目egg-info，
+最终依赖清单不含decision-study这个本地源码包。
+
+新增一个suite入口，下载/准备数据与权重、预检、三项全局freeze、评价和导出均可一次
+执行。完整结果可核验复用；无freeze的部分结果和已有access但缺评价的结果会保留并
+停止，不自动删证据重跑。实际node运行等待回传 `cheap_baseline_bundle.zip`。
+准备验收见 `records/cheap-baselines-preparation-2026-11-04.json`；真实结果尚未产生。

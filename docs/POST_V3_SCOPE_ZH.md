@@ -28,7 +28,7 @@ V1/V2 真实服务测量及独立审计，评测部分足以支撑完整课程�
 | 较大生成式后级Qwen9B | V3完成ANLI质量采集，尚未做9B共驻留性能 | 已兑现质量扩展，系统能力边界保留 |
 | 新任务ANLI | V3完成官方三个round的全部test | 已兑现 |
 | StartLux9B规模匹配对照 | 尚未实施 | 上一版未列主线，属于降优先，不是完成或取消 |
-| TF-IDF+线性分类器、冻结embedding+分类头 | 400 标签 TF-IDF 已验收，main 73.83%；1,600 标签预算和 embedding 待实施 | 已完成部分见 [结果](../reports/light-baseline-2026-11-04/RESULTS_ZH.md)，其余待办保留 |
+| TF-IDF+线性分类器、冻结embedding+分类头 | 400 标签 TF-IDF 已验收，main 73.83%；TF-IDF1600及MiniLM400/1600代码与协议已就绪，待node运行 | 已完成部分见 [结果](../reports/light-baseline-2026-11-04/RESULTS_ZH.md)，下一批见 [入口](RUN_CHEAP_BASELINES_ZH.md) |
 | 更充分系统测量：3–5分钟、至少5轮 | V2完成30秒、3轮；加强版尚未实施 | 保留，并建议新增预算控制条件 |
 | 候选顺序/措辞稳健性消融 | 尚未实施 | 上一版没有展开，仍为原可选待办 |
 | 受控live演示 | live尚未完成；CPU Lab已覆盖V1–V3 | live仍可选；CPU回放整合已完成 |

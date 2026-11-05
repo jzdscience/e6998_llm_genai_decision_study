@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "experiment_id": "clinc-cheap-v1",
+  "seed": 6998,
+  "recipes": [
+    "tfidf1600",
+    "minilm400",
+    "minilm1600"
+  ],
+  "labels": [
+    "account_blocked",
+    "balance",
+    "bill_balance",
+    "bill_due",
+    "freeze_account",
+    "interest_rate",
+    "min_payment",
+    "order_checks",
+    "pay_bill",
+    "pin_change",
+    "report_fraud",
+    "routing",
+    "spending_history",
+    "transactions",
+    "transfer",
+    "oos"
+  ],
+  "sources": {
+    "v1_manifest_sha256": "7364419fcf52eaf691a40282c6027eec62a026cef0b41a6c9aa31eb06a593d4b",
+    "v1_examples_sha256": "a0b699e5fe48e003ddcbb6cab751b0f088edb0b5d297ee46c250121bfdd10703",
+    "v1_gold_sha256": "bc5ec4891caed470970115a41e2f6debe2a2967b3f5ff3496622a3d29311fc35",
+    "v2_examples_sha256": "f29fac859f0324e7ed7d4cf54bdc674472a27451695ee9fff545d635d23bb25b",
+    "v2_fit_gold_sha256": "e44283e1775f8085c09ee9770e98038d527e4810a7e50626cc4240ab76078e9b"
+  },
+  "prepared": {
+    "train1600.jsonl": "cec43d033880b75b77933bed0b03d345a36321a63f105f53e279851bd654f468",
+    "manifest.json": "abcb276997e62d2d53dce4a3cbe745d25d78b3462c31524b1687bba23cc5899b"
+  },
+  "raw": {
+    "revision": "828f8093932c8fe6ca7936c3d2e52903b1c523de",
+    "files": {
+      "data_full.json": "36923c3705a59e08fe9c3883d8bc2dd966ef93e22cb78ac41171782a698d56e0",
+      "domains.json": "b947b579d3b8e74b06f93b01083d8efaff2888b43a3e362533bd88a6e1211b3a"
+    },
+    "urls": {
+      "data_full.json": "https://raw.githubusercontent.com/clinc/oos-eval/828f8093932c8fe6ca7936c3d2e52903b1c523de/data/data_full.json",
+      "domains.json": "https://raw.githubusercontent.com/clinc/oos-eval/828f8093932c8fe6ca7936c3d2e52903b1c523de/data/domains.json"
+    }
+  },
+  "vectorizer": {
+    "analyzer": "word",
+    "ngram_range": [
+      1,
+      2
+    ],
+    "lowercase": true,
+    "strip_accents": null,
+    "token_pattern": "(?u)\\b\\w\\w+\\b",
+    "stop_words": null,
+    "min_df": 1,
+    "max_df": 1.0,
+    "max_features": null,
+    "binary": false,
+    "norm": "l2",
+    "use_idf": true,
+    "smooth_idf": true,
+    "sublinear_tf": false
+  },
+  "classifier": {
+    "C": 1.0,
+    "l1_ratio": 0.0,
+    "solver": "lbfgs",
+    "tol": 0.0001,
+    "max_iter": 1000,
+    "fit_intercept": true,
+    "class_weight": null,
+    "random_state": 6998
+  },
+  "encoder": {
+    "repository": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "backend": "onnxruntime",
+    "provider": "CPUExecutionProvider",
+    "dtype": "float32",
+    "embedding_dimension": 384,
+    "pooling": "attention_mask_mean_then_l2",
+    "max_length": 256,
+    "batch_size": 32,
+    "threads": 1,
+    "files": {
+      "onnx/model.onnx": {
+        "sha256": "6fd5d72fe4589f189f8ebc006442dbb529bb7ce38f8082112682524616046452",
+        "bytes": 90405214
+      },
+      "tokenizer.json": {
+        "sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+        "bytes": 466247
+      },
+      "config.json": {
+        "sha256": "953f9c0d463486b10a6871cc2fd59f223b2c70184f49815e7efbcab5d8908b41",
+        "bytes": 612
+      },
+      "tokenizer_config.json": {
+        "sha256": "acb92769e8195aabd29b7b2137a9e6d6e25c476a4f15aa4355c233426c61576b",
+        "bytes": 350
+      },
+      "special_tokens_map.json": {
+        "sha256": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3",
+        "bytes": 112
+      },
+      "sentence_bert_config.json": {
+        "sha256": "fc1993fde0a95c24ec6c022539d41cf6e2f7c9721e5415d6fb6897472a9cd4b7",
+        "bytes": 53
+      },
+      "1_Pooling/config.json": {
+        "sha256": "4be450dde3b0273bb9787637cfbd28fe04a7ba6ab9d36ac48e92b11e350ffc23",
+        "bytes": 190
+      },
+      "modules.json": {
+        "sha256": "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf",
+        "bytes": 349
+      }
+    }
+  },
+  "environment": {
+    "certifi": "2026.10.23",
+    "charset-normalizer": "3.5.2",
+    "cloudpickle": "3.1.2",
+    "filelock": "4.2.9",
+    "flatbuffers": "25.12.19",
+    "fsspec": "2026.9.0",
+    "hf-xet": "1.8.0",
+    "huggingface-hub": "0.36.0",
+    "idna": "3.20",
+    "joblib": "1.6.0",
+    "narwhals": "2.28.0",
+    "numpy": "2.3.5",
+    "onnxruntime": "1.31.1",
+    "packaging": "26.3",
+    "protobuf": "7.36.2",
+    "pyyaml": "6.0.3",
+    "requests": "2.34.2",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.16.3",
+    "threadpoolctl": "3.7.0",
+    "tokenizers": "0.23.3",
+    "tqdm": "4.70.1",
+    "typing-extensions": "4.16.0",
+    "urllib3": "2.8.0"
+  },
+  "interpretation": {
+    "evaluation": "Retrospective descriptive comparison on previously viewed V1 CLINC test/stress. No new confirmatory holdout or model selection.",
+    "training": "Fixed TF-IDF1600 and frozen MiniLM classifiers with400/1600 labels. All vocabulary/IDF fitting and supervised coefficients use the declared training IDs only.",
+    "budgets": "Full1600 has1500banking+100OOS (6.25%OOS); calibration400 has300banking+100OOS (25%OOS). Full1600 includes60 engineering development inputs. Budget comparisons are not pure sample-size effects.",
+    "preparation": "Separate preparation parses pinned public all-splits data to extract training-only files. Fit/preflight do not open raw source or V1gold. Loading1600 labels to verify membership is not label secrecy between classifier conditions; only the declared subset enters each fit.",
+    "selection": "One encoder and one fixed classifier recipe. Validation diagnostic only; all three classifiers and predictions freeze before scoring access. No parameter/threshold selection.",
+    "stress": "Stored 850-row stress is OOS-only. Historical mixed stress combines 450 banking test rows with those 850 OOS rows; overlaps main test.",
+    "embedding": "CPU ONNX frozen public encoder; publisher masked-mean pooling and L2 normalization. Max256 tokens including special tokens, reject rather than truncate. Public pretraining/data exposure unknown.",
+    "cost": "Encoder timing for3450inputs is shared and reported separately; LR timing excludes encoder. TF-IDF fitting/transform timing is separate. Single CPU batches are not HTTP/SLO performance or matched GPU speedup.",
+    "scope": "Three new supervised classifiers,5550 prediction rows. Original TFIDF400 is a historical reference and is not refitted. No LLM/GPU inference or modification to V1-V3."
+  }
+}

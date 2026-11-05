@@ -1,0 +1,207 @@
+{
+  "date": "2026-11-04",
+  "timezone": "America/Los_Angeles",
+  "experiment_id": "clinc-cheap-v1",
+  "status": "implementation_verified_real_run_pending",
+  "base_commit": "72f26ca69799c578914fa3d07e4e24b6a034c131",
+  "source_sha256": {
+    "configs/cheap_baseline_requirements.txt": "b0635640bb9dd73b845fbdefeb011bc9c82c2037c4d8f77cf425720ae65f6f4b",
+    "configs/clinc_cheap_protocol.json": "3ccc9c362267df70597d0fe301f85f22caff65054a6644fd7cc1e84f4ab9157e",
+    "decision_study/cheap_baselines/__init__.py": "2889438c1780929e701d0a93713c0640701bfc0f52bd894488b5d1d85ae9c184",
+    "decision_study/cheap_baselines/__main__.py": "8498949eae3320cb53ca6c7487d126172884ad02baf19bf4afadf9b7c88c8914",
+    "decision_study/cheap_baselines/data.py": "21d6205cf428c89ca05658252b6185584e8d36170fd5d75fca6c6ec9ca46f831",
+    "decision_study/cheap_baselines/encoder.py": "c6645091d2669ed8c9559a54c56747e17536ad7fd27d22d9483491f46ed6a431",
+    "decision_study/cheap_baselines/study.py": "842e12be5f26a0d3c9d552b49c44c1f85db5571d7415569f1328e033112b4621",
+    "scripts/run_cheap_baseline_suite.sh": "1b33f672d44ba39f846657b8de1c599f8c1859c7f6e448d4c0fd6e764f8e267f",
+    "scripts/run_cheap_baselines.sh": "21046e6819832c3daa0ef3b569f0204d913d9e0b7cab0a526dc0b8342f0bd57c",
+    "tests/test_cheap_baselines.py": "34542ce345c287f1553205cb1b6444c0ba6c8a2fde0fe6b27d765f2c01519d57"
+  },
+  "recipes": [
+    "tfidf1600",
+    "minilm400",
+    "minilm1600"
+  ],
+  "protocol_sha256": "3ccc9c362267df70597d0fe301f85f22caff65054a6644fd7cc1e84f4ab9157e",
+  "prepared_hashes": {
+    "train1600.jsonl": "cec43d033880b75b77933bed0b03d345a36321a63f105f53e279851bd654f468",
+    "manifest.json": "abcb276997e62d2d53dce4a3cbe745d25d78b3462c31524b1687bba23cc5899b"
+  },
+  "software_validation": {
+    "focused_new_and_existing_baseline_tests": {
+      "status": "PASS",
+      "new_tests": 38,
+      "existing_baseline_tests": 27,
+      "total_passed": 65,
+      "total_failed": 0,
+      "elapsed_seconds": 8.5,
+      "new_test_file_sha256": "34542ce345c287f1553205cb1b6444c0ba6c8a2fde0fe6b27d765f2c01519d57",
+      "command": ".venv-cheap-baselines/bin/python -m pytest -q tests/test_cheap_baselines.py tests/test_light_baseline.py",
+      "data_scope": "Artificial official-shaped data, fake encoder matrices and real sklearn fitting. Separate encoder tests use artificial files/tokenizer/session; real encoder smoke is independently recorded. No real study fit or evaluation.",
+      "mutation_receipt": ".validation/cheap-baselines-2026-11-04/mutation-results.json",
+      "all_9_mutants_detected": true,
+      "production_sources_mutated_in_worktree": false,
+      "integration_note": "One prior combined run had a fixture expecting the previous verbose CLI output; after adapting to the condensed status/main_test output, all65 pass. Mutations preceded only this CLI presentation change."
+    },
+    "node_checkout_regression_passed": 14,
+    "mutation_count": 9,
+    "mutations": [
+      {
+        "name": "fit-early-gold",
+        "test": "test_real_context_and_pipeline_keep_raw_and_gold_out_of_fit",
+        "detected": true
+      },
+      {
+        "name": "load-reads-all-splits-raw",
+        "test": "test_prepare_and_load_never_open_project_gold_and_load_never_opens_raw",
+        "detected": true
+      },
+      {
+        "name": "vocabulary-leaks-evaluation",
+        "test": "test_tfidf_fits_only_full_training_texts_and_dense_budgets_are_distinct",
+        "detected": true
+      },
+      {
+        "name": "skip-class-remap",
+        "test": "test_class_axis_and_oos_stress_denominators",
+        "detected": true
+      },
+      {
+        "name": "minilm400-uses-1600-labels",
+        "test": "test_tfidf_fits_only_full_training_texts_and_dense_budgets_are_distinct",
+        "detected": true
+      },
+      {
+        "name": "skip-encoder-file-hash",
+        "test": "test_encoder_file_identity_is_checked_before_loading",
+        "detected": true
+      },
+      {
+        "name": "allow-overlength-input",
+        "test": "test_encoder_rejects_truncation_before_session_creation",
+        "detected": true
+      },
+      {
+        "name": "incomplete-suite-freeze",
+        "test": "test_freeze_must_bind_every_recipe_even_if_unbound_files_still_exist",
+        "detected": true
+      },
+      {
+        "name": "skip-feature-input-identity",
+        "test": "test_feature_input_identity_is_checked_beyond_artifact_hashes",
+        "detected": true
+      }
+    ],
+    "pip_check": true,
+    "bash_syntax": true,
+    "cli_help": true,
+    "launcher_correct_import_from_shadow_cwd": true,
+    "frozen_scientific_source_changes": []
+  },
+  "encoder_smoke": {
+    "status": "PASS",
+    "kind": "Real CPU ONNX smoke on authored software fixtures only",
+    "rows": 33,
+    "shape": [
+      33,
+      384
+    ],
+    "dtype": "float32",
+    "max_duplicate_absolute_error": 1.0803341865539551e-07,
+    "single_vs_padded_batch_max_absolute_error": 1.0803341865539551e-07,
+    "long_input_rejected_before_session": true,
+    "existing_model_download_hit_without_network": true,
+    "environment": {
+      "python": "3.13.3",
+      "system": "Darwin",
+      "machine": "arm64",
+      "packages": {
+        "onnxruntime": "1.31.1",
+        "tokenizers": "0.23.3",
+        "numpy": "2.3.5",
+        "huggingface-hub": "0.36.0"
+      }
+    }
+  },
+  "actual_input_preflight": {
+    "source_pins_verified": true,
+    "training_counts": {
+      "400": 400,
+      "1600": 1600
+    },
+    "full_training_oos_fraction": 0.0625,
+    "calibration_oos_fraction": 0.25,
+    "engineering_development_included": 60,
+    "evaluation_id_or_normalized_text_overlap": 0,
+    "prediction_rows_per_recipe": 1850,
+    "shared_encoder_input_count": 3450,
+    "max_tokens_with_special": 25,
+    "p95_tokens_with_special": 17,
+    "over_256_count": 0,
+    "raw_and_v1_gold_guarded_during_load_and_preflight": true,
+    "real_model_training_performed": false,
+    "real_experiment_embedding_performed": false,
+    "real_quality_evaluation_performed": false
+  },
+  "environment": {
+    "isolated_directory": ".venv-cheap-baselines",
+    "runtime_packages": {
+      "certifi": "2026.10.23",
+      "charset-normalizer": "3.5.2",
+      "cloudpickle": "3.1.2",
+      "filelock": "4.2.9",
+      "flatbuffers": "25.12.19",
+      "fsspec": "2026.9.0",
+      "hf-xet": "1.8.0",
+      "huggingface-hub": "0.36.0",
+      "idna": "3.20",
+      "joblib": "1.6.0",
+      "narwhals": "2.28.0",
+      "numpy": "2.3.5",
+      "onnxruntime": "1.31.1",
+      "packaging": "26.3",
+      "protobuf": "7.36.2",
+      "pyyaml": "6.0.3",
+      "requests": "2.34.2",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.16.3",
+      "threadpoolctl": "3.7.0",
+      "tokenizers": "0.23.3",
+      "tqdm": "4.70.1",
+      "typing-extensions": "4.16.0",
+      "urllib3": "2.8.0"
+    },
+    "linux_python311_binary_resolution": "PASS",
+    "linux_node_execution": "not_performed",
+    "linux_ort_requirement": "x86_64 with glibc>=2.28"
+  },
+  "validation_receipts_sha256": {
+    ".validation/cheap-baselines-2026-11-04/tests-receipt.json": "406ef42bd4f28033d842a2d12f1c9dcafd6b81c00afca67f5a44398082907aeb",
+    ".validation/cheap-baselines-2026-11-04/mutation-results.json": "c27416a77b0b90c38235bb3d44f174b044d3d7bd34a476a061740b53187d983e",
+    ".validation/cheap-baselines-2026-11-04/encoder-smoke.json": "a27a98e410800b630c4b6cbf8e5bbad04cd6d3de826d90ae71416c2d0c9c9918",
+    ".validation/cheap-baselines-2026-11-04/dependency-wheel-audit.json": "ca1926e3ecc8e2d67dcdd9ddfa8c3deba288fd968ad2d8449111e105f3a9ac1f",
+    ".validation/cheap-baselines-2026-11-04/real-preflight.json": "509bb95c04e0a3ad28fc2ceec346324867881a5f612dc18c37eee5bc0c1740a4",
+    ".validation/cheap-baselines-2026-11-04/launcher-origin.json": "5ca473ac8ea6cd57c75d3bfecdc727bf2597f3845b0fa28cd995092f9dfd0ee6",
+    ".validation/cheap-baselines-2026-11-04/linux311-resolution.json": "4bccdf1911baa18e72625e129ecfd598534b03283377c0d828ce3fcdc1bd53e9",
+    ".validation/cheap-baselines-data-2026-11-04/data-audit.json": "d267d4f8e97821ad68ad7032a48d585e3fe3b3de13b6b0855744e0adbc02b965",
+    ".validation/cheap-baselines-data-2026-11-04/token-length-preflight.json": "fb6de4b756ce62040527df68acb10f7003fc6384f1d1c12cf1b75b0eec895a23"
+  },
+  "interpretation": {
+    "evaluation": "Retrospective descriptive comparison on previously viewed V1 CLINC test/stress. No new confirmatory holdout or model selection.",
+    "training": "Fixed TF-IDF1600 and frozen MiniLM classifiers with400/1600 labels. All vocabulary/IDF fitting and supervised coefficients use the declared training IDs only.",
+    "budgets": "Full1600 has1500banking+100OOS (6.25%OOS); calibration400 has300banking+100OOS (25%OOS). Full1600 includes60 engineering development inputs. Budget comparisons are not pure sample-size effects.",
+    "preparation": "Separate preparation parses pinned public all-splits data to extract training-only files. Fit/preflight do not open raw source or V1gold. Loading1600 labels to verify membership is not label secrecy between classifier conditions; only the declared subset enters each fit.",
+    "selection": "One encoder and one fixed classifier recipe. Validation diagnostic only; all three classifiers and predictions freeze before scoring access. No parameter/threshold selection.",
+    "stress": "Stored 850-row stress is OOS-only. Historical mixed stress combines 450 banking test rows with those 850 OOS rows; overlaps main test.",
+    "embedding": "CPU ONNX frozen public encoder; publisher masked-mean pooling and L2 normalization. Max256 tokens including special tokens, reject rather than truncate. Public pretraining/data exposure unknown.",
+    "cost": "Encoder timing for3450inputs is shared and reported separately; LR timing excludes encoder. TF-IDF fitting/transform timing is separate. Single CPU batches are not HTTP/SLO performance or matched GPU speedup.",
+    "scope": "Three new supervised classifiers,5550 prediction rows. Original TFIDF400 is a historical reference and is not refitted. No LLM/GPU inference or modification to V1-V3."
+  },
+  "runbook": "docs/RUN_CHEAP_BASELINES_ZH.md",
+  "return_bundle": "/home/zhanj289/e6998/decision-study/results/aux-clinc-cheap-v1/exports/cheap_baseline_bundle.zip",
+  "remaining": [
+    "Run the fixed three-condition suite on node",
+    "Independently audit cheap_baseline_bundle.zip",
+    "StartLux9B matched-size control",
+    "Longer systems measurement"
+  ]
+}

@@ -90,9 +90,19 @@ validation 仅诊断，600 条 main test 与 stress 保留回顾性解释；850 
 运行入口见 [RUN_LIGHT_BASELINE_ZH.md](RUN_LIGHT_BASELINE_ZH.md)，
 历史准备边界保留于 [准备记录](../records/light-baseline-preparation-2026-11-04.json)。
 
+下一批 `clinc-cheap-v1` 已实现于独立 `decision_study/cheap_baselines/`，固定三项
+`tfidf1600`、`minilm400`、`minilm1600`，使用同一 MiniLM ONNX 编码器和固定 LR 配方。
+真实训练池整理及输入长度预检通过，最长25tokens；人工句子的真实CPU encoder smoke
+通过。新38项与原baseline27项测试通过，9项隔离mutation检出。24项运行依赖单独固定，
+Linux/Python3.11 wheel解析通过；这些不代替node实际运行。
+三项共同freeze后才评分；本机没有进行这批真实拟合、实验embedding或质量评价。
+可用入口与阶段边界见 [运行说明](RUN_CHEAP_BASELINES_ZH.md)、
+[方案](CHEAP_BASELINES_PROTOCOL_ZH.md)、[准备记录](../records/cheap-baselines-preparation-2026-11-04.json)。
+
 1. 浏览三轮演示并准备课程讲述，突出“何时转交值得”、负结果及真实服务成本。
-2. 400 标签 TF-IDF 已完成；接着准备完整 1,600 标签预算、冻结 embedding 分类头，
-   然后安排 StartLux9B 与加强性能测量。每轮单独固定数据角色与评价范围；
+2. 400 标签 TF-IDF 已完成；在 node 运行并回传已交付的完整 1,600 标签 TF-IDF 与
+   400/1,600 标签冻结 embedding 分类头，再安排 StartLux9B 与加强性能测量。
+   每轮单独固定数据角色与评价范围；
    不能用已看的 holdout 选优后称确认结果。
 3. 结合最终证据完成课程报告、演示排练和固定版本交付。Git已恢复，可继续检查差异并
    整理提交；CPU演示与本机开发环境保持原位。

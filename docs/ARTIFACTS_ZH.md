@@ -78,3 +78,12 @@ prepared 文件足以做发布文件核验，不能代替模型安装、真实 r
 
 旧实验运行元数据绑定服务器绝对路径，不能通过搬运结果目录和修改 binding 恢复运行。
 下一轮应冻结新的代码与运行身份，具体入口按对应协议执行。
+
+## CLINC 轻量基线的新增输入
+
+`clinc-cheap-v1` 不要求从本机手工上传训练数据。其独立入口按固定官方revision下载两份
+原始CLINC文件，校验SHA后提取训练专用数据；再下载八份固定MiniLM文件并核验。
+具体路径与命令见 [RUN_CHEAP_BASELINES_ZH.md](RUN_CHEAP_BASELINES_ZH.md)。
+这些输入留在旧runtime的新 `results/aux-clinc-cheap-v1-inputs/` 下；训练输出在并列的
+`results/aux-clinc-cheap-v1/`，不进入Git。完整prepared数据约255KB，编码器约90.9MB；
+prepare阶段与fit阶段的标签访问边界见 [协议](CHEAP_BASELINES_PROTOCOL_ZH.md)。
