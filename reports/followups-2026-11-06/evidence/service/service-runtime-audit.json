@@ -1,0 +1,4419 @@
+{
+  "source_commit": "8b5370d8aea7ed57dc42c92f4fe07bcf023a8e07",
+  "source_files_verified": {
+    "configs/cheap_baseline_requirements.txt": "b0635640bb9dd73b845fbdefeb011bc9c82c2037c4d8f77cf425720ae65f6f4b",
+    "configs/cuda_build_toolkit_13_0_flashinfer.txt": "5fd9773bdc8bacad2e5ba2a1ee6e7687526d0c490339bfc911a2b3cab97a60b0",
+    "configs/runtime_defaults.json": "861e88b8c1f7b0174d17f65f2a69764bc2ce7b980bd5e2bdeac2358c74f2a9e2",
+    "configs/service_study_protocol.json": "fbf922bbe8168e2b8ef1845518fd6c5d1198529c8e81907544d0629ab76d62be",
+    "decision_study/adapters.py": "ddfe0c1847790a044bad821d82dd97f1e8d47415c1b2cb661a4d0ab0164ee6c4",
+    "decision_study/baselines/study.py": "811484517d595f3e4635b8d0718ff8a0fa2c4aafa0a2aac6f7b606bd38b9a98e",
+    "decision_study/budget.py": "4700ed2013019f892cdfdcc65dcae03202cb3a2036e35513a4a1d86e4326ddd4",
+    "decision_study/cheap_baselines/__init__.py": "2889438c1780929e701d0a93713c0640701bfc0f52bd894488b5d1d85ae9c184",
+    "decision_study/cheap_baselines/__main__.py": "8498949eae3320cb53ca6c7487d126172884ad02baf19bf4afadf9b7c88c8914",
+    "decision_study/cheap_baselines/data.py": "21d6205cf428c89ca05658252b6185584e8d36170fd5d75fca6c6ec9ca46f831",
+    "decision_study/cheap_baselines/encoder.py": "c6645091d2669ed8c9559a54c56747e17536ad7fd27d22d9483491f46ed6a431",
+    "decision_study/cheap_baselines/study.py": "842e12be5f26a0d3c9d552b49c44c1f85db5571d7415569f1328e033112b4621",
+    "decision_study/common.py": "47b3192632789f830da69b7c3a43c0d2ad0dba2a25a5edb00183945e5176cd95",
+    "decision_study/runtime.py": "3d1295e5e7cf5ea0c80c475016b2159fd1a1ae6974587ff08af7467a97509c5e",
+    "decision_study/runtime_compat.py": "45d335c6d68321b7a58ba75b872947a6c133978d32c27852ba3cb9442595491e",
+    "decision_study/service_study/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "decision_study/service_study/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "decision_study/service_study/cell.py": "b24c9d7f4ebb437c87cebef2e174f4b72e5f2c80348d91098753ea3ec20c81e0",
+    "decision_study/service_study/cli.py": "5ca11f21897b45365602c70c3ba488134939826336240926e25077d43264e1af",
+    "decision_study/service_study/client.py": "47d7261fad654fc5bb39cf8a7d6becf0ec3cf78906ebca425522483dd4c4c23d",
+    "decision_study/service_study/cpu.py": "a4f2c30f0c4cdf6c84b2d286c09ed11778f798bba2bdf0af96b2cdf29d2d49ed",
+    "decision_study/service_study/identity.py": "715c1571e48ab26bcbb3d80d0b5ec567c65ac3335d8a6476e3c8b7acbd1011bb",
+    "decision_study/service_study/measurement.py": "b4665d9b57b8eca1375ee9c04323bd7ea49bebd3f1654e599d1d65d0c17a6360",
+    "decision_study/service_study/resources.py": "cf270006657e8920a85aaa436da5bffcb2c98b59660134c34d97d983eaaeb741",
+    "decision_study/service_study/runtime.py": "59cb00b64b18eab8bf6345f23ba9a0e9f345f607668c8708c3b8631c540a6d5f",
+    "decision_study/service_study/study.py": "8e90569735309cbcf7f33a650080394cd2346bb36dda843dea468fd5b3ef441b",
+    "decision_study/v3/cli.py": "d7237d2c46b194724b09a0fa07976a1e560640168c4c0f1b2e252ddf274e1bae",
+    "decision_study/v3/identity.py": "963259d2fac1bcfcd54fa0766164503c22d8a919772235802c37569ad8953bab",
+    "decision_study/v3/runtime.py": "dbb301bd5f9ab9e1fda0386194fd7dc8510b0c64367f83301b41d4f37f2e7ad3",
+    "scripts/cuda_toolchain_preflight.py": "78a93f98f7805f44644a4a34158fe52f0a6959f0837435c7e780b65ece8e13ed",
+    "scripts/model_probe.py": "e29b455f750b1f349599dd061fad6421fd667a65572100a26489c92709948ed1",
+    "scripts/prepare_cuda_toolkit.py": "0a5f3eacb3be762d7b18699ed201d39708fde00f1f2a4ca14f23e0a0e4979c24",
+    "scripts/run_followup_suite.sh": "dd81ed21e072da24bfda901701791e863c59494262fd8a37c33a19d38e411168",
+    "scripts/run_service_study.sh": "3a8866f226eaa6f854dcac5b32238fc8b764991d78b3e26b69453f004127da45"
+  },
+  "settings_inputs_and_schedules_verified": {
+    "workload.json": "d66bdc7b84f441d10618748ee4ec03a970a91c463b93b6547c6a220faad5f4fc",
+    "warmup.json": "91bce893f2dd97ae306ed10d8dc8687b3ce5ee13874eb13b5f21a053fd0c45ff",
+    "schedules/r0-rate100.json": "5804b27cff8d28fa1add61990b668b0f73877163123cae6ee5046a038a37d1e5",
+    "schedules/r0-rate25.json": "eca31fc8d86ea1a77f2a8ca033f2f0a9c4bc3f5875f47be4993602a02396a1d0",
+    "schedules/r0-rate5.json": "99ddbf3dfd6b19513ba6379ae2187df869359bc55e244a8815aa363cf4c4a15b",
+    "schedules/r1-rate100.json": "d9bceb77f0be38e04cdc81c3c1fe5f26f7757da0e93a3ac0423e105222c34dd8",
+    "schedules/r1-rate25.json": "1dfd2718be54115d6eb675245f55a4c1d59e1759f3e89c27298c3187ce167179",
+    "schedules/r1-rate5.json": "01503d43837af03f513a8be9abc2e8d2da47bb486d1d5b3b372cbf98b7b98cf5",
+    "schedules/r2-rate100.json": "0dc69609efd63e6fdfe469e44fd37d7a22f41b65e116480d7cb09c7b650da9a5",
+    "schedules/r2-rate25.json": "a13280e0e0a5003fcb4e246db58037f79e1dcc12b08a2d0204bc867a7d7f6982",
+    "schedules/r2-rate5.json": "ea666032767282d2a85e4a74d155dcc3f17563eb8eac135a7638fc807e44d977",
+    "schedules/r3-rate100.json": "eb327ea31a5a43280ccd35470dba8ce87a63f3f36125b6daeecd04fbb8aac0bb",
+    "schedules/r3-rate25.json": "e3ffb7f3df236097e79e713c56f3bb4d3a47e3afc8aa2710a4e56c192e9254be",
+    "schedules/r3-rate5.json": "eb65fc8ea1ed6534034a1d663b064af432e5238ed7fb972f9242dff22aabe330",
+    "schedules/r4-rate100.json": "5c478df80a165ece579418fd63560018322db0b944fbed0467c890a6be337651",
+    "schedules/r4-rate25.json": "83bbffd4e223901a1fa9fdaa8e81bc94a9529086327f46133e665c0f0a6ff4db",
+    "schedules/r4-rate5.json": "ad0c84c79fa0668213a004202a2abb9cc47e9812beb8481a06b1d41805e5a5ec"
+  },
+  "original_v1_input_hashes_verified": {
+    "data/examples.jsonl": "a0b699e5fe48e003ddcbb6cab751b0f088edb0b5d297ee46c250121bfdd10703",
+    "data/manifest.json": "7364419fcf52eaf691a40282c6027eec62a026cef0b41a6c9aa31eb06a593d4b"
+  },
+  "workload_count": 600,
+  "warmup_count": 64,
+  "all_15_schedules_and_60_cell_order_independently_regenerated": true,
+  "runtime_controls_verified": {
+    "installations.json": "7e8d2506902642262dd1304d0531b504e76f5264cd97290271a049dc9cd4570b",
+    "lock.json": "d85b3c72f84e813fef156b877a74c9ba5c32cf44e746b08abbf13097c1f33466",
+    "selected_memory.json": "f910d16229f99207bf388371886e096845254d7e2cea95b3b1782f013e3deb83",
+    "selected_profiles.json": "7e399f6df62587a4b79dcdad8eda2868b2f7ec12566a3f77ea90ab907f2e0be2"
+  },
+  "original_runtime_metadata_verified": {
+    "installations.json": "67081b84ae4c2717878f0a1b07d149e6044029b59ff8204b32d00b5848f648bc",
+    "lock.json": "ab0335647cfa181e5a3beeefa90be9b08e2359a9ffab26109ca9b6f8cb6a7225"
+  },
+  "dependency_freeze_sha256": "3a97f698c87b307f3d5618e039fcd2c0b7a818d1c34d4c49973626ede49d6d8a",
+  "dependency_verification_log_blocks": {
+    "3a97f698c87b307f3d5618e039fcd2c0b7a818d1c34d4c49973626ede49d6d8a": 90
+  },
+  "cuda_preflights_complete": 30,
+  "cpu_health_verified": 30,
+  "gpu_runtime_and_tokens_verified": 30,
+  "cpu_unique_service_instances": 30,
+  "single_complete_attempt_each": 60,
+  "all60_finished_before_first_quality_access": true,
+  "all60_service_times_within_recorded_allowance": true,
+  "all60_service_intervals_in_fixed_order_without_overlap": true,
+  "first_start": "2026-11-05T17:39:02.953021+00:00",
+  "final_finished": "2026-11-06T17:00:42.727264+00:00",
+  "quality_access_at": "2026-11-06T17:01:35.214889+00:00",
+  "retained_last_error": {
+    "at": "2026-11-06T08:32:42.896745+00:00",
+    "error": "Could not verify that port 18120 is unused: timed out",
+    "earlier_than_final_completion": true
+  },
+  "allocation_groups": {
+    "ce4db0cc393fac1d6fe6a804e3a586112d88fa86eec51e425586a4ed81900a9c": {
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "cells": [
+        "r0-startlux4b-rate25",
+        "r0-startlux4b-rate5",
+        "r0-startlux4b-rate100",
+        "r0-minilm1600-rate100",
+        "r0-minilm1600-rate25",
+        "r0-minilm1600-rate5",
+        "r0-qwen4b-rate100",
+        "r0-qwen4b-rate25",
+        "r0-qwen4b-rate5",
+        "r0-minilm400-rate5",
+        "r0-minilm400-rate100",
+        "r0-minilm400-rate25",
+        "r1-minilm1600-rate100",
+        "r1-minilm1600-rate5",
+        "r1-minilm1600-rate25",
+        "r1-startlux4b-rate5",
+        "r1-startlux4b-rate25",
+        "r1-startlux4b-rate100",
+        "r1-minilm400-rate25",
+        "r1-minilm400-rate100",
+        "r1-minilm400-rate5",
+        "r1-qwen4b-rate25",
+        "r1-qwen4b-rate5",
+        "r1-qwen4b-rate100",
+        "r2-qwen4b-rate100",
+        "r2-qwen4b-rate5",
+        "r2-qwen4b-rate25",
+        "r2-minilm1600-rate5",
+        "r2-minilm1600-rate25",
+        "r2-minilm1600-rate100",
+        "r2-minilm400-rate25",
+        "r2-minilm400-rate5",
+        "r2-minilm400-rate100",
+        "r2-startlux4b-rate5",
+        "r2-startlux4b-rate100",
+        "r2-startlux4b-rate25",
+        "r3-qwen4b-rate25",
+        "r3-qwen4b-rate5",
+        "r3-qwen4b-rate100",
+        "r3-minilm1600-rate100",
+        "r3-minilm1600-rate5",
+        "r3-minilm1600-rate25",
+        "r3-startlux4b-rate5",
+        "r3-startlux4b-rate100",
+        "r3-startlux4b-rate25",
+        "r3-minilm400-rate25",
+        "r3-minilm400-rate100"
+      ],
+      "count": 47,
+      "gpu_uuids": [
+        "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c"
+      ],
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpu_affinity_sets": [
+        "48-53,74-83"
+      ]
+    },
+    "bce4be29e3648535099b210b0a3b740c4d63a2cbf0fc4ffa9a6430dcc638eee2": {
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "cells": [
+        "r3-minilm400-rate5",
+        "r4-startlux4b-rate25",
+        "r4-startlux4b-rate5",
+        "r4-startlux4b-rate100",
+        "r4-minilm1600-rate25",
+        "r4-minilm1600-rate100",
+        "r4-minilm1600-rate5",
+        "r4-qwen4b-rate25",
+        "r4-qwen4b-rate100",
+        "r4-qwen4b-rate5",
+        "r4-minilm400-rate25",
+        "r4-minilm400-rate5",
+        "r4-minilm400-rate100"
+      ],
+      "count": 13,
+      "gpu_uuids": [
+        "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7"
+      ],
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpu_affinity_sets": [
+        "20-23,26-37"
+      ]
+    }
+  },
+  "pairing_same_allocation": {
+    "r0-rate25": true,
+    "r0-rate5": true,
+    "r0-rate100": true,
+    "r1-rate100": true,
+    "r1-rate5": true,
+    "r1-rate25": true,
+    "r2-rate100": true,
+    "r2-rate5": true,
+    "r2-rate25": true,
+    "r3-rate25": true,
+    "r3-rate5": false,
+    "r3-rate100": true,
+    "r4-rate25": true,
+    "r4-rate5": true,
+    "r4-rate100": true
+  },
+  "runtime_config_hashes": {
+    "startlux": [
+      "88a3e9021ff0cb4dcd6bdab64502cc5b52dd6fca279a841ed5b110b045c711f8"
+    ],
+    "qwen": [
+      "5a087f7ce9c3b5492a3f5baa61ef68dcc0c831e7bae38c9649ef787da31f98d0"
+    ]
+  },
+  "token_report_hashes": {
+    "startlux": [
+      "90707f8e28753e6ee7e6d230993807c3434ae3d0856731e2689d85e7fc120602"
+    ],
+    "qwen": [
+      "b237dee9bc55342eaf30b9f3e68a117715a091333f7063b2d3ec0e1e5db6c72e"
+    ]
+  },
+  "engine_logs": [
+    {
+      "cell": "r0-startlux4b-rate25",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793900085857801546.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r0-startlux4b-rate5",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793900550875457624.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r0-startlux4b-rate100",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793900852768389804.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r0-qwen4b-rate100",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793901700016183833.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r0-qwen4b-rate25",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793902021295733791.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r0-qwen4b-rate5",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793902318829956096.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r1-startlux4b-rate5",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793918169003902899.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r1-startlux4b-rate25",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793918525889869352.log",
+      "error_lines": 0,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r1-startlux4b-rate100",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793918834098548774.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r1-qwen4b-rate25",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793919689042566768.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r1-qwen4b-rate5",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793920004387959688.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r1-qwen4b-rate100",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793920312233650313.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r2-qwen4b-rate100",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793920615131932778.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r2-qwen4b-rate5",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793920923139984731.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r2-qwen4b-rate25",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793921222566741222.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r2-startlux4b-rate5",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793931163226940728.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r2-startlux4b-rate100",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793931521483001810.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r2-startlux4b-rate25",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793931826456885058.log",
+      "error_lines": 0,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r3-qwen4b-rate25",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793932128628851401.log",
+      "error_lines": 0,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r3-qwen4b-rate5",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793932436143616935.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r3-qwen4b-rate100",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793932796152884991.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r3-startlux4b-rate5",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793933692865809183.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r3-startlux4b-rate100",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793934007988773277.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r3-startlux4b-rate25",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793934310793102642.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r4-startlux4b-rate25",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793952647385174533.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r4-startlux4b-rate5",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793953013443154359.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r4-startlux4b-rate100",
+      "log": "runtime-control/runtime/logs/startlux-engine-1793953315517219669.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r4-qwen4b-rate25",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793982943664112194.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r4-qwen4b-rate100",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793983320032284021.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    },
+    {
+      "cell": "r4-qwen4b-rate5",
+      "log": "runtime-control/runtime/logs/qwen-engine-1793983619124627067.log",
+      "error_lines": 8,
+      "pre_shutdown_error_lines": [],
+      "shutdown_seen": true,
+      "application_shutdown_complete": true
+    }
+  ],
+  "warnings": [
+    {
+      "cell": "r0-startlux4b-rate25",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r0-startlux4b-rate5",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r0-startlux4b-rate100",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r1-startlux4b-rate5",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r1-startlux4b-rate25",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r1-startlux4b-rate100",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r2-startlux4b-rate5",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r2-startlux4b-rate100",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r2-startlux4b-rate25",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r3-startlux4b-rate5",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r3-startlux4b-rate100",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r3-startlux4b-rate25",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r4-startlux4b-rate25",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r4-startlux4b-rate5",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    },
+    {
+      "cell": "r4-startlux4b-rate100",
+      "finding": "StartLux health says prefix_cache true; runtime and actual engine command/log disable it"
+    }
+  ],
+  "resource_groups": {
+    "minilm400-rate5": {
+      "resource_samples": {
+        "min": 151,
+        "median": 165,
+        "max": 170,
+        "mean": 160.4
+      },
+      "service_observed_cpu_seconds": {
+        "min": 4.73,
+        "median": 4.77,
+        "max": 5.0,
+        "mean": 4.834
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.02637536953177393,
+        "median": 0.026623941257273867,
+        "max": 0.027818094026667076,
+        "mean": 0.02691404818214197
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 173559808,
+        "median": 175890432,
+        "max": 178012160,
+        "mean": 175808512
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 220880896,
+        "median": 223633408,
+        "max": 228757504,
+        "mean": 224210944
+      },
+      "startup_seconds": {
+        "min": 0.5046791546046734,
+        "median": 0.7551274467259645,
+        "max": 2.759193191304803,
+        "mean": 1.3575597684830427
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 32.874117647058824,
+          "median": 34.75630303030303,
+          "max": 71.05311258278145,
+          "mean": 47.38970958199053
+        },
+        "sample_min": 32.86,
+        "sample_max": 83.66
+      }
+    },
+    "minilm400-rate25": {
+      "resource_samples": {
+        "min": 150,
+        "median": 152,
+        "max": 169,
+        "mean": 157.4
+      },
+      "service_observed_cpu_seconds": {
+        "min": 23.05,
+        "median": 23.39,
+        "max": 23.92,
+        "mean": 23.364
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.1282598644116575,
+        "median": 0.13049060415669583,
+        "max": 0.13331042212681626,
+        "mean": 0.13020367577546374
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 173678592,
+        "median": 207106048,
+        "max": 211202048,
+        "mean": 195901849.6
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 250032128,
+        "median": 282746880,
+        "max": 291196928,
+        "mean": 271851520
+      },
+      "startup_seconds": {
+        "min": 0.7542649023234844,
+        "median": 1.540714105591178,
+        "max": 4.010048465803266,
+        "mean": 1.9636581972241403
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 34.00355029585799,
+          "median": 66.35875,
+          "max": 70.48179999999999,
+          "mean": 54.9775006130548
+        },
+        "sample_min": 32.81,
+        "sample_max": 87.94
+      }
+    },
+    "minilm400-rate100": {
+      "resource_samples": {
+        "min": 151,
+        "median": 164,
+        "max": 168,
+        "mean": 162.4
+      },
+      "service_observed_cpu_seconds": {
+        "min": 90.92,
+        "median": 91.63,
+        "max": 93.38,
+        "mean": 91.782
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.5066507621686711,
+        "median": 0.5099582234980843,
+        "max": 0.5189471533065324,
+        "mean": 0.510707037616706
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 178171904,
+        "median": 178241536,
+        "max": 178548736,
+        "mean": 178305433.6
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 361615360,
+        "median": 364761088,
+        "max": 367820800,
+        "mean": 364339200
+      },
+      "startup_seconds": {
+        "min": 0.5042783673852682,
+        "median": 0.7545114792883396,
+        "max": 1.055887509137392,
+        "mean": 0.7147847440093755
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 32.81725609756098,
+          "median": 32.922363636363634,
+          "max": 67.73086092715232,
+          "mean": 39.89730519144884
+        },
+        "sample_min": 32.79,
+        "sample_max": 83.5
+      }
+    },
+    "minilm1600-rate5": {
+      "resource_samples": {
+        "min": 150,
+        "median": 166,
+        "max": 169,
+        "mean": 160.4
+      },
+      "service_observed_cpu_seconds": {
+        "min": 4.710000000000001,
+        "median": 4.869999999999999,
+        "max": 4.92,
+        "mean": 4.836
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.026157120430160306,
+        "median": 0.027096323442405257,
+        "max": 0.027318679569101563,
+        "mean": 0.026889514051770542
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 204574720,
+        "median": 204820480,
+        "max": 206839808,
+        "mean": 205546291.2
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 252846080,
+        "median": 254337024,
+        "max": 257900544,
+        "mean": 255007129.6
+      },
+      "startup_seconds": {
+        "min": 0.5043236892670393,
+        "median": 0.7547348085790873,
+        "max": 4.259077297523618,
+        "mean": 1.806745805963874
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 32.82915662650603,
+          "median": 33.62355029585799,
+          "max": 68.39806666666667,
+          "mean": 47.11371531782209
+        },
+        "sample_min": 32.8,
+        "sample_max": 86.48
+      }
+    },
+    "minilm1600-rate25": {
+      "resource_samples": {
+        "min": 148,
+        "median": 151,
+        "max": 166,
+        "mean": 156.2
+      },
+      "service_observed_cpu_seconds": {
+        "min": 23.099999999999998,
+        "median": 23.22,
+        "max": 23.62,
+        "mean": 23.276
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.12845878109134184,
+        "median": 0.12929887619893904,
+        "max": 0.1314442756648805,
+        "mean": 0.12945128302052722
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 197545984,
+        "median": 208969728,
+        "max": 210911232,
+        "mean": 206773452.8
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 275165184,
+        "median": 283906048,
+        "max": 290742272,
+        "mean": 282992640
+      },
+      "startup_seconds": {
+        "min": 0.5039652120321989,
+        "median": 0.7552195712924004,
+        "max": 1.254772998392582,
+        "mean": 0.8047200132161378
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 32.82545454545455,
+          "median": 67.17141891891892,
+          "max": 69.13814569536424,
+          "mean": 53.97506582827723
+        },
+        "sample_min": 32.79,
+        "sample_max": 92.9
+      }
+    },
+    "minilm1600-rate100": {
+      "resource_samples": {
+        "min": 148,
+        "median": 151,
+        "max": 164,
+        "mean": 155.4
+      },
+      "service_observed_cpu_seconds": {
+        "min": 89.38,
+        "median": 91.87,
+        "max": 92.30000000000001,
+        "mean": 91.498
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.4990426829231723,
+        "median": 0.5126897477047008,
+        "max": 0.5139593299952531,
+        "mean": 0.5102278841260005
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 204972032,
+        "median": 207282176,
+        "max": 211832832,
+        "mean": 207778611.2
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 388706304,
+        "median": 392589312,
+        "max": 401588224,
+        "mean": 393731276.8
+      },
+      "startup_seconds": {
+        "min": 0.5045621413737535,
+        "median": 0.7552937716245651,
+        "max": 5.536720674484968,
+        "mean": 1.961571193113923
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "sample_min": 0.0,
+        "sample_max": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 34.07208588957055,
+          "median": 67.08655629139074,
+          "max": 69.558940397351,
+          "mean": 54.83967768903095
+        },
+        "sample_min": 32.57,
+        "sample_max": 87.04
+      }
+    },
+    "startlux4b-rate5": {
+      "resource_samples": {
+        "min": 149,
+        "median": 165,
+        "max": 166,
+        "mean": 159
+      },
+      "service_observed_cpu_seconds": {
+        "min": 34.31000000000001,
+        "median": 34.81,
+        "max": 36.04999999999999,
+        "mean": 34.948
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.1912741338835674,
+        "median": 0.1938626761563504,
+        "max": 0.20020119241537357,
+        "mean": 0.19450170006514084
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 4964556800,
+        "median": 4972924928,
+        "max": 5014319104,
+        "mean": 4979684147.2
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 5018787840,
+        "median": 5025775616,
+        "max": 5066502144,
+        "mean": 5033121382.4
+      },
+      "startup_seconds": {
+        "min": 117.60603888891637,
+        "median": 133.70277903042734,
+        "max": 229.3191422522068,
+        "mean": 165.69879431761802
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 10.75301204819277,
+          "median": 12.409395973154362,
+          "max": 13.456375838926174,
+          "mean": 12.403669148834508
+        },
+        "sample_min": 0.0,
+        "sample_max": 68.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 18313.0,
+          "median": 18313.0,
+          "max": 18313.0,
+          "mean": 18313.0
+        },
+        "sample_min": 18313.0,
+        "sample_max": 18313.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 107.79254545454546,
+          "median": 111.02379518072289,
+          "max": 116.35496644295301,
+          "mean": 111.49946874159237
+        },
+        "sample_min": 77.86,
+        "sample_max": 178.25
+      }
+    },
+    "startlux4b-rate25": {
+      "resource_samples": {
+        "min": 144,
+        "median": 165,
+        "max": 166,
+        "mean": 156.8
+      },
+      "service_observed_cpu_seconds": {
+        "min": 138.46,
+        "median": 140.38,
+        "max": 141.61999999999998,
+        "mean": 140.136
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.7706811340376027,
+        "median": 0.7790246384725679,
+        "max": 0.787678139663412,
+        "mean": 0.7794482365226881
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 4962254848,
+        "median": 4974579712,
+        "max": 5199765504,
+        "mean": 5027105996.8
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 5042544640,
+        "median": 5059817472,
+        "max": 5282779136,
+        "mean": 5109874688
+      },
+      "startup_seconds": {
+        "min": 116.6238056961447,
+        "median": 124.32421044446528,
+        "max": 331.8625492788851,
+        "mean": 186.9247199088335
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 45.67272727272727,
+          "median": 46.204819277108435,
+          "max": 50.47878787878788,
+          "mean": 47.41432244128027
+        },
+        "sample_min": 0.0,
+        "sample_max": 100.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 17646.277108433736,
+          "median": 18390.81818181818,
+          "max": 18477.072727272727,
+          "mean": 18258.65860350493
+        },
+        "sample_min": 17547.0,
+        "sample_max": 18517.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 215.04351515151515,
+          "median": 216.47368055555555,
+          "max": 226.2138888888889,
+          "mean": 218.404720168553
+        },
+        "sample_min": 78.18,
+        "sample_max": 289.97
+      }
+    },
+    "startlux4b-rate100": {
+      "resource_samples": {
+        "min": 139,
+        "median": 165,
+        "max": 166,
+        "mean": 154.8
+      },
+      "service_observed_cpu_seconds": {
+        "min": 150.66,
+        "median": 157.79000000000002,
+        "max": 175.22000000000003,
+        "mean": 163.05
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.8355872144107526,
+        "median": 0.8759596631411641,
+        "max": 0.9711278164045379,
+        "mean": 0.9039605580189205
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 4968497152,
+        "median": 4976730112,
+        "max": 4985516032,
+        "mean": 4976742400
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 5114748928,
+        "median": 5121445888,
+        "max": 5131309056,
+        "mean": 5122871296
+      },
+      "startup_seconds": {
+        "min": 113.6975175011903,
+        "median": 117.60083359852433,
+        "max": 119.03352199681103,
+        "mean": 117.15781691856682
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 95.81294964028777,
+          "median": 96.4,
+          "max": 98.43165467625899,
+          "mean": 96.9856349925536
+        },
+        "sample_min": 0.0,
+        "sample_max": 100.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 18552.237410071943,
+          "median": 18891.37575757576,
+          "max": 19005.872727272726,
+          "mean": 18858.043057462026
+        },
+        "sample_min": 18313.0,
+        "sample_max": 19315.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 332.3192771084337,
+          "median": 332.4207913669065,
+          "max": 339.0348201438849,
+          "mean": 334.21157166323894
+        },
+        "sample_min": 94.55,
+        "sample_max": 348.05
+      }
+    },
+    "qwen4b-rate5": {
+      "resource_samples": {
+        "min": 141,
+        "median": 164,
+        "max": 169,
+        "mean": 156
+      },
+      "service_observed_cpu_seconds": {
+        "min": 44.8,
+        "median": 45.580000000000005,
+        "max": 46.959999999999994,
+        "mean": 45.726
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.24924316059343463,
+        "median": 0.25370596947132606,
+        "max": 0.26192293077851386,
+        "mean": 0.2545268861258666
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 4303339520,
+        "median": 4305907712,
+        "max": 4311138304,
+        "mean": 4307149619.2
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 4357951488,
+        "median": 4361007104,
+        "max": 4366860288,
+        "mean": 4361970483.2
+      },
+      "startup_seconds": {
+        "min": 105.41633498854935,
+        "median": 109.50508333928883,
+        "max": 121.51041464880109,
+        "mean": 111.9877925273031
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 41.46808510638298,
+          "median": 44.11347517730496,
+          "max": 47.981818181818184,
+          "mean": 44.41473948296989
+        },
+        "sample_min": 0.0,
+        "sample_max": 100.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 18150.64539007092,
+          "median": 18153.118343195267,
+          "max": 18222.073170731706,
+          "mean": 18171.395053268952
+        },
+        "sample_min": 18071.0,
+        "sample_max": 18227.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 167.33339393939394,
+          "median": 169.95798780487806,
+          "max": 175.77662721893492,
+          "mean": 170.8694032110811
+        },
+        "sample_min": 79.25,
+        "sample_max": 266.45
+      }
+    },
+    "qwen4b-rate25": {
+      "resource_samples": {
+        "min": 134,
+        "median": 160,
+        "max": 169,
+        "mean": 152.6
+      },
+      "service_observed_cpu_seconds": {
+        "min": 145.57,
+        "median": 148.20000000000002,
+        "max": 152.03,
+        "mean": 148.496
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.8081576482520144,
+        "median": 0.822275320446495,
+        "max": 0.8440655602238376,
+        "mean": 0.8246471298872741
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 4292358144,
+        "median": 4306587648,
+        "max": 4312186880,
+        "mean": 4304651059.2
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 4373495808,
+        "median": 4387659776,
+        "max": 4393459712,
+        "mean": 4386103296
+      },
+      "startup_seconds": {
+        "min": 103.6797615326941,
+        "median": 117.68137562274933,
+        "max": 257.3343257792294,
+        "mean": 142.51729604005814
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 79.8875,
+          "median": 81.44970414201184,
+          "max": 83.13333333333334,
+          "mean": 81.43360093695054
+        },
+        "sample_min": 0.0,
+        "sample_max": 100.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 18347.73372781065,
+          "median": 18401.977777777778,
+          "max": 18860.0875,
+          "mean": 18479.611072035823
+        },
+        "sample_min": 18071.0,
+        "sample_max": 18941.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 267.9477037037037,
+          "median": 269.7404375,
+          "max": 280.90686390532545,
+          "mean": 271.82006940715183
+        },
+        "sample_min": 81.77,
+        "sample_max": 320.11
+      }
+    },
+    "qwen4b-rate100": {
+      "resource_samples": {
+        "min": 136,
+        "median": 165,
+        "max": 170,
+        "mean": 154.8
+      },
+      "service_observed_cpu_seconds": {
+        "min": 176.85,
+        "median": 177.24,
+        "max": 177.53,
+        "mean": 177.21
+      },
+      "service_observed_cpu_core_equivalents": {
+        "min": 0.9779556078496896,
+        "median": 0.9810195711075225,
+        "max": 0.982426657552503,
+        "mean": 0.9803199282240257
+      },
+      "peak_service_summed_rss_bytes": {
+        "min": 4303847424,
+        "median": 4306935808,
+        "max": 4329316352,
+        "mean": 4311411916.8
+      },
+      "peak_owned_summed_rss_bytes": {
+        "min": 4426981376,
+        "median": 4430094336,
+        "max": 4452589568,
+        "mean": 4436318617.6
+      },
+      "startup_seconds": {
+        "min": 107.91382844373584,
+        "median": 116.308035697788,
+        "max": 197.8222612850368,
+        "mean": 131.98386036343874
+      },
+      "gpu_utilization_sample_percent": {
+        "per_cell_means": {
+          "min": 91.78676470588235,
+          "median": 93.82424242424243,
+          "max": 94.12352941176471,
+          "mean": 93.2604065608623
+        },
+        "sample_min": 0.0,
+        "sample_max": 100.0
+      },
+      "gpu_memory_sample_mib": {
+        "per_cell_means": {
+          "min": 18140.21686746988,
+          "median": 18872.50303030303,
+          "max": 19045.91176470588,
+          "mean": 18741.416517124355
+        },
+        "sample_min": 17341.0,
+        "sample_max": 19179.0
+      },
+      "gpu_power_sample_watts": {
+        "per_cell_means": {
+          "min": 312.29566176470587,
+          "median": 313.8483734939759,
+          "max": 316.14676470588233,
+          "mean": 313.806079833656
+        },
+        "sample_min": 95.87,
+        "sample_max": 342.82
+      }
+    }
+  },
+  "cells": [
+    {
+      "cell_id": "r0-startlux4b-rate25",
+      "repeat": 0,
+      "condition": "startlux4b",
+      "rate": 25,
+      "schedule_file": "schedules/r0-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T17:39:02.953021+00:00",
+      "attempt_started_at": "2026-11-05T17:39:05.546308+00:00",
+      "measurement_started_at": "2026-11-05T17:39:08.013576+00:00",
+      "finished_at": "2026-11-05T17:42:09.234794+00:00",
+      "startup_seconds": 331.8625492788851,
+      "resource_samples": 166,
+      "observed_resource_span_seconds": 179.79424954019487,
+      "owned_observed_cpu_seconds": 152.56999999999996,
+      "service_observed_cpu_seconds": 141.61999999999998,
+      "service_observed_cpu_core_equivalents": 0.787678139663412,
+      "peak_owned_summed_rss_bytes": 5282779136,
+      "peak_service_summed_rss_bytes": 5199765504,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 47.0,
+        "max": 100.0,
+        "mean": 46.204819277108435
+      },
+      "gpu_memory_sample_mib": {
+        "min": 17547.0,
+        "median": 17659.0,
+        "max": 17783.0,
+        "mean": 17646.277108433736
+      },
+      "gpu_power_sample_watts": {
+        "min": 78.18,
+        "median": 217.01,
+        "max": 278.58,
+        "mean": 218.35481927710845
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 19,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r0-startlux4b-rate5",
+      "repeat": 0,
+      "condition": "startlux4b",
+      "rate": 5,
+      "schedule_file": "schedules/r0-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T17:44:06.912909+00:00",
+      "attempt_started_at": "2026-11-05T17:44:09.484557+00:00",
+      "measurement_started_at": "2026-11-05T17:44:10.066316+00:00",
+      "finished_at": "2026-11-05T17:47:11.050116+00:00",
+      "startup_seconds": 117.60603888891637,
+      "resource_samples": 166,
+      "observed_resource_span_seconds": 179.5600921753794,
+      "owned_observed_cpu_seconds": 43.92,
+      "service_observed_cpu_seconds": 34.81,
+      "service_observed_cpu_core_equivalents": 0.1938626761563504,
+      "peak_owned_summed_rss_bytes": 5066502144,
+      "peak_service_summed_rss_bytes": 5014319104,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 57.0,
+        "mean": 10.75301204819277
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18313.0,
+        "max": 18313.0,
+        "mean": 18313.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 78.99,
+        "median": 106.16,
+        "max": 165.0,
+        "mean": 109.32885542168675
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 36,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r0-startlux4b-rate100",
+      "repeat": 0,
+      "condition": "startlux4b",
+      "rate": 100,
+      "schedule_file": "schedules/r0-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T17:49:04.806132+00:00",
+      "attempt_started_at": "2026-11-05T17:49:07.358060+00:00",
+      "measurement_started_at": "2026-11-05T17:49:07.936638+00:00",
+      "finished_at": "2026-11-05T17:52:10.338917+00:00",
+      "startup_seconds": 113.6975175011903,
+      "resource_samples": 166,
+      "observed_resource_span_seconds": 180.30433855578303,
+      "owned_observed_cpu_seconds": 165.48000000000002,
+      "service_observed_cpu_seconds": 150.66,
+      "service_observed_cpu_core_equivalents": 0.8355872144107526,
+      "peak_owned_summed_rss_bytes": 5118021632,
+      "peak_service_summed_rss_bytes": 4973568000,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 100.0,
+        "max": 100.0,
+        "mean": 96.21084337349397
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18999.0,
+        "max": 19315.0,
+        "mean": 18986.578313253012
+      },
+      "gpu_power_sample_watts": {
+        "min": 153.19,
+        "median": 334.42999999999995,
+        "max": 347.58,
+        "mean": 332.3192771084337
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 20,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r0-minilm1600-rate100",
+      "repeat": 0,
+      "condition": "minilm1600",
+      "rate": 100,
+      "schedule_file": "schedules/r0-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T17:52:12.668435+00:00",
+      "attempt_started_at": "2026-11-05T17:52:13.012263+00:00",
+      "measurement_started_at": "2026-11-05T17:52:13.270946+00:00",
+      "finished_at": "2026-11-05T17:55:14.457111+00:00",
+      "startup_seconds": 2.256280390545726,
+      "resource_samples": 164,
+      "observed_resource_span_seconds": 179.19219257123768,
+      "owned_observed_cpu_seconds": 111.7,
+      "service_observed_cpu_seconds": 91.87,
+      "service_observed_cpu_core_equivalents": 0.5126897477047008,
+      "peak_owned_summed_rss_bytes": 391933952,
+      "peak_service_summed_rss_bytes": 207282176,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 32.8,
+        "median": 33.06,
+        "max": 66.97,
+        "mean": 34.79567073170732
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 16,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r0-minilm1600-rate25",
+      "repeat": 0,
+      "condition": "minilm1600",
+      "rate": 25,
+      "schedule_file": "schedules/r0-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T17:55:15.523813+00:00",
+      "attempt_started_at": "2026-11-05T17:55:15.874858+00:00",
+      "measurement_started_at": "2026-11-05T17:55:16.171740+00:00",
+      "finished_at": "2026-11-05T17:58:16.764385+00:00",
+      "startup_seconds": 1.0056165717542171,
+      "resource_samples": 166,
+      "observed_resource_span_seconds": 180.12530877813697,
+      "owned_observed_cpu_seconds": 35.28,
+      "service_observed_cpu_seconds": 23.29,
+      "service_observed_cpu_core_equivalents": 0.12929887619893904,
+      "peak_owned_summed_rss_bytes": 290742272,
+      "peak_service_summed_rss_bytes": 210911232,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 32.8,
+        "median": 33.04,
+        "max": 33.18,
+        "mean": 33.01487951807229
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 30,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r0-minilm1600-rate5",
+      "repeat": 0,
+      "condition": "minilm1600",
+      "rate": 5,
+      "schedule_file": "schedules/r0-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T17:58:17.352237+00:00",
+      "attempt_started_at": "2026-11-05T17:58:17.694307+00:00",
+      "measurement_started_at": "2026-11-05T17:58:17.951888+00:00",
+      "finished_at": "2026-11-05T18:01:18.221242+00:00",
+      "startup_seconds": 0.5043236892670393,
+      "resource_samples": 166,
+      "observed_resource_span_seconds": 180.06569234468043,
+      "owned_observed_cpu_seconds": 14.4,
+      "service_observed_cpu_seconds": 4.710000000000001,
+      "service_observed_cpu_core_equivalents": 0.026157120430160306,
+      "peak_owned_summed_rss_bytes": 252846080,
+      "peak_service_summed_rss_bytes": 204820480,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 33.04,
+        "median": 33.05,
+        "max": 33.18,
+        "mean": 33.05078313253012
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 31,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r0-qwen4b-rate100",
+      "repeat": 0,
+      "condition": "qwen4b",
+      "rate": 100,
+      "schedule_file": "schedules/r0-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T18:03:27.060184+00:00",
+      "attempt_started_at": "2026-11-05T18:03:36.369647+00:00",
+      "measurement_started_at": "2026-11-05T18:03:36.964813+00:00",
+      "finished_at": "2026-11-05T18:06:39.572221+00:00",
+      "startup_seconds": 128.76689249835908,
+      "resource_samples": 166,
+      "observed_resource_span_seconds": 180.97828929685056,
+      "owned_observed_cpu_seconds": 190.97,
+      "service_observed_cpu_seconds": 177.07,
+      "service_observed_cpu_core_equivalents": 0.9784046511212183,
+      "peak_owned_summed_rss_bytes": 4452589568,
+      "peak_service_summed_rss_bytes": 4329316352,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 99.5,
+        "max": 100.0,
+        "mean": 93.93975903614458
+      },
+      "gpu_memory_sample_mib": {
+        "min": 17341.0,
+        "median": 18155.0,
+        "max": 18273.0,
+        "mean": 18140.21686746988
+      },
+      "gpu_power_sample_watts": {
+        "min": 178.99,
+        "median": 315.105,
+        "max": 334.6,
+        "mean": 313.8483734939759
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 22,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r0-qwen4b-rate25",
+      "repeat": 0,
+      "condition": "qwen4b",
+      "rate": 25,
+      "schedule_file": "schedules/r0-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T18:08:23.324476+00:00",
+      "attempt_started_at": "2026-11-05T18:08:32.447833+00:00",
+      "measurement_started_at": "2026-11-05T18:08:33.033375+00:00",
+      "finished_at": "2026-11-05T18:11:34.183180+00:00",
+      "startup_seconds": 103.6797615326941,
+      "resource_samples": 160,
+      "observed_resource_span_seconds": 180.1257468946278,
+      "owned_observed_cpu_seconds": 157.29,
+      "service_observed_cpu_seconds": 145.57,
+      "service_observed_cpu_core_equivalents": 0.8081576482520144,
+      "peak_owned_summed_rss_bytes": 4373495808,
+      "peak_service_summed_rss_bytes": 4292358144,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 82.5,
+        "max": 100.0,
+        "mean": 79.8875
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18941.0,
+        "max": 18941.0,
+        "mean": 18860.0875
+      },
+      "gpu_power_sample_watts": {
+        "min": 81.77,
+        "median": 272.92,
+        "max": 319.26,
+        "mean": 269.7404375
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 43,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r0-qwen4b-rate5",
+      "repeat": 0,
+      "condition": "qwen4b",
+      "rate": 5,
+      "schedule_file": "schedules/r0-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T18:13:20.927067+00:00",
+      "attempt_started_at": "2026-11-05T18:13:30.049241+00:00",
+      "measurement_started_at": "2026-11-05T18:13:30.632766+00:00",
+      "finished_at": "2026-11-05T18:16:31.641807+00:00",
+      "startup_seconds": 106.683135939762,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 179.9092370327562,
+      "owned_observed_cpu_seconds": 55.08,
+      "service_observed_cpu_seconds": 45.25999999999999,
+      "service_observed_cpu_core_equivalents": 0.25157129642965176,
+      "peak_owned_summed_rss_bytes": 4358000640,
+      "peak_service_summed_rss_bytes": 4303339520,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 52.0,
+        "max": 100.0,
+        "mean": 47.981818181818184
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18207.0,
+        "max": 18207.0,
+        "mean": 18178.478787878787
+      },
+      "gpu_power_sample_watts": {
+        "min": 86.0,
+        "median": 166.14,
+        "max": 241.57,
+        "mean": 167.33339393939394
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 32,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r0-minilm400-rate5",
+      "repeat": 0,
+      "condition": "minilm400",
+      "rate": 5,
+      "schedule_file": "schedules/r0-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T18:16:32.468228+00:00",
+      "attempt_started_at": "2026-11-05T18:16:32.816735+00:00",
+      "measurement_started_at": "2026-11-05T18:16:33.181340+00:00",
+      "finished_at": "2026-11-05T18:19:33.329541+00:00",
+      "startup_seconds": 0.7551274467259645,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 179.15047357231379,
+      "owned_observed_cpu_seconds": 14.63,
+      "service_observed_cpu_seconds": 4.73,
+      "service_observed_cpu_core_equivalents": 0.02640238624929308,
+      "peak_owned_summed_rss_bytes": 222621696,
+      "peak_service_summed_rss_bytes": 175525888,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 33.04,
+        "median": 33.04,
+        "max": 82.93,
+        "mean": 34.75630303030303
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 41,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r0-minilm400-rate100",
+      "repeat": 0,
+      "condition": "minilm400",
+      "rate": 100,
+      "schedule_file": "schedules/r0-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T18:19:33.906265+00:00",
+      "attempt_started_at": "2026-11-05T18:19:34.263204+00:00",
+      "measurement_started_at": "2026-11-05T18:19:34.544521+00:00",
+      "finished_at": "2026-11-05T18:22:35.662532+00:00",
+      "startup_seconds": 0.5046354923397303,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 179.25162747874856,
+      "owned_observed_cpu_seconds": 110.37,
+      "service_observed_cpu_seconds": 91.63,
+      "service_observed_cpu_core_equivalents": 0.5111808539136602,
+      "peak_owned_summed_rss_bytes": 361795584,
+      "peak_service_summed_rss_bytes": 178241536,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 32.79,
+        "median": 32.92,
+        "max": 33.05,
+        "mean": 32.922363636363634
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 36,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r0-minilm400-rate25",
+      "repeat": 0,
+      "condition": "minilm400",
+      "rate": 25,
+      "schedule_file": "schedules/r0-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T22:22:41.002625+00:00",
+      "attempt_started_at": "2026-11-05T22:22:41.351700+00:00",
+      "measurement_started_at": "2026-11-05T22:22:41.626993+00:00",
+      "finished_at": "2026-11-05T22:25:41.996242+00:00",
+      "startup_seconds": 2.008010420948267,
+      "resource_samples": 152,
+      "observed_resource_span_seconds": 179.4308323264122,
+      "owned_observed_cpu_seconds": 37.45,
+      "service_observed_cpu_seconds": 23.92,
+      "service_observed_cpu_core_equivalents": 0.13331042212681626,
+      "peak_owned_summed_rss_bytes": 252166144,
+      "peak_service_summed_rss_bytes": 177946624,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 33.29,
+        "median": 69.555,
+        "max": 85.4,
+        "mean": 66.35875
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 69,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-minilm1600-rate100",
+      "repeat": 1,
+      "condition": "minilm1600",
+      "rate": 100,
+      "schedule_file": "schedules/r1-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T22:25:42.996776+00:00",
+      "attempt_started_at": "2026-11-05T22:25:43.352498+00:00",
+      "measurement_started_at": "2026-11-05T22:25:43.665210+00:00",
+      "finished_at": "2026-11-05T22:28:44.751763+00:00",
+      "startup_seconds": 0.7549989875406027,
+      "resource_samples": 151,
+      "observed_resource_span_seconds": 179.77711179479957,
+      "owned_observed_cpu_seconds": 113.70000000000002,
+      "service_observed_cpu_seconds": 92.30000000000001,
+      "service_observed_cpu_core_equivalents": 0.513413521212604,
+      "peak_owned_summed_rss_bytes": 392589312,
+      "peak_service_summed_rss_bytes": 209776640,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 34.38,
+        "median": 69.53,
+        "max": 82.96,
+        "mean": 67.08655629139074
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 52,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-minilm1600-rate5",
+      "repeat": 1,
+      "condition": "minilm1600",
+      "rate": 5,
+      "schedule_file": "schedules/r1-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T22:28:45.328702+00:00",
+      "attempt_started_at": "2026-11-05T22:28:45.699671+00:00",
+      "measurement_started_at": "2026-11-05T22:28:46.029571+00:00",
+      "finished_at": "2026-11-05T22:31:46.212305+00:00",
+      "startup_seconds": 0.505352433770895,
+      "resource_samples": 151,
+      "observed_resource_span_seconds": 179.72918024659157,
+      "owned_observed_cpu_seconds": 15.6,
+      "service_observed_cpu_seconds": 4.869999999999999,
+      "service_observed_cpu_core_equivalents": 0.027096323442405257,
+      "peak_owned_summed_rss_bytes": 257900544,
+      "peak_service_summed_rss_bytes": 204709888,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 35.35,
+        "median": 68.8,
+        "max": 82.27,
+        "mean": 67.66701986754967
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 51,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-minilm1600-rate25",
+      "repeat": 1,
+      "condition": "minilm1600",
+      "rate": 25,
+      "schedule_file": "schedules/r1-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T22:31:46.775469+00:00",
+      "attempt_started_at": "2026-11-05T22:31:47.132611+00:00",
+      "measurement_started_at": "2026-11-05T22:31:47.377128+00:00",
+      "finished_at": "2026-11-05T22:34:47.773987+00:00",
+      "startup_seconds": 0.5040257126092911,
+      "resource_samples": 151,
+      "observed_resource_span_seconds": 179.5188110359013,
+      "owned_observed_cpu_seconds": 36.3,
+      "service_observed_cpu_seconds": 23.099999999999998,
+      "service_observed_cpu_core_equivalents": 0.1286773228203941,
+      "peak_owned_summed_rss_bytes": 283906048,
+      "peak_service_summed_rss_bytes": 209469440,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 35.5,
+        "median": 69.08,
+        "max": 79.33,
+        "mean": 67.72543046357616
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 75,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-startlux4b-rate5",
+      "repeat": 1,
+      "condition": "startlux4b",
+      "rate": 5,
+      "schedule_file": "schedules/r1-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T22:38:37.067343+00:00",
+      "attempt_started_at": "2026-11-05T22:38:39.604680+00:00",
+      "measurement_started_at": "2026-11-05T22:38:42.163585+00:00",
+      "finished_at": "2026-11-05T22:41:43.534471+00:00",
+      "startup_seconds": 229.23261203616858,
+      "resource_samples": 149,
+      "observed_resource_span_seconds": 180.05490916781127,
+      "owned_observed_cpu_seconds": 46.03999999999999,
+      "service_observed_cpu_seconds": 35.14,
+      "service_observed_cpu_core_equivalents": 0.19516268766240358,
+      "peak_owned_summed_rss_bytes": 5025775616,
+      "peak_service_summed_rss_bytes": 4972924928,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 4.0,
+        "max": 59.0,
+        "mean": 12.409395973154362
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18313.0,
+        "max": 18313.0,
+        "mean": 18313.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 78.22,
+        "median": 109.55,
+        "max": 168.84,
+        "mean": 112.99718120805369
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 55,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-startlux4b-rate25",
+      "repeat": 1,
+      "condition": "startlux4b",
+      "rate": 25,
+      "schedule_file": "schedules/r1-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T22:43:47.932696+00:00",
+      "attempt_started_at": "2026-11-05T22:43:50.460007+00:00",
+      "measurement_started_at": "2026-11-05T22:43:51.131637+00:00",
+      "finished_at": "2026-11-05T22:46:52.350908+00:00",
+      "startup_seconds": 124.32421044446528,
+      "resource_samples": 144,
+      "observed_resource_span_seconds": 180.19969211146235,
+      "owned_observed_cpu_seconds": 152.66,
+      "service_observed_cpu_seconds": 140.38,
+      "service_observed_cpu_core_equivalents": 0.7790246384725679,
+      "peak_owned_summed_rss_bytes": 5059817472,
+      "peak_service_summed_rss_bytes": 4971085824,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 47.5,
+        "max": 87.0,
+        "mean": 46.145833333333336
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18395.0,
+        "max": 18395.0,
+        "mean": 18386.416666666668
+      },
+      "gpu_power_sample_watts": {
+        "min": 133.33,
+        "median": 218.245,
+        "max": 264.17,
+        "mean": 216.47368055555555
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 56,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-startlux4b-rate100",
+      "repeat": 1,
+      "condition": "startlux4b",
+      "rate": 100,
+      "schedule_file": "schedules/r1-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T22:48:50.139689+00:00",
+      "attempt_started_at": "2026-11-05T22:48:52.661346+00:00",
+      "measurement_started_at": "2026-11-05T22:48:53.272309+00:00",
+      "finished_at": "2026-11-05T22:51:55.817335+00:00",
+      "startup_seconds": 117.60083359852433,
+      "resource_samples": 139,
+      "observed_resource_span_seconds": 180.8262545298785,
+      "owned_observed_cpu_seconds": 172.69,
+      "service_observed_cpu_seconds": 156.91000000000003,
+      "service_observed_cpu_core_equivalents": 0.8677390371654979,
+      "peak_owned_summed_rss_bytes": 5131309056,
+      "peak_service_summed_rss_bytes": 4985516032,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 100.0,
+        "max": 100.0,
+        "mean": 95.81294964028777
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18637.0,
+        "max": 19163.0,
+        "mean": 18854.15107913669
+      },
+      "gpu_power_sample_watts": {
+        "min": 149.57,
+        "median": 336.47,
+        "max": 344.48,
+        "mean": 332.4207913669065
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 49,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-minilm400-rate25",
+      "repeat": 1,
+      "condition": "minilm400",
+      "rate": 25,
+      "schedule_file": "schedules/r1-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T22:51:56.631978+00:00",
+      "attempt_started_at": "2026-11-05T22:51:56.988559+00:00",
+      "measurement_started_at": "2026-11-05T22:51:57.268912+00:00",
+      "finished_at": "2026-11-05T22:54:57.607621+00:00",
+      "startup_seconds": 0.7542649023234844,
+      "resource_samples": 151,
+      "observed_resource_span_seconds": 179.24662201665342,
+      "owned_observed_cpu_seconds": 36.910000000000004,
+      "service_observed_cpu_seconds": 23.39,
+      "service_observed_cpu_core_equivalents": 0.13049060415669583,
+      "peak_owned_summed_rss_bytes": 250032128,
+      "peak_service_summed_rss_bytes": 173678592,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 38.36,
+        "median": 70.43,
+        "max": 87.94,
+        "mean": 69.46867549668875
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 40,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-minilm400-rate100",
+      "repeat": 1,
+      "condition": "minilm400",
+      "rate": 100,
+      "schedule_file": "schedules/r1-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T22:54:58.498531+00:00",
+      "attempt_started_at": "2026-11-05T22:54:58.834376+00:00",
+      "measurement_started_at": "2026-11-05T22:54:59.120354+00:00",
+      "finished_at": "2026-11-05T22:58:00.255053+00:00",
+      "startup_seconds": 0.7546108718961477,
+      "resource_samples": 151,
+      "observed_resource_span_seconds": 179.75596768781543,
+      "owned_observed_cpu_seconds": 112.48,
+      "service_observed_cpu_seconds": 91.10000000000001,
+      "service_observed_cpu_core_equivalents": 0.5067981951965822,
+      "peak_owned_summed_rss_bytes": 361615360,
+      "peak_service_summed_rss_bytes": 178331648,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 33.8,
+        "median": 70.07,
+        "max": 83.5,
+        "mean": 67.73086092715232
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 52,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-minilm400-rate5",
+      "repeat": 1,
+      "condition": "minilm400",
+      "rate": 5,
+      "schedule_file": "schedules/r1-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T22:58:00.821143+00:00",
+      "attempt_started_at": "2026-11-05T22:58:01.191285+00:00",
+      "measurement_started_at": "2026-11-05T22:58:01.468101+00:00",
+      "finished_at": "2026-11-05T23:01:01.704694+00:00",
+      "startup_seconds": 0.5050911772996187,
+      "resource_samples": 151,
+      "observed_resource_span_seconds": 179.7391293309629,
+      "owned_observed_cpu_seconds": 15.87,
+      "service_observed_cpu_seconds": 5.0,
+      "service_observed_cpu_core_equivalents": 0.027818094026667076,
+      "peak_owned_summed_rss_bytes": 228757504,
+      "peak_service_summed_rss_bytes": 175890432,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 34.16,
+        "median": 68.6,
+        "max": 83.25,
+        "mean": 65.15052980132451
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 47,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-qwen4b-rate25",
+      "repeat": 1,
+      "condition": "qwen4b",
+      "rate": 25,
+      "schedule_file": "schedules/r1-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T23:03:06.078923+00:00",
+      "attempt_started_at": "2026-11-05T23:03:15.369865+00:00",
+      "measurement_started_at": "2026-11-05T23:03:16.136520+00:00",
+      "finished_at": "2026-11-05T23:06:17.829109+00:00",
+      "startup_seconds": 124.3016008157283,
+      "resource_samples": 134,
+      "observed_resource_span_seconds": 180.19354642182589,
+      "owned_observed_cpu_seconds": 161.53000000000003,
+      "service_observed_cpu_seconds": 149.49000000000004,
+      "service_observed_cpu_core_equivalents": 0.829607957490608,
+      "peak_owned_summed_rss_bytes": 4393459712,
+      "peak_service_summed_rss_bytes": 4312186880,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 82.0,
+        "max": 100.0,
+        "mean": 80.06716417910448
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18447.0,
+        "max": 18447.0,
+        "mean": 18438.880597014926
+      },
+      "gpu_power_sample_watts": {
+        "min": 132.43,
+        "median": 271.88,
+        "max": 296.8,
+        "mean": 270.8284328358209
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 49,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-qwen4b-rate5",
+      "repeat": 1,
+      "condition": "qwen4b",
+      "rate": 5,
+      "schedule_file": "schedules/r1-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T23:08:19.425218+00:00",
+      "attempt_started_at": "2026-11-05T23:08:28.659799+00:00",
+      "measurement_started_at": "2026-11-05T23:08:29.345224+00:00",
+      "finished_at": "2026-11-05T23:11:30.303207+00:00",
+      "startup_seconds": 121.51041464880109,
+      "resource_samples": 141,
+      "observed_resource_span_seconds": 179.67058491520584,
+      "owned_observed_cpu_seconds": 56.339999999999996,
+      "service_observed_cpu_seconds": 46.03,
+      "service_observed_cpu_core_equivalents": 0.25619107335640673,
+      "peak_owned_summed_rss_bytes": 4361007104,
+      "peak_service_summed_rss_bytes": 4305907712,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 37.0,
+        "max": 100.0,
+        "mean": 41.46808510638298
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18155.0,
+        "max": 18207.0,
+        "mean": 18150.64539007092
+      },
+      "gpu_power_sample_watts": {
+        "min": 102.6,
+        "median": 172.0,
+        "max": 266.45,
+        "mean": 172.18737588652482
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 53,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r1-qwen4b-rate100",
+      "repeat": 1,
+      "condition": "qwen4b",
+      "rate": 100,
+      "schedule_file": "schedules/r1-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T23:13:18.275234+00:00",
+      "attempt_started_at": "2026-11-05T23:13:27.378603+00:00",
+      "measurement_started_at": "2026-11-05T23:13:28.000148+00:00",
+      "finished_at": "2026-11-05T23:16:30.772993+00:00",
+      "startup_seconds": 107.91382844373584,
+      "resource_samples": 137,
+      "observed_resource_span_seconds": 180.8222020789981,
+      "owned_observed_cpu_seconds": 191.95000000000002,
+      "service_observed_cpu_seconds": 177.53,
+      "service_observed_cpu_core_equivalents": 0.9817931534891949,
+      "peak_owned_summed_rss_bytes": 4429172736,
+      "peak_service_summed_rss_bytes": 4306071552,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 100.0,
+        "max": 100.0,
+        "mean": 92.62773722627738
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18793.0,
+        "max": 18901.0,
+        "mean": 18774.474452554743
+      },
+      "gpu_power_sample_watts": {
+        "min": 175.47,
+        "median": 315.6,
+        "max": 334.36,
+        "mean": 312.7297810218978
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 39,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-qwen4b-rate100",
+      "repeat": 2,
+      "condition": "qwen4b",
+      "rate": 100,
+      "schedule_file": "schedules/r2-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T23:18:27.165977+00:00",
+      "attempt_started_at": "2026-11-05T23:18:36.302196+00:00",
+      "measurement_started_at": "2026-11-05T23:18:36.990937+00:00",
+      "finished_at": "2026-11-05T23:21:39.465708+00:00",
+      "startup_seconds": 116.308035697788,
+      "resource_samples": 136,
+      "observed_resource_span_seconds": 180.27163290977478,
+      "owned_observed_cpu_seconds": 191.04000000000002,
+      "service_observed_cpu_seconds": 176.85,
+      "service_observed_cpu_core_equivalents": 0.9810195711075225,
+      "peak_owned_summed_rss_bytes": 4426981376,
+      "peak_service_summed_rss_bytes": 4303847424,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 98.0,
+        "max": 100.0,
+        "mean": 91.78676470588235
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 19039.0,
+        "max": 19179.0,
+        "mean": 19045.91176470588
+      },
+      "gpu_power_sample_watts": {
+        "min": 150.52,
+        "median": 314.19,
+        "max": 342.82,
+        "mean": 312.29566176470587
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 47,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-qwen4b-rate5",
+      "repeat": 2,
+      "condition": "qwen4b",
+      "rate": 5,
+      "schedule_file": "schedules/r2-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T23:23:29.174554+00:00",
+      "attempt_started_at": "2026-11-05T23:23:38.281194+00:00",
+      "measurement_started_at": "2026-11-05T23:23:38.883448+00:00",
+      "finished_at": "2026-11-05T23:26:39.949223+00:00",
+      "startup_seconds": 109.50508333928883,
+      "resource_samples": 141,
+      "observed_resource_span_seconds": 179.74414982274175,
+      "owned_observed_cpu_seconds": 55.18,
+      "service_observed_cpu_seconds": 44.8,
+      "service_observed_cpu_core_equivalents": 0.24924316059343463,
+      "peak_owned_summed_rss_bytes": 4357951488,
+      "peak_service_summed_rss_bytes": 4304822272,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 45.0,
+        "max": 100.0,
+        "mean": 44.11347517730496
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18155.0,
+        "max": 18155.0,
+        "mean": 18152.659574468085
+      },
+      "gpu_power_sample_watts": {
+        "min": 100.81,
+        "median": 169.48,
+        "max": 249.61,
+        "mean": 169.09163120567376
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 73,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-qwen4b-rate25",
+      "repeat": 2,
+      "condition": "qwen4b",
+      "rate": 25,
+      "schedule_file": "schedules/r2-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T23:28:29.599696+00:00",
+      "attempt_started_at": "2026-11-05T23:28:38.739676+00:00",
+      "measurement_started_at": "2026-11-05T23:28:39.448372+00:00",
+      "finished_at": "2026-11-05T23:31:40.885860+00:00",
+      "startup_seconds": 109.58941644988954,
+      "resource_samples": 135,
+      "observed_resource_span_seconds": 180.23160408064723,
+      "owned_observed_cpu_seconds": 160.32,
+      "service_observed_cpu_seconds": 148.20000000000002,
+      "service_observed_cpu_core_equivalents": 0.822275320446495,
+      "peak_owned_summed_rss_bytes": 4391022592,
+      "peak_service_summed_rss_bytes": 4308230144,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 86.0,
+        "max": 100.0,
+        "mean": 83.13333333333334
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18423.0,
+        "max": 18423.0,
+        "mean": 18401.977777777778
+      },
+      "gpu_power_sample_watts": {
+        "min": 160.24,
+        "median": 269.21,
+        "max": 299.25,
+        "mean": 267.9477037037037
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 34,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-minilm1600-rate5",
+      "repeat": 2,
+      "condition": "minilm1600",
+      "rate": 5,
+      "schedule_file": "schedules/r2-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T23:31:45.215112+00:00",
+      "attempt_started_at": "2026-11-05T23:31:45.552680+00:00",
+      "measurement_started_at": "2026-11-05T23:31:46.318368+00:00",
+      "finished_at": "2026-11-05T23:34:46.567073+00:00",
+      "startup_seconds": 4.259077297523618,
+      "resource_samples": 150,
+      "observed_resource_span_seconds": 179.89754593372345,
+      "owned_observed_cpu_seconds": 15.89,
+      "service_observed_cpu_seconds": 4.88,
+      "service_observed_cpu_core_equivalents": 0.02712655125266608,
+      "peak_owned_summed_rss_bytes": 256434176,
+      "peak_service_summed_rss_bytes": 206839808,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 33.78,
+        "median": 72.675,
+        "max": 86.48,
+        "mean": 68.39806666666667
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 39,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-minilm1600-rate25",
+      "repeat": 2,
+      "condition": "minilm1600",
+      "rate": 25,
+      "schedule_file": "schedules/r2-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T23:34:47.411950+00:00",
+      "attempt_started_at": "2026-11-05T23:34:47.754731+00:00",
+      "measurement_started_at": "2026-11-05T23:34:48.145049+00:00",
+      "finished_at": "2026-11-05T23:37:48.685410+00:00",
+      "startup_seconds": 0.7552195712924004,
+      "resource_samples": 148,
+      "observed_resource_span_seconds": 180.2134490404278,
+      "owned_observed_cpu_seconds": 36.39,
+      "service_observed_cpu_seconds": 23.150000000000002,
+      "service_observed_cpu_core_equivalents": 0.12845878109134184,
+      "peak_owned_summed_rss_bytes": 284463104,
+      "peak_service_summed_rss_bytes": 208969728,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 34.01,
+        "median": 73.45,
+        "max": 83.44,
+        "mean": 67.17141891891892
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 89,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-minilm1600-rate100",
+      "repeat": 2,
+      "condition": "minilm1600",
+      "rate": 100,
+      "schedule_file": "schedules/r2-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T23:37:49.585918+00:00",
+      "attempt_started_at": "2026-11-05T23:37:49.933773+00:00",
+      "measurement_started_at": "2026-11-05T23:37:50.276592+00:00",
+      "finished_at": "2026-11-05T23:40:51.414505+00:00",
+      "startup_seconds": 0.7552937716245651,
+      "resource_samples": 148,
+      "observed_resource_span_seconds": 179.2554286364466,
+      "owned_observed_cpu_seconds": 112.94999999999999,
+      "service_observed_cpu_seconds": 92.13,
+      "service_observed_cpu_core_equivalents": 0.5139593299952531,
+      "peak_owned_summed_rss_bytes": 401588224,
+      "peak_service_summed_rss_bytes": 211832832,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 33.53,
+        "median": 73.45,
+        "max": 83.25,
+        "mean": 68.68513513513514
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 144,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-minilm400-rate25",
+      "repeat": 2,
+      "condition": "minilm400",
+      "rate": 25,
+      "schedule_file": "schedules/r2-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-05T23:40:53.060339+00:00",
+      "attempt_started_at": "2026-11-05T23:40:53.403047+00:00",
+      "measurement_started_at": "2026-11-05T23:40:53.711368+00:00",
+      "finished_at": "2026-11-05T23:43:54.046182+00:00",
+      "startup_seconds": 1.540714105591178,
+      "resource_samples": 150,
+      "observed_resource_span_seconds": 179.71327278204262,
+      "owned_observed_cpu_seconds": 36.49,
+      "service_observed_cpu_seconds": 23.05,
+      "service_observed_cpu_core_equivalents": 0.1282598644116575,
+      "peak_owned_summed_rss_bytes": 283115520,
+      "peak_service_summed_rss_bytes": 209575936,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 33.41,
+        "median": 73.525,
+        "max": 83.93,
+        "mean": 70.48179999999999
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 182,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-minilm400-rate5",
+      "repeat": 2,
+      "condition": "minilm400",
+      "rate": 5,
+      "schedule_file": "schedules/r2-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:05:18.735700+00:00",
+      "attempt_started_at": "2026-11-06T02:05:19.080191+00:00",
+      "measurement_started_at": "2026-11-06T02:05:19.328483+00:00",
+      "finished_at": "2026-11-06T02:08:19.602493+00:00",
+      "startup_seconds": 2.759193191304803,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 179.16205395385623,
+      "owned_observed_cpu_seconds": 14.979999999999999,
+      "service_observed_cpu_seconds": 4.77,
+      "service_observed_cpu_core_equivalents": 0.026623941257273867,
+      "peak_owned_summed_rss_bytes": 220880896,
+      "peak_service_summed_rss_bytes": 173559808,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 33.04,
+        "median": 33.06,
+        "max": 33.43,
+        "mean": 33.11448484848485
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 43,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-minilm400-rate100",
+      "repeat": 2,
+      "condition": "minilm400",
+      "rate": 100,
+      "schedule_file": "schedules/r2-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:08:20.169589+00:00",
+      "attempt_started_at": "2026-11-06T02:08:20.525615+00:00",
+      "measurement_started_at": "2026-11-06T02:08:20.781743+00:00",
+      "finished_at": "2026-11-06T02:11:21.893126+00:00",
+      "startup_seconds": 0.5042783673852682,
+      "resource_samples": 164,
+      "observed_resource_span_seconds": 179.9412510599941,
+      "owned_observed_cpu_seconds": 114.41999999999999,
+      "service_observed_cpu_seconds": 93.38,
+      "service_observed_cpu_core_equivalents": 0.5189471533065324,
+      "peak_owned_summed_rss_bytes": 364761088,
+      "peak_service_summed_rss_bytes": 178171904,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 33.04,
+        "median": 33.16,
+        "max": 33.43,
+        "mean": 33.14390243902439
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 67,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-startlux4b-rate5",
+      "repeat": 2,
+      "condition": "startlux4b",
+      "rate": 5,
+      "schedule_file": "schedules/r2-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:15:11.283501+00:00",
+      "attempt_started_at": "2026-11-06T02:15:13.818438+00:00",
+      "measurement_started_at": "2026-11-06T02:15:16.844513+00:00",
+      "finished_at": "2026-11-06T02:18:18.450198+00:00",
+      "startup_seconds": 229.3191422522068,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 179.3156224358827,
+      "owned_observed_cpu_seconds": 44.46000000000001,
+      "service_observed_cpu_seconds": 34.43000000000001,
+      "service_observed_cpu_core_equivalents": 0.19200781020800925,
+      "peak_owned_summed_rss_bytes": 5028823040,
+      "peak_service_summed_rss_bytes": 4976189440,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 67.0,
+        "mean": 12.327272727272728
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18313.0,
+        "max": 18313.0,
+        "mean": 18313.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 77.86,
+        "median": 106.36,
+        "max": 178.25,
+        "mean": 107.79254545454546
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 45,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-startlux4b-rate100",
+      "repeat": 2,
+      "condition": "startlux4b",
+      "rate": 100,
+      "schedule_file": "schedules/r2-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:20:17.531831+00:00",
+      "attempt_started_at": "2026-11-06T02:20:20.080339+00:00",
+      "measurement_started_at": "2026-11-06T02:20:21.219530+00:00",
+      "finished_at": "2026-11-06T02:23:23.813095+00:00",
+      "startup_seconds": 119.03352199681103,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 180.18565237894654,
+      "owned_observed_cpu_seconds": 190.74,
+      "service_observed_cpu_seconds": 174.67,
+      "service_observed_cpu_core_equivalents": 0.9693890589726498,
+      "peak_owned_summed_rss_bytes": 5128830976,
+      "peak_service_summed_rss_bytes": 4979400704,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 100.0,
+        "max": 100.0,
+        "mean": 98.07272727272728
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18995.0,
+        "max": 19303.0,
+        "mean": 18891.37575757576
+      },
+      "gpu_power_sample_watts": {
+        "min": 94.55,
+        "median": 337.05,
+        "max": 344.61,
+        "mean": 334.91545454545457
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 43,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r2-startlux4b-rate25",
+      "repeat": 2,
+      "condition": "startlux4b",
+      "rate": 25,
+      "schedule_file": "schedules/r2-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:25:20.497148+00:00",
+      "attempt_started_at": "2026-11-06T02:25:23.037216+00:00",
+      "measurement_started_at": "2026-11-06T02:25:23.644026+00:00",
+      "finished_at": "2026-11-06T02:28:24.911200+00:00",
+      "startup_seconds": 116.6238056961447,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 179.74354768171906,
+      "owned_observed_cpu_seconds": 151.1,
+      "service_observed_cpu_seconds": 139.01999999999998,
+      "service_observed_cpu_core_equivalents": 0.7734352737165825,
+      "peak_owned_summed_rss_bytes": 5042544640,
+      "peak_service_summed_rss_bytes": 4962254848,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 50.0,
+        "max": 99.0,
+        "mean": 45.67272727272727
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18517.0,
+        "max": 18517.0,
+        "mean": 18477.072727272727
+      },
+      "gpu_power_sample_watts": {
+        "min": 151.01,
+        "median": 215.47,
+        "max": 283.14,
+        "mean": 215.04351515151515
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 45,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-qwen4b-rate25",
+      "repeat": 3,
+      "condition": "qwen4b",
+      "rate": 25,
+      "schedule_file": "schedules/r3-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:30:22.664674+00:00",
+      "attempt_started_at": "2026-11-06T02:30:31.966563+00:00",
+      "measurement_started_at": "2026-11-06T02:30:33.097713+00:00",
+      "finished_at": "2026-11-06T02:33:34.295497+00:00",
+      "startup_seconds": 117.68137562274933,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 179.69083099998534,
+      "owned_observed_cpu_seconds": 159.38000000000002,
+      "service_observed_cpu_seconds": 147.19,
+      "service_observed_cpu_core_equivalents": 0.8191291630234155,
+      "peak_owned_summed_rss_bytes": 4384878592,
+      "peak_service_summed_rss_bytes": 4303892480,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 84.0,
+        "max": 100.0,
+        "mean": 82.63030303030303
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18359.0,
+        "max": 18359.0,
+        "mean": 18349.37575757576
+      },
+      "gpu_power_sample_watts": {
+        "min": 98.06,
+        "median": 271.17,
+        "max": 305.37,
+        "mean": 269.6769090909091
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 38,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-qwen4b-rate5",
+      "repeat": 3,
+      "condition": "qwen4b",
+      "rate": 5,
+      "schedule_file": "schedules/r3-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:35:31.179128+00:00",
+      "attempt_started_at": "2026-11-06T02:35:40.326930+00:00",
+      "measurement_started_at": "2026-11-06T02:35:43.269309+00:00",
+      "finished_at": "2026-11-06T02:38:44.297430+00:00",
+      "startup_seconds": 116.82399372011423,
+      "resource_samples": 164,
+      "observed_resource_span_seconds": 179.28938050754368,
+      "owned_observed_cpu_seconds": 57.05,
+      "service_observed_cpu_seconds": 46.959999999999994,
+      "service_observed_cpu_core_equivalents": 0.26192293077851386,
+      "peak_owned_summed_rss_bytes": 4366032896,
+      "peak_service_summed_rss_bytes": 4311138304,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 43.0,
+        "max": 100.0,
+        "mean": 45.048780487804876
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18223.0,
+        "max": 18223.0,
+        "mean": 18222.073170731706
+      },
+      "gpu_power_sample_watts": {
+        "min": 79.25,
+        "median": 171.305,
+        "max": 247.21,
+        "mean": 169.95798780487806
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 59,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-qwen4b-rate100",
+      "repeat": 3,
+      "condition": "qwen4b",
+      "rate": 100,
+      "schedule_file": "schedules/r3-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:42:02.196970+00:00",
+      "attempt_started_at": "2026-11-06T02:42:11.299223+00:00",
+      "measurement_started_at": "2026-11-06T02:42:12.715287+00:00",
+      "finished_at": "2026-11-06T02:45:15.265830+00:00",
+      "startup_seconds": 197.8222612850368,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 180.41041398607194,
+      "owned_observed_cpu_seconds": 191.56000000000003,
+      "service_observed_cpu_seconds": 177.24,
+      "service_observed_cpu_core_equivalents": 0.982426657552503,
+      "peak_owned_summed_rss_bytes": 4430094336,
+      "peak_service_summed_rss_bytes": 4306935808,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 100.0,
+        "max": 100.0,
+        "mean": 93.82424242424243
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18901.0,
+        "max": 19063.0,
+        "mean": 18872.50303030303
+      },
+      "gpu_power_sample_watts": {
+        "min": 95.87,
+        "median": 315.61,
+        "max": 336.55,
+        "mean": 314.00981818181816
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 51,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-minilm1600-rate100",
+      "repeat": 3,
+      "condition": "minilm1600",
+      "rate": 100,
+      "schedule_file": "schedules/r3-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:45:20.876182+00:00",
+      "attempt_started_at": "2026-11-06T02:45:21.231144+00:00",
+      "measurement_started_at": "2026-11-06T02:45:22.633706+00:00",
+      "finished_at": "2026-11-06T02:48:23.871456+00:00",
+      "startup_seconds": 5.536720674484968,
+      "resource_samples": 163,
+      "observed_resource_span_seconds": 179.3044507075101,
+      "owned_observed_cpu_seconds": 112.70999999999998,
+      "service_observed_cpu_seconds": 91.80999999999999,
+      "service_observed_cpu_core_equivalents": 0.5120341387942723,
+      "peak_owned_summed_rss_bytes": 388706304,
+      "peak_service_summed_rss_bytes": 204972032,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 32.57,
+        "median": 33.06,
+        "max": 75.78,
+        "mean": 34.07208588957055
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 75,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-minilm1600-rate5",
+      "repeat": 3,
+      "condition": "minilm1600",
+      "rate": 5,
+      "schedule_file": "schedules/r3-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:48:24.688344+00:00",
+      "attempt_started_at": "2026-11-06T02:48:25.032728+00:00",
+      "measurement_started_at": "2026-11-06T02:48:25.351425+00:00",
+      "finished_at": "2026-11-06T02:51:25.557211+00:00",
+      "startup_seconds": 0.7547348085790873,
+      "resource_samples": 166,
+      "observed_resource_span_seconds": 180.09655216149986,
+      "owned_observed_cpu_seconds": 15.049999999999999,
+      "service_observed_cpu_seconds": 4.92,
+      "service_observed_cpu_core_equivalents": 0.027318679569101563,
+      "peak_owned_summed_rss_bytes": 254337024,
+      "peak_service_summed_rss_bytes": 204574720,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 32.8,
+        "median": 32.81,
+        "max": 33.06,
+        "mean": 32.82915662650603
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 63,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-minilm1600-rate25",
+      "repeat": 3,
+      "condition": "minilm1600",
+      "rate": 25,
+      "schedule_file": "schedules/r3-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:51:26.134743+00:00",
+      "attempt_started_at": "2026-11-06T02:51:26.489367+00:00",
+      "measurement_started_at": "2026-11-06T02:51:26.755160+00:00",
+      "finished_at": "2026-11-06T02:54:27.128134+00:00",
+      "startup_seconds": 0.5039652120321989,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 179.4752653464675,
+      "owned_observed_cpu_seconds": 35.84,
+      "service_observed_cpu_seconds": 23.22,
+      "service_observed_cpu_core_equivalents": 0.12937715932708063,
+      "peak_owned_summed_rss_bytes": 280686592,
+      "peak_service_summed_rss_bytes": 206970880,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 32.79,
+        "median": 32.81,
+        "max": 33.06,
+        "mean": 32.82545454545455
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 61,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-startlux4b-rate5",
+      "repeat": 3,
+      "condition": "startlux4b",
+      "rate": 5,
+      "schedule_file": "schedules/r3-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T02:56:40.908756+00:00",
+      "attempt_started_at": "2026-11-06T02:56:43.455758+00:00",
+      "measurement_started_at": "2026-11-06T02:56:44.547719+00:00",
+      "finished_at": "2026-11-06T02:59:45.517469+00:00",
+      "startup_seconds": 133.70277903042734,
+      "resource_samples": 166,
+      "observed_resource_span_seconds": 180.0688575580716,
+      "owned_observed_cpu_seconds": 46.05999999999999,
+      "service_observed_cpu_seconds": 36.04999999999999,
+      "service_observed_cpu_core_equivalents": 0.20020119241537357,
+      "peak_owned_summed_rss_bytes": 5025718272,
+      "peak_service_summed_rss_bytes": 4970430464,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 6.0,
+        "max": 68.0,
+        "mean": 13.072289156626505
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18313.0,
+        "max": 18313.0,
+        "mean": 18313.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 79.04,
+        "median": 109.03999999999999,
+        "max": 156.17,
+        "mean": 111.02379518072289
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 50,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-startlux4b-rate100",
+      "repeat": 3,
+      "condition": "startlux4b",
+      "rate": 100,
+      "schedule_file": "schedules/r3-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T03:01:43.027817+00:00",
+      "attempt_started_at": "2026-11-06T03:01:45.611156+00:00",
+      "measurement_started_at": "2026-11-06T03:01:46.222628+00:00",
+      "finished_at": "2026-11-06T03:04:48.525402+00:00",
+      "startup_seconds": 117.4512325245887,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 180.13386533595622,
+      "owned_observed_cpu_seconds": 173.57000000000002,
+      "service_observed_cpu_seconds": 157.79000000000002,
+      "service_observed_cpu_core_equivalents": 0.8759596631411641,
+      "peak_owned_summed_rss_bytes": 5121445888,
+      "peak_service_summed_rss_bytes": 4976730112,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 100.0,
+        "max": 100.0,
+        "mean": 96.4
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18939.0,
+        "max": 19285.0,
+        "mean": 19005.872727272726
+      },
+      "gpu_power_sample_watts": {
+        "min": 156.13,
+        "median": 336.78,
+        "max": 344.81,
+        "mean": 332.36751515151514
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 40,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-startlux4b-rate25",
+      "repeat": 3,
+      "condition": "startlux4b",
+      "rate": 25,
+      "schedule_file": "schedules/r3-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T03:06:45.832383+00:00",
+      "attempt_started_at": "2026-11-06T03:06:48.421396+00:00",
+      "measurement_started_at": "2026-11-06T03:06:49.092615+00:00",
+      "finished_at": "2026-11-06T03:09:50.265985+00:00",
+      "startup_seconds": 117.24751753918827,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 179.65925709716976,
+      "owned_observed_cpu_seconds": 150.41,
+      "service_observed_cpu_seconds": 138.46,
+      "service_observed_cpu_core_equivalents": 0.7706811340376027,
+      "peak_owned_summed_rss_bytes": 5108723712,
+      "peak_service_summed_rss_bytes": 5027844096,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 52.0,
+        "max": 100.0,
+        "mean": 50.47878787878788
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18401.0,
+        "max": 18401.0,
+        "mean": 18390.81818181818
+      },
+      "gpu_power_sample_watts": {
+        "min": 131.82,
+        "median": 217.94,
+        "max": 289.97,
+        "mean": 215.93769696969696
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 38,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-minilm400-rate25",
+      "repeat": 3,
+      "condition": "minilm400",
+      "rate": 25,
+      "schedule_file": "schedules/r3-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T03:09:51.830875+00:00",
+      "attempt_started_at": "2026-11-06T03:09:52.193204+00:00",
+      "measurement_started_at": "2026-11-06T03:09:52.587017+00:00",
+      "finished_at": "2026-11-06T03:12:53.084345+00:00",
+      "startup_seconds": 1.505253091454506,
+      "resource_samples": 165,
+      "observed_resource_span_seconds": 179.51286988332868,
+      "owned_observed_cpu_seconds": 35.73,
+      "service_observed_cpu_seconds": 23.06,
+      "service_observed_cpu_core_equivalents": 0.12845875627183417,
+      "peak_owned_summed_rss_bytes": 282746880,
+      "peak_service_summed_rss_bytes": 207106048,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 32.81,
+        "median": 33.18,
+        "max": 66.19,
+        "mean": 34.57472727272727
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 29,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-minilm400-rate100",
+      "repeat": 3,
+      "condition": "minilm400",
+      "rate": 100,
+      "schedule_file": "schedules/r3-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns051is14",
+        "slurm_job_id": "66103994"
+      },
+      "gpu_uuid": "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "48-53,74-83",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T03:12:53.897969+00:00",
+      "attempt_started_at": "2026-11-06T03:12:54.255365+00:00",
+      "measurement_started_at": "2026-11-06T03:12:54.509627+00:00",
+      "finished_at": "2026-11-06T03:15:55.627695+00:00",
+      "startup_seconds": 0.7545114792883396,
+      "resource_samples": 164,
+      "observed_resource_span_seconds": 180.17162145115435,
+      "owned_observed_cpu_seconds": 112.93,
+      "service_observed_cpu_seconds": 91.88000000000001,
+      "service_observed_cpu_core_equivalents": 0.5099582234980843,
+      "peak_owned_summed_rss_bytes": 367820800,
+      "peak_service_summed_rss_bytes": 178233344,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 32.8,
+        "median": 32.81,
+        "max": 32.94,
+        "mean": 32.81725609756098
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 41,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r3-minilm400-rate5",
+      "repeat": 3,
+      "condition": "minilm400",
+      "rate": 5,
+      "schedule_file": "schedules/r3-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T08:06:17.790032+00:00",
+      "attempt_started_at": "2026-11-06T08:06:18.151822+00:00",
+      "measurement_started_at": "2026-11-06T08:06:18.558349+00:00",
+      "finished_at": "2026-11-06T08:09:18.872883+00:00",
+      "startup_seconds": 2.263707872480154,
+      "resource_samples": 151,
+      "observed_resource_span_seconds": 179.88735204562545,
+      "owned_observed_cpu_seconds": 11.66,
+      "service_observed_cpu_seconds": 4.92,
+      "service_observed_cpu_core_equivalents": 0.0273504498457019,
+      "peak_owned_summed_rss_bytes": 225161216,
+      "peak_service_summed_rss_bytes": 178012160,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 35.81,
+        "median": 71.28,
+        "max": 83.66,
+        "mean": 71.05311258278145
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 11,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-startlux4b-rate25",
+      "repeat": 4,
+      "condition": "startlux4b",
+      "rate": 25,
+      "schedule_file": "schedules/r4-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T08:13:23.484486+00:00",
+      "attempt_started_at": "2026-11-06T08:13:26.042756+00:00",
+      "measurement_started_at": "2026-11-06T08:13:29.132202+00:00",
+      "finished_at": "2026-11-06T08:16:30.747102+00:00",
+      "startup_seconds": 244.56551658548415,
+      "resource_samples": 144,
+      "observed_resource_span_seconds": 179.547368446365,
+      "owned_observed_cpu_seconds": 149.6,
+      "service_observed_cpu_seconds": 141.2,
+      "service_observed_cpu_core_equivalents": 0.7864219967232755,
+      "peak_owned_summed_rss_bytes": 5055508480,
+      "peak_service_summed_rss_bytes": 4974579712,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 51.0,
+        "max": 100.0,
+        "mean": 48.56944444444444
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18395.0,
+        "max": 18395.0,
+        "mean": 18392.708333333332
+      },
+      "gpu_power_sample_watts": {
+        "min": 81.45,
+        "median": 228.95,
+        "max": 286.67,
+        "mean": 226.2138888888889
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 20,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-startlux4b-rate5",
+      "repeat": 4,
+      "condition": "startlux4b",
+      "rate": 5,
+      "schedule_file": "schedules/r4-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T08:18:29.491793+00:00",
+      "attempt_started_at": "2026-11-06T08:18:32.040269+00:00",
+      "measurement_started_at": "2026-11-06T08:18:32.613494+00:00",
+      "finished_at": "2026-11-06T08:21:33.501728+00:00",
+      "startup_seconds": 118.63339938037097,
+      "resource_samples": 149,
+      "observed_resource_span_seconds": 179.37605730257928,
+      "owned_observed_cpu_seconds": 40.93000000000001,
+      "service_observed_cpu_seconds": 34.31000000000001,
+      "service_observed_cpu_core_equivalents": 0.1912741338835674,
+      "peak_owned_summed_rss_bytes": 5018787840,
+      "peak_service_summed_rss_bytes": 4964556800,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 10.0,
+        "max": 62.0,
+        "mean": 13.456375838926174
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18313.0,
+        "max": 18313.0,
+        "mean": 18313.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 83.16,
+        "median": 116.43,
+        "max": 165.9,
+        "mean": 116.35496644295301
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 12,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-startlux4b-rate100",
+      "repeat": 4,
+      "condition": "startlux4b",
+      "rate": 100,
+      "schedule_file": "schedules/r4-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T08:23:31.555623+00:00",
+      "attempt_started_at": "2026-11-06T08:23:34.080304+00:00",
+      "measurement_started_at": "2026-11-06T08:23:34.677949+00:00",
+      "finished_at": "2026-11-06T08:26:36.996458+00:00",
+      "startup_seconds": 118.00597897171974,
+      "resource_samples": 139,
+      "observed_resource_span_seconds": 180.42939048819244,
+      "owned_observed_cpu_seconds": 187.60000000000002,
+      "service_observed_cpu_seconds": 175.22000000000003,
+      "service_observed_cpu_core_equivalents": 0.9711278164045379,
+      "peak_owned_summed_rss_bytes": 5114748928,
+      "peak_service_summed_rss_bytes": 4968497152,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 100.0,
+        "max": 100.0,
+        "mean": 98.43165467625899
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18313.0,
+        "median": 18615.0,
+        "max": 18615.0,
+        "mean": 18552.237410071943
+      },
+      "gpu_power_sample_watts": {
+        "min": 176.15,
+        "median": 340.44,
+        "max": 348.05,
+        "mean": 339.0348201438849
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 17,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-minilm1600-rate25",
+      "repeat": 4,
+      "condition": "minilm1600",
+      "rate": 25,
+      "schedule_file": "schedules/r4-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T08:26:38.309134+00:00",
+      "attempt_started_at": "2026-11-06T08:26:38.669921+00:00",
+      "measurement_started_at": "2026-11-06T08:26:38.993920+00:00",
+      "finished_at": "2026-11-06T08:29:39.566282+00:00",
+      "startup_seconds": 1.254772998392582,
+      "resource_samples": 151,
+      "observed_resource_span_seconds": 179.695919662714,
+      "owned_observed_cpu_seconds": 33.06,
+      "service_observed_cpu_seconds": 23.62,
+      "service_observed_cpu_core_equivalents": 0.1314442756648805,
+      "peak_owned_summed_rss_bytes": 275165184,
+      "peak_service_summed_rss_bytes": 197545984,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 35.07,
+        "median": 70.92,
+        "max": 92.9,
+        "mean": 69.13814569536424
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 19,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-minilm1600-rate100",
+      "repeat": 4,
+      "condition": "minilm1600",
+      "rate": 100,
+      "schedule_file": "schedules/r4-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T08:29:40.128692+00:00",
+      "attempt_started_at": "2026-11-06T08:29:40.483177+00:00",
+      "measurement_started_at": "2026-11-06T08:29:40.744400+00:00",
+      "finished_at": "2026-11-06T08:32:41.834919+00:00",
+      "startup_seconds": 0.5045621413737535,
+      "resource_samples": 151,
+      "observed_resource_span_seconds": 179.1029165610671,
+      "owned_observed_cpu_seconds": 106.91,
+      "service_observed_cpu_seconds": 89.38,
+      "service_observed_cpu_core_equivalents": 0.4990426829231723,
+      "peak_owned_summed_rss_bytes": 393838592,
+      "peak_service_summed_rss_bytes": 205029376,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 33.96,
+        "median": 71.04,
+        "max": 87.04,
+        "mean": 69.558940397351
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 16,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-minilm1600-rate5",
+      "repeat": 4,
+      "condition": "minilm1600",
+      "rate": 5,
+      "schedule_file": "schedules/r4-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T16:31:00.297451+00:00",
+      "attempt_started_at": "2026-11-06T16:31:00.650173+00:00",
+      "measurement_started_at": "2026-11-06T16:31:00.884972+00:00",
+      "finished_at": "2026-11-06T16:34:01.297688+00:00",
+      "startup_seconds": 3.01024080067873,
+      "resource_samples": 169,
+      "observed_resource_span_seconds": 179.4466612059623,
+      "owned_observed_cpu_seconds": 11.9,
+      "service_observed_cpu_seconds": 4.8,
+      "service_observed_cpu_core_equivalents": 0.02674889556451951,
+      "peak_owned_summed_rss_bytes": 253517824,
+      "peak_service_summed_rss_bytes": 206786560,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 33.1,
+        "median": 33.1,
+        "max": 75.31,
+        "mean": 33.62355029585799
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 23,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-qwen4b-rate25",
+      "repeat": 4,
+      "condition": "qwen4b",
+      "rate": 25,
+      "schedule_file": "schedules/r4-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T16:38:18.719337+00:00",
+      "attempt_started_at": "2026-11-06T16:38:28.225963+00:00",
+      "measurement_started_at": "2026-11-06T16:38:32.021544+00:00",
+      "finished_at": "2026-11-06T16:41:34.888644+00:00",
+      "startup_seconds": 257.3343257792294,
+      "resource_samples": 169,
+      "observed_resource_span_seconds": 180.11634067818522,
+      "owned_observed_cpu_seconds": 160.98,
+      "service_observed_cpu_seconds": 152.03,
+      "service_observed_cpu_core_equivalents": 0.8440655602238376,
+      "peak_owned_summed_rss_bytes": 4387659776,
+      "peak_service_summed_rss_bytes": 4306587648,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 84.0,
+        "max": 100.0,
+        "mean": 81.44970414201184
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18347.0,
+        "max": 18411.0,
+        "mean": 18347.73372781065
+      },
+      "gpu_power_sample_watts": {
+        "min": 82.28,
+        "median": 282.34,
+        "max": 320.11,
+        "mean": 280.90686390532545
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 17,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-qwen4b-rate100",
+      "repeat": 4,
+      "condition": "qwen4b",
+      "rate": 100,
+      "schedule_file": "schedules/r4-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T16:43:24.064995+00:00",
+      "attempt_started_at": "2026-11-06T16:43:33.201393+00:00",
+      "measurement_started_at": "2026-11-06T16:43:33.994048+00:00",
+      "finished_at": "2026-11-06T16:46:36.670827+00:00",
+      "startup_seconds": 109.1082838922739,
+      "resource_samples": 170,
+      "observed_resource_span_seconds": 181.3579252231866,
+      "owned_observed_cpu_seconds": 188.14000000000001,
+      "service_observed_cpu_seconds": 177.36,
+      "service_observed_cpu_core_equivalents": 0.9779556078496896,
+      "peak_owned_summed_rss_bytes": 4442755072,
+      "peak_service_summed_rss_bytes": 4310888448,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 100.0,
+        "max": 100.0,
+        "mean": 94.12352941176471
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18917.0,
+        "max": 19055.0,
+        "mean": 18873.976470588233
+      },
+      "gpu_power_sample_watts": {
+        "min": 137.22,
+        "median": 317.425,
+        "max": 336.41,
+        "mean": 316.14676470588233
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 15,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-qwen4b-rate5",
+      "repeat": 4,
+      "condition": "qwen4b",
+      "rate": 5,
+      "schedule_file": "schedules/r4-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T16:48:22.157145+00:00",
+      "attempt_started_at": "2026-11-06T16:48:31.268167+00:00",
+      "measurement_started_at": "2026-11-06T16:48:31.815663+00:00",
+      "finished_at": "2026-11-06T16:51:32.621497+00:00",
+      "startup_seconds": 105.41633498854935,
+      "resource_samples": 169,
+      "observed_resource_span_seconds": 179.65678968839347,
+      "owned_observed_cpu_seconds": 52.00000000000001,
+      "service_observed_cpu_seconds": 45.580000000000005,
+      "service_observed_cpu_core_equivalents": 0.25370596947132606,
+      "peak_owned_summed_rss_bytes": 4366860288,
+      "peak_service_summed_rss_bytes": 4310540288,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 41.0,
+        "max": 100.0,
+        "mean": 43.46153846153846
+      },
+      "gpu_memory_sample_mib": {
+        "min": 18071.0,
+        "median": 18155.0,
+        "max": 18227.0,
+        "mean": 18153.118343195267
+      },
+      "gpu_power_sample_watts": {
+        "min": 97.3,
+        "median": 179.57,
+        "max": 259.49,
+        "mean": 175.77662721893492
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 30,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-minilm400-rate25",
+      "repeat": 4,
+      "condition": "minilm400",
+      "rate": 25,
+      "schedule_file": "schedules/r4-rate25.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T16:51:36.691732+00:00",
+      "attempt_started_at": "2026-11-06T16:51:37.046604+00:00",
+      "measurement_started_at": "2026-11-06T16:51:37.902857+00:00",
+      "finished_at": "2026-11-06T16:54:38.447697+00:00",
+      "startup_seconds": 4.010048465803266,
+      "resource_samples": 169,
+      "observed_resource_span_seconds": 179.312087232247,
+      "owned_observed_cpu_seconds": 32.64,
+      "service_observed_cpu_seconds": 23.400000000000002,
+      "service_observed_cpu_core_equivalents": 0.1304987319103149,
+      "peak_owned_summed_rss_bytes": 291196928,
+      "peak_service_summed_rss_bytes": 211202048,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 32.86,
+        "median": 33.1,
+        "max": 61.83,
+        "mean": 34.00355029585799
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 20,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-minilm400-rate5",
+      "repeat": 4,
+      "condition": "minilm400",
+      "rate": 5,
+      "schedule_file": "schedules/r4-rate5.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T16:54:39.012878+00:00",
+      "attempt_started_at": "2026-11-06T16:54:39.367979+00:00",
+      "measurement_started_at": "2026-11-06T16:54:39.611502+00:00",
+      "finished_at": "2026-11-06T16:57:39.898636+00:00",
+      "startup_seconds": 0.5046791546046734,
+      "resource_samples": 170,
+      "observed_resource_span_seconds": 180.092263514176,
+      "owned_observed_cpu_seconds": 11.919999999999998,
+      "service_observed_cpu_seconds": 4.75,
+      "service_observed_cpu_core_equivalents": 0.02637536953177393,
+      "peak_owned_summed_rss_bytes": 223633408,
+      "peak_service_summed_rss_bytes": 176054272,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 32.86,
+        "median": 32.86,
+        "max": 33.1,
+        "mean": 32.874117647058824
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 18,
+      "proc_inventory_error_samples": 0
+    },
+    {
+      "cell_id": "r4-minilm400-rate100",
+      "repeat": 4,
+      "condition": "minilm400",
+      "rate": 100,
+      "schedule_file": "schedules/r4-rate100.json",
+      "allocation": {
+        "hostname": "sc1ns052is14",
+        "slurm_job_id": "66376166"
+      },
+      "gpu_uuid": "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7",
+      "cpu_models": [
+        "AMD EPYC 7643 48-Core Processor"
+      ],
+      "cpus_allowed_list": "20-23,26-37",
+      "slurm_mem_per_node": "102400",
+      "started_at": "2026-11-06T16:57:41.001539+00:00",
+      "attempt_started_at": "2026-11-06T16:57:41.358058+00:00",
+      "measurement_started_at": "2026-11-06T16:57:41.698987+00:00",
+      "finished_at": "2026-11-06T17:00:42.727264+00:00",
+      "startup_seconds": 1.055887509137392,
+      "resource_samples": 168,
+      "observed_resource_span_seconds": 179.45300153270364,
+      "owned_observed_cpu_seconds": 108.24000000000001,
+      "service_observed_cpu_seconds": 90.92,
+      "service_observed_cpu_core_equivalents": 0.5066507621686711,
+      "peak_owned_summed_rss_bytes": 365703168,
+      "peak_service_summed_rss_bytes": 178548736,
+      "gpu_utilization_sample_percent": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_memory_sample_mib": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "gpu_power_sample_watts": {
+        "min": 32.86,
+        "median": 32.86,
+        "max": 33.1,
+        "mean": 32.872142857142855
+      },
+      "gpu_unavailable_samples": 0,
+      "unavailable_root_observations": 0,
+      "proc_inventory_unreadable_count_sum": 13,
+      "proc_inventory_error_samples": 0
+    }
+  ],
+  "limits": [
+    "Artifact hashes and declared source establish consistency, not cryptographic attestation of remote execution.",
+    "One numeric CPU thread is not a dedicated physical core; affinity was not enforced by the service.",
+    "Resource sampling includes the cell client and service descendants; service-only aggregates exclude the cell client.",
+    "CPU deltas cover observed intervals only; RSS sums can double-count shared mappings and are not peak job RAM.",
+    "GPU memory, utilization and power observations cover the whole device and do not establish per-request energy or dollar cost.",
+    "Start/finished receipts and shutdown logs record past lifecycle; they do not establish present node liveness.",
+    "One repeat/rate comparison spans two allocations and must not be called same-hardware paired."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "archive_sha256": "f427f7762bac745d9316cb02195c09f98ab551794de1da047509be7f9fe7d1ed",
+  "audit_script_sha256": "466eaa8883ca6d3d8d57c8da416cbc9868ca8404945d1dadbad9499e3c8a232e",
+  "executed_production_fitting_evaluation_or_gpu": false,
+  "outputs": {
+    "identity-audit.json": "de663c6a26e380dd0426e22c3f6cdf39e9c63ddebf72ac547eb0cc392a634bf3",
+    "metrics-audit.json": "4fc522f529f37b801b2a4590d78d6bd9a08a90e4bdfced6744afa4579e95043a",
+    "runtime-audit.json": "b3cf3f12798032a5993051cb1bd286026a7156a100554cf5b466a7414b480487"
+  },
+  "status": "PASS"
+}

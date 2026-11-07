@@ -1,0 +1,88 @@
+{
+  "minilm400": {
+    "unique_inputs": 600,
+    "unique_inputs_with_varying_successful_labels": 0,
+    "varying_inputs": {},
+    "responses_differing_from_historical_label": 0,
+    "inputs_with_any_historical_disagreement": 0,
+    "historical_unique_correct": 544,
+    "unique_inputs_always_correct": 544,
+    "unique_inputs_ever_correct": 544,
+    "successful_response_count": 117451
+  },
+  "minilm1600": {
+    "unique_inputs": 600,
+    "unique_inputs_with_varying_successful_labels": 0,
+    "varying_inputs": {},
+    "responses_differing_from_historical_label": 0,
+    "inputs_with_any_historical_disagreement": 0,
+    "historical_unique_correct": 559,
+    "unique_inputs_always_correct": 559,
+    "unique_inputs_ever_correct": 559,
+    "successful_response_count": 117451
+  },
+  "startlux4b": {
+    "unique_inputs": 600,
+    "unique_inputs_with_varying_successful_labels": 2,
+    "varying_inputs": {
+      "clinc:test:1135:addb4ec020e8c6ce": {
+        "pay_bill": 142,
+        "bill_due": 4
+      },
+      "clinc:test:3859:867997a1abc2d21f": {
+        "bill_balance": 89,
+        "oos": 48
+      }
+    },
+    "responses_differing_from_historical_label": 52,
+    "inputs_with_any_historical_disagreement": 2,
+    "historical_unique_correct": 561,
+    "unique_inputs_always_correct": 559,
+    "unique_inputs_ever_correct": 561,
+    "successful_response_count": 85900
+  },
+  "qwen4b": {
+    "unique_inputs": 600,
+    "unique_inputs_with_varying_successful_labels": 8,
+    "varying_inputs": {
+      "clinc:test:759:cddabcf9114dbc6e": {
+        "balance": 113,
+        "oos": 13
+      },
+      "clinc:test:1152:b7c782582e62024a": {
+        "spending_history": 104,
+        "oos": 15
+      },
+      "clinc:test:2314:3a54890d9e98ecd6": {
+        "oos": 36,
+        "bill_due": 80
+      },
+      "clinc:test:3850:f029290a225eb545": {
+        "bill_balance": 113,
+        "oos": 2
+      },
+      "clinc:test:3329:aa0e6d352d458c34": {
+        "bill_due": 109,
+        "bill_balance": 9
+      },
+      "clinc:test:2911:12dfea75a0f9749d": {
+        "freeze_account": 23,
+        "account_blocked": 95
+      },
+      "clinc:test:3325:0b8e23228c3ba6e6": {
+        "min_payment": 19,
+        "bill_due": 96
+      },
+      "clinc:test:2914:3c11612cb8a0cf61": {
+        "freeze_account": 105,
+        "account_blocked": 1
+      }
+    },
+    "responses_differing_from_historical_label": 323,
+    "inputs_with_any_historical_disagreement": 8,
+    "historical_unique_correct": 528,
+    "unique_inputs_always_correct": 526,
+    "unique_inputs_ever_correct": 533,
+    "successful_response_count": 69769
+  }
+}

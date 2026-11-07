@@ -1,0 +1,191 @@
+{
+  "service": {
+    "cells": 60,
+    "condition_rate": [
+      {
+        "cells": 5,
+        "condition": "minilm1600",
+        "correct_goodput_per_second_median": 4.644444444444445,
+        "failed_admitted": 0,
+        "offered": 4518,
+        "rate": 5,
+        "rejected": 0,
+        "successful_per_second_median": 4.983333333333333
+      },
+      {
+        "cells": 5,
+        "condition": "minilm1600",
+        "correct_goodput_per_second_median": 23.444444444444443,
+        "failed_admitted": 0,
+        "offered": 22591,
+        "rate": 25,
+        "rejected": 0,
+        "successful_per_second_median": 25.16111111111111
+      },
+      {
+        "cells": 5,
+        "condition": "minilm1600",
+        "correct_goodput_per_second_median": 93.43333333333334,
+        "failed_admitted": 0,
+        "offered": 90342,
+        "rate": 100,
+        "rejected": 0,
+        "successful_per_second_median": 100.28888888888889
+      },
+      {
+        "cells": 5,
+        "condition": "minilm400",
+        "correct_goodput_per_second_median": 4.522222222222222,
+        "failed_admitted": 0,
+        "offered": 4518,
+        "rate": 5,
+        "rejected": 0,
+        "successful_per_second_median": 4.983333333333333
+      },
+      {
+        "cells": 5,
+        "condition": "minilm400",
+        "correct_goodput_per_second_median": 22.8,
+        "failed_admitted": 0,
+        "offered": 22591,
+        "rate": 25,
+        "rejected": 0,
+        "successful_per_second_median": 25.16111111111111
+      },
+      {
+        "cells": 5,
+        "condition": "minilm400",
+        "correct_goodput_per_second_median": 90.92222222222222,
+        "failed_admitted": 0,
+        "offered": 90342,
+        "rate": 100,
+        "rejected": 0,
+        "successful_per_second_median": 100.28888888888889
+      },
+      {
+        "cells": 5,
+        "condition": "qwen4b",
+        "correct_goodput_per_second_median": 4.405555555555556,
+        "failed_admitted": 0,
+        "offered": 4518,
+        "rate": 5,
+        "rejected": 0,
+        "successful_per_second_median": 4.983333333333333
+      },
+      {
+        "cells": 5,
+        "condition": "qwen4b",
+        "correct_goodput_per_second_median": 22.005555555555556,
+        "failed_admitted": 0,
+        "offered": 22591,
+        "rate": 25,
+        "rejected": 12,
+        "successful_per_second_median": 25.16111111111111
+      },
+      {
+        "cells": 5,
+        "condition": "qwen4b",
+        "correct_goodput_per_second_median": 0.09444444444444444,
+        "failed_admitted": 0,
+        "offered": 90342,
+        "rate": 100,
+        "rejected": 47670,
+        "successful_per_second_median": 47.483333333333334
+      },
+      {
+        "cells": 5,
+        "condition": "startlux4b",
+        "correct_goodput_per_second_median": 4.666666666666667,
+        "failed_admitted": 0,
+        "offered": 4518,
+        "rate": 5,
+        "rejected": 0,
+        "successful_per_second_median": 4.983333333333333
+      },
+      {
+        "cells": 5,
+        "condition": "startlux4b",
+        "correct_goodput_per_second_median": 23.522222222222222,
+        "failed_admitted": 0,
+        "offered": 22591,
+        "rate": 25,
+        "rejected": 0,
+        "successful_per_second_median": 25.16111111111111
+      },
+      {
+        "cells": 5,
+        "condition": "startlux4b",
+        "correct_goodput_per_second_median": 0.46111111111111114,
+        "failed_admitted": 0,
+        "offered": 90342,
+        "rate": 100,
+        "rejected": 31551,
+        "successful_per_second_median": 64.70555555555555
+      }
+    ],
+    "mismatches_vs_saved_evaluation": [],
+    "totals": {
+      "admitted": 390571,
+      "correct": 357647,
+      "correct_met_slo": 265440,
+      "met_slo": 289401,
+      "offered": 469804,
+      "rejected": 79233,
+      "successful": 390571
+    }
+  },
+  "size_control": {
+    "comparisons": {
+      "startlux9b_minus_qwen9b": {
+        "both_correct": 1862,
+        "both_wrong": 489,
+        "candidate_only_correct": 592,
+        "clusters": 2854,
+        "difference": 0.1046875,
+        "interval_note": "Python random.Random, not the project's numpy generator; expect Monte Carlo differences from the saved interval",
+        "reference_only_correct": 257,
+        "stdlib_percentile_interval_95": [
+          0.08653545766947829,
+          0.12200435729847495
+        ]
+      },
+      "startlux9b_minus_startlux4b": {
+        "both_correct": 2209,
+        "both_wrong": 581,
+        "candidate_only_correct": 245,
+        "clusters": 2854,
+        "difference": 0.025,
+        "interval_note": "Python random.Random, not the project's numpy generator; expect Monte Carlo differences from the saved interval",
+        "reference_only_correct": 165,
+        "stdlib_percentile_interval_95": [
+          0.01278453383224197,
+          0.037480314960629924
+        ]
+      }
+    },
+    "direct": {
+      "qwen4b": {
+        "accuracy": 0.5540625,
+        "correct": 1773,
+        "n": 3200
+      },
+      "qwen9b": {
+        "accuracy": 0.6621875,
+        "correct": 2119,
+        "n": 3200
+      },
+      "startlux4b": {
+        "accuracy": 0.741875,
+        "correct": 2374,
+        "n": 3200
+      },
+      "startlux9b": {
+        "accuracy": 0.766875,
+        "correct": 2454,
+        "n": 3200
+      }
+    },
+    "n": 3200
+  },
+  "status": "PASS"
+}

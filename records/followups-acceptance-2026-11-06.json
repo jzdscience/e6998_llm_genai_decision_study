@@ -1,0 +1,565 @@
+{
+  "date": "2026-11-07",
+  "timezone": "America/Los_Angeles",
+  "experiment_ids": [
+    "clinc-service-v1",
+    "size-control-anli-v1"
+  ],
+  "status": "complete_independently_verified",
+  "source_commit": "8b5370d8aea7ed57dc42c92f4fe07bcf023a8e07",
+  "uploaded_paths": [
+    "/Users/zhanj289/Desktop/COMS6998/service_study_bundle.zip",
+    "/Users/zhanj289/Desktop/COMS6998/size_control_bundle.zip"
+  ],
+  "archives": [
+    {
+      "id": "service-complete-20261106-170135",
+      "archive": "records/bundles/service-complete-20261106-d212c130c707.zip",
+      "sha256": "d212c130c707a30fc9b99be759e0ec4386000b21fca0792dbe2867b619e0998b",
+      "bytes": 156888964,
+      "evaluation_access_at_utc": "2026-11-06T17:01:35.214889+00:00",
+      "bundle_kind": "clinc-service-v1",
+      "verified_file_count": 776,
+      "original_filename": "service_study_bundle.zip",
+      "extracted_directory": "results/returned-service-complete-2026-11-06",
+      "reported_state": "COMPLETE",
+      "reported_state_source": "evaluation.json/status",
+      "verified_state": "complete_independently_verified",
+      "integrity_validation": "all_members_crc_full_read_and_sha_after_install_source_inputs_schedules_freeze_access_evaluation_chain_verified",
+      "source_commit": "8b5370d8aea7ed57dc42c92f4fe07bcf023a8e07",
+      "completed_cells": 60,
+      "formal_offers": 469804,
+      "admitted_successful": 390571,
+      "client_rejected": 79233,
+      "failed_admitted": 0,
+      "allocations": {
+        "66103994": 47,
+        "66376166": 13
+      },
+      "note": "Four direct services on CLINC main600 at 5/25/100 rps x 5 repeats x 180 s, 500 ms SLO. Retrospective quality on a previously inspected test; repeats are not independent quality samples. No cascade, router or 9B serving condition. Pairing crosses allocations only for r3-rate5. A superseded 80 MB partial snapshot (sha256 165134a1...) was overwritten before archiving; see records/service-local-transfer-2026-11-06.json."
+    },
+    {
+      "id": "size-control-complete-20261106-171136",
+      "archive": "records/bundles/size-control-complete-20261106-f427f7762bac.zip",
+      "sha256": "f427f7762bac745d9316cb02195c09f98ab551794de1da047509be7f9fe7d1ed",
+      "bytes": 4984446,
+      "evaluation_access_at_utc": "2026-11-06T17:11:36.735790+00:00",
+      "bundle_kind": "size-control-anli-v1",
+      "verified_file_count": 166,
+      "original_filename": "size_control_bundle.zip",
+      "extracted_directory": "results/returned-size-control-complete-2026-11-06",
+      "reported_state": "complete",
+      "reported_state_source": "evaluation.json/status",
+      "verified_state": "complete_independently_verified_with_disclosed_metadata_conflict",
+      "integrity_validation": "all_members_crc_full_read_and_sha_after_install_manifest_v3_reference_hashes_freeze_access_evaluation_chain_verified",
+      "source_commit": "8b5370d8aea7ed57dc42c92f4fe07bcf023a8e07",
+      "formal_prediction_count": 3200,
+      "smoke_count": 180,
+      "startlux9b_accuracy": 0.766875,
+      "difference_vs_startlux4b_pp": 2.5,
+      "difference_vs_startlux4b_ci_pp": [
+        1.3358617877021797,
+        3.8129734060616545
+      ],
+      "note": "Retrospective direct-model size control on the V3 ANLI test already evaluated in V3; no fitting, thresholds or routing. Health metadata reports prefix_cache true while launch flags and engine logs disable it (same as V3). No 9B serving or co-residency measurement."
+    }
+  ],
+  "external_artifact_root": "/Users/zhanj289/Desktop/COMS6998/project/solo-experiments-2026-10-30/decision-study",
+  "external_audit_directory": ".validation/followups-return-2026-11-06",
+  "previous_preparation_receipt": "records/followups-preparation-2026-11-05.json",
+  "previous_runtime_repair_receipt": "records/followups-runtime-repair-2026-11-05.json",
+  "report": "reports/followups-2026-11-06/RESULTS_ZH.md",
+  "audits": {
+    "service_metrics": "reports/followups-2026-11-06/evidence/service/metrics-audit.json",
+    "service_supplemental": "reports/followups-2026-11-06/evidence/service/supplemental-audit.json",
+    "service_runtime": "reports/followups-2026-11-06/evidence/service/service-runtime-audit.json",
+    "service_prediction_consistency": "reports/followups-2026-11-06/evidence/service/prediction-consistency.json",
+    "size_identity": "reports/followups-2026-11-06/evidence/size/identity-audit.json",
+    "size_metrics": "reports/followups-2026-11-06/evidence/size/metrics-audit.json",
+    "size_runtime": "reports/followups-2026-11-06/evidence/size/runtime-audit.json",
+    "raw_recheck": "reports/followups-2026-11-06/evidence/raw-recheck-2026-11-07.json"
+  },
+  "validation": {
+    "audit_session": "Codex, 2026-11-06 local evening; final chat reply was never emitted, results recovered from the saved audit outputs",
+    "service": {
+      "completed_cells": 60,
+      "single_complete_attempt_each": 60,
+      "formal_offers": 469804,
+      "raw_successful_responses_reparsed": 390571,
+      "client_rejected": 79233,
+      "failed_admitted": 0,
+      "met_slo": 289401,
+      "correct": 357647,
+      "correct_met_slo": 265440,
+      "allocations": {
+        "66103994": {
+          "hostname": "sc1ns051is14",
+          "cells": 47,
+          "gpu_uuids": [
+            "GPU-1eadaa49-a9ab-8592-b421-bd1a96bcf80c"
+          ],
+          "cpu_affinity_sets": [
+            "48-53,74-83"
+          ]
+        },
+        "66376166": {
+          "hostname": "sc1ns052is14",
+          "cells": 13,
+          "gpu_uuids": [
+            "GPU-fe8709e7-19fc-ae08-e9d1-8e24a1d30ca7"
+          ],
+          "cpu_affinity_sets": [
+            "20-23,26-37"
+          ]
+        }
+      },
+      "pairing_crosses_allocation": [
+        "r3-rate5"
+      ],
+      "dependency_hash_checks": {
+        "3a97f698c87b307f3d5618e039fcd2c0b7a818d1c34d4c49973626ede49d6d8a": 90
+      },
+      "all60_finished_before_first_quality_access": true,
+      "retained_last_error": {
+        "at": "2026-11-06T08:32:42.896745+00:00",
+        "error": "Could not verify that port 18120 is unused: timed out",
+        "earlier_than_final_completion": true
+      },
+      "label_variation": {
+        "minilm400": {
+          "inputs_with_varying_labels": 0,
+          "responses_differing_from_historical": 0,
+          "successful_responses": 117451
+        },
+        "minilm1600": {
+          "inputs_with_varying_labels": 0,
+          "responses_differing_from_historical": 0,
+          "successful_responses": 117451
+        },
+        "startlux4b": {
+          "inputs_with_varying_labels": 2,
+          "responses_differing_from_historical": 52,
+          "successful_responses": 85900
+        },
+        "qwen4b": {
+          "inputs_with_varying_labels": 8,
+          "responses_differing_from_historical": 323,
+          "successful_responses": 69769
+        }
+      }
+    },
+    "size_control": {
+      "formal_rows": {
+        "attempts": 3200,
+        "count": 3200,
+        "errors": 0,
+        "retries": 0
+      },
+      "smoke_passes": [
+        {
+          "attempts": 90,
+          "count": 90,
+          "errors": 0,
+          "retries": 0
+        },
+        {
+          "attempts": 90,
+          "count": 90,
+          "errors": 0,
+          "retries": 0
+        }
+      ],
+      "smoke_argmax_agreement": 1.0,
+      "tokens": {
+        "count": 3290,
+        "matched_response_usage": 3380,
+        "max": 356,
+        "min": 177,
+        "truncated": false
+      },
+      "time_chain": {
+        "access": "2026-11-06T17:11:36.735790+00:00",
+        "completion": "2026-11-06T17:11:26.742368+00:00",
+        "evaluation": "2026-11-06T17:11:38.097130+00:00",
+        "export": "2026-11-06T17:11:38.126704+00:00",
+        "first_prediction": "2026-11-06T17:09:02.777776+00:00",
+        "freeze": "2026-11-06T17:04:55.221355+00:00",
+        "last_prediction": "2026-11-06T17:11:24.491300+00:00"
+      },
+      "model_revision": "18a17f734966b213b2f00fa9c915e8b9af2a9b20",
+      "native_temperature": 1.1014,
+      "runtime_status": "PASS_WITH_DISCLOSED_METADATA_CONFLICT",
+      "prefix_cache": {
+        "effective_config": false,
+        "engine_log": "enable_prefix_caching=False",
+        "health_value": true,
+        "interpretation": "Direct launch and engine evidence disabled caching; health field semantics unresolved, same previously disclosed V3 conflict.",
+        "launch_flag": "--no-enable-prefix-caching",
+        "plugin_log": "prefix caching off"
+      },
+      "collection_elapsed_seconds": 141.77025442942977
+    },
+    "rerun_2026_11_07": {
+      "scripts_reexecuted_from_repo_copy": 4,
+      "outputs_compared": 14,
+      "byte_identical": 13,
+      "path_only_difference": "service/metrics-audit.json field archive (SHA-named archive passed instead of the same-SHA Desktop source)",
+      "copied_scripts_byte_identical_to_audited": true,
+      "readme_block_executed_verbatim": true
+    },
+    "raw_recheck_2026_11_07": {
+      "status": "PASS",
+      "service_mismatches_vs_saved_evaluation": 0,
+      "size_counts_match": true,
+      "stdlib_bootstrap_intervals_pp": {
+        "startlux9b_minus_qwen9b": [
+          8.654,
+          12.2
+        ],
+        "startlux9b_minus_startlux4b": [
+          1.278,
+          3.748
+        ]
+      }
+    }
+  },
+  "service_summary": [
+    {
+      "condition": "minilm1600",
+      "rate": 5,
+      "correct_goodput_per_second_median": 4.644444444444445,
+      "correct_goodput_per_second_range": [
+        4.588888888888889,
+        4.788888888888889
+      ],
+      "successful_per_second_median": 4.983333333333333,
+      "latency_p95_ms_median_of_cells": 7.308507905448636,
+      "offered": 4518,
+      "client_rejected": 0,
+      "met_slo": 4518,
+      "correct_met_slo": 4199
+    },
+    {
+      "condition": "minilm1600",
+      "rate": 25,
+      "correct_goodput_per_second_median": 23.444444444444443,
+      "correct_goodput_per_second_range": [
+        22.92222222222222,
+        23.761111111111113
+      ],
+      "successful_per_second_median": 25.16111111111111,
+      "latency_p95_ms_median_of_cells": 8.411141622810813,
+      "offered": 22591,
+      "client_rejected": 0,
+      "met_slo": 22591,
+      "correct_met_slo": 21053
+    },
+    {
+      "condition": "minilm1600",
+      "rate": 100,
+      "correct_goodput_per_second_median": 93.43333333333334,
+      "correct_goodput_per_second_range": [
+        92.75,
+        94.55555555555556
+      ],
+      "successful_per_second_median": 100.28888888888889,
+      "latency_p95_ms_median_of_cells": 15.179107137687886,
+      "offered": 90342,
+      "client_rejected": 0,
+      "met_slo": 90342,
+      "correct_met_slo": 84167
+    },
+    {
+      "condition": "minilm400",
+      "rate": 5,
+      "correct_goodput_per_second_median": 4.522222222222222,
+      "correct_goodput_per_second_range": [
+        4.466666666666667,
+        4.677777777777778
+      ],
+      "successful_per_second_median": 4.983333333333333,
+      "latency_p95_ms_median_of_cells": 7.253313197904275,
+      "offered": 4518,
+      "client_rejected": 0,
+      "met_slo": 4518,
+      "correct_met_slo": 4092
+    },
+    {
+      "condition": "minilm400",
+      "rate": 25,
+      "correct_goodput_per_second_median": 22.8,
+      "correct_goodput_per_second_range": [
+        22.27777777777778,
+        23.116666666666667
+      ],
+      "successful_per_second_median": 25.16111111111111,
+      "latency_p95_ms_median_of_cells": 8.573808465129673,
+      "offered": 22591,
+      "client_rejected": 0,
+      "met_slo": 22591,
+      "correct_met_slo": 20479
+    },
+    {
+      "condition": "minilm400",
+      "rate": 100,
+      "correct_goodput_per_second_median": 90.92222222222222,
+      "correct_goodput_per_second_range": [
+        90.25555555555556,
+        92.04444444444445
+      ],
+      "successful_per_second_median": 100.28888888888889,
+      "latency_p95_ms_median_of_cells": 14.683279695224366,
+      "offered": 90342,
+      "client_rejected": 0,
+      "met_slo": 90342,
+      "correct_met_slo": 81908
+    },
+    {
+      "condition": "qwen4b",
+      "rate": 5,
+      "correct_goodput_per_second_median": 4.405555555555556,
+      "correct_goodput_per_second_range": [
+        4.3277777777777775,
+        4.55
+      ],
+      "successful_per_second_median": 4.983333333333333,
+      "latency_p95_ms_median_of_cells": 191.82988900942914,
+      "offered": 4518,
+      "client_rejected": 0,
+      "met_slo": 4518,
+      "correct_met_slo": 3986
+    },
+    {
+      "condition": "qwen4b",
+      "rate": 25,
+      "correct_goodput_per_second_median": 22.005555555555556,
+      "correct_goodput_per_second_range": [
+        21.122222222222224,
+        22.533333333333335
+      ],
+      "successful_per_second_median": 25.16111111111111,
+      "latency_p95_ms_median_of_cells": 344.2003427823046,
+      "offered": 22591,
+      "client_rejected": 12,
+      "met_slo": 22332,
+      "correct_met_slo": 19727
+    },
+    {
+      "condition": "qwen4b",
+      "rate": 100,
+      "correct_goodput_per_second_median": 0.09444444444444444,
+      "correct_goodput_per_second_range": [
+        0.06666666666666667,
+        0.14444444444444443
+      ],
+      "successful_per_second_median": 47.483333333333334,
+      "latency_p95_ms_median_of_cells": 1419.3106401859666,
+      "offered": 90342,
+      "client_rejected": 47670,
+      "met_slo": 102,
+      "correct_met_slo": 90
+    },
+    {
+      "condition": "startlux4b",
+      "rate": 5,
+      "correct_goodput_per_second_median": 4.666666666666667,
+      "correct_goodput_per_second_range": [
+        4.594444444444444,
+        4.816666666666666
+      ],
+      "successful_per_second_median": 4.983333333333333,
+      "latency_p95_ms_median_of_cells": 73.85048647257119,
+      "offered": 4518,
+      "client_rejected": 0,
+      "met_slo": 4518,
+      "correct_met_slo": 4218
+    },
+    {
+      "condition": "startlux4b",
+      "rate": 25,
+      "correct_goodput_per_second_median": 23.522222222222222,
+      "correct_goodput_per_second_range": [
+        22.988888888888887,
+        23.81111111111111
+      ],
+      "successful_per_second_median": 25.16111111111111,
+      "latency_p95_ms_median_of_cells": 112.09323149975958,
+      "offered": 22591,
+      "client_rejected": 0,
+      "met_slo": 22591,
+      "correct_met_slo": 21113
+    },
+    {
+      "condition": "startlux4b",
+      "rate": 100,
+      "correct_goodput_per_second_median": 0.46111111111111114,
+      "correct_goodput_per_second_range": [
+        0.31666666666666665,
+        0.6277777777777778
+      ],
+      "successful_per_second_median": 64.70555555555555,
+      "latency_p95_ms_median_of_cells": 1041.0862875161158,
+      "offered": 90342,
+      "client_rejected": 31551,
+      "met_slo": 438,
+      "correct_met_slo": 408
+    }
+  ],
+  "size_control_summary": {
+    "direct": {
+      "qwen4b": {
+        "accuracy": 0.5540625,
+        "correct": 1773,
+        "failures": 0,
+        "model": "qwen4b",
+        "n": 3200
+      },
+      "qwen9b": {
+        "accuracy": 0.6621875,
+        "correct": 2119,
+        "failures": 0,
+        "model": "qwen9b",
+        "n": 3200
+      },
+      "startlux4b": {
+        "accuracy": 0.741875,
+        "correct": 2374,
+        "failures": 0,
+        "model": "startlux4b",
+        "n": 3200
+      },
+      "startlux9b": {
+        "accuracy": 0.766875,
+        "correct": 2454,
+        "failures": 0,
+        "model": "startlux9b",
+        "n": 3200
+      }
+    },
+    "rounds": {
+      "qwen4b": {
+        "R1": {
+          "accuracy": 0.648,
+          "correct": 648,
+          "failures": 0,
+          "model": "qwen4b",
+          "n": 1000
+        },
+        "R2": {
+          "accuracy": 0.539,
+          "correct": 539,
+          "failures": 0,
+          "model": "qwen4b",
+          "n": 1000
+        },
+        "R3": {
+          "accuracy": 0.48833333333333334,
+          "correct": 586,
+          "failures": 0,
+          "model": "qwen4b",
+          "n": 1200
+        }
+      },
+      "qwen9b": {
+        "R1": {
+          "accuracy": 0.731,
+          "correct": 731,
+          "failures": 0,
+          "model": "qwen9b",
+          "n": 1000
+        },
+        "R2": {
+          "accuracy": 0.651,
+          "correct": 651,
+          "failures": 0,
+          "model": "qwen9b",
+          "n": 1000
+        },
+        "R3": {
+          "accuracy": 0.6141666666666666,
+          "correct": 737,
+          "failures": 0,
+          "model": "qwen9b",
+          "n": 1200
+        }
+      },
+      "startlux4b": {
+        "R1": {
+          "accuracy": 0.826,
+          "correct": 826,
+          "failures": 0,
+          "model": "startlux4b",
+          "n": 1000
+        },
+        "R2": {
+          "accuracy": 0.727,
+          "correct": 727,
+          "failures": 0,
+          "model": "startlux4b",
+          "n": 1000
+        },
+        "R3": {
+          "accuracy": 0.6841666666666667,
+          "correct": 821,
+          "failures": 0,
+          "model": "startlux4b",
+          "n": 1200
+        }
+      },
+      "startlux9b": {
+        "R1": {
+          "accuracy": 0.849,
+          "correct": 849,
+          "failures": 0,
+          "model": "startlux9b",
+          "n": 1000
+        },
+        "R2": {
+          "accuracy": 0.752,
+          "correct": 752,
+          "failures": 0,
+          "model": "startlux9b",
+          "n": 1000
+        },
+        "R3": {
+          "accuracy": 0.7108333333333333,
+          "correct": 853,
+          "failures": 0,
+          "model": "startlux9b",
+          "n": 1200
+        }
+      }
+    },
+    "comparisons": {
+      "startlux9b_minus_qwen9b": {
+        "both_correct": 1862,
+        "both_wrong": 489,
+        "candidate_only_correct": 592,
+        "reference_only_correct": 257,
+        "difference": 0.1046875,
+        "ci95": [
+          0.08775405395387603,
+          0.1229082784167413
+        ]
+      },
+      "startlux9b_minus_startlux4b": {
+        "both_correct": 2209,
+        "both_wrong": 581,
+        "candidate_only_correct": 245,
+        "reference_only_correct": 165,
+        "difference": 0.025,
+        "ci95": [
+          0.013358617877021797,
+          0.038129734060616545
+        ]
+      }
+    }
+  },
+  "superseded_unarchived": {
+    "description": "80 MB partial service snapshot found locally on 2026-11-06 (31 completed receipts, port-check error, no freeze or evaluation). It was overwritten by the final bundle synced under the same filename before it could be archived by SHA.",
+    "sha256": "165134a176c5df7228d1dc51453220b8073ed1c1f3403161490cc4e6321246e4",
+    "bytes": 79908436,
+    "metadata_record": "records/service-local-transfer-2026-11-06.json"
+  },
+  "note": "Both comparisons are retrospective on previously evaluated tests. Service throughput depends on the fixed client (16 workers, 64 in-flight) and vLLM settings (memory share 0.4, StartLux front-end max-inflight 16). StartLux9B serving cost was not measured."
+}

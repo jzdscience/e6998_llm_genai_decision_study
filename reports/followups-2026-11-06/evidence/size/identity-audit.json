@@ -1,0 +1,75 @@
+{
+  "archive_members": 166,
+  "bundle_sha256": "f427f7762bac745d9316cb02195c09f98ab551794de1da047509be7f9fe7d1ed",
+  "formal_rows": {
+    "attempts": 3200,
+    "count": 3200,
+    "errors": 0,
+    "retries": 0
+  },
+  "formal_shards": 128,
+  "gold_sha256": "ed3525b721ed564a4cdf733e94ac381cfebb4ba06eb4a3a6844a1a0b37824f14",
+  "manifest_members": 165,
+  "old_archive_sha256": "a8d0dc672d83c3edcb85d005e66fa4b3d000132729f98f0beaab6865dfc57a9e",
+  "old_manifest_members": 818,
+  "reference_roles": {
+    "qwen4b": {
+      "count": 3200,
+      "original_shards": 128,
+      "predictions_hash": "e35b1f767732f91c4bf344a76b5e359265436bf29c92f44b0d88a89d6f5f873e"
+    },
+    "qwen9b": {
+      "count": 3200,
+      "original_shards": 128,
+      "predictions_hash": "5e579724946d22c191cee57bef9fd4ffcabadd58fd875fef8e6925b227952879"
+    },
+    "startlux4b": {
+      "count": 3200,
+      "original_shards": 128,
+      "predictions_hash": "3edd64ae3b73ac240c39d614a6186be516257da4a5cbcc8b70a883f8ad27af62"
+    }
+  },
+  "self_hash_artifacts": 5,
+  "smoke_passes": [
+    {
+      "attempts": 90,
+      "count": 90,
+      "errors": 0,
+      "retries": 0
+    },
+    {
+      "attempts": 90,
+      "count": 90,
+      "errors": 0,
+      "retries": 0
+    }
+  ],
+  "smoke_recomputed": {
+    "argmax_agreement": 1.0,
+    "count": 90,
+    "mean_max_probability_delta": 0.0,
+    "p95_max_probability_delta": 0.0,
+    "passed": true
+  },
+  "source_commit": "8b5370d8aea7ed57dc42c92f4fe07bcf023a8e07",
+  "source_files_verified": 32,
+  "source_identity_limit": "Saved source, unsigned artifact and runtime chains verified; not a cryptographic signature or independent OS access trace.",
+  "status": "PASS",
+  "time_chain": {
+    "access": "2026-11-06T17:11:36.735790+00:00",
+    "completion": "2026-11-06T17:11:26.742368+00:00",
+    "evaluation": "2026-11-06T17:11:38.097130+00:00",
+    "export": "2026-11-06T17:11:38.126704+00:00",
+    "first_prediction": "2026-11-06T17:09:02.777776+00:00",
+    "freeze": "2026-11-06T17:04:55.221355+00:00",
+    "last_prediction": "2026-11-06T17:11:24.491300+00:00"
+  },
+  "tokens": {
+    "count": 3290,
+    "matched_response_usage": 3380,
+    "max": 356,
+    "min": 177,
+    "truncated": false
+  },
+  "unique_new_request_ids": 3380
+}

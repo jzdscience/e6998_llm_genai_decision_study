@@ -1,0 +1,406 @@
+{
+  "analysis": "Independent raw-response parsing, direct scoring and normalized-premise paired bootstrap",
+  "by_gold_label_descriptive": {
+    "qwen4b": {
+      "contradiction": {
+        "accuracy": 0.4340866290018832,
+        "correct": 461,
+        "failures": 0,
+        "model": "qwen4b",
+        "n": 1062
+      },
+      "entailment": {
+        "accuracy": 0.42990654205607476,
+        "correct": 460,
+        "failures": 0,
+        "model": "qwen4b",
+        "n": 1070
+      },
+      "neutral": {
+        "accuracy": 0.797752808988764,
+        "correct": 852,
+        "failures": 0,
+        "model": "qwen4b",
+        "n": 1068
+      }
+    },
+    "qwen9b": {
+      "contradiction": {
+        "accuracy": 0.696798493408663,
+        "correct": 740,
+        "failures": 0,
+        "model": "qwen9b",
+        "n": 1062
+      },
+      "entailment": {
+        "accuracy": 0.6074766355140186,
+        "correct": 650,
+        "failures": 0,
+        "model": "qwen9b",
+        "n": 1070
+      },
+      "neutral": {
+        "accuracy": 0.6825842696629213,
+        "correct": 729,
+        "failures": 0,
+        "model": "qwen9b",
+        "n": 1068
+      }
+    },
+    "startlux4b": {
+      "contradiction": {
+        "accuracy": 0.7570621468926554,
+        "correct": 804,
+        "failures": 0,
+        "model": "startlux4b",
+        "n": 1062
+      },
+      "entailment": {
+        "accuracy": 0.7046728971962617,
+        "correct": 754,
+        "failures": 0,
+        "model": "startlux4b",
+        "n": 1070
+      },
+      "neutral": {
+        "accuracy": 0.7640449438202247,
+        "correct": 816,
+        "failures": 0,
+        "model": "startlux4b",
+        "n": 1068
+      }
+    },
+    "startlux9b": {
+      "contradiction": {
+        "accuracy": 0.7476459510357816,
+        "correct": 794,
+        "failures": 0,
+        "model": "startlux9b",
+        "n": 1062
+      },
+      "entailment": {
+        "accuracy": 0.7607476635514019,
+        "correct": 814,
+        "failures": 0,
+        "model": "startlux9b",
+        "n": 1070
+      },
+      "neutral": {
+        "accuracy": 0.7921348314606742,
+        "correct": 846,
+        "failures": 0,
+        "model": "startlux9b",
+        "n": 1068
+      }
+    }
+  },
+  "comparisons": {
+    "startlux9b_minus_qwen9b": {
+      "both_correct": 1862,
+      "both_wrong": 489,
+      "candidate_only_correct": 592,
+      "difference": {
+        "cluster_count": 2854,
+        "cross_round_clusters": 1,
+        "draws_sha256": "07703214d1cfcc42a5da6ea1d859fe7e0b2bd13259c7868cca7fae6ddccba8c6",
+        "estimate": 0.1046875,
+        "lower": 0.08775405395387603,
+        "maximum_cluster_size": 3,
+        "minimum_cluster_size": 1,
+        "question_count": 3200,
+        "replicates": 2000,
+        "seed": 6998,
+        "upper": 0.1229082784167413
+      },
+      "reference_only_correct": 257,
+      "round_pair_counts": {
+        "R1": {
+          "candidate_only_correct": 168,
+          "n": 1000,
+          "net_correct_gain": 118,
+          "reference_only_correct": 50
+        },
+        "R2": {
+          "candidate_only_correct": 199,
+          "n": 1000,
+          "net_correct_gain": 101,
+          "reference_only_correct": 98
+        },
+        "R3": {
+          "candidate_only_correct": 225,
+          "n": 1200,
+          "net_correct_gain": 116,
+          "reference_only_correct": 109
+        }
+      }
+    },
+    "startlux9b_minus_startlux4b": {
+      "both_correct": 2209,
+      "both_wrong": 581,
+      "candidate_only_correct": 245,
+      "difference": {
+        "cluster_count": 2854,
+        "cross_round_clusters": 1,
+        "draws_sha256": "04e127b5fba6434056fe58b9c393404a73382e3f6ebfe1363ccfe13cb10d18e1",
+        "estimate": 0.025,
+        "lower": 0.013358617877021797,
+        "maximum_cluster_size": 3,
+        "minimum_cluster_size": 1,
+        "question_count": 3200,
+        "replicates": 2000,
+        "seed": 6998,
+        "upper": 0.038129734060616545
+      },
+      "reference_only_correct": 165,
+      "round_pair_counts": {
+        "R1": {
+          "candidate_only_correct": 55,
+          "n": 1000,
+          "net_correct_gain": 23,
+          "reference_only_correct": 32
+        },
+        "R2": {
+          "candidate_only_correct": 91,
+          "n": 1000,
+          "net_correct_gain": 25,
+          "reference_only_correct": 66
+        },
+        "R3": {
+          "candidate_only_correct": 99,
+          "n": 1200,
+          "net_correct_gain": 32,
+          "reference_only_correct": 67
+        }
+      }
+    }
+  },
+  "confusion_matrices": {
+    "qwen4b": {
+      "labels": [
+        "entailment",
+        "neutral",
+        "contradiction"
+      ],
+      "true_rows_predicted_columns": [
+        [
+          460,
+          547,
+          63
+        ],
+        [
+          81,
+          852,
+          135
+        ],
+        [
+          90,
+          511,
+          461
+        ]
+      ]
+    },
+    "qwen9b": {
+      "labels": [
+        "entailment",
+        "neutral",
+        "contradiction"
+      ],
+      "true_rows_predicted_columns": [
+        [
+          650,
+          280,
+          140
+        ],
+        [
+          89,
+          729,
+          250
+        ],
+        [
+          118,
+          204,
+          740
+        ]
+      ]
+    },
+    "startlux4b": {
+      "labels": [
+        "entailment",
+        "neutral",
+        "contradiction"
+      ],
+      "true_rows_predicted_columns": [
+        [
+          754,
+          234,
+          82
+        ],
+        [
+          103,
+          816,
+          149
+        ],
+        [
+          87,
+          171,
+          804
+        ]
+      ]
+    },
+    "startlux9b": {
+      "labels": [
+        "entailment",
+        "neutral",
+        "contradiction"
+      ],
+      "true_rows_predicted_columns": [
+        [
+          814,
+          189,
+          67
+        ],
+        [
+          96,
+          846,
+          126
+        ],
+        [
+          87,
+          181,
+          794
+        ]
+      ]
+    }
+  },
+  "direct": {
+    "qwen4b": {
+      "accuracy": 0.5540625,
+      "correct": 1773,
+      "failures": 0,
+      "model": "qwen4b",
+      "n": 3200
+    },
+    "qwen9b": {
+      "accuracy": 0.6621875,
+      "correct": 2119,
+      "failures": 0,
+      "model": "qwen9b",
+      "n": 3200
+    },
+    "startlux4b": {
+      "accuracy": 0.741875,
+      "correct": 2374,
+      "failures": 0,
+      "model": "startlux4b",
+      "n": 3200
+    },
+    "startlux9b": {
+      "accuracy": 0.766875,
+      "correct": 2454,
+      "failures": 0,
+      "model": "startlux9b",
+      "n": 3200
+    }
+  },
+  "numpy_version": "2.3.5",
+  "rounds": {
+    "qwen4b": {
+      "R1": {
+        "accuracy": 0.648,
+        "correct": 648,
+        "failures": 0,
+        "model": "qwen4b",
+        "n": 1000
+      },
+      "R2": {
+        "accuracy": 0.539,
+        "correct": 539,
+        "failures": 0,
+        "model": "qwen4b",
+        "n": 1000
+      },
+      "R3": {
+        "accuracy": 0.48833333333333334,
+        "correct": 586,
+        "failures": 0,
+        "model": "qwen4b",
+        "n": 1200
+      }
+    },
+    "qwen9b": {
+      "R1": {
+        "accuracy": 0.731,
+        "correct": 731,
+        "failures": 0,
+        "model": "qwen9b",
+        "n": 1000
+      },
+      "R2": {
+        "accuracy": 0.651,
+        "correct": 651,
+        "failures": 0,
+        "model": "qwen9b",
+        "n": 1000
+      },
+      "R3": {
+        "accuracy": 0.6141666666666666,
+        "correct": 737,
+        "failures": 0,
+        "model": "qwen9b",
+        "n": 1200
+      }
+    },
+    "startlux4b": {
+      "R1": {
+        "accuracy": 0.826,
+        "correct": 826,
+        "failures": 0,
+        "model": "startlux4b",
+        "n": 1000
+      },
+      "R2": {
+        "accuracy": 0.727,
+        "correct": 727,
+        "failures": 0,
+        "model": "startlux4b",
+        "n": 1000
+      },
+      "R3": {
+        "accuracy": 0.6841666666666667,
+        "correct": 821,
+        "failures": 0,
+        "model": "startlux4b",
+        "n": 1200
+      }
+    },
+    "startlux9b": {
+      "R1": {
+        "accuracy": 0.849,
+        "correct": 849,
+        "failures": 0,
+        "model": "startlux9b",
+        "n": 1000
+      },
+      "R2": {
+        "accuracy": 0.752,
+        "correct": 752,
+        "failures": 0,
+        "model": "startlux9b",
+        "n": 1000
+      },
+      "R3": {
+        "accuracy": 0.7108333333333333,
+        "correct": 853,
+        "failures": 0,
+        "model": "startlux9b",
+        "n": 1200
+      }
+    }
+  },
+  "scope": "Retrospective fixed model comparison on already viewed ANLI test; no tuning, fitting, new routing or equivalence claim.",
+  "statistical_limits": [
+    "Percentile intervals condition on these fixed checkpoints/prompts and empirical premise clusters; not architecture causality or future performance guarantees.",
+    "Per-round and gold-label subgroups are descriptive; no multiple-comparison-adjusted subgroup inference performed."
+  ],
+  "status": "PASS"
+}

@@ -260,3 +260,82 @@ CUDA预检中的完整pip-freeze哈希检查阻断，服务与正式cell未启�
 
 诊断见`records/service-startup-diagnosis-2026-11-05.json`，修复验证见
 `records/followups-runtime-repair-2026-11-05.json`，执行入口仍为`docs/RUN_FOLLOWUPS_ZH.md`。
+
+## 2026-11-05：节点完成多组服务测量后，CPU 端口启动检查阻断
+
+用户粘贴`8b5370d`运行输出，包含20条不同cell完成行；尚无本轮诊断包，不能据片段声称
+精确完成总数或全部测量通过。CPU/GPU均已产生完成行，前次依赖校验阻断已越过。
+最后报`Could not verify that port 18120 is unused: timed out`。
+
+独立源码复核确认18120为CPU端口，错误来自一秒连接检查，早于bind检查、下一CPU进程、
+warmup和attempt创建。已完成cell在原提交、原输出下续跑会逐项验证并跳过；本次错误
+单独不要求resume-interrupted。请求当前ss/进程输出，尚不能确定是残留监听还是瞬时问题。
+没有盲目换端口、改冻结源码、杀进程或让用户重做完成的cell。
+
+日志及时goodput使用500ms SLO和180秒窗口；低值可能伴随晚返回、拒绝或失败，须看trace
+区分。全部及时的CPU100rps组只证明这些已观察负载，不代表最大容量或质量结论。保留所有
+低goodput组，待诊断与最终artifact核验。记录`records/service-port-interruption-2026-11-05.json`。
+
+## 2026-11-06：新结果包上传体积限制与本机直接读取
+
+用户随后回传ss只有标题、pgrep无输出；之后明确新开session，已给出同提交同输出加
+`--new-allocation`的续跑命令。11/6用户报告service ZIP约150 MB无法上传，尚不能确认完整性。
+只读查找发现本机旧`COMS6998/service_study_bundle.zip`为79,908,436字节。ZIP目录/选定JSON
+初查见413成员、31份完成收据、前次端口错误，无freeze和evaluation；没有据此声称31组已
+独立验收。文件SHA及检查范围见`records/service-local-transfer-2026-11-06.json`。
+
+采用更简单的本机文件路径交付：新包下载到Mac并另取文件名，不覆盖旧包，无需上传聊天
+或改动正在使用的节点checkout。待新文件就位后再执行完整安全归档、校验与结果审计。
+
+用户随后明确其远程操作另一台Mac，agent主机不能访问code-server，新文件未同步。
+因此不能继续要求在agent主机重新下载。独立于Git实验checkout准备原ZIP字节分块工具，
+每片19 MiB、ZIP_STORED外壳、原文件与分片SHA和序号/总数。原79,908,436字节包5片
+正序及逆序输入都精确还原原SHA；缺片、重复、篡改和已存在目标4项异常检查通过。
+给用户可粘贴到手边Mac系统Terminal的sender；接收后由agent合并。此为传输准备，
+最新150 MB包与完整结果仍未收到。见`records/service-chunk-transfer-2026-11-06.json`。
+
+## 2026-11-06：暂缓新包分析期间的项目取舍
+
+用户要求先不分析新包，查看项目还可推进哪些工作。仅复核已有计划、已验收报告、Lab
+源码和本地14页课程交付PDF。独立Lab check通过V1–V3便携证据、3450条V1输入，0模型调用。
+当前页面已经有三轮证据、案例与政策探索；轻量分类基线尚在报告中，README的基线状态
+仍滞后于验收记录。未将本轮当成前端从零建设或新增模型运行。
+
+建议优先Lab基线整合、真实MiniLM CPU现场输入、整合报告/演示和干净clone复现/CI。
+若追加研究，在线预算控制为深度方向；CPU训练量/OOS先验消融和标签稳健性为替代，
+最多选一条。已查看holdout保留探索边界，预算规则本身达标不当成研究胜出。
+建议与验收条件写入`docs/NEXT_STEPS_2026-11-06_ZH.md`；未启动任何新候选或分析新结果包，
+没有修改现有实验、前端、模型、配置、历史报告或节点提交。
+
+## 2026-11-07：服务测量与 StartLux9B 规模对照回传验收
+
+用户11/6把最终两包下载到本机原路径。服务包156,888,964字节、776成员，SHA
+`d212c130c707a30fc9b99be759e0ec4386000b21fca0792dbe2867b619e0998b`；规模对照包4,984,446字节、
+166成员，SHA `f427f7762bac745d9316cb02195c09f98ab551794de1da047509be7f9fe7d1ed`，两者均绑定提交
+`8b5370d`。11/6晚的Codex会话已按SHA归档到外部证据根`records/bundles/`、完成解压校验与全部审计并
+出图，审计全部PASS；该轮没有写报告、更新状态或提交，也没有输出最终回复。
+
+11/7在Claude Code中接手，未调用模型、未启动GPU、未改节点checkout。两份归档、桌面原文件与报告目录
+中的评价副本SHA一致。四个审计脚本逐字节复制到`reports/followups-2026-11-06/audit/`后从仓库位置重跑，
+14份输出中13份与原收据逐字节一致，`service/metrics-audit.json`只差archive路径字段；README中的命令块
+按原样执行，结果相同。新写的`recheck_from_raw.py`只用标准库，用V1 CLINC gold从原始trace重新计数，
+60单元的offered、admitted、correct、及时且正确四项与包内评价全部一致；9B从原始分片和sealed gold
+重新评分，2,454/3,200及四格配对计数一致，标准库bootstrap区间[1.28, 3.75]pp与保存的[1.34, 3.81]pp
+差别来自随机数生成器。
+
+服务测量：469,804次计划请求，390,571次成功、79,233次client拒绝、0失败。100请求/秒时及时且正确输出
+MiniLM1600 93.43/秒、MiniLM400 90.92/秒、StartLux4B 0.46/秒、Qwen4B 0.09/秒；GPU服务每秒仍完成
+64.71与47.48个，几乎全部晚于500 ms。25请求/秒时四者为22.01–23.52/秒。GPU批处理下StartLux有2条、
+Qwen有8条输入出现过不同标签，MiniLM 117,451次响应与11/4保存预测完全一致。47单元在allocation
+66103994、13单元在66376166，只有r3-rate5一组跨allocation配对。
+
+规模对照：StartLux9B 76.69%，比StartLux4B +2.50pp [1.34, 3.81]，比Qwen9B +10.47pp [8.78, 12.29]；
+三个round均高于4B。回顾性直接模型对照，9B服务性能未测。health的prefix_cache字段与启动配置不一致，
+与V3相同，保留并披露。
+
+11/6在本机发现的80 MB服务中间包（SHA `165134a1…`）没有按SHA归档，之后被同名最终包经iCloud
+覆盖，只剩`records/service-local-transfer-2026-11-06.json`中的元数据；最终包含全部60个单元。
+
+产出：`reports/followups-2026-11-06/RESULTS_ZH.md`、`audit/`与`evidence/`、`SHA256.json`，
+`records/followups-acceptance-2026-11-06.json`，`records/BUNDLE_INDEX.json`新增两个条目。下一步把两组
+结果接入课程报告与Decision Lab；若报告需要9B前级的服务成本，需另立协议在节点运行。

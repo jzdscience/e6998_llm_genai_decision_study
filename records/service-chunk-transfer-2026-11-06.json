@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-06",
+  "status": "local_transport_verified_awaiting_latest_remote_parts",
+  "execution_boundary": "User operates a separate Mac containing the downloaded latest ZIP; agent runs on another Mac without code-server access. Identical path strings do not share filesystem contents.",
+  "transport": "19 MiB segments of original ZIP bytes, each inside valid ZIP_STORED wrapper with full-file and part SHA256, index/count and sizes",
+  "sender": "transfer-tools/split_for_chat.py",
+  "receiver": "transfer-tools/join_chunks.py",
+  "real_older_bundle_roundtrip": {
+    "output": "/Users/zhanj289/Desktop/COMS6998/service_parts_6g6st7z7/reassembled_verified.zip",
+    "filename": "service_study_bundle.zip",
+    "bytes": 79908436,
+    "sha256": "165134a176c5df7228d1dc51453220b8073ed1c1f3403161490cc4e6321246e4",
+    "parts": 5
+  },
+  "reverse_attachment_order_verified": true,
+  "max_wrapper_bytes": 19923497,
+  "negative_checks": {
+    "scope": "Local transfer-guard software checks only; no new remote experiment evidence",
+    "script": "/Users/zhanj289/Desktop/COMS6998/transfer-tools/join_chunks.py",
+    "script_sha256": "86b1bd5e3eb6648fe42e4c8b5e9007328005da9506d5ea7e184aeefd2e28a72f",
+    "original_part_hashes": {
+      "/Users/zhanj289/Desktop/COMS6998/service_parts_kdgtcgrw/service_part_001_of_005.zip": "ec2ade8c14b5145f4d66e041044fea05385e9e0b83c20e5540d2c73f21ddc543",
+      "/Users/zhanj289/Desktop/COMS6998/service_parts_kdgtcgrw/service_part_002_of_005.zip": "f5ca1a03ad5029c59592cc590eed9b091c7cb5d4e34be8b28f19d1249b254a3e",
+      "/Users/zhanj289/Desktop/COMS6998/service_parts_kdgtcgrw/service_part_003_of_005.zip": "19ffd53039ff2d6573f4a55206e3886c1af5a38e94df081a18bce5b3485672c0",
+      "/Users/zhanj289/Desktop/COMS6998/service_parts_kdgtcgrw/service_part_004_of_005.zip": "e9109e16b25e59f82f02aadd7a384ea98e273994ae3f9ce01e5b965b037d7135",
+      "/Users/zhanj289/Desktop/COMS6998/service_parts_kdgtcgrw/service_part_005_of_005.zip": "1ac6f7e6e76150eca3a52460cd44784b6d8f9014c150078006dd4b8a9e80d663"
+    },
+    "original_parts_unchanged": true,
+    "checks": [
+      {
+        "test": "missing_part",
+        "passed": true,
+        "exception": "ValueError",
+        "message": "Missing parts: got 4 of 5",
+        "no_partial_output": true,
+        "existing_output_preserved": false
+      },
+      {
+        "test": "duplicate_index",
+        "passed": true,
+        "exception": "ValueError",
+        "message": "Duplicate part index: 1",
+        "no_partial_output": true,
+        "existing_output_preserved": false
+      },
+      {
+        "test": "tampered_chunk_unchanged_manifest_sha",
+        "passed": true,
+        "exception": "ValueError",
+        "message": "Part 1 byte count or SHA256 mismatch",
+        "no_partial_output": true,
+        "existing_output_preserved": false
+      },
+      {
+        "test": "preexisting_output",
+        "passed": true,
+        "exception": "FileExistsError",
+        "message": "Output already exists; preserved: /var/folders/dq/yby0c8rx12n2kj0l0705mxxc0000gn/T/decision-study-transfer-negatives-bhhdu67o/existing.zip",
+        "no_partial_output": true,
+        "existing_output_preserved": true
+      }
+    ],
+    "passed": 4,
+    "failed": 0
+  },
+  "experiment_source_or_existing_results_modified": false,
+  "latest150mb_bundle_received": false,
+  "limits": "Transport integrity only; no scientific outcome or latest experiment completion established"
+}

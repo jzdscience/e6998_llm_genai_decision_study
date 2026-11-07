@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-06",
+  "status": "local_older_bundle_discovered_latest_150mb_not_received",
+  "path": "/Users/zhanj289/Desktop/COMS6998/service_study_bundle.zip",
+  "bytes": 79908436,
+  "sha256": "165134a176c5df7228d1dc51453220b8073ed1c1f3403161490cc4e6321246e4",
+  "members": 413,
+  "completed_receipt_count": 31,
+  "freeze_present": false,
+  "evaluation_present": false,
+  "source_commit": "8b5370d8aea7ed57dc42c92f4fe07bcf023a8e07",
+  "error": {
+    "at": "2026-11-05T23:43:55.102973+00:00",
+    "command": "start",
+    "error": "Could not verify that port 18120 is unused: timed out",
+    "type": "RuntimeError"
+  },
+  "scope": "ZIP inventory and selected metadata only; not a CRC, cell identity or raw-trace audit",
+  "latest_delivery": "Download latest archive under a different local filename, then provide its absolute path; no chat upload or source change required"
+}

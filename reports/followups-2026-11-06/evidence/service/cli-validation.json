@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "byte_identical_rerun_outputs": {
+    "aggregates.json": true,
+    "cells.json": true,
+    "aggregates.csv": true,
+    "prediction-consistency.json": true,
+    "allocation-sensitivity.json": true,
+    "per-input-prediction-counts.json": true,
+    "cells.csv": true,
+    "metrics-audit.json": true,
+    "supplemental-audit.json": true
+  },
+  "existing_output_refused": true,
+  "existing_receipts_unchanged": true
+}

@@ -2,10 +2,19 @@
 
 11/5新增两项独立实验的准备记录与运行入口见
 [followups-preparation-2026-11-05.json](../records/followups-preparation-2026-11-05.json)和
-[RUN_FOLLOWUPS_ZH.md](RUN_FOLLOWUPS_ZH.md)。实际新结果尚未产生，不添加到已验收bundle索引。
-11/5启动兼容修复后，node新输出分别为旧运行根下`results/aux-clinc-service-v1-r2`与
-`results/aux-size-control-v1-r2`；原无后缀失败根保留，已作为diagnostic条目加入索引。
-旧`solo-v1`、完整`solo-v3`、已验收`aux-clinc-cheap-v1`与MiniLM模型均原位只读复用。
+[RUN_FOLLOWUPS_ZH.md](RUN_FOLLOWUPS_ZH.md)。11/5启动兼容修复后，node新输出分别为旧运行根下
+`results/aux-clinc-service-v1-r2`与`results/aux-size-control-v1-r2`；原无后缀失败根保留，已作为
+diagnostic条目加入索引。旧`solo-v1`、完整`solo-v3`、已验收`aux-clinc-cheap-v1`与MiniLM模型均
+原位只读复用。
+
+两项结果已于11/6回传、11/7验收。外部证据根新增
+`records/bundles/service-complete-20261106-d212c130c707.zip`、
+`records/bundles/size-control-complete-20261106-f427f7762bac.zip`，解压于
+`results/returned-service-complete-2026-11-06`与`results/returned-size-control-complete-2026-11-06`，
+两个条目已加入[BUNDLE_INDEX.json](../records/BUNDLE_INDEX.json)。11/6的审计产物在本仓库忽略的
+`.validation/followups-return-2026-11-06/`，脚本与精选收据复制在
+[reports/followups-2026-11-06/](../reports/followups-2026-11-06/RESULTS_ZH.md)。重跑服务审计还需要
+V1的CLINC gold，位于外部根`results/returned-kev-2026-11-01/data/gold.json`。
 
 2026-11-03。本仓库保存源码、协议和精选报告。原始结果包、准备数据、审计产物和环境
 没有搬入 Git；clone 后不会自动得到这些文件。

@@ -1,0 +1,310 @@
+{
+  "status": "PASS",
+  "source_inventory_count": 34,
+  "original_warmup_exact": true,
+  "unique_correlated_gpu_request_ids": 155669,
+  "max_client_inflight_bound": 64,
+  "all_attempt_receipts_have_no_prior_interruption": true,
+  "cells": [
+    {
+      "cell_id": "r0-startlux4b-rate25",
+      "max_observed_client_inflight": 10,
+      "unique_correlated_gpu_request_ids": 4559
+    },
+    {
+      "cell_id": "r0-startlux4b-rate5",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 888
+    },
+    {
+      "cell_id": "r0-startlux4b-rate100",
+      "max_observed_client_inflight": 64,
+      "unique_correlated_gpu_request_ids": 11568
+    },
+    {
+      "cell_id": "r0-minilm1600-rate100",
+      "max_observed_client_inflight": 17,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r0-minilm1600-rate25",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r0-minilm1600-rate5",
+      "max_observed_client_inflight": 2,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r0-qwen4b-rate100",
+      "max_observed_client_inflight": 64,
+      "unique_correlated_gpu_request_ids": 8564
+    },
+    {
+      "cell_id": "r0-qwen4b-rate25",
+      "max_observed_client_inflight": 64,
+      "unique_correlated_gpu_request_ids": 4547
+    },
+    {
+      "cell_id": "r0-qwen4b-rate5",
+      "max_observed_client_inflight": 7,
+      "unique_correlated_gpu_request_ids": 888
+    },
+    {
+      "cell_id": "r0-minilm400-rate5",
+      "max_observed_client_inflight": 2,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r0-minilm400-rate100",
+      "max_observed_client_inflight": 13,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r0-minilm400-rate25",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r1-minilm1600-rate100",
+      "max_observed_client_inflight": 12,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r1-minilm1600-rate5",
+      "max_observed_client_inflight": 3,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r1-minilm1600-rate25",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r1-startlux4b-rate5",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 910
+    },
+    {
+      "cell_id": "r1-startlux4b-rate25",
+      "max_observed_client_inflight": 10,
+      "unique_correlated_gpu_request_ids": 4529
+    },
+    {
+      "cell_id": "r1-startlux4b-rate100",
+      "max_observed_client_inflight": 64,
+      "unique_correlated_gpu_request_ids": 11647
+    },
+    {
+      "cell_id": "r1-minilm400-rate25",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r1-minilm400-rate100",
+      "max_observed_client_inflight": 14,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r1-minilm400-rate5",
+      "max_observed_client_inflight": 3,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r1-qwen4b-rate25",
+      "max_observed_client_inflight": 21,
+      "unique_correlated_gpu_request_ids": 4529
+    },
+    {
+      "cell_id": "r1-qwen4b-rate5",
+      "max_observed_client_inflight": 6,
+      "unique_correlated_gpu_request_ids": 910
+    },
+    {
+      "cell_id": "r1-qwen4b-rate100",
+      "max_observed_client_inflight": 64,
+      "unique_correlated_gpu_request_ids": 8547
+    },
+    {
+      "cell_id": "r2-qwen4b-rate100",
+      "max_observed_client_inflight": 64,
+      "unique_correlated_gpu_request_ids": 8494
+    },
+    {
+      "cell_id": "r2-qwen4b-rate5",
+      "max_observed_client_inflight": 6,
+      "unique_correlated_gpu_request_ids": 897
+    },
+    {
+      "cell_id": "r2-qwen4b-rate25",
+      "max_observed_client_inflight": 23,
+      "unique_correlated_gpu_request_ids": 4426
+    },
+    {
+      "cell_id": "r2-minilm1600-rate5",
+      "max_observed_client_inflight": 2,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r2-minilm1600-rate25",
+      "max_observed_client_inflight": 5,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r2-minilm1600-rate100",
+      "max_observed_client_inflight": 14,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r2-minilm400-rate25",
+      "max_observed_client_inflight": 5,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r2-minilm400-rate5",
+      "max_observed_client_inflight": 2,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r2-minilm400-rate100",
+      "max_observed_client_inflight": 16,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r2-startlux4b-rate5",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 897
+    },
+    {
+      "cell_id": "r2-startlux4b-rate100",
+      "max_observed_client_inflight": 64,
+      "unique_correlated_gpu_request_ids": 11897
+    },
+    {
+      "cell_id": "r2-startlux4b-rate25",
+      "max_observed_client_inflight": 11,
+      "unique_correlated_gpu_request_ids": 4426
+    },
+    {
+      "cell_id": "r3-qwen4b-rate25",
+      "max_observed_client_inflight": 22,
+      "unique_correlated_gpu_request_ids": 4486
+    },
+    {
+      "cell_id": "r3-qwen4b-rate5",
+      "max_observed_client_inflight": 7,
+      "unique_correlated_gpu_request_ids": 927
+    },
+    {
+      "cell_id": "r3-qwen4b-rate100",
+      "max_observed_client_inflight": 64,
+      "unique_correlated_gpu_request_ids": 8564
+    },
+    {
+      "cell_id": "r3-minilm1600-rate100",
+      "max_observed_client_inflight": 17,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r3-minilm1600-rate5",
+      "max_observed_client_inflight": 2,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r3-minilm1600-rate25",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r3-startlux4b-rate5",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 927
+    },
+    {
+      "cell_id": "r3-startlux4b-rate100",
+      "max_observed_client_inflight": 64,
+      "unique_correlated_gpu_request_ids": 11550
+    },
+    {
+      "cell_id": "r3-startlux4b-rate25",
+      "max_observed_client_inflight": 10,
+      "unique_correlated_gpu_request_ids": 4486
+    },
+    {
+      "cell_id": "r3-minilm400-rate25",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r3-minilm400-rate100",
+      "max_observed_client_inflight": 15,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r3-minilm400-rate5",
+      "max_observed_client_inflight": 2,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r4-startlux4b-rate25",
+      "max_observed_client_inflight": 10,
+      "unique_correlated_gpu_request_ids": 4591
+    },
+    {
+      "cell_id": "r4-startlux4b-rate5",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 896
+    },
+    {
+      "cell_id": "r4-startlux4b-rate100",
+      "max_observed_client_inflight": 64,
+      "unique_correlated_gpu_request_ids": 12129
+    },
+    {
+      "cell_id": "r4-minilm1600-rate25",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r4-minilm1600-rate100",
+      "max_observed_client_inflight": 13,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r4-minilm1600-rate5",
+      "max_observed_client_inflight": 2,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r4-qwen4b-rate25",
+      "max_observed_client_inflight": 20,
+      "unique_correlated_gpu_request_ids": 4591
+    },
+    {
+      "cell_id": "r4-qwen4b-rate100",
+      "max_observed_client_inflight": 64,
+      "unique_correlated_gpu_request_ids": 8503
+    },
+    {
+      "cell_id": "r4-qwen4b-rate5",
+      "max_observed_client_inflight": 5,
+      "unique_correlated_gpu_request_ids": 896
+    },
+    {
+      "cell_id": "r4-minilm400-rate25",
+      "max_observed_client_inflight": 4,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r4-minilm400-rate5",
+      "max_observed_client_inflight": 2,
+      "unique_correlated_gpu_request_ids": 0
+    },
+    {
+      "cell_id": "r4-minilm400-rate100",
+      "max_observed_client_inflight": 12,
+      "unique_correlated_gpu_request_ids": 0
+    }
+  ]
+}

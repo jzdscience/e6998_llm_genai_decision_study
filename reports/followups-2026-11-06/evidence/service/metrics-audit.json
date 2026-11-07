@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "archive": "/Users/zhanj289/Desktop/COMS6998/service_study_bundle.zip",
+  "archive_bytes": 156888964,
+  "archive_sha256": "d212c130c707a30fc9b99be759e0ec4386000b21fca0792dbe2867b619e0998b",
+  "source_commit": "8b5370d8aea7ed57dc42c92f4fe07bcf023a8e07",
+  "source_files_verified": 34,
+  "completed_cells": 60,
+  "formal_offers": 469804,
+  "gold_sha256": "bc5ec4891caed470970115a41e2f6debe2a2967b3f5ff3496622a3d29311fc35",
+  "baseline_archive_sha256": "7f00178c7bd1d86eeeb121929131447675d0053c10072f687f88d7e3ae77b2be",
+  "original_v1_archive_sha256": "be748917f2f2184e3a7d3468b4fa222e7d1b77c0abbba863fce64f395c1840e7",
+  "chain_verified": true,
+  "all_saved_metrics_recomputed": true,
+  "one_attempt_each": true,
+  "schedule_reproduced": 15,
+  "raw_successful_responses_reparsed": 390571,
+  "occupancy_time_and_event_accounting_verified": true,
+  "errors": [],
+  "pairing_same_allocation": {
+    "r0-rate100": true,
+    "r0-rate25": true,
+    "r0-rate5": true,
+    "r1-rate100": true,
+    "r1-rate25": true,
+    "r1-rate5": true,
+    "r2-rate100": true,
+    "r2-rate25": true,
+    "r2-rate5": true,
+    "r3-rate100": true,
+    "r3-rate25": true,
+    "r3-rate5": false,
+    "r4-rate100": true,
+    "r4-rate25": true,
+    "r4-rate5": true
+  },
+  "allocation_cells": {
+    "66103994": 47,
+    "66376166": 13
+  },
+  "latency_summary_note": "Each aggregate quantile is a summary of five per-cell quantiles, never a pooled request quantile.",
+  "quality_note": "Repeated successful requests are not independent quality observations; CPU labels compared to accepted historical predictions.",
+  "limits": [
+    "Archive integrity is not a trusted execution attestation.",
+    "New result evaluation/collection functions never called; no models run.",
+    "Resource payload bytes checked here; detailed resource interpretation belongs to separate audit."
+  ]
+}

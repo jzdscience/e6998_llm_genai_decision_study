@@ -1,0 +1,96 @@
+{
+  "allocation": {
+    "hostname": "sc1ns052is14",
+    "slurm_job_id": "66376166"
+  },
+  "budget_closed": true,
+  "collection_elapsed_seconds": 141.77025442942977,
+  "idle_preflight": {
+    "command": [
+      "nvidia-smi",
+      "--query-compute-apps=pid",
+      "--format=csv,noheader,nounits"
+    ],
+    "compute_pids": [],
+    "created_at": "2026-11-06T17:02:33.598325+00:00",
+    "status": "idle"
+  },
+  "limits": [
+    "Weights/model metadata bytes are not included in the returned ZIP; revision and readout binding verified through fixed protocol, download receipt, launch path and runtime evidence.",
+    "Token IDs are saved hash evidence, not an independent rerun of the tokenizer;3380 reported response token counts match the preflight.",
+    "Serial collection time excludes startup and is not a service goodput/latency comparison. GPU measurements belong to the separate service study."
+  ],
+  "monitored_session_elapsed_seconds": 533.1887392997742,
+  "old_environment_unchanged": true,
+  "prefix_cache": {
+    "effective_config": false,
+    "engine_log": "enable_prefix_caching=False",
+    "health_value": true,
+    "interpretation": "Direct launch and engine evidence disabled caching; health field semantics unresolved, same previously disclosed V3 conflict.",
+    "launch_flag": "--no-enable-prefix-caching",
+    "plugin_log": "prefix caching off"
+  },
+  "runtime": {
+    "allow_none": false,
+    "backend": "vllm",
+    "base_repo": null,
+    "base_revision": null,
+    "bidirectional": true,
+    "chunked_prefill": false,
+    "code_revision": "a99977d9332decc9fb27a2488b4a83b533b6cd5f",
+    "cuda_runtime": "13.0",
+    "dependency_freeze_sha256": "3a97f698c87b307f3d5618e039fcd2c0b7a818d1c34d4c49973626ede49d6d8a",
+    "gpu": [
+      {
+        "compute_capability": "8.9",
+        "driver": "580.126.09",
+        "memory_mb": 46068.0,
+        "name": "NVIDIA L40S"
+      }
+    ],
+    "gpu_memory_utilization": 0.8,
+    "library_versions": {
+      "causal-conv1d": null,
+      "flash-linear-attention": null,
+      "torch": "2.13.0",
+      "transformers": "5.17.0",
+      "vllm": "0.31.0"
+    },
+    "managed_python": true,
+    "max_model_len": 8192,
+    "model": "startlux",
+    "model_repo": "startlux-models/StartLux-Decision-v1.1-9B-Instant",
+    "model_revision": "18a17f734966b213b2f00fa9c915e8b9af2a9b20",
+    "native_temperature": 1.1014,
+    "none_check": false,
+    "precision": "bfloat16",
+    "prefix_cache": false,
+    "python_version": "3.12.8",
+    "speculative_decoding": false,
+    "think_mode": "never",
+    "truncate": false,
+    "vllm_version": "0.31.0"
+  },
+  "services": {
+    "ready_at": "2026-11-06T17:08:54.262717+00:00",
+    "started_at": "2026-11-06T17:04:55.245264+00:00",
+    "stopped_at": "2026-11-06T17:11:25.265704+00:00"
+  },
+  "shutdown_diagnostics": {
+    "all_error_lines": [
+      "(APIServer pid=524533) ERROR 11-06 09:11:24 [async_llm.py:871] AsyncLLM output_handler failed.",
+      "(APIServer pid=524533) ERROR 11-06 09:11:24 [async_llm.py:871] Traceback (most recent call last):",
+      "(APIServer pid=524533) ERROR 11-06 09:11:24 [async_llm.py:871]   File \"/home/zhanj289/e6998/decision-study/results/solo-v1/runtime/work/envs/vllm-0.31.0/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py\", line 817, in output_handler",
+      "(APIServer pid=524533) ERROR 11-06 09:11:24 [async_llm.py:871]     outputs = await engine_core.get_output_async()",
+      "(APIServer pid=524533) ERROR 11-06 09:11:24 [async_llm.py:871]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "(APIServer pid=524533) ERROR 11-06 09:11:24 [async_llm.py:871]   File \"/home/zhanj289/e6998/decision-study/results/solo-v1/runtime/work/envs/vllm-0.31.0/lib/python3.12/site-packages/vllm/v1/engine/core_client.py\", line 1215, in get_output_async",
+      "(APIServer pid=524533) ERROR 11-06 09:11:24 [async_llm.py:871]     raise self._format_exception(outputs) from None",
+      "(APIServer pid=524533) ERROR 11-06 09:11:24 [async_llm.py:871] vllm.v1.engine.exceptions.EngineDeadError: EngineCore encountered an issue. See stack trace (above) for the root cause."
+    ],
+    "error_line_count": 8,
+    "first_error": "(APIServer pid=524533) ERROR 11-06 09:11:24 [async_llm.py:871] AsyncLLM output_handler failed.",
+    "interpretation": "EngineDeadError follows explicit shutdown/forced EngineCore cleanup at local09:11:24. All3200 rows completed successfully; retain teardown errors without claiming they were inference failures."
+  },
+  "status": "PASS_WITH_DISCLOSED_METADATA_CONFLICT",
+  "toolkit_preflight_status": "complete"
+}

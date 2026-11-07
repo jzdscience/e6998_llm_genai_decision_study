@@ -1,0 +1,133 @@
+{
+  "date": "2026-11-05",
+  "timezone": "America/Los_Angeles",
+  "evidence_kind": "user_pasted_terminal_output_not_artifact_audit",
+  "source_commit": "8b5370d8aea7ed57dc42c92f4fe07bcf023a8e07",
+  "state": "partial_service_measurement_blocked_before_next_cpu_start",
+  "error": "Could not verify that port 18120 is unused: timed out",
+  "visible_completed_lines": [
+    {
+      "cell_id": "r0-minilm400-rate25",
+      "offered": 4559,
+      "timely": 4559
+    },
+    {
+      "cell_id": "r1-minilm1600-rate100",
+      "offered": 17916,
+      "timely": 17916
+    },
+    {
+      "cell_id": "r1-minilm1600-rate5",
+      "offered": 910,
+      "timely": 910
+    },
+    {
+      "cell_id": "r1-minilm1600-rate25",
+      "offered": 4529,
+      "timely": 4529
+    },
+    {
+      "cell_id": "r1-startlux4b-rate5",
+      "offered": 910,
+      "timely": 910
+    },
+    {
+      "cell_id": "r1-startlux4b-rate25",
+      "offered": 4529,
+      "timely": 4529
+    },
+    {
+      "cell_id": "r1-startlux4b-rate100",
+      "offered": 17916,
+      "timely": 90
+    },
+    {
+      "cell_id": "r1-minilm400-rate25",
+      "offered": 4529,
+      "timely": 4529
+    },
+    {
+      "cell_id": "r1-minilm400-rate100",
+      "offered": 17916,
+      "timely": 17916
+    },
+    {
+      "cell_id": "r1-minilm400-rate5",
+      "offered": 910,
+      "timely": 910
+    },
+    {
+      "cell_id": "r1-qwen4b-rate25",
+      "offered": 4529,
+      "timely": 4529
+    },
+    {
+      "cell_id": "r1-qwen4b-rate5",
+      "offered": 910,
+      "timely": 910
+    },
+    {
+      "cell_id": "r1-qwen4b-rate100",
+      "offered": 17916,
+      "timely": 16
+    },
+    {
+      "cell_id": "r2-qwen4b-rate100",
+      "offered": 18272,
+      "timely": 23
+    },
+    {
+      "cell_id": "r2-qwen4b-rate5",
+      "offered": 897,
+      "timely": 897
+    },
+    {
+      "cell_id": "r2-qwen4b-rate25",
+      "offered": 4426,
+      "timely": 4424
+    },
+    {
+      "cell_id": "r2-minilm1600-rate5",
+      "offered": 897,
+      "timely": 897
+    },
+    {
+      "cell_id": "r2-minilm1600-rate25",
+      "offered": 4426,
+      "timely": 4426
+    },
+    {
+      "cell_id": "r2-minilm1600-rate100",
+      "offered": 18272,
+      "timely": 18272
+    },
+    {
+      "cell_id": "r2-minilm400-rate25",
+      "offered": 4426,
+      "timely": 4426
+    }
+  ],
+  "visible_unique_cells": 20,
+  "exact_completed_total": null,
+  "diagnostic_bundle_received": false,
+  "source_verified_findings": [
+    "Port 18120 is the protocol CPU service port",
+    "The one-second TCP connection probe raised before reusable-bind test, CPU Popen, warmup and next attempt creation",
+    "This failure alone creates no new interrupted attempt; completed cells are hash-validated and skipped on same-source continuation",
+    "Completion prints follow accepted measurement verification but precede service teardown; finished.json follows context exit",
+    "Console goodput is successful outputs within 500ms of scheduled arrival divided by 180s, without correctness scoring"
+  ],
+  "continuation_constraints": [
+    "Keep clean source commit 8b5370d and original -r2 output; do not alter source, settings, ports or completed results",
+    "Read current ss listener and process output; no inference of port ownership or root cause from timeout alone",
+    "Same-allocation ordinary suite rerun reuses verified completed cells; new actual allocation requires --new-allocation",
+    "Do not apply --resume-interrupted solely for this startup probe failure; inspect any independently reported interrupted attempt",
+    "Retain slow GPU cells and inspect raw traces before attributing late, rejected or failed requests"
+  ],
+  "pending": [
+    "current node listener/process outputs",
+    "latest diagnostic artifact or verified status",
+    "actual continuation"
+  ],
+  "no_code_changed_or_remote_process_killed": true
+}

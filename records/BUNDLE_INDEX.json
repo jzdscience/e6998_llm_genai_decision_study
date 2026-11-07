@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "maintained_as_of": "2026-11-05",
+  "maintained_as_of": "2026-11-07",
   "note": "archive and extracted_directory paths are relative to external_artifact_root, NOT this source checkout. Original archives and extraction trees are not included in Git. Historical receipt fields are preserved; inspect docs/ARTIFACTS_ZH.md.",
   "bundles": [
     {
@@ -370,6 +370,57 @@
       "completed_cells": 0,
       "formal_gpu_inference_calls": 0,
       "note": "First StartLux4B condition blocked in dependency-freeze verification before service startup. Returned freeze differs from original by exactly missing decision-study==0.1.0; no environment repair or resumed execution established by this diagnostic."
+    },
+    {
+      "id": "service-complete-20261106-170135",
+      "archive": "records/bundles/service-complete-20261106-d212c130c707.zip",
+      "sha256": "d212c130c707a30fc9b99be759e0ec4386000b21fca0792dbe2867b619e0998b",
+      "bytes": 156888964,
+      "evaluation_access_at_utc": "2026-11-06T17:01:35.214889+00:00",
+      "bundle_kind": "clinc-service-v1",
+      "verified_file_count": 776,
+      "original_filename": "service_study_bundle.zip",
+      "extracted_directory": "results/returned-service-complete-2026-11-06",
+      "reported_state": "COMPLETE",
+      "reported_state_source": "evaluation.json/status",
+      "verified_state": "complete_independently_verified",
+      "integrity_validation": "all_members_crc_full_read_and_sha_after_install_source_inputs_schedules_freeze_access_evaluation_chain_verified",
+      "source_commit": "8b5370d8aea7ed57dc42c92f4fe07bcf023a8e07",
+      "completed_cells": 60,
+      "formal_offers": 469804,
+      "admitted_successful": 390571,
+      "client_rejected": 79233,
+      "failed_admitted": 0,
+      "allocations": {
+        "66103994": 47,
+        "66376166": 13
+      },
+      "note": "Four direct services on CLINC main600 at 5/25/100 rps x 5 repeats x 180 s, 500 ms SLO. Retrospective quality on a previously inspected test; repeats are not independent quality samples. No cascade, router or 9B serving condition. Pairing crosses allocations only for r3-rate5. A superseded 80 MB partial snapshot (sha256 165134a1...) was overwritten before archiving; see records/service-local-transfer-2026-11-06.json."
+    },
+    {
+      "id": "size-control-complete-20261106-171136",
+      "archive": "records/bundles/size-control-complete-20261106-f427f7762bac.zip",
+      "sha256": "f427f7762bac745d9316cb02195c09f98ab551794de1da047509be7f9fe7d1ed",
+      "bytes": 4984446,
+      "evaluation_access_at_utc": "2026-11-06T17:11:36.735790+00:00",
+      "bundle_kind": "size-control-anli-v1",
+      "verified_file_count": 166,
+      "original_filename": "size_control_bundle.zip",
+      "extracted_directory": "results/returned-size-control-complete-2026-11-06",
+      "reported_state": "complete",
+      "reported_state_source": "evaluation.json/status",
+      "verified_state": "complete_independently_verified_with_disclosed_metadata_conflict",
+      "integrity_validation": "all_members_crc_full_read_and_sha_after_install_manifest_v3_reference_hashes_freeze_access_evaluation_chain_verified",
+      "source_commit": "8b5370d8aea7ed57dc42c92f4fe07bcf023a8e07",
+      "formal_prediction_count": 3200,
+      "smoke_count": 180,
+      "startlux9b_accuracy": 0.766875,
+      "difference_vs_startlux4b_pp": 2.5,
+      "difference_vs_startlux4b_ci_pp": [
+        1.3358617877021797,
+        3.8129734060616545
+      ],
+      "note": "Retrospective direct-model size control on the V3 ANLI test already evaluated in V3; no fitting, thresholds or routing. Health metadata reports prefix_cache true while launch flags and engine logs disable it (same as V3). No 9B serving or co-residency measurement."
     }
   ],
   "copied_from_project_root": "/Users/zhanj289/Documents/ChatGPT/COMS6998/decision-study",

@@ -1,0 +1,38 @@
+{
+  "created_date": "2026-11-07",
+  "source_bundle_sha256": {
+    "clinc-service-v1": "d212c130c707a30fc9b99be759e0ec4386000b21fca0792dbe2867b619e0998b",
+    "size-control-anli-v1": "f427f7762bac745d9316cb02195c09f98ab551794de1da047509be7f9fe7d1ed"
+  },
+  "path_base": "source repository root",
+  "sha256": {
+    "reports/followups-2026-11-06/RESULTS_ZH.md": "e7e69ca7661447943cb5a82a8f62f303e8785c32fbe15bde23cfd3e8f83ed78c",
+    "reports/followups-2026-11-06/audit/README.md": "7fa452c3782023f9ddefa50c29666cf9e09f88eb882a46009bb1b8fd92884c41",
+    "reports/followups-2026-11-06/audit/audit_service.py": "fda11d4de02c357497a2e96e3b0228f1af1dd4c8279afbf4615c06402cd0aa4c",
+    "reports/followups-2026-11-06/audit/audit_service_runtime.py": "ec39368bf7188f2cdd8ab3f6d4104980c1d2c1308a5cc2e54f5a1c604cd86d6a",
+    "reports/followups-2026-11-06/audit/audit_size_control.py": "466eaa8883ca6d3d8d57c8da416cbc9868ca8404945d1dadbad9499e3c8a232e",
+    "reports/followups-2026-11-06/audit/audit_supplement.py": "6255c394aee3e85c21f2fad9996e1adf30bea96f88ae4b1d18d62ccc6a177c7d",
+    "reports/followups-2026-11-06/audit/recheck_from_raw.py": "c444b1b28caf8aa645b740ec647170c8ae93dbb06195b3cb4df1547c17435bd3",
+    "reports/followups-2026-11-06/evidence/raw-recheck-2026-11-07.json": "25e5571cd089ac920537f882ee59deeef09aed93f55897d91ae49b1881106ab0",
+    "reports/followups-2026-11-06/evidence/service/aggregates.csv": "22cf52dc3bafa0ba663305de2807510c14069d8b58552a5d916ca9a020b5170e",
+    "reports/followups-2026-11-06/evidence/service/allocation-sensitivity.json": "af71a53400b5edea951f06d4279dc7e1fc244291d12e8d498b628418a2c6b685",
+    "reports/followups-2026-11-06/evidence/service/cells.csv": "720adb8cbd0611e78b6ea0031dd039fa6e27baa2d046e94c78ee3171ea94615e",
+    "reports/followups-2026-11-06/evidence/service/cli-validation.json": "021745f04cfa8a5c7214b059c56d52b4b7125c12899e427e67108ef5f18d3686",
+    "reports/followups-2026-11-06/evidence/service/metrics-audit.json": "72897a51d324f700557a8b5bc4e96efe9e2e5fb2c643642954b502fa0b29ef8f",
+    "reports/followups-2026-11-06/evidence/service/prediction-consistency.json": "03bbc986bc58105d76795956e8cfe1d025272e802854ef75d1b0849d264b013c",
+    "reports/followups-2026-11-06/evidence/service/resource-summary.csv": "87dd9acda01f0e9e1a0aa83dc2ca064e5d5c131156d75332916497038ede11df",
+    "reports/followups-2026-11-06/evidence/service/service-runtime-audit.json": "a0b18562869284c691081a2c04caca87bed18dcf2476fc6cdd14e6cd93968772",
+    "reports/followups-2026-11-06/evidence/service/supplemental-audit.json": "e20fdb804cd8e7ec720074380779c7b87daa227b5ee73d6f76a5758101354ab5",
+    "reports/followups-2026-11-06/evidence/size/audit-receipt.json": "8188dbfe40c0e6651d0c792d61ca56a9f37b94dd26cd41d096fb7593bc736cb0",
+    "reports/followups-2026-11-06/evidence/size/identity-audit.json": "de663c6a26e380dd0426e22c3f6cdf39e9c63ddebf72ac547eb0cc392a634bf3",
+    "reports/followups-2026-11-06/evidence/size/metrics-audit.json": "4fc522f529f37b801b2a4590d78d6bd9a08a90e4bdfced6744afa4579e95043a",
+    "reports/followups-2026-11-06/evidence/size/runtime-audit.json": "b3cf3f12798032a5993051cb1bd286026a7156a100554cf5b466a7414b480487",
+    "reports/followups-2026-11-06/figures/service_correct_goodput.png": "397d35de08622ff9239515d444d79899928da29bd12d746d730f05b92c7cd4ad",
+    "reports/followups-2026-11-06/figures/service_correct_goodput.svg": "37af0fd241d1a4c45fb58b5ae2a280b0fa4cbb9a71e056043ace2a40f5659405",
+    "reports/followups-2026-11-06/figures/size_control_accuracy.png": "d3805386d996046729a6deb485af974f4d0270a5227a9d8821c55c5f2089e2a8",
+    "reports/followups-2026-11-06/figures/size_control_accuracy.svg": "fb6c16c61bdeab1b9d5fd14a7c65e56895cfdbd7f3f5d7f0f1012f041f274a38",
+    "reports/followups-2026-11-06/render_figures.py": "592ab3c9a8d089b661117b9a70aefe2c7f5da86a74670e98cfbb51daee2b5a75",
+    "reports/followups-2026-11-06/service-evaluation.json": "46a51ab5ef7351fc5a76d3159326582774102a27a47c23872cc8de905acc9376",
+    "reports/followups-2026-11-06/size-evaluation.json": "e0cb367314cc70b7412ea0d37d48357ffba4fac22e7b6b4d4e927c29ebd1ca20"
+  }
+}
