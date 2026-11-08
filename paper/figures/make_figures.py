@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Render the paper's data figures from evidence files tracked in this repository.
 
-Run from the repository root:  .venv-lab/bin/python paper/figures/make_figures.py
+Run from the repository root:  .venv-lab/bin/python paper/figures/make_figures.py [--out DIR]
 Reads only tracked, already-audited summaries; never touches raw evidence or models.
 Outputs PDF (TrueType fonts, for ACL) and PNG previews next to this script.
 """
 import csv
 import json
 import os
+import sys
 import tempfile
 from pathlib import Path
 
@@ -18,6 +19,9 @@ import matplotlib.pyplot as plt
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent
+if len(sys.argv) > 2 and sys.argv[1] == "--out":
+    OUT = Path(sys.argv[2]).resolve()
+    OUT.mkdir(parents=True, exist_ok=True)
 
 # Reference palette (dataviz skill), validated on a white surface: categorical slots
 # 1-4 pass CVD/normal-vision gates; aqua and yellow sit below 3:1 contrast, so every
@@ -48,7 +52,8 @@ def style(ax, grid_axis="x"):
 
 
 def save(fig, name):
-    fig.savefig(OUT / f"{name}.pdf", bbox_inches="tight", pad_inches=0.02)
+    # No creation date in the PDF, so re-running the script reproduces the tracked files byte for byte.
+    fig.savefig(OUT / f"{name}.pdf", bbox_inches="tight", pad_inches=0.02, metadata={"CreationDate": None})
     fig.savefig(OUT / f"{name}.png", dpi=220, bbox_inches="tight", pad_inches=0.02)
     plt.close(fig)
 

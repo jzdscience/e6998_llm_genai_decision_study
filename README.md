@@ -1,47 +1,122 @@
-# Decision Study
+# When Can Open Decision Models Replace Generative LLM Calls?
 
-研究何时直接使用 decision model、何时转交给生成式模型值得其质量与服务成本。
-V1、V2、V3 三轮共 44,450 条正式模型预测；后续的 StartLux9B 规模对照另有 3,200 条，CLINC 轻量
-基线有 7,400 条 CPU 分类器预测，CPU/GPU 服务测量有 469,804 次请求。以上均已验收。
+COMS E6998-007, Fall 2026, final project. Ju Zhang, Weiyu Chen, Yizhi Hu (Columbia University).
+中文说明见 [README_ZH.md](README_ZH.md).
 
-- [当前进度与下一步](docs/CURRENT_STATE.md)
-- [结果与图表](reports/README.md)
-- [源码仓库和服务器协作](docs/REPO_MANAGEMENT_ZH.md)
-- [node 首次配置与 Git 更新命令](docs/NODE_GIT_ZH.md)
-- [数据、环境与结果包的取得方式](docs/ARTIFACTS_ZH.md)
-- [原计划与后续扩展对照](docs/POST_V3_SCOPE_ZH.md)
-- [CPU Decision Lab](docs/LAB_CURRENT_ZH.md)（已接入 V1–V3，运行 `bash scripts/run_lab.sh`）
-- [CLINC 轻量基线结果](reports/cheap-baselines-2026-11-04/RESULTS_ZH.md)、
-  [服务测量与 StartLux9B 规模对照结果](reports/followups-2026-11-06/RESULTS_ZH.md)
+Decision models score a fixed set of candidate labels in one forward pass and return a probability
+distribution. This repository evaluates them as replacements for generative LLM calls on
+classification-shaped tasks (CLINC150 banking intents with out-of-scope queries, SQuAD 2.0
+answerability, ANLI), and evaluates cascades that defer uncertain inputs to a generative LLM. It
+holds the evaluation harness, frozen protocols, audited results, a CPU-only demo and the report.
 
-| 阶段 | 任务与内容 | 状态 |
-|---|---|---|
-| V1 | CLINC / SQuAD 可答性，Kev4B / StartLux4B / Qwen4B，校准、级联与性能 | 已验收 |
-| V2 | 新 SQuAD holdout，gain / confidence / class-conditional 与开放到达测量 | 已验收 |
-| V3 | ANLI，StartLux4B 前级、Qwen4B / Qwen9B 后级 | 已验收；顺序质量实验 |
-| CLINC 轻量基线 | TF-IDF / MiniLM 加 LR，400 与 1,600 个训练标签 | 已验收；回顾性对照 |
-| 服务测量 | MiniLM400/1600（CPU）、StartLux4B、Qwen4B，5/25/100 请求/秒，500 ms SLO | 已验收 |
-| 规模对照 | StartLux9B 在 V3 的 ANLI test 上直接预测 | 已验收；回顾性对照 |
+The report is [paper/main.pdf](paper/main.pdf) (ACL format, first draft).
 
-V2/V3 的预定主比较均未显示统计上的改善。V3 positive_gain 选择零转交，与直接 StartLux
-相同；实验仍采集了完整后级预测。各项结论及限制见原始结果报告。
+## Results at a glance
 
-## 本地开发
+| Question | Finding |
+|---|---|
+| Can a decision model make the call directly? | StartLux-4B beats Qwen3.5-4B on CLINC (93.50% vs. 88.00%), SQuAD answerability (91.25% vs. 86.00%) and ANLI (74.19% vs. 55.41%), at 1.8–1.9× the throughput on one L40S. |
+| Does deferring to a generative model help? | A gain-aware router trailed confidence routing on a fresh 4,000-question holdout (−0.225 pp, 95% CI −0.91 to 0.48). On ANLI the router fitted on validation deferred nothing. |
+| Do validation operating points hold on test? | The 5% selective-risk target was missed for three of four front-model/task pairs, and a 10% deferral budget became 23.2% on ANLI. |
+| What changes under load? | At 100 requests/s with a 500 ms SLO, a CPU MiniLM classifier (93.17% on CLINC) returned 93.4 on-time correct answers per second. The GPU services completed about 65 (StartLux) and 47 (Qwen) requests per second, almost all late. |
+| A bigger front model or a fallback? | StartLux-9B adds 2.50 points on ANLI (95% CI 1.34–3.81), more than any cascade with a 9B generative fallback. |
 
-使用 Python 3.11–3.13，在本目录建立自己的环境：
+## Repository layout
 
-```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -e '.[test]'
-.venv/bin/python -m pytest -q
+```text
+decision_study/   Python package: V1 pipeline (adapters, runner, runtime, storage; hash-frozen),
+                  v2/, v3/, baselines/, cheap_baselines/, service_study/, size_control/,
+                  lab/ (CPU Decision Lab)
+configs/          frozen protocol and runtime configurations
+scripts/          entry points (see scripts/README.md)
+tests/            CPU test suite
+reports/          accepted result reports, figures and audit receipts, one folder per return
+records/          bundle index, acceptance and preparation receipts, patch receipts
+docs/             protocols, runbooks and project state (see docs/README.md)
+paper/            report source, figure script and build notes
+notebooks/        V1 analysis and run notebooks
+*_MANIFEST.json, SOURCE_SHA256.json, VALIDATION.md
+                  release identities read by the verifiers and the packager; keep them at the root
 ```
 
-Git 保存源码、协议、精选报告及证据索引；不保存模型、环境或原始运行目录。
-clone 后如需运行发布校验器，还须恢复固定 prepared 数据，见 [artifact 指南](docs/ARTIFACTS_ZH.md)。
-GPU 服务器使用固定代码版本，现有运行目录与环境保持原位。
+## Quick start (CPU only)
 
-V1/V2/V3 科学源码与发布身份保留。新的研究和前端改动从本仓库继续开发，已看过的 holdout
-不再用于选方法并宣称确认性改善。后续扩展尚未冻结为 V4。
+Python 3.11–3.13. No GPU, model weights or raw results are needed.
 
-早期安装与恢复文档保留用于历史复现；其中的旧 deadline、报错状态和“尚未运行”描述
-不代表当前进度。[最初 V1 README](docs/LEGACY_V1_README.md) 的原内容另行保留。
+```bash
+git clone https://github.com/jzdscience/e6998_llm_genai_decision_study.git
+cd e6998_llm_genai_decision_study
+python3 -m venv .venv-lab
+.venv-lab/bin/python -m pip install -e '.[lab,test]'
+.venv-lab/bin/python -m pytest -q        # CPU tests
+bash scripts/run_lab.sh                   # Decision Lab at http://127.0.0.1:7860
+```
+
+The Decision Lab replays recorded cases from Studies 1–3 using the portable evidence in
+`reports/decision-lab-*`; it never calls a model. A good tour is Overview, then V2 · SQuAD, then
+V3 · ANLI, then V1 replay. Use `bash scripts/run_lab.sh --port 7861` if port 7860 is taken.
+
+## Reproducing the reported numbers
+
+```bash
+bash scripts/reproduce_cpu.sh
+```
+
+The script runs five checks and writes everything to a temporary directory, leaving tracked files
+untouched. It takes about a minute on a laptop.
+
+1. The CPU test suite. The CLINC baseline tests need scikit-learn and ONNX Runtime in a separate
+   pinned environment; the script uses `.venv-cheap-baselines` when it exists:
+   ```bash
+   python3 -m venv .venv-cheap-baselines
+   .venv-cheap-baselines/bin/python -m pip install -r configs/cheap_baseline_requirements.txt pytest
+   ```
+2. The Decision Lab evidence check (hashes of all portable V1–V3 evidence).
+3. A rerun of the audits for the service study and the StartLux-9B size control, compared byte for
+   byte with the receipts in `reports/followups-2026-11-06/evidence/`. This step reads the raw result
+   bundles, which live outside Git; point `EVIDENCE_ROOT` at them, or the step is skipped.
+4. The paper figures, regenerated from tracked data and compared byte for byte with
+   `paper/figures/*.pdf`.
+5. The paper PDF, built in a temporary copy (needs `pdflatex` and `bibtex`).
+
+Raw bundles, prepared data, model weights and environments stay out of Git.
+[records/BUNDLE_INDEX.json](records/BUNDLE_INDEX.json) lists every accepted bundle with its SHA-256,
+and [docs/ARTIFACTS_ZH.md](docs/ARTIFACTS_ZH.md) explains the layout and how to restore it. Each
+report folder under `reports/` names its source bundle and the scripts that re-derive its numbers.
+
+## Running the GPU experiments
+
+The GPU studies ran on one NVIDIA L40S (48 GB) with 100 GB of host RAM in a Slurm allocation,
+driven from a code-server terminal on the node. The node runs a clean checkout pinned to one commit
+and reuses an existing runtime directory that holds the environments and weights:
+
+```bash
+git clone https://github.com/jzdscience/e6998_llm_genai_decision_study.git decision-study-src
+cd decision-study-src && git checkout --detach <commit>
+<runtime-root>/.venv-controller/bin/python scripts/prepare_node_checkout.py \
+  --runtime-root <runtime-root> --expected-commit <commit>
+```
+
+| Study | Entry point | Runbook |
+|---|---|---|
+| Study 1: three 4B models on CLINC and SQuAD, closed-loop serving | `bash scripts/run_with_cuda_tools.sh {smoke,startlux_full,qwen_test,benchmark}`, then `python -m decision_study {evaluate,export}` | [docs/QUICKSTART_ZH.md](docs/QUICKSTART_ZH.md) |
+| Study 2: routing on a fresh SQuAD holdout, open-loop serving | `bash scripts/run_v2.sh pipeline --v1-dir ... --output-dir ...` | [docs/CONTINUE_V2_ZH.md](docs/CONTINUE_V2_ZH.md) |
+| Study 3: ANLI with 4B and 9B fallbacks | `bash scripts/run_v3.sh start` | [docs/RUN_V3_ZH.md](docs/RUN_V3_ZH.md) |
+| CLINC CPU baselines | `bash scripts/run_cheap_baseline_suite.sh <runtime-root>` | [docs/RUN_CHEAP_BASELINES_ZH.md](docs/RUN_CHEAP_BASELINES_ZH.md) |
+| CPU/GPU service study and StartLux-9B size control | `bash scripts/run_followup_suite.sh <runtime-root> [--new-allocation]` | [docs/RUN_FOLLOWUPS_ZH.md](docs/RUN_FOLLOWUPS_ZH.md) |
+
+Every run exports a result bundle. A result is reported only after the bundle has been archived by
+SHA-256, re-scored by an independent audit script and added to the bundle index. Policies and
+thresholds are frozen before holdout predictions, and holdout gold stays sealed until evaluation.
+
+## Troubleshooting
+
+[docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) covers the failures met during the project: Slurm
+out-of-memory kills, session deadlines, CUDA toolchain mismatches, port checks, iCloud placeholder
+files, git lock files, oversized result bundles, zsh glob errors and LaTeX on BasicTeX.
+
+## Documentation
+
+[docs/README.md](docs/README.md) indexes the protocols, runbooks and history. Most protocol and runbook
+documents are written in Chinese. [docs/CURRENT_STATE.md](docs/CURRENT_STATE.md) is the current
+project status and [docs/EXPERIMENT_LOG.md](docs/EXPERIMENT_LOG.md) the full experiment log.

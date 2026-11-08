@@ -16,6 +16,9 @@ diagnostic条目加入索引。旧`solo-v1`、完整`solo-v3`、已验收`aux-cl
 [reports/followups-2026-11-06/](../reports/followups-2026-11-06/RESULTS_ZH.md)。重跑服务审计还需要
 V1的CLINC gold，位于外部根`results/returned-kev-2026-11-01/data/gold.json`。
 
+11/7起，证据根旁的旧补丁ZIP、`.sha256`和散落的notebook/runbook副本移到
+`project/solo-experiments-2026-10-30/archive/`，带大小与SHA清单；证据根`decision-study/`未变。
+
 2026-11-03。本仓库保存源码、协议和精选报告。原始结果包、准备数据、审计产物和环境
 没有搬入 Git；clone 后不会自动得到这些文件。
 

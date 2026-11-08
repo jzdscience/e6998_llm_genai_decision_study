@@ -99,7 +99,7 @@ CPU现场输入只承担轻量模型预测；V1–V3的LLM结果继续明确标�
 本轮只保存建议，没有改动模型、实验配置、旧报告、Lab或节点运行提交。节点继续固定
 原运行的`8b5370d`；未来本机展示/文档提交不意味着运行中实验应随之切换源码。
 
-依据：[proposal](ORIGINAL_PROPOSAL.md)、[原计划对照](POST_V3_SCOPE_ZH.md)、
-[Lab说明](LAB_CURRENT_ZH.md)、[轻量基线结果](../reports/cheap-baselines-2026-11-04/RESULTS_ZH.md)、
-[V2结果](../reports/v2-complete-2026-11-03/RESULTS_ZH.md)、
-[V3结果](../reports/v3-complete-2026-11-03/RESULTS_ZH.md)。
+依据：[proposal](../ORIGINAL_PROPOSAL.md)、[原计划对照](POST_V3_SCOPE_ZH.md)、
+[Lab说明](../LAB_CURRENT_ZH.md)、[轻量基线结果](../../reports/cheap-baselines-2026-11-04/RESULTS_ZH.md)、
+[V2结果](../../reports/v2-complete-2026-11-03/RESULTS_ZH.md)、
+[V3结果](../../reports/v3-complete-2026-11-03/RESULTS_ZH.md)。

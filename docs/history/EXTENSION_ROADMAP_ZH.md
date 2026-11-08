@@ -1,7 +1,7 @@
 # 从已完成 v1 到研究扩展与 Decision Lab
 
 **后续执行更新**：用户已授权执行收敛方案，现已完成独立v2本地实现、数据准备及CPU网页。
-当前范围以[V2_PROTOCOL_ZH.md](V2_PROTOCOL_ZH.md)为准，GPU新增结果仍待运行。
+当前范围以[V2_PROTOCOL_ZH.md](../V2_PROTOCOL_ZH.md)为准，GPU新增结果仍待运行。
 本页下文是此前的备选分析，ANLI不是当前必做项。
 
 日期：2026-11-02。本文是基于源码、回传证据、课程材料和一手文献的**扩展建议**；新实验、路由器、数据集及网页均尚未实现或运行。v1 已完成，不因扩展而改写其结果。
@@ -27,7 +27,7 @@
 | StartLux 的测试接受错误率为 6.34%/6.29%，超过验证集 5%经验目标 | 风险目标能否迁移？需要多少独立认证数据，代价是什么？ |
 | 60 个 live 单元、60,200 次输入执行；SQuAD c8 级联吞吐比直接 StartLux 低 23.6% | 小幅质量收益是否值得额外系统成本？真实排队后是否仍成立？ |
 
-证据来自[正式结果](../reports/formal-2026-11-02/RESULTS_ZH.md)和[性能报告](../reports/benchmark-2026-11-02/BENCHMARK_ZH.md)。重复请求不是新增独立质量样本；当前速度结论是固定部署的比较，不能归因为模型架构本身。
+证据来自[正式结果](../../reports/formal-2026-11-02/RESULTS_ZH.md)和[性能报告](../../reports/benchmark-2026-11-02/BENCHMARK_ZH.md)。重复请求不是新增独立质量样本；当前速度结论是固定部署的比较，不能归因为模型架构本身。
 
 温度对照、risk–coverage、accuracy–deferral、同配额随机/oracle、配对 bootstrap、纠错/误伤和固定池 OOS 比例重加权已经做过。再次生成这些图不算新增研究贡献。
 
@@ -143,7 +143,7 @@ flowchart LR
 
 先用总览说明研究问题，再演示本地正确、后级救回、转交误伤、高置信度错误四种路径；拖动阈值看到全局质量/转交取舍；最后回到真实吞吐与延迟。若实时模式已验收，再让观众输入一条新请求。每个例子用于说明机制，整体统计承担性能结论。
 
-这套展示可以直接使用[四例已验证回放](../reports/formal-2026-11-02/DEMO_REPLAY_ZH.md)，随后接入 v2 新结果。无需为了演示反复重跑完整实验。
+这套展示可以直接使用[四例已验证回放](../../reports/formal-2026-11-02/DEMO_REPLAY_ZH.md)，随后接入 v2 新结果。无需为了演示反复重跑完整实验。
 
 ## 数据隔离和版本规则
 
@@ -167,4 +167,4 @@ v1 测试已经用于错误分析、demo 选择和扩展构想。新政策在该
 
 若时间收紧，保留“ANLI 的一个路由比较 + CPU 前端 + 已完成 v1”，先去掉更大模型、开放到达负载、第二新数据集和 live 美化。若只想增强广度，可做新任务的三模型复制而不学 router；若偏好统计贡献，可用风险认证替代 gain routing。这些是取舍路线，不是全部必做清单。
 
-当前已完成三条独立评审：[方法设计](../.validation/extension-planning-2026-11-02/research-review.md)、[数据/系统优先级](../.validation/extension-planning-2026-11-02/independent-priorities.md)、[前端源码与生命周期](../.validation/extension-planning-2026-11-02/frontend-review.md)。本文整合其建议并明确了 ANLI 与原 2,800 条缺口的不同成本。此次没有启动 GPU、新建远端 session、安装 UI 依赖或更改冻结结果。
+当前已完成三条独立评审：[方法设计](../../.validation/extension-planning-2026-11-02/research-review.md)、[数据/系统优先级](../../.validation/extension-planning-2026-11-02/independent-priorities.md)、[前端源码与生命周期](../../.validation/extension-planning-2026-11-02/frontend-review.md)。本文整合其建议并明确了 ANLI 与原 2,800 条缺口的不同成本。此次没有启动 GPU、新建远端 session、安装 UI 依赖或更改冻结结果。

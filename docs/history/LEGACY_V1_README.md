@@ -4,7 +4,7 @@
 任务：CLINC banking＋OOS，以及 SQuAD 2.0 给定段落可答性。
 
 已经遇到公司环境的 `Python.h` 缺失和旧缓存配额问题时，直接按
-[Kev 修复说明](docs/RECOVER_KEV_ZH.md)运行恢复脚本；无需重下本项目权重。
+[Kev 修复说明](../RECOVER_KEV_ZH.md)运行恢复脚本；无需重下本项目权重。
 
 **推荐主环境：公司 code-server，一张 L40S 级别 48 GB GPU。**
 两个 notebook 和终端脚本调用同一套 Python 实现。第一次先完成 `smoke`，
@@ -12,7 +12,7 @@
 
 ## 开始
 
-先读 [中文操作说明](docs/QUICKSTART_ZH.md)。在有 Python 3.11–3.13、Git、
+先读 [中文操作说明](../QUICKSTART_ZH.md)。在有 Python 3.11–3.13、Git、
 NVIDIA driver 的 Linux code-server 中解压代码包，进入本目录：
 
 ```bash
@@ -74,8 +74,8 @@ python -m decision_study run --job benchmark --cost-mode provided --output-dir .
 
 ## Notebook
 
-- [Run_Experiments.ipynb](notebooks/Run_Experiments.ipynb)：code-server、Colab、VM 共用入口。
-- [Analyze_and_Demo.ipynb](notebooks/Analyze_and_Demo.ipynb)：结果包检查、CPU 统计、图表、回放和可选实时 demo。
+- [Run_Experiments.ipynb](../../notebooks/Run_Experiments.ipynb)：code-server、Colab、VM 共用入口。
+- [Analyze_and_Demo.ipynb](../../notebooks/Analyze_and_Demo.ipynb)：结果包检查、CPU 统计、图表、回放和可选实时 demo。
 
 不想启动 GPU 时设置 `EXECUTE_GPU=False`。分析 notebook 可在普通 CPU 上运行；
 实时 demo 需要原来已安装模型、已验收且配置匹配的 GPU 环境。
@@ -96,15 +96,15 @@ python -m decision_study run --job benchmark --cost-mode provided --output-dir .
 | Timing | 真实请求，包含实际 fallback；缓存分析不充当推理计时 |
 | Resume | 配置、GPU 类型、版本一致才继续；失败终态也不无限重试 |
 
-细节见 [数据协议](docs/data_protocol.md)、[指标协议](docs/metrics.md)、
-[运行环境](docs/runtime.md)。模型上游数据暴露仍是研究限制：CLINC 参与过部分模型
+细节见 [数据协议](../data_protocol.md)、[指标协议](../metrics.md)、
+[运行环境](../runtime.md)。模型上游数据暴露仍是研究限制：CLINC 参与过部分模型
 开发评估，SQuAD/Qwen 的未披露暴露不能视为不存在。
 
 ## 验证与限制
 
 本机已验证数据下载／哈希／划分、CPU 单元测试、人工测试夹具的完整统计绘图流程，
 以及 notebook 的 CPU 路径。测试夹具输出显著标注 `SOFTWARE TEST FIXTURE`，
-不代表任何模型准确率或速度。详见 [验证记录](VALIDATION.md)。
+不代表任何模型准确率或速度。详见 [验证记录](../../VALIDATION.md)。
 
 **尚未在 GPU 上执行模型安装、参考推理或性能实验。** 公司驱动、外网／镜像访问、
 CUDA wheel 与可用显存由 `doctor`、安装后的 BF16 GPU probe 和 `smoke` 验收。

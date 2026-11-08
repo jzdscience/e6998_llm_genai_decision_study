@@ -1,7 +1,7 @@
 # GPU实验完成后的课程交付
 
-**同日后续范围更新**：用户已授权执行[v2收敛协议](V2_PROTOCOL_ZH.md)，CPU
-[Decision Lab](LAB.md)与本地实验实现已完成，新GPU结果待采集。本页保留v1完整交付路径；
+**同日后续范围更新**：用户已授权执行[v2收敛协议](../V2_PROTOCOL_ZH.md)，CPU
+[Decision Lab](../LAB.md)与本地实验实现已完成，新GPU结果待采集。本页保留v1完整交付路径；
 下文“完成”指原定v1。
 
 截至2026-11-02，预定的三模型正式预测、温度/阈值对照、离线路由/随机/oracle分析，以及
@@ -12,20 +12,20 @@
 
 | 材料 | 入口 | 当前用途 |
 | --- | --- | --- |
-| 冻结质量、校准、风险和路由结果 | [RESULTS_ZH.md](../reports/formal-2026-11-02/RESULTS_ZH.md) | 正式测试集的科学结论 |
-| 真实吞吐、延迟及双模型驻留 | [BENCHMARK_ZH.md](../reports/benchmark-2026-11-02/BENCHMARK_ZH.md) | 固定200输入工作负载上的系统性能 |
-| 四例CPU录制回放 | [DEMO_REPLAY_ZH.md](../reports/formal-2026-11-02/DEMO_REPLAY_ZH.md) | 可重复演示接受、纠错、误伤和高置信度错误 |
-| 交互CPU网页 | [LAB.md](LAB.md) | 已保存案例、阈值探索、真实已测性能，使用完整v1便携证据包 |
-| 英文结果段初稿 | [RESULTS_SECTION_DRAFT.md](../reports/benchmark-2026-11-02/RESULTS_SECTION_DRAFT.md) | 合并质量与性能证据的写作起点 |
-| 清晰标注测量口径的新图 | [吞吐](../reports/benchmark-2026-11-02/figures/throughput.pdf)、[p95](../reports/benchmark-2026-11-02/figures/request_latency_p95.pdf) | 报告/展示插图，误差线为三轮范围 |
-| 原始包与审计 | [索引](../records/BUNDLE_INDEX.json)、`.validation/` | 复现与证据追踪 |
+| 冻结质量、校准、风险和路由结果 | [RESULTS_ZH.md](../../reports/formal-2026-11-02/RESULTS_ZH.md) | 正式测试集的科学结论 |
+| 真实吞吐、延迟及双模型驻留 | [BENCHMARK_ZH.md](../../reports/benchmark-2026-11-02/BENCHMARK_ZH.md) | 固定200输入工作负载上的系统性能 |
+| 四例CPU录制回放 | [DEMO_REPLAY_ZH.md](../../reports/formal-2026-11-02/DEMO_REPLAY_ZH.md) | 可重复演示接受、纠错、误伤和高置信度错误 |
+| 交互CPU网页 | [LAB.md](../LAB.md) | 已保存案例、阈值探索、真实已测性能，使用完整v1便携证据包 |
+| 英文结果段初稿 | [RESULTS_SECTION_DRAFT.md](../../reports/benchmark-2026-11-02/RESULTS_SECTION_DRAFT.md) | 合并质量与性能证据的写作起点 |
+| 清晰标注测量口径的新图 | [吞吐](../../reports/benchmark-2026-11-02/figures/throughput.pdf)、[p95](../../reports/benchmark-2026-11-02/figures/request_latency_p95.pdf) | 报告/展示插图，误差线为三轮范围 |
+| 原始包与审计 | [索引](../../records/BUNDLE_INDEX.json)、`.validation/` | 复现与证据追踪 |
 
 原始返回图表和两次结果包均保留。新图使用三轮算术均值，原始benchmark图使用三轮中位数；
 两种汇总不能混称为同一个值。旧formal报告描述的是其当时不含benchmark的包，性能以新报告为准。
 
 ## 对照实际课程要求
 
-依据本地[Project-Deliverables-slides.pdf](../../../../Project-Deliverables-slides.pdf)的完整14页
+依据本地[Project-Deliverables-slides.pdf](../../../../../Project-Deliverables-slides.pdf)的完整14页
 Fall 2026版本。第5页列出Report与GitHub截止 **2026-12-15**；presentation在表格报名。
 这是该课程文件记载的安排，未查询Courseworks后续调整。
 

@@ -18,6 +18,11 @@ BasicTeX lacks; the course report is not anonymised anyway.
 `acl.sty` and `acl_natbib.bst` come from
 [acl-org/acl-style-files](https://github.com/acl-org/acl-style-files), commit `d5adc823ff0f`.
 
+## Checks
+
+`bash scripts/reproduce_cpu.sh` (from the repository root) regenerates the figures and builds this
+paper in a temporary directory, and fails if a figure differs from the tracked PDF.
+
 ## Figures
 
 ```bash

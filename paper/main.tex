@@ -434,7 +434,7 @@ With the Qwen3.5-4B fallback on ANLI, confidence routing reached 69.66\% (98 res
 
 Code, protocols, reports and audit receipts are in the project repository:
 \begin{center}\small\url{https://github.com/jzdscience/e6998_llm_genai_decision_study}\end{center}
-Raw result bundles and model weights stay outside Git and are indexed by SHA-256 in \nolinkurl{records/BUNDLE_INDEX.json}. Table~\ref{tab:bundles} lists the accepted bundles. The figures in this paper are regenerated from tracked files with \nolinkurl{paper/figures/make_figures.py}, and \nolinkurl{reports/followups-2026-11-06/audit/README.md} reruns the follow-up audits. The CPU-only Decision Lab (\nolinkurl{scripts/run_lab.sh}) replays recorded cases from Studies~1--3 without a GPU.
+Raw result bundles and model weights stay outside Git and are indexed by SHA-256 in \nolinkurl{records/BUNDLE_INDEX.json}. Table~\ref{tab:bundles} lists the accepted bundles. The figures in this paper are regenerated from tracked files with \nolinkurl{paper/figures/make_figures.py}, and \nolinkurl{reports/followups-2026-11-06/audit/README.md} reruns the follow-up audits. The CPU-only Decision Lab (\nolinkurl{scripts/run_lab.sh}) replays recorded cases from Studies~1--3 without a GPU. \nolinkurl{scripts/reproduce_cpu.sh} runs the CPU test suite, the Lab evidence check, the follow-up audit reruns, the figure regeneration and the paper build in about a minute, and compares the audit receipts and figures byte for byte with the tracked copies.
 
 \begin{table}[h]
 \centering

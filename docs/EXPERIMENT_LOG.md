@@ -348,3 +348,21 @@ Qwen有8条输入出现过不同标签，MiniLM 117,451次响应与11/4保存预
 改正了两处初稿笔误（SQuAD oracle差距3.05pp、CLINC两模型独对26与28题）和一处运行环境描述
 （Kev使用官方PyTorch服务栈，StartLux与Qwen使用vLLM 0.31.0）。2026年的四篇引用按arXiv与Hugging Face
 页面核对作者与题名。没有新的模型调用或实验。下一步由组员按拟议分工补文献综述、报告与复现教程。
+
+## 2026-11-07：仓库整理与 CPU 复现入口
+
+用户同意"整理外层、冻结核心"的方案。先用引号正确的grep与引用分析确认：V2/V3发布清单绑定
+`CONTINUE_V2_ZH.md`、`LAB.md`、`V2_PROTOCOL_ZH.md`、`RUN_V3_ZH.md`、`V3_PROTOCOL_ZH.md`和9个脚本，
+`SOURCE_SHA256.json`绑定V1的5份文档和7个脚本，这些都不移动。根目录5份补丁收据只出现在
+`records/repo-adoption-2026-11-03.json`的历史清单里，代码不读取，移到`records/patches/`。12份历史/
+规划文档的冻结引用同样只有该清单，移到`docs/history/`。没有改写任何records或已冻结报告。
+
+链接改写脚本按原位置解析每个相对链接，再按新位置重算；对旧V1 README中原本断开的根相对链接
+改为指向实际文件。改写后断链60→52，新文件0处。正文中以纯文本提到旧路径的历史日志条目保持原样。
+
+`scripts/reproduce_cpu.sh`在本机全部通过：测试365+65、Lab check、13份审计收据、3张图逐字节一致、
+论文编译。比较中发现size metrics-audit记录了运行时的numpy版本（2.5.4对原2.3.5），其余值完全相同，
+脚本对该字段与service metrics-audit的archive路径各自排除后比较。
+
+仓库外的旧补丁包移入`project/solo-experiments-2026-10-30/archive/`，移动后逐个复核大小与SHA。
+没有模型调用、GPU操作或push。

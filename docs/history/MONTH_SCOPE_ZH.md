@@ -71,6 +71,6 @@
 - [Qwen3.5-9B官方卡片](https://huggingface.co/Qwen/Qwen3.5-9B)：较大生成式候选，实际显存与本任务质量待验收。
 - [StartLux9B Instant官方卡片](https://huggingface.co/startlux-models/StartLux-Decision-v1.1-9B-Instant)：同家族较大decision候选，官方速度来自其他硬件，不能用于本机性能结论。
 - [ANLI官方仓库](https://github.com/facebookresearch/anli)：新增推断任务候选。
-- [当前已冻结v2](V2_PROTOCOL_ZH.md)、[现有课程交付基础](FINISH_PROJECT_ZH.md)。
+- [当前已冻结v2](../V2_PROTOCOL_ZH.md)、[现有课程交付基础](FINISH_PROJECT_ZH.md)。
 
 以上模型与资料于2026-11-02核对；本轮没有下载或启动新模型、修改v2协议或增加实际运行预算。

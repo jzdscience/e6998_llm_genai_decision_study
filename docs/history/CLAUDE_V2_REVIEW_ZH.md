@@ -14,7 +14,7 @@ Claude 写明其副本停在 11/02 00:11、缺正式与 benchmark 报告。这�
 
 - 正式包 SHA256 `be748917f2f2184e3a7d3468b4fa222e7d1b77c0abbba863fce64f395c1840e7`，15,950 条正式预测已核验。
 - benchmark 包 SHA256 `72138989815c042223cf990517bb32306aec692fe3278055e40d88571fd1f4e8`，60 个单元、60,200 次输入执行已核验。
-- [正式报告](../reports/formal-2026-11-02/RESULTS_ZH.md)、[性能报告](../reports/benchmark-2026-11-02/BENCHMARK_ZH.md)、[归档索引](../records/BUNDLE_INDEX.json)。
+- [正式报告](../../reports/formal-2026-11-02/RESULTS_ZH.md)、[性能报告](../../reports/benchmark-2026-11-02/BENCHMARK_ZH.md)、[归档索引](../../records/BUNDLE_INDEX.json)。
 
 给另一工作副本同步这些证据是合理建议；当前无需重复恢复 cuRAND 或重跑 v1。附件中 dataless 文件数量也是其环境观察，不能直接当成本工作区当前计数。
 
@@ -58,7 +58,7 @@ Kev×StartLux 一致性在已有离线预测中无需新采集；部署到新输
 
 因此采纳 resident-idle 对照，并把系统扩展限定在主 SQuAD 模型对、少量到达率和最终入选的政策。先不要同时扫两个任务、所有路由、多个内存比例、缓存和大量负载点。记录计划到达、实际提交、worker start、最终完成、拒绝/超时及独立占用计数，明确定义 warmup、测量与 drain 窗口。goodput 以所有 offered requests 为口径。
 
-复算脚本与结果：[decompose_benchmark_timing.py](../.validation/claude-review-2026-11-02/decompose_benchmark_timing.py)、[数值收据](../.validation/claude-review-2026-11-02/benchmark-timing-decomposition.json)。这只是对已保存 traces 的分解，没有重新测速。
+复算脚本与结果：[decompose_benchmark_timing.py](../../.validation/claude-review-2026-11-02/decompose_benchmark_timing.py)、[数值收据](../../.validation/claude-review-2026-11-02/benchmark-timing-decomposition.json)。这只是对已保存 traces 的分解，没有重新测速。
 
 ## 统计推断与 holdout
 

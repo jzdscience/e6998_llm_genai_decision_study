@@ -2,6 +2,25 @@
 
 最后核对：2026-11-07，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+## 11/7：仓库整理、英文入口与 CPU 一键复现
+
+12份已不再使用的恢复记录和规划文档移到`docs/history/`，5份补丁收据移到`records/patches/`
+（附说明）。被`SOURCE_SHA256.json`或V2/V3发布清单绑定的文档与脚本保持原路径和字节；科学源码、
+configs、报告和外部证据根都没有改动。50处markdown链接随之改写，全仓断链从60处降到52处（旧V1 README
+里的根相对链接一并修好），新增文件没有断链。剩余断链指向Git外的证据目录，与原来一致。
+
+新增英文`README.md`（原中文入口改名为`README_ZH.md`并更新）、[文档索引](README.md)（标出受绑定
+的文件）、[常见故障](TROUBLESHOOTING.md)、`scripts/README.md`和`scripts/reproduce_cpu.sh`。复现脚本
+依次运行CPU测试（主环境365 passed、11 skipped，基线环境65 passed，合计430）、Lab证据检查、11/6
+两项回传的审计重跑（13份收据一致，其中两份metrics-audit分别排除archive路径和numpy版本字段）、论文
+三张图（逐字节一致）和论文临时编译，约1分钟，不改动已跟踪文件。论文图不再写入CreationDate，
+附录C加入该脚本。
+
+仓库外，`project/solo-experiments-2026-10-30/`顶层的21个旧补丁ZIP、`.sha256`和notebook/runbook
+副本移入`archive/`，附大小与SHA清单；证据根`decision-study/`未动。桌面上两份已按SHA归档的结果包和
+0字节占位文件仍保留，是否删除由用户决定。提交在分支`repo-refactor-2026-11-07`（基于
+`paper-draft-2026-11-07`），尚未push。
+
 ## 11/7：课程报告初版（ACL 双栏）
 
 `paper/`新增报告初版，按三个研究问题组织。proposal的主终点（test coverage与selective risk）单列
@@ -41,7 +60,7 @@ iCloud覆盖，只剩[元数据记录](../records/service-local-transfer-2026-11
 用户要求暂不分析新包，先评估剩余工作。本轮只读已验收报告、源码和本地课程PDF；Lab
 便携证据check通过，未调用模型。建议先做CLINC基线页、真实MiniLM CPU输入演示、整合报告
 与干净clone复现；研究扩展至多选在线预算控制、OOS训练比例消融、标签稳健性之一。
-详见[11/6后续建议](NEXT_STEPS_2026-11-06_ZH.md)。这些是待选方案，未启动新实验或改动
+详见[11/6后续建议](history/NEXT_STEPS_2026-11-06_ZH.md)。这些是待选方案，未启动新实验或改动
 现有前端；新服务/9B结果待用户恢复分析后验收。节点运行仍保留原固定提交。
 
 ## 最新交付障碍：150 MB 新包可通过本机路径读取
@@ -240,5 +259,5 @@ MiniLM1600在银行子集比StartLux多对15条、OOS少对17条；总体接近�
    整理提交；CPU演示与本机开发环境保持原位。
 4. 稳健性/live仍是可选待办；预算控制和语义router是新增候选，不替代原计划事项。
 
-范围对照见 [POST_V3_SCOPE_ZH.md](POST_V3_SCOPE_ZH.md)。11/5新增两个独立auxiliary协议，
+范围对照见 [POST_V3_SCOPE_ZH.md](history/POST_V3_SCOPE_ZH.md)。11/5新增两个独立auxiliary协议，
 没有将其称为新路由V4；本机未启动GPU，历史结果包不证明当前allocation仍在运行。

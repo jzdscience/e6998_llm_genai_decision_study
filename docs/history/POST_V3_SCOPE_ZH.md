@@ -2,7 +2,7 @@
 
 **11/5实施更新**：用户已授权下面两项原待办，源码与固定协议已交付，真实node执行仍待完成。
 StartLux9B采用完整ANLI3200质量对照；加强服务测量采用MiniLM400/1600、StartLux4B、Qwen4B
-四个直接部署，180秒×5、三个固定速率，无新router。见[联合运行入口](RUN_FOLLOWUPS_ZH.md)。
+四个直接部署，180秒×5、三个固定速率，无新router。见[联合运行入口](../RUN_FOLLOWUPS_ZH.md)。
 本文后面的旧建议保留其提出时间，不将“准备完成”记成“实验验收完成”。
 
 2026-11-03 原建议，11/4 更新实施状态。TF-IDF400/1600与冻结MiniLM400/1600已完成；下述预算控制与语义
@@ -33,7 +33,7 @@ V1/V2 真实服务测量及独立审计，评测部分足以支撑完整课程�
 | 较大生成式后级Qwen9B | V3完成ANLI质量采集，尚未做9B共驻留性能 | 已兑现质量扩展，系统能力边界保留 |
 | 新任务ANLI | V3完成官方三个round的全部test | 已兑现 |
 | StartLux9B规模匹配对照 | 11/5源码/协议/本机预检完成，待node采集与验收 | 全ANLI3200补齐4B/9B家族对照，不新增路由 |
-| TF-IDF+线性分类器、冻结embedding+分类头 | TF-IDF400/1600与MiniLM400/1600均已验收；MiniLM1600 main93.17%，banking/OOS表现与StartLux不同 | 原轻量基线事项已完成，见 [完整结果](../reports/cheap-baselines-2026-11-04/RESULTS_ZH.md) |
+| TF-IDF+线性分类器、冻结embedding+分类头 | TF-IDF400/1600与MiniLM400/1600均已验收；MiniLM1600 main93.17%，banking/OOS表现与StartLux不同 | 原轻量基线事项已完成，见 [完整结果](../../reports/cheap-baselines-2026-11-04/RESULTS_ZH.md) |
 | 更充分系统测量：3–5分钟、至少5轮 | V2完成30秒、3轮；11/5交付180秒×5的四部署服务协议，待node实测 | 新增CPU服务直接对照，预算控制仍为可选未实施建议 |
 | 候选顺序/措辞稳健性消融 | 尚未实施 | 上一版没有展开，仍为原可选待办 |
 | 受控live演示 | live尚未完成；CPU Lab已覆盖V1–V3 | live仍可选；CPU回放整合已完成 |
@@ -46,9 +46,9 @@ V1/V2 真实服务测量及独立审计，评测部分足以支撑完整课程�
 预算控制可作为系统测量的新增候选条件；语义router不应悄悄挤掉这些旧项目。是否采用
 本文更窄路线仍是范围建议，本次只补充对照，不修改任何已冻结实验或启动新任务。
 
-源文件：[最终proposal](ORIGINAL_PROPOSAL.md)、
+源文件：[最终proposal](../ORIGINAL_PROPOSAL.md)、
 [月度范围](MONTH_SCOPE_ZH.md)、[Claude方案复核](CLAUDE_V2_REVIEW_ZH.md)、
-[V2实际配置](../configs/v2_protocol.json)。
+[V2实际配置](../../configs/v2_protocol.json)。
 
 ## 优先完成的交付
 
@@ -112,7 +112,7 @@ V3的Qwen9B能救回289道前级错题，但现有置信度/预测类别/长度�
 另一项低成本补充是 CLINC 的 TF-IDF+线性分类器，用于定位任务专用模型的质量/成本。
 它使用监督标签，与零样本LLM条件不同，应单列训练预算；不作为新增大型任务矩阵的起点。
 11/4该项已连同冻结MiniLM、400/1600两个训练预算完成；总体质量与银行/OOS交换见
-[验收报告](../reports/cheap-baselines-2026-11-04/RESULTS_ZH.md)，同口径服务性能仍待测。
+[验收报告](../../reports/cheap-baselines-2026-11-04/RESULTS_ZH.md)，同口径服务性能仍待测。
 
 ## 范围与停止条件
 
@@ -124,6 +124,6 @@ V3的Qwen9B能救回289道前级错题，但现有置信度/预测类别/长度�
 - 重复确定性质量推理不增加独立质量样本，更多GPU小时也不增加显存或解决已见holdout问题。
 - 本建议未运行，未修改现有冻结配置，也没有声称该机制或新router必然优于当前结果。
 
-依据：[V2结果](../reports/v2-complete-2026-11-03/RESULTS_ZH.md)、
-[V3结果](../reports/v3-complete-2026-11-03/RESULTS_ZH.md)、[Lab现状](LAB_CURRENT_ZH.md)、
-[仓库整理方案](REPO_MANAGEMENT_ZH.md)。
+依据：[V2结果](../../reports/v2-complete-2026-11-03/RESULTS_ZH.md)、
+[V3结果](../../reports/v3-complete-2026-11-03/RESULTS_ZH.md)、[Lab现状](../LAB_CURRENT_ZH.md)、
+[仓库整理方案](../REPO_MANAGEMENT_ZH.md)。
