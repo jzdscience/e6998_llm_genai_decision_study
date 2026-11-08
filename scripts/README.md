@@ -8,7 +8,7 @@ top-level README).
 
 | Script | Purpose |
 |---|---|
-| `reproduce_cpu.sh` | All CPU checks: tests, Lab evidence, follow-up audits, figures, paper build |
+| `reproduce_cpu.sh` | All CPU checks: tests, Lab evidence, follow-up audits, figures, paper build (`--strict` for a full acceptance run) |
 | `run_lab.sh` | Start the Decision Lab at `http://127.0.0.1:7860` (`--port` to change) |
 
 ## GPU node: experiment entry points

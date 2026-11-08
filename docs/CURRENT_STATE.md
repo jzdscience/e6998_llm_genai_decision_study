@@ -1,6 +1,35 @@
 # 当前状态
 
-最后核对：2026-11-07，America/Los_Angeles。证据内的原始 UTC 时间不改写。
+最后核对：2026-11-08，America/Los_Angeles。证据内的原始 UTC 时间不改写。
+
+## 11/8：按 review 更正论文与报告
+
+R1–R5 已逐条处理。论文 `paper/main.tex` 改了低负载 SLO 的表述（Qwen 25/s 五轮及时率 98.85%，r0 一轮
+p95 674.5 ms、12 次拒绝、245 次晚返回），把“半个 CPU 核”改为观测用量（约 92 CPU 秒/180 秒，0.51 核当量，
+affinity 允许 16 个逻辑 CPU），标签变化改为“观察到、原因未分离”，显存改为 18.9 GiB；related work 区分
+生成前的路由（RouteLLM、Hybrid LLM）与生成后的级联；结论和摘要限定在已评估的冻结政策与已测负载；
+Table 3 补上 coverage 区间（取自 V1 `analysis/metrics.json`）。Study 2 低负载句改为“无拒绝、每轮至少
+91% 及时”。README 同步。成员贡献仍为橙色拟议文本。
+
+已冻结的 follow-up 报告不改字节，新增
+[ERRATA_2026-11-08_ZH.md](../reports/followups-2026-11-06/ERRATA_2026-11-08_ZH.md)。`scripts/reproduce_cpu.sh`
+增加 `--strict`（跳过即失败）、显式检查 raw recheck 的 `status`，并只在 `paper/requirements-figures.txt`
+固定的 Matplotlib 3.11.2 下做图的逐字节比较。本机 `--strict` 全部通过；把证据根指向不存在的路径时按预期
+返回 1。论文 10 页，无未定义引用和 overfull。没有模型调用或 GPU 操作。
+
+## 11/8：Claude 接手成果的独立 review
+
+复核 `8b5370d` 到 `c938300` 的分析、论文与仓库整理。核心计数、配对区间、两份最终 ZIP、
+28 项报告 SHA 均与原审计一致；科学源码、配置、测试和 Git 内 V2/V3 受绑定文件保持身份。
+Lab、五个审计命令、12 项收据比较、三张论文图和临时论文编译通过。主测试初次的 25 个失败
+来自沙箱 socket bind 限制，相关五个文件允许本地端口后 70 passed；基线环境 65 passed。
+干净源码树使用已有依赖通过 Lab/图复现，全新依赖环境尚未验证。
+
+论文可继续使用，但应修正低负载全部满足 SLO、半核部署、batching 因果归因和 related-work
+分类等表述，并补 coverage 区间、确认真实成员贡献。新 baseline/service/size 结果尚未接入
+现有 Lab。建议 Claude 继续实施，Codex 做独立科学与复现验收；新增 GPU 实验不是交付前提。
+具体证据、位置与分工见 [11/8 审阅清单](REVIEW_2026-11-08_ZH.md)。这是 review 与建议，
+本轮未修改论文、实验或前端，未 commit/push。下文保留 11/7 及以前的历史状态。
 
 ## 11/7：外部证据根瘦身与备份
 
@@ -28,7 +57,7 @@ configs、报告和外部证据根都没有改动。50处markdown链接随之改
 新增英文`README.md`（原中文入口改名为`README_ZH.md`并更新）、[文档索引](README.md)（标出受绑定
 的文件）、[常见故障](TROUBLESHOOTING.md)、`scripts/README.md`和`scripts/reproduce_cpu.sh`。复现脚本
 依次运行CPU测试（主环境365 passed、11 skipped，基线环境65 passed，合计430）、Lab证据检查、11/6
-两项回传的审计重跑（13份收据一致，其中两份metrics-audit分别排除archive路径和numpy版本字段）、论文
+两项回传的审计重跑（12项比较一致：10项逐字节，两份metrics-audit分别排除archive路径和numpy版本字段）、论文
 三张图（逐字节一致）和论文临时编译，约1分钟，不改动已跟踪文件。论文图不再写入CreationDate，
 附录C加入该脚本。
 

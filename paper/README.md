@@ -21,13 +21,17 @@ BasicTeX lacks; the course report is not anonymised anyway.
 ## Checks
 
 `bash scripts/reproduce_cpu.sh` (from the repository root) regenerates the figures and builds this
-paper in a temporary directory, and fails if a figure differs from the tracked PDF.
+paper in a temporary directory. With the pinned Matplotlib installed it fails if a figure differs from
+the tracked PDF; `--strict` also fails when any step had to be skipped.
 
 ## Figures
 
 ```bash
 .venv-lab/bin/python paper/figures/make_figures.py   # run from the repository root
 ```
+
+`requirements-figures.txt` pins the Matplotlib and NumPy versions that produced the tracked PDFs;
+with those versions the script reproduces them byte for byte.
 
 The script reads only tracked, audited summaries: `reports/decision-lab-2026-11-04/study.json`,
 `reports/v2-complete-2026-11-03/chart_data.json` and

@@ -15,6 +15,8 @@ SHA 清单；原始预测、审计脚本和大包位于 [外部证据目录](../
 | [CPU/GPU 服务测量](followups-2026-11-06/RESULTS_ZH.md) | 4 个直接服务 × 5/25/100 请求/秒 × 5 轮；60 单元、469,804 次请求 | 100 请求/秒时及时且正确输出 MiniLM1600 93.43/秒，StartLux4B 0.46/秒；StartLux4B 约每秒完成 65 个、Qwen4B 约 47 个 |
 | [StartLux9B 规模对照](followups-2026-11-06/RESULTS_ZH.md#startlux9b-规模对照) | 3,200 题 ANLI test，回顾性 | 76.69%，比 StartLux4B +2.50pp，95% CI [1.34, 3.81]pp |
 
+后续两项实验报告的几处表述以 [11/8 勘误](followups-2026-11-06/ERRATA_2026-11-08_ZH.md) 为准（低负载 SLO、CPU 用量、启动时间、显存单位、标签变化的原因）；原报告保持验收时的字节。
+
 两个主比较区间均跨零，未显示主方法改善。V3 positive_gain 冻结为零转交，与直接
 StartLux 一致；实验仍完整采集了后级预测。Qwen9B 已做顺序质量实验，未测同卡共驻留性能。
 

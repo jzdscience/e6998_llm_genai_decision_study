@@ -1,18 +1,29 @@
 #!/usr/bin/env bash
 # Reproduce everything that does not need a GPU, model weights or the GPU node.
 #
-#   bash scripts/reproduce_cpu.sh
+#   bash scripts/reproduce_cpu.sh            # skips steps whose inputs are missing
+#   bash scripts/reproduce_cpu.sh --strict   # every step must run; a skip counts as a failure
 #
 # 1. CPU test suite
 # 2. Decision Lab portable evidence check (V1-V3 cases, no model calls)
 # 3. Re-run of the 11/6 follow-up audits, compared byte for byte with the tracked receipts
 #    (needs the external evidence root; set EVIDENCE_ROOT if it is not the default sibling path)
-# 4. Paper figures, compared byte for byte with paper/figures/*.pdf
+# 4. Paper figures, compared byte for byte with paper/figures/*.pdf when the pinned Matplotlib
+#    version (paper/requirements-figures.txt) is installed
 # 5. Paper PDF, built in a temporary copy (needs pdflatex and bibtex)
 #
 # Outputs go to a fresh temporary directory; tracked files are never modified.
-# Exit status is non-zero if any check that ran failed. Skipped steps are reported.
+# Exit status is non-zero if any check that ran failed (or, with --strict, if any step was skipped).
 set -uo pipefail
+
+STRICT=0
+for arg in "$@"; do
+    case "$arg" in
+        --strict) STRICT=1 ;;
+        -h|--help) sed -n '2,17p' "$0"; exit 0 ;;
+        *) echo "unknown argument: $arg" >&2; exit 2 ;;
+    esac
+done
 
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
@@ -36,7 +47,10 @@ SKIPPED=()
 
 step() { printf '\n== %s\n' "$*"; }
 fail() { echo "FAIL: $*"; FAILED+=("$*"); }
-skip() { echo "SKIP: $*"; SKIPPED+=("$*"); }
+skip() {
+    if [[ $STRICT -eq 1 ]]; then echo "FAIL (strict, would skip): $*"; FAILED+=("strict: $*")
+    else echo "SKIP: $*"; SKIPPED+=("$*"); fi
+}
 
 step "1/5 CPU test suite"
 if "$PY" -m pytest -q -p no:cacheprovider > "$OUT/pytest.log" 2>&1; then
@@ -116,7 +130,13 @@ PYEOF
             then echo "same  $tracked ($field excluded)"
             else echo "DIFF  $tracked"; mismatches=$((mismatches + 1)); fi
         done
-        [[ $mismatches -eq 0 ]] || fail "$mismatches audit outputs differ from the tracked receipts"
+        # recheck_from_raw.py records its verdict in the file and exits 0 either way; check it here.
+        if "$PY" -c 'import json,sys; sys.exit(0 if json.load(open(sys.argv[1])).get("status") == "PASS" else 1)' "$R/raw-recheck.json"; then
+            echo "raw recheck status: PASS"
+        else
+            echo "raw recheck status: not PASS"; mismatches=$((mismatches + 1))
+        fi
+        [[ $mismatches -eq 0 ]] || fail "$mismatches audit checks failed"
     else
         fail "an audit script exited non-zero (logs in $OUT)"
     fi
@@ -125,11 +145,19 @@ else
 fi
 
 step "4/5 paper figures"
+# Byte equality only holds for the Matplotlib version that produced the tracked PDFs.
+PINNED_MPL="$(sed -n 's/^matplotlib==//p' paper/requirements-figures.txt)"
+HAVE_MPL="$("$PY" -c 'import matplotlib; print(matplotlib.__version__)' 2>/dev/null)"
 if "$PY" paper/figures/make_figures.py --out "$OUT/figures" > "$OUT/figures.log" 2>&1; then
-    for f in fig_rescue_harm fig_budget_transfer fig_serving; do
-        if cmp -s "$OUT/figures/$f.pdf" "paper/figures/$f.pdf"; then echo "same  $f.pdf"
-        else echo "DIFF  $f.pdf"; fail "figure $f differs from the tracked PDF"; fi
-    done
+    if [[ "$HAVE_MPL" == "$PINNED_MPL" ]]; then
+        for f in fig_rescue_harm fig_budget_transfer fig_serving; do
+            if cmp -s "$OUT/figures/$f.pdf" "paper/figures/$f.pdf"; then echo "same  $f.pdf"
+            else echo "DIFF  $f.pdf"; fail "figure $f differs from the tracked PDF"; fi
+        done
+    else
+        echo "figures regenerated in $OUT/figures"
+        skip "byte comparison of figures needs matplotlib==$PINNED_MPL (installed: ${HAVE_MPL:-none}); see paper/requirements-figures.txt"
+    fi
 else
     cat "$OUT/figures.log"; fail "figure script"
 fi

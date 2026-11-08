@@ -18,8 +18,8 @@ The report is [paper/main.pdf](paper/main.pdf) (ACL format, first draft).
 | Can a decision model make the call directly? | StartLux-4B beats Qwen3.5-4B on CLINC (93.50% vs. 88.00%), SQuAD answerability (91.25% vs. 86.00%) and ANLI (74.19% vs. 55.41%), at 1.8–1.9× the throughput on one L40S. |
 | Does deferring to a generative model help? | A gain-aware router trailed confidence routing on a fresh 4,000-question holdout (−0.225 pp, 95% CI −0.91 to 0.48). On ANLI the router fitted on validation deferred nothing. |
 | Do validation operating points hold on test? | The 5% selective-risk target was missed for three of four front-model/task pairs, and a 10% deferral budget became 23.2% on ANLI. |
-| What changes under load? | At 100 requests/s with a 500 ms SLO, a CPU MiniLM classifier (93.17% on CLINC) returned 93.4 on-time correct answers per second. The GPU services completed about 65 (StartLux) and 47 (Qwen) requests per second, almost all late. |
-| A bigger front model or a fallback? | StartLux-9B adds 2.50 points on ANLI (95% CI 1.34–3.81), more than any cascade with a 9B generative fallback. |
+| What changes under load? | At 100 requests/s with a 500 ms SLO, a CPU MiniLM classifier (93.17% on CLINC) returned 93.4 on-time correct answers per second. Under our client and vLLM settings the GPU services completed about 65 (StartLux) and 47 (Qwen) requests per second, almost all late. |
+| A bigger front model or a fallback? | StartLux-9B adds 2.50 points on ANLI (95% CI 1.34–3.81), more than any of the frozen cascades we evaluated with a 9B generative fallback. Its serving cost has not been measured yet. |
 
 ## Repository layout
 
@@ -63,7 +63,8 @@ bash scripts/reproduce_cpu.sh
 ```
 
 The script runs five checks and writes everything to a temporary directory, leaving tracked files
-untouched. It takes about a minute on a laptop.
+untouched. It takes about a minute on a laptop. Steps whose inputs are missing are reported as SKIP;
+`bash scripts/reproduce_cpu.sh --strict` treats any skip as a failure, for a full acceptance run.
 
 1. The CPU test suite. The CLINC baseline tests need scikit-learn and ONNX Runtime in a separate
    pinned environment; the script uses `.venv-cheap-baselines` when it exists:
@@ -76,7 +77,8 @@ untouched. It takes about a minute on a laptop.
    byte with the receipts in `reports/followups-2026-11-06/evidence/`. This step reads the raw result
    bundles, which live outside Git; point `EVIDENCE_ROOT` at them, or the step is skipped.
 4. The paper figures, regenerated from tracked data and compared byte for byte with
-   `paper/figures/*.pdf`.
+   `paper/figures/*.pdf`. Byte equality needs the versions in `paper/requirements-figures.txt`;
+   with other versions the figures are regenerated and the comparison is skipped.
 5. The paper PDF, built in a temporary copy (needs `pdflatex` and `bibtex`).
 
 Raw bundles, prepared data, model weights and environments stay out of Git.

@@ -1,0 +1,3 @@
+# Environment that produced the tracked paper/figures/*.pdf (byte-for-byte reproducible with these versions).
+matplotlib==3.11.2
+numpy==2.5.4
