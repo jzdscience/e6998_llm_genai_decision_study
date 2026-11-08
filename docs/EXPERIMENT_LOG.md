@@ -339,3 +339,12 @@ Qwen有8条输入出现过不同标签，MiniLM 117,451次响应与11/4保存预
 产出：`reports/followups-2026-11-06/RESULTS_ZH.md`、`audit/`与`evidence/`、`SHA256.json`，
 `records/followups-acceptance-2026-11-06.json`，`records/BUNDLE_INDEX.json`新增两个条目。下一步把两组
 结果接入课程报告与Decision Lab；若报告需要9B前级的服务成本，需另立协议在节点运行。
+
+## 2026-11-07：课程报告初版
+
+在`paper/`写出ACL双栏初版，按RQ1直接替代、RQ2转交、RQ3服务约束组织；V1/V2/V3在文中称Study 1–3。
+所有数字取自已验收报告、`reports/decision-lab-2026-11-04/study.json`、`reports/followups-2026-11-06/`
+和Study 1的`analysis/metrics.json`；V1 selective risk的全部95%区间从后者补齐。成文时逐项核对数字，
+改正了两处初稿笔误（SQuAD oracle差距3.05pp、CLINC两模型独对26与28题）和一处运行环境描述
+（Kev使用官方PyTorch服务栈，StartLux与Qwen使用vLLM 0.31.0）。2026年的四篇引用按arXiv与Hugging Face
+页面核对作者与题名。没有新的模型调用或实验。下一步由组员按拟议分工补文献综述、报告与复现教程。

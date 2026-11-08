@@ -2,6 +2,15 @@
 
 最后核对：2026-11-07，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+## 11/7：课程报告初版（ACL 双栏）
+
+`paper/`新增报告初版，按三个研究问题组织。proposal的主终点（test coverage与selective risk）单列
+一表，正文覆盖V1–V3、CLINC轻量基线、服务测量与StartLux9B规模对照，附TA反馈对照表和复现附录。
+BasicTeX上pdflatex加bibtex编译通过：10页，无未定义引用、无overfull、无Type 3字体。三张数据图由
+`paper/figures/make_figures.py`从已跟踪的验收数据生成，数字来源列在`paper/README.md`。作者沿用
+proposal的三人；Weiyu与Yizhi的贡献句是对剩余交付的拟议分工，以橙色标注，需本人完成并确认后定稿。
+算力致谢的写法待定。提交在分支`paper-draft-2026-11-07`。
+
 ## 11/7：服务测量与 StartLux9B 规模对照回传验收
 
 用户11/6把最终两包下载到本机：`COMS6998/service_study_bundle.zip`（156,888,964字节，SHA
