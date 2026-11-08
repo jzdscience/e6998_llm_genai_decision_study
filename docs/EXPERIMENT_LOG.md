@@ -411,3 +411,11 @@ MiniLM 100/s 约 92 CPU 秒/180 秒，affinity 为 16 个逻辑 CPU；启动中�
 不动。11/7 日志中“GPU批处理下……出现过不同标签”一句以勘误 E4 为准：变化是观察结果，原因未分离。
 复现脚本加入 `--strict`、raw recheck `status` 检查和 Matplotlib 版本守卫；本机 strict 全部通过，缺证据根时
 返回 1。11/7 状态页“13份收据”更正为 12 项比较。没有模型调用、GPU 操作或 push。
+
+## 2026-11-08：9B 服务成本实验设计稿
+
+按 review 的建议设计“升级前级还是加后级”的同任务、同负载对照。核对了三项依据：V3 与规模对照的引擎日志
+（9B 加载 16.8 GiB；0.80 下 KV 15.8–17.1 GiB；4B 在 0.40 下加载 7.99 GiB、KV 7.6–8.3 GiB），V1 `managed_services`
+对双模型每个不超过 0.40 的限制，以及 V3 冻结政策的离线重放（class_conditional/qwen9b 766 题，confidence 743 题）。
+据此写出设计稿与 JSON 草案，三种条件、四档速率、3 轮、每单元重启，主指标 500 ms correct goodput，次要 1,000 ms。
+设计待 Codex 审核；未实现代码、未调用模型或 GPU。

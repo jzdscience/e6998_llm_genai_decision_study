@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "protocol": "anli-upgrade-service-v1",
+  "status": "draft_for_review_not_frozen",
+  "seed": 6998,
+  "task": "anli",
+  "conditions": ["startlux4b", "startlux9b", "cascade"],
+  "models": {
+    "startlux4b": {"interface": "startlux", "repo": "startlux-models/StartLux-Decision-v1.1-4B-Instant", "revision": "416088f77cfce09633906a3675c7cd2e5dabcf10", "gpu_memory_utilization": 0.4, "snapshot_source": "V1 installation (read-only)"},
+    "startlux9b": {"interface": "startlux", "repo": "startlux-models/StartLux-Decision-v1.1-9B-Instant", "revision": "18a17f734966b213b2f00fa9c915e8b9af2a9b20", "native_temperature": 1.1014, "gpu_memory_utilization": 0.5, "snapshot_source": "size-control runtime-work (read-only)"},
+    "qwen9b": {"interface": "qwen", "repo": "Qwen/Qwen3.5-9B", "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a", "gpu_memory_utilization": 0.5, "snapshot_source": "V3 runtime-work (read-only)"}
+  },
+  "condition_services": {
+    "startlux4b": ["startlux4b"],
+    "startlux9b": ["startlux9b"],
+    "cascade": ["startlux4b", "qwen9b"]
+  },
+  "co_residency": "Two single-model service contexts started in order (front first); total reservation 0.90. The V1 paired launcher (<=0.40 each) is not used because Qwen3.5-9B needs 16.8 GiB of weights.",
+  "cascade_policy": {
+    "source": "V3 policy_freeze.json",
+    "path": "policies.qwen9b.class_conditional",
+    "policy_freeze_sha256": "28efefe7814ef234e5ea96503386b577b1db34e6acafa90b57f421e5f39acf50",
+    "policy_freeze_hash_field": "e295b663afb6d7bb271687a9ae716c89b72e397e755fc2ebdad898cde12cedc4",
+    "threshold": 0.272907934835248,
+    "router": "decision_study.v3.policies.route",
+    "local_failure_rule": "force_fallback",
+    "offline_replay_holdout_deferrals": 766,
+    "choice_note": "Most accurate frozen V3 cascade with the 9B fallback; chosen with knowledge of test accuracy"
+  },
+  "workload": {
+    "source": "V3 data/examples.jsonl, split=holdout",
+    "examples_sha256": "a470ad0143224dd87906059651efc74b1c8342445dcfbffcea11768f37618544",
+    "count": 3200,
+    "cycling": "Shuffled complete cycles; common Poisson arrivals and sample sequence for each repeat/rate across all conditions"
+  },
+  "warmup": {"source": "V3 data/examples.jsonl, split=development", "count": 90, "mode": "serial; cascade calls both models per input"},
+  "gold": {"source": "V3 sealed/holdout_gold.json", "sha256": "ed3525b721ed564a4cdf733e94ac381cfebb4ba06eb4a3a6844a1a0b37824f14", "read": "after all cells freeze"},
+  "rates_per_second": [10, 20, 40, 80],
+  "duration_seconds": 120,
+  "repeats": 3,
+  "workers": 16,
+  "max_inflight": 64,
+  "slo_ms": 500,
+  "secondary_slo_ms": 1000,
+  "request_timeout_seconds": 30,
+  "drain_seconds": 60,
+  "watchdog_grace_seconds": 5,
+  "max_attempts_per_model_call": 1,
+  "order": "Deterministically shuffle conditions within each repeat and rates within each condition",
+  "cell_isolation": "Fresh owned services and warmup for every cell; stop all owned process groups after each cell",
+  "feasibility_preflight": "Before formal cells: start the cascade services, run the 90 development inputs through both models serially, record GPU memory; stop on failure without changing reservations",
+  "primary_metric": "Correct goodput at the 500 ms SLO: median, min and max over 3 repeats per condition and rate",
+  "comparisons": [
+    "startlux9b versus cascade at each rate with paired schedules, startlux4b listed alongside",
+    "Highest tested rate at which every repeat has at least 99% of offers on time",
+    "Consistency: accuracy of successful responses versus offline results; per-input cascade routing versus V3 offline decisions; label variability across repeats"
+  ],
+  "interpretation_limits": [
+    "Quality is retrospective on the ANLI test already evaluated in V3",
+    "Three repeats describe service variability; no significance test",
+    "Capacity statements are limited to the tested rates and this client and vLLM configuration",
+    "No dollar cost; resources reported as GPU reservation, sampled memory and GPU time"
+  ]
+}

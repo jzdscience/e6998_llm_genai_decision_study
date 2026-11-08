@@ -27,6 +27,7 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 | [CHEAP_BASELINES_PROTOCOL_ZH.md](CHEAP_BASELINES_PROTOCOL_ZH.md) | TF-IDF-1600, MiniLM-400 and MiniLM-1600 |
 | [SERVICE_STUDY_PROTOCOL_ZH.md](SERVICE_STUDY_PROTOCOL_ZH.md) | CPU/GPU service study, 500 ms SLO |
 | [SIZE_CONTROL_PROTOCOL_ZH.md](SIZE_CONTROL_PROTOCOL_ZH.md) | StartLux-9B size control on ANLI |
+| [UPGRADE_STUDY_PROTOCOL_ZH.md](UPGRADE_STUDY_PROTOCOL_ZH.md) | Draft for review: serving cost of StartLux-9B versus a 4B to Qwen3.5-9B cascade on ANLI |
 
 ## Runbooks
 

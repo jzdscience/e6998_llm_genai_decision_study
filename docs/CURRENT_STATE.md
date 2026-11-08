@@ -2,6 +2,19 @@
 
 最后核对：2026-11-08，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+## 11/8：9B 服务成本实验设计稿（待审，未实现）
+
+用户请 Claude 设计并实施 review 建议的 9B 服务成本实验，回答“升级前级还是加后级更划算”。设计稿见
+[UPGRADE_STUDY_PROTOCOL_ZH.md](UPGRADE_STUDY_PROTOCOL_ZH.md)，机器可读草案为
+`configs/upgrade_study_protocol.json`（`status: draft_for_review_not_frozen`）。在 ANLI 3,200 题上比较
+StartLux-4B 直接、StartLux-9B 直接、StartLux-4B→Qwen3.5-9B 冻结 class_conditional 级联三种部署，速率
+10/20/40/80、每单元 120 秒、3 轮、每单元重启服务，主指标为 500 ms SLO 下的 correct goodput。
+
+设计依据已核实：引擎日志显示 9B 权重 16.8 GiB，V1 双模型启动器每模型 0.40（18.0 GiB）的上限放不下 9B，
+因此级联按 0.40+0.50 依次启动两个单模型服务；用 `decision_study.v3.policies.route` 和冻结政策重放 V3 保存的
+StartLux-4B 测试集预测，class_conditional 正好转交 766 题、confidence 743 题，与 V3 一致。预计节点时长
+4–5 小时。等 Codex 审核设计后再实现；没有写实验代码、启动 GPU 或运行模型。
+
 ## 11/8：按 review 更正论文与报告
 
 R1–R5 已逐条处理。论文 `paper/main.tex` 改了低负载 SLO 的表述（Qwen 25/s 五轮及时率 98.85%，r0 一轮
