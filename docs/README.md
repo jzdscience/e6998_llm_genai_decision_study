@@ -60,3 +60,9 @@ apart from relative links.
 | [MONTH_SCOPE_ZH.md](history/MONTH_SCOPE_ZH.md) | Scope for a month of single-GPU time (3 Nov) |
 | [POST_V3_SCOPE_ZH.md](history/POST_V3_SCOPE_ZH.md) | Post-V3 options compared with the original plan (4 Nov) |
 | [NEXT_STEPS_2026-11-06_ZH.md](history/NEXT_STEPS_2026-11-06_ZH.md) | Remaining-work options before the follow-up analysis (6 Nov) |
+| [EXPERIMENT_LOG_PRE_REPO_ZH.md](history/EXPERIMENT_LOG_PRE_REPO_ZH.md) | Full log from 30 Oct to 4 Nov, before this repository took over |
+| [CURRENT_STATE_PRE_REPO_ZH.md](history/CURRENT_STATE_PRE_REPO_ZH.md) | Last status page of the pre-repository project tree (4 Nov) |
+
+The two `PRE_REPO` files were copied on 2026-11-07 byte for byte from the evidence root's `docs/`
+(SHA-256 `39adf7bc…` and `38cac56a…`). Their relative links are written for that tree, as in the
+historical reports, so links to `records/`, `results/` and `.validation/` resolve there.

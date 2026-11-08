@@ -18,6 +18,10 @@ SHA 清单；原始预测、审计脚本和大包位于 [外部证据目录](../
 两个主比较区间均跨零，未显示主方法改善。V3 positive_gain 冻结为零转交，与直接
 StartLux 一致；实验仍完整采集了后级预测。Qwen9B 已做顺序质量实验，未测同卡共驻留性能。
 
+V1 的完整分析指标（含全部 selective-risk 区间）另存为
+[formal-2026-11-02/analysis/metrics.json](formal-2026-11-02/analysis/metrics.json)，与 V1 原始结果包内的
+`analysis/metrics.json` 逐字节一致（SHA-256 `a6922bee…`），是论文 Table 3 的数据来源。
+
 ## 仓库内可以直接浏览的图表
 
 - [V1 质量图](formal-2026-11-02/figures/clinc_accuracy_complementarity.png)、

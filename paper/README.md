@@ -42,7 +42,7 @@ and has its own marker, so the figures survive grayscale printing.
 |---|---|
 | Table 2, CLINC rows | `reports/cheap-baselines-2026-11-04/summary.csv`, `reports/formal-2026-11-02/RESULTS_ZH.md` |
 | Table 2, SQuAD and ANLI | `reports/formal-2026-11-02`, `reports/v2-complete-2026-11-03`, `reports/v3-complete-2026-11-03`, `reports/followups-2026-11-06/size-evaluation.json` |
-| Table 3 (primary endpoint) | Study 1 `analysis/metrics.json` in the external evidence root (`results/returned-experiment-2026-11-02-101054`) |
+| Table 3 (primary endpoint) | `reports/formal-2026-11-02/analysis/metrics.json`, a byte-identical copy of `analysis/metrics.json` in the Study 1 bundle (SHA-256 `a6922bee…`) |
 | Table 4, Figures 2–3 | `reports/decision-lab-2026-11-04/study.json`, V2/V3 reports |
 | Table 5, Figure 4 | `reports/followups-2026-11-06/evidence/service/aggregates.csv`, `reports/v2-complete-2026-11-03/chart_data.json`, `reports/benchmark-2026-11-02` |
 

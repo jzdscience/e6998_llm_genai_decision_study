@@ -46,6 +46,21 @@
       "manifest_validation": "all_file_hashes_verified"
     },
     {
+      "id": "startlux-repaired-pilot-20261101-172548",
+      "archive": "records/bundles/startlux-repaired-pilot-20261101-172548-c597b063335b.zip",
+      "sha256": "c597b063335b68206db844c1ccad6153765b6b1cf4e219bfa989dd220ae7882d",
+      "bytes": 4078327,
+      "bundle_created_at_utc": "2026-11-01T17:25:48.573486+00:00",
+      "bundle_kind": "pilot",
+      "verified_file_count": 315,
+      "extracted_directory": "results/returned-startlux-repair-2026-11-01-172548",
+      "reported_state": "partial",
+      "reported_state_source": "status.json",
+      "verified_state": "blocked_at_run_smoke",
+      "manifest_validation": "all_file_hashes_verified",
+      "note": "Kev 6,250 predictions complete; the StartLux reference probe failed at run/smoke (RuntimeCommandError), so StartLux and Qwen predictions had not started. Archived on 2026-11-01 but missing from both indexes until 2026-11-07, when its 315 manifest hashes, CRCs and the extracted directory were verified."
+    },
+    {
       "id": "startlux-pass-qwen-blocked-pilot-20261102-010718",
       "archive": "records/bundles/startlux-pass-qwen-blocked-pilot-20261102-010718-7e7b7009d25d.zip",
       "sha256": "7e7b7009d25d01b2984f7d8e8414ba2ffc530ac8dc4a8644a9610c80988d51dd",

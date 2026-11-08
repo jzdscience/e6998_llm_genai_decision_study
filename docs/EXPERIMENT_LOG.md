@@ -1,7 +1,8 @@
 # 项目日志
 
 此日志从源码仓库接管开始。此前完整恢复、发布和回传验收记录保留于外部旧项目树的
-`docs/EXPERIMENT_LOG.md`，访问位置见 [ARTIFACTS_ZH.md](ARTIFACTS_ZH.md)。历史文件不因
+`docs/EXPERIMENT_LOG.md`，访问位置见 [ARTIFACTS_ZH.md](ARTIFACTS_ZH.md)；仓库内另有逐字节副本
+[history/EXPERIMENT_LOG_PRE_REPO_ZH.md](history/EXPERIMENT_LOG_PRE_REPO_ZH.md)。历史文件不因
 仓库整理而改写；当前状态以 [CURRENT_STATE.md](CURRENT_STATE.md) 及其证据为准。
 
 ## 2026-11-03：接管用户建立的源码仓库
@@ -366,3 +367,14 @@ Qwen有8条输入出现过不同标签，MiniLM 117,451次响应与11/4保存预
 
 仓库外的旧补丁包移入`project/solo-experiments-2026-10-30/archive/`，移动后逐个复核大小与SHA。
 没有模型调用、GPU操作或push。
+
+## 2026-11-07：证据根瘦身、早期日志入库与原始包备份
+
+用户确认保留外部证据根并做三项处理。外部根旧`.venv-lab`经核对没有进程或文件引用，移入废纸篓
+（`~/.Trash/decision-study-old-venv-lab-20261107-174517`）。旧日志与旧状态页、V1 `analysis/metrics.json`
+逐字节复制进仓库，SHA分别为`39adf7bc…`、`38cac56a…`、`a6922bee…`，最后一项与V1原包成员一致。
+
+备份前用索引核对`records/bundles/`的21个文件，发现`startlux-repaired-pilot-20261101-172548-c597b063335b.zip`
+未入索引。该包为11/1的诊断pilot：Kev 6,250条完成，StartLux reference探针在run/smoke失败，StartLux与Qwen
+尚未开始。核验后按时间顺序补入索引。21个包复制到`~/coms6998-evidence-backup/`，大小与SHA逐一对照索引，
+`shasum -a 256 -c SHA256SUMS`全部OK。本机没有外接盘或已同步的个人网盘，异地副本留待用户完成。

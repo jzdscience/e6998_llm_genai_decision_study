@@ -2,6 +2,22 @@
 
 最后核对：2026-11-07，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+## 11/7：外部证据根瘦身与备份
+
+外部证据根`project/solo-experiments-2026-10-30/decision-study/`继续保留：原始结果包、解压目录、
+原始审计收据和早期日志都只在这里，仓库按设计不收这些文件。其中旧环境`.venv-lab`（489 MB）已移入
+废纸篓，证据根从2.6 GB降到2.2 GB；清空废纸篓后才真正释放空间。
+
+外部根的旧日志`docs/EXPERIMENT_LOG.md`与`docs/CURRENT_STATE.md`复制为
+`docs/history/*_PRE_REPO_ZH.md`，V1的`analysis/metrics.json`复制到`reports/formal-2026-11-02/analysis/`，
+三份都与原件逐字节一致；`metrics.json`也与V1原始包内的同名成员一致，是论文Table 3的来源。
+
+核对备份时发现`startlux-repaired-pilot-20261101-172548`（4 MB）已按SHA归档，却不在任何索引里。
+315个清单哈希、CRC和解压目录都核对通过后，已补入`records/BUNDLE_INDEX.json`，共21个条目。
+全部21个原始结果包另复制到`~/coms6998-evidence-backup/`（iCloud同步范围外，289 MB），附
+`SHA256SUMS`，`shasum -c`全部通过。这份备份仍在同一台Mac上，需要用户再拷到移动硬盘或私有网盘；
+包内有节点主机名与路径，不宜公开。
+
 ## 11/7：仓库整理、英文入口与 CPU 一键复现
 
 12份已不再使用的恢复记录和规划文档移到`docs/history/`，5份补丁收据移到`records/patches/`
