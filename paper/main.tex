@@ -1,0 +1,463 @@
+% COMS E6998-007 final report, first draft (2026-11-07).
+% Build: see paper/README.md. Numbers trace to reports/ and records/ (Appendix C).
+\documentclass[11pt]{article}
+
+\usepackage{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\IfFileExists{inconsolata.sty}{\usepackage{inconsolata}}{\renewcommand{\ttdefault}{lmtt}}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+
+% Proposed roles for the remaining deliverables are shown in this colour until each
+% teammate confirms the work; replace with plain text before submission.
+\newcommand{\proposed}[1]{\textcolor{orange!75!black}{#1}}
+\newcommand{\pp}{\,pp}
+
+\title{When Can Open Decision Models Replace Generative LLM Calls?}
+
+\author{Ju Zhang \\
+  Columbia University \\
+  \texttt{jz3702@columbia.edu} \\\And
+  Weiyu Chen \\
+  Columbia University \\
+  \texttt{wc2973@columbia.edu} \\\And
+  Yizhi Hu \\
+  Columbia University \\
+  \texttt{yh4060@columbia.edu}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Many production LLM calls make classification-shaped decisions such as intent routing and evidence checks. We study when open decision models, which score a fixed label set in one forward pass and return a probability distribution, can replace these calls, and when deferring uncertain inputs to a generative LLM pays off. Across CLINC150 banking intents with out-of-scope queries, SQuAD~2.0 answerability and ANLI, a 4B decision model is 5.3--18.8 points more accurate than a same-size generative LLM and sustains 1.8--1.9$\times$ its throughput at concurrency 8 on one L40S GPU. Deferring to the generative model added little. A confidence-gated cascade on SQuAD gained 0.25 points (95\% CI $-0.29$ to $0.83$), a gain-aware router trailed confidence routing on a fresh 4,000-question holdout ($-0.225$ points, CI $-0.91$ to $0.48$), and on ANLI the router fitted on validation chose never to defer, even though a 9B fallback could have corrected 289 front-model errors (it would also have broken 544 correct answers). Validation-selected operating points did not transfer. The 5\% selective-risk target was missed for three of four front-model/task pairs, and a 10\% deferral budget became 23\% on ANLI. Under open-loop load with a 500\,ms SLO, a CPU classifier built on a frozen MiniLM encoder and trained on 1,600 labels lands 0.33 points below the decision model on CLINC and stays on time at 100 requests/s, where the GPU services saturate. In a retrospective size control, scaling the decision model from 4B to 9B adds 2.5 points on ANLI (95\% CI 1.3--3.8), more than any cascade with a 9B generative fallback.
+\end{abstract}
+
+\section{Introduction}
+
+Many LLM calls in deployed systems choose among a fixed set of options. A banking assistant routes a request to one of fifteen intents or rejects it as out of scope; a retrieval pipeline checks whether a passage answers a question. A generative LLM handles such a call by writing the label as text, which costs a decoding pass per decision and returns no usable probability. Decision models score a fixed set of candidate labels in one forward pass and return a distribution over them \citep{li2026jevcascade,zhuang2026startlux}. That distribution suggests a cascade, in which the decision model answers when it is confident and defers the remaining inputs to a generative model, as cost-aware LLM cascades do for open-ended generation \citep{chen2023frugalgpt,gupta2024cascades}.
+
+We evaluate this design with released checkpoints and real serving measurements, around three research questions.
+
+\textbf{RQ1} How accurately do frozen decision models make these decisions directly, compared with a same-size generative LLM and with cheap supervised classifiers?
+
+\textbf{RQ2} When does deferring low-confidence inputs to the generative model improve on the best direct system, and do operating points selected on validation data hold on new test data?
+
+\textbf{RQ3} How do serving constraints (throughput, latency SLOs, co-residency) change which deployment is best?
+
+We study CLINC150 banking intents with out-of-scope (OOS) queries \citep{larson-etal-2019-evaluation}, SQuAD~2.0 answerability \citep{rajpurkar-etal-2018-know} and ANLI \citep{nie-etal-2020-adversarial}, using Kev-4B \citep{kev4b}, StartLux-Decision 4B and 9B \citep{zhuang2026startlux} and Qwen3.5 4B and 9B \citep{qwen35}. All weights stay frozen. Every threshold and routing policy is fitted on calibration and validation data and frozen before test predictions are scored, and the gold labels of the two main holdouts stayed sealed until evaluation. Across three studies and three follow-ups we collected 47,650 LLM predictions, 7,400 CPU classifier predictions and about 557,000 timed serving requests on a single NVIDIA L40S.
+
+Our findings are as follows.
+\begin{itemize}
+\item StartLux-4B is the most accurate 4B model on every task, ahead of Qwen3.5-4B by 5.3 to 18.8 points, and serves 1.8--1.9$\times$ as many requests per second.
+\item Deferral to the generative model does not reliably improve on direct StartLux. A gain-aware router trails confidence routing on a fresh holdout, and on ANLI the router fitted on validation defers nothing. Complementary errors exist in hindsight, but the features available at routing time do not identify them.
+\item Operating points chosen on validation drift on test, in both directions. A 10\% budget becomes 23\% for confidence routing and 0.6\% for a gain router on ANLI.
+\item Under open-loop load, a frozen MiniLM encoder with a logistic head comes within 0.33 points of StartLux on CLINC and stays on time at 100 requests/s on half a CPU core, while the GPU services saturate near 65 (StartLux) and 47 (Qwen) completions per second in our configuration.
+\item On ANLI, a 9B decision model beats every cascade that adds a 9B generative fallback to the 4B one.
+\end{itemize}
+We release the evaluation harness, frozen protocols, audit scripts and a CPU-only Decision Lab that replays recorded cases (Appendix~C).
+
+\section{Related Work}
+
+\paragraph{Cascades and routing.}
+FrugalGPT chains LLM APIs of increasing cost and stops when a learned scorer accepts the answer \citep{chen2023frugalgpt}. AutoMix uses the small model's self-verification to decide when to escalate \citep{aggarwal2024automix}. RouteLLM and Hybrid LLM train routers from preference data or predicted quality gaps to send each query to a small or a large model \citep{ong2024routellm,ding2024hybrid}. \citet{gupta2024cascades} show that naive sequence-level uncertainty is a weak deferral signal for generative cascades and learn deferral rules from token-level features. In all of these the front model emits text and the router is trained from answer quality. Our front model is a decision model that exposes a full label distribution, and every task has an exact label, so we can count rescued and harmed inputs for each policy and compare against matched-quota random and oracle routing. JevCascade studies inference-time compute allocation within prefill-only decision models and shows that accuracy after changing the candidate menu can be predicted from cached first-pass probabilities \citep{li2026jevcascade}. We study deferral to a separate generative model and its serving cost.
+
+\paragraph{Selective prediction and risk control.}
+Accepting a prediction only when confidence clears a threshold is the reject option of \citet{chow1970optimum}. Selective classification makes the risk--coverage trade-off explicit and gives a high-probability risk bound for a chosen threshold \citep{geifman2017selective}, and Learn then Test provides finite-sample risk control through multiple testing \citep{angelopoulos2021ltt}. Our gate is the empirical version used in practice, maximum coverage subject to at most 5\% validation error, and we measure how often that target holds on new data.
+
+\paragraph{Calibration and prevalence shift.}
+Temperature scaling fixes much of the miscalibration of modern networks with a single parameter \citep{guo2017calibration}. Changes in class prevalence move both posterior probabilities and the error rate of a fixed threshold \citep{saerens2002adjusting,lipton2018detecting}, and \citet{iqbal2026typed} examine how decision models' calibration and thresholds behave as class frequencies change between development and deployment. Our CLINC stress workload raises the OOS share from 25\% to 65\%, and the ANLI holdout shifts the confidence distribution between train-derived validation data and the official test.
+
+\paragraph{Encoder classifiers.}
+Sentence encoders such as Sentence-BERT and MiniLM give strong text representations at a small fraction of an LLM's cost \citep{reimers-gurevych-2019-sentence,wang2020minilm}, and SetFit shows that a few labelled examples per class suffice for competitive classification \citep{tunstall2022setfit}. We include TF-IDF and frozen MiniLM with logistic heads to test whether a 4B model is needed at all.
+
+\paragraph{LLM serving.}
+vLLM's PagedAttention made high-throughput batched serving practical \citep{kwon2023vllm}, and DistServe argues for SLO goodput, the rate of requests completed within their latency targets, as the serving objective \citep{zhong2024distserve}. We report SLO goodput and add a correctness requirement.
+
+\section{Tasks, Data and Models}
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{lcrrp{0.36\textwidth}l}
+\toprule
+Task & Labels & Calib. & Valid. & Test / holdout & Bootstrap unit \\
+\midrule
+CLINC banking + OOS & 16 & 400 & 400 & 600 main (450 banking, 150 OOS); 850 extra OOS for the stress workload & class strata \\
+SQuAD~2.0 answerability & 2 & 1,000 & 1,000 & Study 1: 2,000 from 35 dev articles & article \\
+ & & & & Study 2: 4,000 from 57 unused train articles (sealed) & article \\
+ANLI R1--R3 & 3 & 1,800 & 900 & 3,200 official test, R1/R2/R3 = 1,000/1,000/1,200 (sealed) & premise (2,854) \\
+\bottomrule
+\end{tabular}
+\caption{Evaluation data. Calibration fits temperatures and router heads; validation selects thresholds; test and holdout sets are scored once after freezing. SQuAD and ANLI test sets are class-balanced.}
+\label{tab:data}
+\end{table*}
+
+\paragraph{Tasks.}
+Table~\ref{tab:data} summarises the splits. CLINC uses the fifteen banking intents of CLINC150 plus the OOS label \citep{larson-etal-2019-evaluation}. The stress workload reuses the 450 banking test inputs and adds the remaining 850 OOS test inputs, raising the OOS share from 25\% to 65.4\%. SQuAD~2.0 is reduced to given-passage answerability (answerable or unanswerable) and is scored by accuracy. Calibration and validation come from article-disjoint subsets of the training set, the Study~1 test set from the official dev set, and the Study~2 holdout from 57 training articles that no earlier split used. ANLI keeps all 3,200 official test items; calibration and validation come from the training set after removing every premise that also appears in test, and the input carries only premise, hypothesis and label definitions. All splits are selected by hashing sample IDs with a fixed seed, sources are pinned by SHA-256, and duplicates with conflicting labels are dropped.
+
+\paragraph{Models.}
+The decision models are Kev-4B v1.0, an adapter and decision head on Qwen3.5-4B-Base \citep{kev4b}, and StartLux-Decision-v1.1 4B and 9B Instant \citep{zhuang2026startlux}, read through their native label-scoring interfaces, with StartLux's deliberation mode disabled. The generative models are Qwen3.5-4B and Qwen3.5-9B \citep{qwen35}, prompted with the same task instruction and label definitions, with thinking disabled, temperature 0 and a JSON output constrained to the label set; they return a label without probabilities. StartLux and Qwen run in vLLM 0.31.0 in BF16 with an 8,192-token limit, no truncation and prefix caching disabled; Kev runs on its official PyTorch serving stack. Revisions are pinned (Appendix~C).
+
+The CPU baselines are TF-IDF over word unigrams and bigrams and a frozen all-MiniLM-L6-v2 encoder (ONNX, mean pooling, 384 dimensions) \citep{wang2020minilm,reimers-gurevych-2019-sentence}, each followed by an L2-regularised logistic regression ($C{=}1$). They are trained on either the 400 CLINC calibration examples or a 1,600-example pool of 1,500 banking and 100 OOS training examples.
+
+\paragraph{Exposure.}
+All three datasets are public, so pretraining exposure is unknown for every model. CLINC150 was part of StartLux's development panel and of a Kev temperature comparison. Our results therefore describe released systems on these tasks; separating architecture from training data would require controlled checkpoints.
+
+\section{Methods}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\small, node distance=4mm and 6mm,
+  box/.style={draw=black!55, rounded corners=2pt, align=center, inner sep=3pt, minimum height=8mm, text width=33mm},
+  arr/.style={-{Stealth[length=2mm]}, draw=black!65}]
+\node[box] (x) {Input $x$: text and label set};
+\node[box, below=of x] (dm) {Decision model:\\ $p(y\mid x)$ in one pass};
+\node[box, below=of dm] (r) {Router: defer if $s(x)\ge\tau$};
+\node[box, below left=6mm and -14mm of r, text width=27mm] (acc) {Return $\arg\max_y p(y\mid x)$};
+\node[box, below right=6mm and -14mm of r, text width=27mm] (gen) {Generative LLM:\\ constrained JSON label};
+\draw[arr] (x) -- (dm);
+\draw[arr] (dm) -- (r);
+\draw[arr] (r) -- node[left, font=\scriptsize] {accept} (acc);
+\draw[arr] (r) -- node[right, font=\scriptsize] {defer} (gen);
+\end{tikzpicture}
+\caption{The cascade. Router scores $s(x)$ are defined in \S\ref{sec:routers}; $\tau$ is frozen on validation data.}
+\label{fig:system}
+\end{figure}
+
+\paragraph{Recalibration.}
+For Kev and StartLux we compare released probabilities with a task-specific temperature $T$ fitted on calibration data, $p_T(y\mid x)\propto\exp(\log p(y\mid x)/T)$ \citep{guo2017calibration}, and report NLL, Brier score and ECE with 15 equal-width bins.
+
+\paragraph{Selective acceptance (primary endpoint).}
+The gate accepts the decision model's label when $\max_y p(y\mid x)\ge\tau$. On validation data, $\tau$ maximises coverage subject to at most 5\% error among accepted inputs and at least 50 accepted inputs; tied scores are accepted or rejected together. The primary endpoint of Study~1 is test coverage together with test selective risk (error among accepted inputs) at the frozen $\tau$, with 95\% intervals. We report misses of the 5\% target and make no risk guarantee.
+
+\paragraph{Cascades and matched-quota controls.}
+Rejected inputs take the generative model's actual prediction (Figure~\ref{fig:system}). A deferral \emph{rescues} an input when the front model is wrong and the fallback right, and \emph{harms} it in the opposite case. At the same number of deferrals $k$ we compare against random routing (analytic expectation) and a hindsight oracle that defers the $k$ inputs with the largest gain $\delta_i = \mathbf{1}[\text{fallback correct}]-\mathbf{1}[\text{front correct}]$. The oracle uses gold labels and is an upper bound.
+
+\paragraph{Routers.}
+\label{sec:routers}
+Studies 2 and 3 compare routers that defer when a score $s(x)$ reaches a threshold frozen on validation, with a deferral budget of 10\% of validation inputs (Study~2 also reports 5\% and 20\%). \emph{Confidence} uses $s=1-\max_y p(y\mid x)$. \emph{Class-conditional} fits a logistic model of front-model correctness on the logit of the maximum probability and the predicted class, with $s=1-\hat P(\text{front correct})$. \emph{Gain} fits separate correctness models for the front and the fallback, adding $\log(1+\text{input length})$, and uses $s=\hat P(\text{fallback correct})-\hat P(\text{front correct})$. \emph{Fixed gain} fills the budget with the highest gain scores; \emph{positive gain} (Study~3) admits only inputs with $s>0$ and may defer nothing. The heads use L2 penalty 0.01 with features standardised on calibration data. In Study~2 the validation set chose between class-conditional and gain as the primary candidate; Study~3 fixed positive gain with the Qwen3.5-9B fallback as primary before any prediction.
+
+\paragraph{Statistics.}
+Intervals are paired percentile bootstraps with 2,000 replicates and seed 6998, resampling SQuAD articles, ANLI normalised premises and CLINC within class strata \citep{field2007bootstrapping}. Each study has one prespecified primary comparison; everything else is descriptive and uncorrected for multiplicity. Intervals condition on the frozen models, prompts and thresholds.
+
+\paragraph{Protocol and audit.}
+Data manifests, configurations and source files are hash-pinned. Policies are frozen before holdout predictions, holdout gold is sealed with a first-access receipt, and every returned result bundle is archived by SHA-256 and re-scored by an independent script that does not import project code.
+
+\paragraph{Serving measurements.}
+\emph{Closed loop} (Study~1): five deployments (Kev, StartLux and Qwen alone; Kev$\to$Qwen and StartLux$\to$Qwen cascades) process fixed 200-input workloads per task at client concurrency 1 and 8 for three rounds of at least 30\,s; throughput is inputs per wall-clock second and latency runs from worker start. \emph{Open loop}: requests arrive as a Poisson process at a fixed offered rate, all conditions share the same arrival schedule, each request gets one HTTP attempt, and the client holds at most 64 active or queued requests. The SLO is 500\,ms from scheduled arrival to completion, so it includes client queueing. SLO goodput counts on-time successful responses per second of offered window, and correct goodput also requires the correct label. Study~2 compares StartLux alone, StartLux and Qwen co-resident with Qwen idle, the frozen gain cascade and Qwen alone at 10, 25 and 40 requests/s (3 rounds of 30\,s, 8 workers). The service study compares MiniLM-400 and MiniLM-1600 on one CPU thread with batch size 1 against StartLux-4B and Qwen3.5-4B (GPU memory share 0.4) at 5, 25 and 100 requests/s (5 rounds of 180\,s, 16 workers), restarting and warming up each service before every cell. Hardware is one NVIDIA L40S (46\,GB), 100\,GB host RAM and AMD EPYC 7643 cores.
+
+\section{Results}
+
+\subsection{RQ1: Direct decisions}
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Model & CLINC & SQuAD-1 & SQuAD-2 & ANLI \\
+\midrule
+Kev-4B & 77.50 & 81.35 & -- & -- \\
+StartLux-4B & \textbf{93.50} & \textbf{91.25} & \textbf{91.78} & 74.19 \\
+StartLux-9B & -- & -- & -- & \textbf{76.69} \\
+Qwen3.5-4B & 88.00 & 86.00 & 85.95 & 55.41 \\
+Qwen3.5-9B & -- & -- & -- & 66.22 \\
+\midrule
+TF-IDF + LR (400) & 73.83 & -- & -- & -- \\
+TF-IDF + LR (1,600) & 84.50 & -- & -- & -- \\
+MiniLM + LR (400) & 90.67 & -- & -- & -- \\
+MiniLM + LR (1,600) & 93.17 & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+}
+\caption{Direct accuracy (\%). CLINC: 600 main-test inputs; SQuAD-1: Study~1 test (2,000); SQuAD-2: Study~2 holdout (4,000); ANLI: official test (3,200). CPU rows are trained on the stated number of labels and evaluated retrospectively; StartLux-9B is a retrospective size control.}
+\label{tab:direct}
+\end{table}
+
+StartLux-4B is the most accurate 4B model on every task (Table~\ref{tab:direct}). Its paired advantage over Qwen3.5-4B is 5.50 points on CLINC (95\% CI 3.67--7.33) and 5.25 on SQuAD (3.59--6.82), and it reaches 5.83 on the fresh SQuAD holdout and 18.78 on ANLI. On CLINC all three LLMs recall 148 of 150 OOS queries, so the gap comes from the banking intents, where accuracy is 70.44\% for Kev, 84.44\% for Qwen and 91.78\% for StartLux. Qwen3.5-9B gains 10.8 points over its 4B sibling on ANLI and remains 7.97 points below StartLux-4B.
+
+The supervised CPU classifiers close most of the gap on CLINC. MiniLM-1600 answers 559 of 600 main-test inputs correctly against StartLux's 561, with a different error profile. It is more accurate on banking intents (95.11\% vs.\ 91.78\%) and recalls fewer OOS queries (87.33\% vs.\ 98.67\%). MiniLM is correct on 26 inputs StartLux misses, and StartLux on 28 that MiniLM misses. More labels did not help uniformly. Moving MiniLM from 400 to 1,600 labels raised main-test accuracy by 2.50 points and lowered accuracy on the OOS-heavy stress workload by 3.15 points; the larger pool also lowers the OOS share of training data from 25\% to 6.25\%, so the two effects are confounded.
+
+StartLux-9B improves on StartLux-4B by 2.50 points on ANLI (95\% CI 1.34--3.81), with gains in all three rounds (R1 84.9 vs.\ 82.6, R2 75.2 vs.\ 72.7, R3 71.1 vs.\ 68.4). It is correct on 245 items the 4B model misses and wrong on 165 the 4B model gets right.
+
+\subsection{Selective acceptance}
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llrrr}
+\toprule
+Task & Front & Coverage & Selective risk [95\% CI] & Defer \\
+\midrule
+CLINC & Kev (rel.) & 65.00 & 6.67 [4.58, 8.79] & 210 \\
+CLINC & Kev (refit) & 64.17 & 7.53 [5.29, 9.70] & 215 \\
+CLINC & StartLux & 99.83 & 6.34 [4.67, 8.18] & 1 \\
+SQuAD & Kev & 35.40 & 4.38 [2.57, 6.67] & 1,292 \\
+SQuAD & StartLux & 93.75 & 6.29 [4.54, 8.51] & 125 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Primary endpoint of Study~1: test coverage (\%) and selective risk (\% error among accepted inputs) at thresholds frozen on validation with a 5\% target. Released (rel.) and refitted temperatures give identical gates except for Kev on CLINC.}
+\label{tab:risk}
+\end{table}
+
+The validation target did not carry over to test (Table~\ref{tab:risk}). Selective risk exceeds 5\% for three of the four front-model/task pairs, and the interval for refitted Kev on CLINC excludes 5\%. StartLux accepted all 400 CLINC validation inputs with five errors (1.25\%) and then made 38 errors among 599 accepted test inputs. Kev's SQuAD gate met the target in point estimate at 35\% coverage, with an interval reaching 6.67\%. Prevalence also moves the measured risk. On the stress workload, where OOS queries are 65\% of inputs, selective risk falls to 3.31\% for StartLux and 2.51\% for Kev with the same banking predictions, because the added OOS inputs are easy.
+
+Temperature refitting changed probability quality in mixed directions (Appendix Table~\ref{tab:prob}). It improved NLL, Brier score and ECE for Kev on SQuAD and slightly reduced ECE while raising NLL and Brier score on CLINC. On binary SQuAD a temperature is a monotone transform of the confidence score, so the accepted sets did not change.
+
+\subsection{RQ2: Deferral to a generative model}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig_rescue_harm.pdf}
+\caption{Rescued and harmed inputs per deferral policy, as a share of each test set, with net change in correct answers. All policies use StartLux-4B as the front model and thresholds frozen on validation.}
+\label{fig:rescue}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+Policy & Acc. & Defer \% (val$\to$test) & Resc./harm \\
+\midrule
+\multicolumn{4}{l}{\emph{SQuAD holdout, Qwen3.5-4B fallback, 10\% budget}} \\
+Direct StartLux-4B & 91.78 & -- & -- \\
+Confidence & 91.83 & 9.6 $\to$ 11.0 & 93 / 91 \\
+Class-conditional & 91.73 & 10.0 $\to$ 11.6 & 105 / 107 \\
+Gain (primary) & 91.60 & 10.0 $\to$ 9.6 & 0 / 7 \\
+\midrule
+\multicolumn{4}{l}{\emph{ANLI test, Qwen3.5-9B fallback, 10\% cap}} \\
+Direct StartLux-4B & 74.19 & -- & -- \\
+Confidence & 73.59 & 10.0 $\to$ 23.2 & 147 / 166 \\
+Class-conditional & 74.41 & 10.0 $\to$ 23.9 & 164 / 157 \\
+Fixed gain & 74.19 & 10.0 $\to$ 0.6 & 0 / 0 \\
+Positive gain (primary) & 74.19 & 0.0 $\to$ 0.0 & 0 / 0 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Routing on sealed holdouts. Primary comparisons against confidence: gain $-0.225$\pp{} [$-0.908$, $0.478$]; positive gain $+0.594$\pp{} [$-0.528$, $1.674$].}
+\label{tab:routing}
+\end{table}
+
+Deferral to the generative fallback never produced a reliable gain over direct StartLux (Figure~\ref{fig:rescue}, Table~\ref{tab:routing}). In Study~1 the StartLux cascade deferred one CLINC input and changed nothing; on SQuAD it deferred 125 inputs, rescued 29 and harmed 24, for $+0.25$ points (95\% CI $-0.29$ to $0.83$). Cascades did help the weaker Kev, by 8.67 points on CLINC and 4.50 on SQuAD, without exceeding direct Qwen ($-1.83$ points on CLINC, CI $-3.17$ to $-0.67$). Confidence routing beat random routing at the same number of deferrals and stayed well below the oracle; on SQuAD with StartLux the three give 90.92\%, 91.50\% and 94.55\% (Appendix Table~\ref{tab:oracle}).
+
+Study~2 tested whether a gain-aware router finds the complementary inputs on 4,000 questions from unused articles. Gain had beaten confidence by 9 of 1,000 validation questions and was selected as the primary candidate. On the holdout it deferred 383 questions, rescued none and harmed 7, for a difference of $-0.225$ points against confidence (CI $-0.908$ to $0.478$). The holdout still contained 119 questions that StartLux missed and Qwen answered correctly, and 352 in the opposite direction. The gain scores were negative for every calibration and validation input, so filling a 10\% budget meant deferring the inputs with the smallest predicted loss. At a 5\% budget the class-conditional router reached 92.90\% while deferring 6.5\% of inputs; this secondary result needs fresh data before it can be called an improvement.
+
+Study~3 moved to ANLI, allowed the router to defer nothing, and added a 9B fallback. With no positive gain score on validation, the primary policy froze at zero deferrals and equals direct StartLux, $+0.594$ points above confidence routing (CI $-0.528$ to $1.674$). Confidence routing lost 19 net answers with the 9B fallback and 145 with the 4B fallback. The 9B fallback was right on 289 StartLux errors and wrong on 544 inputs StartLux got right, so a perfect router would have reached 83.22\%; confidence, predicted class and length could not separate the two groups.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig_budget_transfer.pdf}
+\caption{Deferral rate on validation, where each threshold was chosen, and on test with the same frozen threshold.}
+\label{fig:budget}
+\end{figure}
+
+Fixed thresholds also failed to hold the intended budget (Figure~\ref{fig:budget}). On the SQuAD holdout the realised rates stayed within 1.7 points of their validation values. On ANLI the confidence threshold deferred 23.2\% of test inputs against 10\% on validation, while the fixed-gain threshold deferred 0.6\%. StartLux's mean maximum probability fell from 0.882 on validation to 0.778 on the official test, so a threshold on confidence admits many more inputs, and the gain head scores the same inputs as less promising.
+
+\subsection{RQ3: Serving}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_serving.pdf}
+\caption{Open-loop serving with a 500\,ms SLO, log-log axes. (a) CLINC service study: on-time correct responses per second, median of five 180\,s rounds with min--max whiskers. (b) Study~2 on SQuAD: on-time responses per second, mean of three 30\,s rounds with min--max whiskers; the co-resident condition with Qwen idle matches StartLux alone and is omitted. Gray diagonals mark the offered rate.}
+\label{fig:serving}
+\end{figure*}
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Service & Rate & On-time corr./s & Done/s & p95 ms \\
+\midrule
+MiniLM-1600 (CPU) & 25 & 23.44 & 25.16 & 8.4 \\
+StartLux-4B & 25 & 23.52 & 25.16 & 112.1 \\
+Qwen3.5-4B & 25 & 22.01 & 25.16 & 344.2 \\
+\midrule
+MiniLM-1600 (CPU) & 100 & 93.43 & 100.29 & 15.2 \\
+StartLux-4B & 100 & 0.46 & 64.71 & 1,041.1 \\
+Qwen3.5-4B & 100 & 0.09 & 47.48 & 1,419.3 \\
+\bottomrule
+\end{tabular}
+}
+\caption{CLINC service study, medians of five rounds. Done/s counts all successful responses, on time or late. At 100 requests/s the client rejected 34.9\% of StartLux and 52.8\% of Qwen requests.}
+\label{tab:serving}
+\end{table}
+
+In closed-loop serving at concurrency 8, direct StartLux processed 59.10 inputs/s on CLINC and 57.88 on SQuAD, against 32.71 and 30.76 for Qwen, and used 16.9--17.3 GPU-seconds per 1,000 decisions against 30.6--32.5. Adding the Qwen fallback to StartLux on SQuAD cut throughput to 44.21 inputs/s ($-23.6\%$) and raised the mean round p95 latency from 150.6 to 249.7\,ms, with both models resident on one GPU.
+
+Open-loop load separates the deployments more sharply (Figure~\ref{fig:serving}). In Study~2 every condition kept up with the offered load at 10 and 25 requests/s. At 40 requests/s StartLux alone delivered 40.43 on-time responses per second, the same as with Qwen resident and idle, while the frozen gain cascade delivered 4.89 and Qwen alone 1.06. Keeping a second model resident cost nothing measurable here; calling it did.
+
+The service study extends the comparison to the CPU classifier (Table~\ref{tab:serving}). At 5 and 25 requests/s all four services met the SLO and their on-time correct output tracked their accuracy. At 100 requests/s the two GPU services saturated. StartLux still completed 64.7 requests/s and Qwen 47.5, and queueing pushed almost all of those completions past 500\,ms. MiniLM answered all 90,342 requests in the five rounds on time with p95 near 15\,ms, using about half a CPU core and 200\,MiB of memory, against 96\% sampled GPU utilisation and a 19.3\,GB memory peak for StartLux. GPU batching also introduced small label variability: across repeated requests, two CLINC inputs received more than one label from StartLux and eight from Qwen, while each MiniLM service's 117,451 responses matched its saved predictions exactly.
+
+\section{Discussion}
+
+\paragraph{When decision models replace generative calls.}
+On these classification-shaped tasks the decision model was more accurate and faster than the same-size generative model, and it adds probabilities that a gate can use. Where labelled data for a fixed intent set exists, a frozen encoder with a logistic head matched it on accuracy and kept far more headroom under load, with weaker OOS rejection that has to be checked for the target traffic. Where more accuracy is needed, the ANLI size control favours a larger decision model over a generative fallback, pending a measurement of the 9B model's serving cost.
+
+\paragraph{Why deferral did not pay.}
+Complementarity was present in every study. The matched-quota oracle sits 3.05 points above the StartLux cascade on SQuAD, and the ANLI fallback could rescue 289 inputs. The fallback was weaker on average, and the inputs it would rescue looked like the inputs it would harm to a router that sees confidence, predicted class and length. The positive-gain policy turned that into the safest available action, deferring nothing. Finding rescuable inputs would need richer routing features, such as text embeddings, together with confirmation on data no policy has seen.
+
+\paragraph{Operating points are distribution-specific.}
+Both the risk target and the deferral budget moved with the confidence distribution of the test data, and prevalence alone changed measured risk on CLINC. A threshold tuned offline is a starting point that needs monitoring and recalibration on target traffic; finite-sample risk control \citep{angelopoulos2021ltt} and online budget enforcement are the natural next steps.
+
+\section{Limitations}
+
+We compare released checkpoints with fixed prompts and interfaces, so differences between systems mix architecture, training data and interface effects, and pretraining exposure to these public datasets is unknown. The CPU baselines and the StartLux-9B size control reuse test sets that earlier studies had already scored, and secondary results in Studies~2 and~3 are descriptive. All serving numbers come from one GPU type with fixed client and vLLM settings (GPU memory share 0.4, StartLux front-end limit of 16 in-flight requests); capacities will move with these settings, and the offered rates bracket the saturation point without locating it. Measurements span two Slurm allocations with different physical L40S cards, and one of fifteen paired groups in the service study crosses allocations. The closed-loop timer excludes client queueing, which the open-loop SLO includes. We did not measure 9B serving, 4B and 9B co-residency, or dollar cost, and the CPU baselines ran on a node that also held an idle GPU. SQuAD is reduced to answerability. Bootstrap intervals condition on frozen choices and carry no multiplicity correction.
+
+\section{Conclusion}
+
+For the fixed-label decisions studied here, a decision model can replace the generative call outright, and a supervised encoder can replace both when labels exist and load is high. A generative fallback earns its place only when a router can find the inputs it would fix and the deployment has capacity for its latency; in our studies neither condition held. Next steps are online budget control, routers with richer features confirmed on unseen data, and serving measurements for larger decision models.
+
+\section*{Contributions}
+% TODO(team): Ju's line describes completed work. The orange text proposes how
+% Weiyu and Yizhi share the remaining deliverables; keep a line only after that
+% person has done the work, and edit it to match what they actually did.
+Ju Zhang designed the study, built the evaluation harness, serving measurements and audit tooling, ran all experiments, analysed the results and drafted the paper. Weiyu Chen \proposed{led the literature review and the related-work section, prepared and delivered the presentation, and wrote the qualitative error analysis.} Yizhi Hu \proposed{reproduced the CPU-side results from a clean clone, wrote the installation and troubleshooting tutorial, and tested the Decision Lab demo.}
+
+\section*{Acknowledgments}
+We thank our TA, Aman Upganlawar, whose feedback on 23 October 2026 shaped the data, comparison, ablation and metric choices (Appendix~A).
+% TODO(Ju): decide whether and how to acknowledge the compute provider.
+
+\bibliography{references}
+
+\appendix
+
+\section{TA Feedback}
+\label{app:ta}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{0.33\columnwidth}p{0.55\columnwidth}}
+\toprule
+Feedback (23 Oct 2026) & Where addressed \\
+\midrule
+State the data and how it is acquired & \S3, Table~\ref{tab:data}; SHA-pinned official sources and hashed splits \\
+Specify the comparison methods & \S4: direct, always-generative, cascades, random and oracle routing, four routers \\
+Include ablations & released vs.\ refitted temperature; random vs.\ confidence vs.\ oracle; class-conditional, gain and positive gain; 4B vs.\ 9B fallback; resident-idle vs.\ cascade; 400 vs.\ 1,600 labels; TF-IDF vs.\ MiniLM; 4B vs.\ 9B decision model \\
+Define the evaluation metrics & \S4: coverage and selective risk, accuracy, NLL/Brier/ECE, rescue and harm, latency, throughput, SLO goodput \\
+Newly released models may be used & Qwen3.5-9B and StartLux-9B added in Study~3 and the size control \\
+A UI is optional & CPU Decision Lab provided as the demo (Appendix~C) \\
+\bottomrule
+\end{tabular}
+\caption{TA feedback and where the report addresses it.}
+\label{tab:ta}
+\end{table}
+
+\section{Additional Results}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llrrrr}
+\toprule
+Task & Front & $k$ & Random & Gate & Oracle \\
+\midrule
+CLINC & Kev (rel.) & 210 & 81.18 & 86.17 & 91.00 \\
+CLINC & Kev (refit) & 215 & 81.26 & 85.67 & 91.00 \\
+CLINC & StartLux & 1 & 93.49 & 93.50 & 93.67 \\
+SQuAD & Kev & 1,292 & 84.35 & 85.85 & 90.85 \\
+SQuAD & StartLux & 125 & 90.92 & 91.50 & 94.55 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Study~1 cascade accuracy (\%) with $k$ deferrals to Qwen3.5-4B: random routing (expectation), the frozen confidence gate, and the hindsight oracle.}
+\label{tab:oracle}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llrrrr}
+\toprule
+Task & Model & $T$ & NLL & Brier & ECE \\
+\midrule
+CLINC & Kev & 0.831 & .619$\to$.627 & .305$\to$.313 & .058$\to$.056 \\
+CLINC & StartLux & 0.831 & .246$\to$.260 & .104$\to$.105 & .027$\to$.025 \\
+SQuAD & Kev & 1.295 & .432$\to$.422 & .274$\to$.271 & .042$\to$.021 \\
+SQuAD & StartLux & 0.958 & .216$\to$.217 & .128$\to$.128 & .013$\to$.016 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Probability quality on Study~1 test sets, released $\to$ refitted temperature (lower is better).}
+\label{tab:prob}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llrrr}
+\toprule
+Budget & Policy & Acc. & Defer \% & Resc./harm \\
+\midrule
+5\% & Confidence & 92.25 & 4.95 & 55 / 36 \\
+5\% & Class-conditional & 92.90 & 6.50 & 92 / 47 \\
+5\% & Gain & 91.73 & 4.85 & 0 / 2 \\
+20\% & Confidence & 90.10 & 21.20 & 109 / 176 \\
+20\% & Class-conditional & 90.03 & 20.90 & 115 / 185 \\
+20\% & Gain & 91.55 & 17.73 & 0 / 9 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Study~2 budget sensitivity on the SQuAD holdout (descriptive).}
+\label{tab:budget}
+\end{table}
+
+With the Qwen3.5-4B fallback on ANLI, confidence routing reached 69.66\% (98 rescued, 243 harmed) and class-conditional routing 71.03\% (94 / 195); both gain policies again matched direct StartLux.
+
+\section{Reproducibility}
+
+Code, protocols, reports and audit receipts are in the project repository:
+\begin{center}\small\url{https://github.com/jzdscience/e6998_llm_genai_decision_study}\end{center}
+Raw result bundles and model weights stay outside Git and are indexed by SHA-256 in \nolinkurl{records/BUNDLE_INDEX.json}. Table~\ref{tab:bundles} lists the accepted bundles. The figures in this paper are regenerated from tracked files with \nolinkurl{paper/figures/make_figures.py}, and \nolinkurl{reports/followups-2026-11-06/audit/README.md} reruns the follow-up audits. The CPU-only Decision Lab (\nolinkurl{scripts/run_lab.sh}) replays recorded cases from Studies~1--3 without a GPU.
+
+\begin{table}[h]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lll}
+\toprule
+Study & Bundle SHA-256 (prefix) & Source \\
+\midrule
+Study 1 predictions & \texttt{be748917f2f2184e} & frozen v1 \\
+Study 1 closed-loop serving & \texttt{72138989815c0422} & frozen v1 \\
+Study 2 & \texttt{f340f4b159cb21a0} & v2 release \\
+Study 3 & \texttt{a8d0dc672d83c3ed} & v3 release \\
+TF-IDF-400 baseline & \texttt{7fcd28785a06bf23} & \texttt{797aff1} \\
+TF-IDF-1600, MiniLM & \texttt{7f00178c7bd1d86e} & \texttt{1b70899} \\
+Service study & \texttt{d212c130c707a30f} & \texttt{8b5370d} \\
+StartLux-9B size control & \texttt{f427f7762bac745d} & \texttt{8b5370d} \\
+\bottomrule
+\end{tabular}
+\caption{Accepted result bundles.}
+\label{tab:bundles}
+\end{table}
+
+Pinned model revisions: Kev-4B \texttt{139fdd94}, StartLux-4B \texttt{416088f7}, StartLux-9B \texttt{18a17f73}, Qwen3.5-4B \texttt{851bf6e8}, Qwen3.5-9B \texttt{c2022362}, all-MiniLM-L6-v2 \texttt{1110a243}.
+
+\end{document}
