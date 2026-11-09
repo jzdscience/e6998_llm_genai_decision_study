@@ -607,6 +607,8 @@ def test_end_to_end_rehearsal_through_the_cli(tmp_path, monkeypatch):
         assert cascade["concurrent"]["engine_overlap_seconds"] > 0
         assert cascade["concurrent"]["route_reasons"] == {"preflight_forced_deferral": offered} == {"preflight_forced_deferral": cascade["concurrent"]["fallback_called"]}
         assert cascade["serial"]["failures"] == 0 and cascade["serial"]["stage_calls"] == {"startlux4b": 90, "qwen9b": 90}
+        evidence = out / cascade["evidence_dir"]  # the concurrent check ran in the owned cell process
+        assert json.loads((evidence / "plan.json").read_text())["mode"] == "forced_fallback" and (evidence / "complete.json").is_file()
         assert not fake.lister()
 
         command("start", *inputs, "--session-hours-left", "1")

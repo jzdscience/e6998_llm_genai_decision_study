@@ -1,4 +1,4 @@
-"""Owned subprocess for one bounded formal measurement cell."""
+"""Owned subprocess for one bounded measurement: a formal cell or the preflight concurrent check."""
 import argparse
 import os
 from pathlib import Path
@@ -23,7 +23,8 @@ def execute(root, folder):
         raise StudyError("Scheduled sample missing from workload")
 
     def invoke(row, timeout):
-        return call(plan["condition"], plan["endpoints"], examples[row["sample_id"]], timeout, policy)
+        return call(plan["condition"], plan["endpoints"], examples[row["sample_id"]], timeout, policy,
+                    mode=plan.get("mode", "formal"))
 
     with ResourceMonitor([os.getpid(), *plan["service_pids"]], folder / "resources.jsonl"):
         report, rows, events = run_cell(schedule, invoke, duration=p["duration_seconds"],

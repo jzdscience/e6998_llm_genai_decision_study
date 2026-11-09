@@ -11,12 +11,13 @@
 在本机（无 GPU）上，`tests/test_upgrade_study.py` 30 项通过，全仓 395 passed、11 skipped、64 subtests。
 其中一次 CLI 全流程演练在真实 V1/V3/规模对照证据上依次执行 prepare、init-runtime、preflight、start 和
 第二次 start，只替换 GPU launcher、nvidia-smi、硬件 doctor、CUDA 工具链检查、tokenizer、模型服务和旧环境
-作用域。19 处注入错误都被对应测试发现。真实证据上的 dry run 得到 36 个单元、162,801 个计划 offer，
+作用域。20 处注入错误都被对应测试发现。真实证据上的 dry run 得到 36 个单元、162,801 个计划 offer，
 历史重放 766/743 次转交。
 
 为演练设计注入错误时发现，级联预检的转交标签按条件名写入，请求即使没走强制转交也会记成
 `preflight_forced_deferral`。现在从实际请求的路由原因统计，并要求每条成功请求都经强制转交调用了后级；
-协议的失败条件同步加入这一条和检查后的 health。
+协议的失败条件同步加入这一条和检查后的 health。预检的并发检查也改为和正式单元一样在自有子进程中运行，
+受父进程 watchdog 约束，completion receipt 与预检调度逐条核对。
 
 尚待 Codex 交叉检查实现提交，然后由用户在节点做开发预检并回传，审核通过后再跑 36 个正式单元。
 仓库已改回 public；实现合并进 `main` 并 push 后，节点按 NODE_GIT_ZH.md 用 HTTPS 更新。0.50 单模型与

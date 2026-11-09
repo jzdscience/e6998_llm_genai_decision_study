@@ -60,7 +60,8 @@
       "duration_seconds": 30,
       "workers": 16,
       "max_inflight": 64,
-      "cascade_mode": "forced deferral of every request, labeled preflight_forced_deferral, excluded from formal traces"
+      "cascade_mode": "forced deferral of every request, labeled preflight_forced_deferral, excluded from formal traces",
+      "process": "owned child process with the parent watchdog, as for formal cells"
     },
     "records": [
       "launch commands",

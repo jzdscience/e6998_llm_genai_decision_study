@@ -5,7 +5,6 @@ The sealed ANLI gold is read only in ``evaluate`` and only after every one of th
 """
 from collections import Counter, defaultdict
 import hashlib
-import json
 import os
 from pathlib import Path
 import random
@@ -17,9 +16,9 @@ import zipfile
 
 import numpy as np
 
-from ..common import StudyError, canonical, file_hash, fingerprint, read_json, read_jsonl, utc_now, write_jsonl
-from ..service_study.measurement import make_schedule, run_cell, summarize, verify_cell
-from ..service_study.resources import ResourceMonitor, hardware
+from ..common import StudyError, canonical, file_hash, fingerprint, read_json, read_jsonl, utc_now
+from ..service_study.measurement import make_schedule, summarize, verify_cell
+from ..service_study.resources import hardware
 from . import runtime
 from .client import call
 from .identity import (CONDITIONS, GOLD_SHA256, PROJECT, fixed_write, load_history, load_inputs, load_policy,
@@ -179,19 +178,25 @@ def preflight(output_dir, *, retry_failed=False, launcher=None, lister=None):
                                      "stage_calls": Counter(s["role"] for r in serial for s in r["stages"])}
                 if bad:
                     raise StudyError(f"{len(bad)} serial development checks failed")
-                examples = {e["sample_id"]: e for e in warmup}
-
-                def invoke(row, timeout):
-                    return call(condition, service["endpoints"], examples[row["sample_id"]], timeout,
-                                policy if condition == "cascade" else None, mode=_mode(condition, "concurrent"))
-
-                with ResourceMonitor([os.getpid(), *service["pids"]], folder / "resources.jsonl"):
-                    report, rows, events = run_cell(schedule, invoke, duration=concurrent["duration_seconds"],
-                                                    workers=concurrent["workers"], max_inflight=concurrent["max_inflight"],
-                                                    slo_ms=p["slo_ms"], drain_seconds=p["drain_seconds"],
-                                                    request_timeout=p["request_timeout_seconds"],
-                                                    trace_path=folder / "traces.jsonl")
-                write_jsonl(folder / "occupancy.jsonl", events)
+                # Same owned child process and absolute parent watchdog as a formal cell;
+                # a socket timeout alone does not bound the concurrent run.
+                files = config["file_sha256"]
+                plan = {"cell_id": f"preflight-{condition}", "condition": condition, "mode": _mode(condition, "concurrent"),
+                        "settings_hash": fingerprint(config),
+                        "protocol": {**p, "duration_seconds": concurrent["duration_seconds"],
+                                     "workers": concurrent["workers"], "max_inflight": concurrent["max_inflight"]},
+                        "schedule_file": "preflight-schedule.json", "schedule_sha256": files["preflight-schedule.json"],
+                        "workload_file": "warmup.json", "workload_sha256": files["warmup.json"],
+                        "policy_file": "policy.json", "policy_sha256": files["policy.json"],
+                        "endpoints": service["endpoints"], "service_pids": service["pids"]}
+                _run_process(output, folder, plan)
+                complete = verify_cell(folder, fingerprint(plan))
+                if complete is None:
+                    raise StudyError("The concurrent check exited without a completion receipt")
+                report = complete["report"]
+                rows = sorted(read_jsonl(folder / "traces.jsonl"), key=lambda r: r["offer_id"])
+                if [{k: row.get(k) for k in ("offer_id", "sample_id", "arrival_seconds")} for row in rows] != schedule:
+                    raise StudyError("The concurrent check's traces do not cover the exact preflight schedule")
                 statuses = Counter(r["status"] for r in rows)
                 overlap = _overlap_seconds(rows)
                 receipt["concurrent"] = {"report": report, "statuses": dict(statuses), "engine_overlap_seconds": overlap,
@@ -219,7 +224,8 @@ def preflight(output_dir, *, retry_failed=False, launcher=None, lister=None):
             receipt.update(status="PASS", deployment=record, finished_at=utc_now(),
                            evidence_dir=str(folder.relative_to(output)),
                            evidence={name: file_hash(folder / name) for name in
-                                     ("serial.json", "traces.jsonl", "occupancy.jsonl", "resources.jsonl")})
+                                     ("serial.json", "plan.json", "complete.json", "traces.jsonl", "occupancy.jsonl",
+                                      "resources.jsonl")})
         except BaseException as exc:
             receipt.update(error=str(exc), error_type=type(exc).__name__, deployment=record, finished_at=utc_now())
             fixed_write(folder / "receipt.json", receipt)

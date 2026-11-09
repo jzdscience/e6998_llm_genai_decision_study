@@ -33,8 +33,8 @@ bash scripts/run_upgrade_study.sh /home/zhanj289/e6998/decision-study --prefligh
    （`preflight_forced_deferral`），要求两个引擎的工作时间有重叠，且每条成功请求都调用了后级。
 4. 记录启动参数、KV cache 容量、最大并发、GPU 进程与显存、health 和 preemption 信息。
 
-出现调用错误、超时或预算用尽，检查后 health 失败，引擎日志报告 OOM 或引擎退出，或级联未满足第 3 条，
-该条件判为 FAIL，证据保存在 `preflight/<条件>-<时间戳>/`。预检不读 test gold，也不比较 goodput。
+出现调用错误、超时或预算用尽，检查后 health 失败，引擎日志报告 OOM 或引擎退出，并发检查超出父进程
+watchdog 时限，或级联未满足第 3 条，该条件判为 FAIL，证据保存在 `preflight/<条件>-<时间戳>/`。预检不读 test gold，也不比较 goodput。
 
 看到 `PREFLIGHT_COMPLETE` 后回传：
 
@@ -104,6 +104,6 @@ OUT=/home/zhanj289/e6998/decision-study/results/aux-anli-upgrade-service-v1
 2. 一次 CLI 全流程演练在真实 V1/V3/规模对照证据上依次执行 `prepare`、`init-runtime`、`preflight`、
    `start` 和第二次 `start`。替换的部分只有 GPU launcher、nvidia-smi、硬件 doctor、CUDA 工具链检查、
    tokenizer、模型服务和旧环境作用域；日程缩短为每种部署一个 2 秒单元。
-3. 19 处注入错误都被对应测试发现。
+3. 20 处注入错误都被对应测试发现。
 
 0.50 单模型和 0.40 + 0.50 同驻留能否启动、KV 容量是否够用、真实延迟多少，要由节点预检和正式测量回答。

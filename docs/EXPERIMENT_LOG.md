@@ -462,3 +462,10 @@ review 分支仍在本机。运行文档删去 bundle 一节，节点照 NODE_GI
 allocation 续期在同一 job 内不能延长 deadline，换 job 必须带 `--new-allocation`，旧 session 进入
 session-history。`tests/test_upgrade_study.py` 30 项，全仓 395 passed、11 skipped、64 subtests；
 注入错误增至 19 处，全部被发现。
+
+## 2026-11-08：预检并发检查改用自有子进程
+
+复用的 `run_cell` 注明 socket timeout 不能给出绝对执行上限，需在独立子进程中运行；正式单元一直如此，
+预检的 30 秒并发检查原先在控制器进程内调用。现改为与正式单元相同的 cell 子进程和父进程 watchdog
+（审核 U3），用 `verify_cell` 核对 completion receipt，并要求 trace 与预检调度逐条一致。CLI 演练确认
+级联预检的 `plan.json` 为 `forced_fallback`。注入错误增至 20 处。
