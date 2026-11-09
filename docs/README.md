@@ -27,7 +27,7 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 | [CHEAP_BASELINES_PROTOCOL_ZH.md](CHEAP_BASELINES_PROTOCOL_ZH.md) | TF-IDF-1600, MiniLM-400 and MiniLM-1600 |
 | [SERVICE_STUDY_PROTOCOL_ZH.md](SERVICE_STUDY_PROTOCOL_ZH.md) | CPU/GPU service study, 500 ms SLO |
 | [SIZE_CONTROL_PROTOCOL_ZH.md](SIZE_CONTROL_PROTOCOL_ZH.md) | StartLux-9B size control on ANLI |
-| [UPGRADE_STUDY_PROTOCOL_ZH.md](UPGRADE_STUDY_PROTOCOL_ZH.md) | Draft for review: serving cost of StartLux-9B versus a 4B to Qwen3.5-9B cascade on ANLI |
+| [UPGRADE_STUDY_PROTOCOL_ZH.md](UPGRADE_STUDY_PROTOCOL_ZH.md) | Serving cost of StartLux-9B versus a 4B to Qwen3.5-9B cascade on ANLI; revision 2 after the 11/8 review, awaiting the node preflight |
 
 ## Runbooks
 
@@ -41,10 +41,18 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 | [RUN_CHEAP_BASELINES_ZH.md](RUN_CHEAP_BASELINES_ZH.md) | Running the TF-IDF-1600 and MiniLM baselines |
 | [RUN_FOLLOWUPS_ZH.md](RUN_FOLLOWUPS_ZH.md) | Running the service study and the size control together |
 | [RUN_SIZE_CONTROL_ZH.md](RUN_SIZE_CONTROL_ZH.md) | Running the size control alone |
+| [RUN_UPGRADE_STUDY_ZH.md](RUN_UPGRADE_STUDY_ZH.md) | Running the StartLux-9B serving-cost study: development preflight, then 36 formal cells |
 | [NODE_GIT_ZH.md](NODE_GIT_ZH.md) | Preparing the node from a pinned Git checkout |
 | [REPO_MANAGEMENT_ZH.md](REPO_MANAGEMENT_ZH.md) | How this repository, the node and the evidence root relate |
 | [LAB.md](LAB.md) **bound** | The V1 Decision Lab |
 | [LAB_CURRENT_ZH.md](LAB_CURRENT_ZH.md) | The current V1–V3 Decision Lab and demo order |
+
+## Reviews
+
+| Document | Content |
+|---|---|
+| [REVIEW_2026-11-08_ZH.md](REVIEW_2026-11-08_ZH.md) | Codex review of the analysis, paper draft and repository reorganization (R1–R5) |
+| [UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md](UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md) | Codex review of the serving-cost study design (U1–U5) and its acceptance checklist |
 
 ## History (`history/`)
 

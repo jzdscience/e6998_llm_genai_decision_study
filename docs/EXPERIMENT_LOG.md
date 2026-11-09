@@ -419,3 +419,33 @@ MiniLM 100/s 约 92 CPU 秒/180 秒，affinity 为 16 个逻辑 CPU；启动中�
 对双模型每个不超过 0.40 的限制，以及 V3 冻结政策的离线重放（class_conditional/qwen9b 766 题，confidence 743 题）。
 据此写出设计稿与 JSON 草案，三种条件、四档速率、3 轮、每单元重启，主指标 500 ms correct goodput，次要 1,000 ms。
 设计待 Codex 审核；未实现代码、未调用模型或 GPU。
+
+## 2026-11-08：修订复审通过，9B 服务成本设计有条件通过
+
+独立复核 `d2657cc` 与 `9cb3274`。R1–R5、coverage 区间、勘误与 strict 复现改动验收通过；
+follow-up 原报告/清单字节未变，28 项 SHA 匹配。独立 strict 复跑 exit 0，主测试 365 passed、
+11 skipped、64 subtests，基线 65 passed；Lab、五个审计命令、12 项收据、raw PASS、三图逐字节比较
+和论文临时编译通过。尚未验证全新依赖安装。errata 的“没有排队”建议改成“没有客户端拒绝”。
+
+9B 服务研究保留原三条件、四速率、三轮与每单元重启，不扩矩阵。新增
+`docs/UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md`，要求修订协议后实现：把 0.50 显存估算标为待验证，
+补三部署的并发开发预检；新双服务控制器明确自有进程、独立目录/端口和失败清理；两阶段共享 worker-start
+后的 30 秒预算，SLO 仍从 scheduled arrival 计时；实时质量按匹配 ID/出现次数比较，不强求复现整池比例；
+class_conditional 明确为看过 test 后选定的固定回顾性部署。
+
+独立重放 V3 原 3,200 条保存预测确认 class_conditional 766 次、confidence 743 次。766 仅是历史重放
+回归数字，不是实时服务验收目标。0.40+0.50 符合 vLLM 每实例预算语义，但已有 9B 日志来自单模型 0.80，
+不能证明新同驻留可行性。未改变草案、论文、科学源码或冻结证据；未运行模型、GPU、commit 或 push。
+
+## 2026-11-08：9B 服务研究实现与本机验收
+
+按 U1–U5 修订协议 Markdown/JSON（revision 2），实现 `decision_study/upgrade_study/`：`identity` 负责协议、
+输入、冻结政策与历史重放；`runtime` 负责三个角色的 runtime-control、L40S 检查、GPU 所有权、外层清理栈与
+停止验证；`client` 负责直接调用和共享截止时间的两阶段级联；`cell` 是单元子进程；`study` 负责 prepare、
+preflight、run、freeze、evaluate、export；`cli` 处理命令与 SIGTERM/SIGHUP。入口为
+`scripts/run_upgrade_study.sh`，节点步骤见 `docs/RUN_UPGRADE_STUDY_ZH.md`。
+
+本机测试 27 项，包括一次 CLI 全流程演练；全仓 392 passed、11 skipped、64 subtests。13 处注入错误都被发现。
+真实证据 dry run 得到 36 个单元、162,801 个计划 offer、72 分钟 offered 窗口，重放 766/743 次转交。
+级联预检改为按实际路由原因确认强制转交。仓库为 private，节点 HTTPS fetch 需要凭据；运行文档里的 bundle
+更新方式已在本机模拟 checkout 上跑通。未运行模型或 GPU。

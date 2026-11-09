@@ -2,6 +2,39 @@
 
 最后核对：2026-11-08，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+## 11/8：9B 服务研究按 U1–U5 修订并实现，待交叉验收与节点预检
+
+协议 Markdown 与 JSON 按[审核清单](UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md)同步修订为 revision 2。实现位于
+`decision_study/upgrade_study/`，单命令入口为 `scripts/run_upgrade_study.sh`，节点步骤见
+[RUN_UPGRADE_STUDY_ZH.md](RUN_UPGRADE_STUDY_ZH.md)。errata 第 26 行已改为“没有客户端拒绝或晚返回”。
+
+在本机（无 GPU）上，`tests/test_upgrade_study.py` 27 项通过，全仓 392 passed、11 skipped、64 subtests。
+其中一次 CLI 全流程演练在真实 V1/V3/规模对照证据上依次执行 prepare、init-runtime、preflight、start 和
+第二次 start，只替换 GPU launcher、nvidia-smi、硬件 doctor、CUDA 工具链检查、tokenizer、模型服务和旧环境
+作用域。13 处注入错误都被对应测试发现。真实证据上的 dry run 得到 36 个单元、162,801 个计划 offer，
+历史重放 766/743 次转交。
+
+为演练设计注入错误时发现，级联预检的转交标签按条件名写入，请求即使没走强制转交也会记成
+`preflight_forced_deferral`。现在从实际请求的路由原因统计，并要求每条成功请求都经强制转交调用了后级；
+协议的失败条件同步加入这一条和检查后的 health。
+
+尚待 Codex 交叉检查实现提交，然后由用户在节点做开发预检并回传，审核通过后再跑 36 个正式单元。
+仓库已设为 private，节点的 HTTPS fetch 需要凭据，运行文档给出 bundle 更新方式。0.50 单模型与
+0.40 + 0.50 同驻留能否运行，只能由节点预检确认。
+
+## 11/8：修订已验收，9B 服务方案有条件通过
+
+独立复核 `d2657cc` 与设计稿 `9cb3274`。论文 R1–R5 修订通过；原 follow-up 报告及 28 项 SHA 保持。
+`bash scripts/reproduce_cpu.sh --strict` 独立复跑 exit 0：主环境 365 passed、11 skipped、64 subtests，
+基线 65 passed；Lab、五个审计命令、12 项收据、raw PASS、三张论文图与临时编译通过。
+strict 保证执行阶段不跳过，不表示 pytest 可选测试全部执行；全新依赖安装仍未验证。
+
+三种部署、10/20/40/80、120 秒×3、500/1,000 ms 和每单元重启的方案可保留。Claude 可按
+[审核交接清单](UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md) 同步修订 Markdown/JSON 后实现。
+须先补充三部署并发开发预检、双服务生命周期、共同超时预算、实时/历史匹配比较和回顾性选政策的边界。
+0.40+0.50 是尚待实测的候选配置；下方草案中“0.40 放不下 9B”的说法不是硬件验收结论。
+目前协议仍是 draft，没有新实现或 GPU 测量；本次只新增 review、更新状态与追加日志，未 commit/push。
+
 ## 11/8：9B 服务成本实验设计稿（待审，未实现）
 
 用户请 Claude 设计并实施 review 建议的 9B 服务成本实验，回答“升级前级还是加后级更划算”。设计稿见

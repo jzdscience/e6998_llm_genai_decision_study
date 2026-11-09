@@ -23,6 +23,7 @@ top-level README).
 | `run_cheap_baselines.sh`, `run_cheap_baseline_suite.sh` | TF-IDF-1600 and MiniLM baselines; the suite also prepares the pinned CPU environment |
 | `run_service_study.sh`, `run_size_control.sh` | CPU/GPU service study and StartLux-9B size control, one at a time |
 | `run_followup_suite.sh` | Both follow-ups in sequence; reads the Slurm time left (`--new-allocation` after a new session) |
+| `run_upgrade_study.sh` | StartLux-9B serving-cost study: `--preflight-only` first, then the full run (`--resume-interrupted`, `--new-allocation`, `--retry-preflight`) |
 | `run_vm.sh` **bound** | Original Study 1 batch entry: all jobs, then evaluation (`JOB=all bash scripts/run_vm.sh`) |
 | `prepare_node_checkout.py` | Connect a pinned Git checkout to the existing runtime root and verify the prepared data |
 
