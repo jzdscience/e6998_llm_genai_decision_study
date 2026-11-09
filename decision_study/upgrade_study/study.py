@@ -251,6 +251,23 @@ def _concurrent_problems(condition, summary):
     return problems
 
 
+def _sequence_limit(command):
+    values = [command[i + 1] for i, part in enumerate(command[:-1]) if part == "--max-num-seqs"]
+    return int(values[0]) if len(values) == 1 and str(values[0]).isdigit() else None
+
+
+def engines_limited(deployment, condition, limit):
+    """Whether a deployment record shows this condition's roles, each vLLM engine started with the sequence limit."""
+    roles = (deployment or {}).get("roles") or []
+    if [r.get("role") for r in roles] != list(SERVICES[condition]):
+        return False
+    for role in roles:
+        engines = [p for p in role.get("processes") or [] if str(p.get("name", "")).endswith("-engine")]
+        if not engines or any(_sequence_limit(p.get("command") or []) != limit for p in engines):
+            return False
+    return True
+
+
 def verify_tokens(output, config):
     """The token receipt and, behind it, each role's raw tokenizer report on all 3,290 inputs."""
     path = safe(output, "preflight/tokens.json")
@@ -314,6 +331,8 @@ def verify_preflight(output, config, condition, *, token_sha256=None):
             or "error" in stop or stop.get("gpu_compute_processes") != []
             or stop.get("owned_groups") != sorted(plan["service_pids"])):
         raise StudyError(f"Preflight deployment record for {condition} is incomplete or its cleanup was not confirmed")
+    if not engines_limited(deployment, condition, config["protocol"]["engine"]["max_num_seqs"]):
+        raise StudyError(f"Preflight deployment record for {condition} does not show the engine sequence limit")
     return file_hash(path)
 
 
@@ -430,6 +449,9 @@ def measured(output, config, cell, receipts=None):
         for kind in ("service", "warmup"):
             if file_hash(safe(output, plan[f"{kind}_record_file"])) != plan[f"{kind}_record_sha256"]:
                 raise StudyError(f"Completed cell {kind} evidence changed")
+        start = read_json(safe(output, plan["service_record_file"]))
+        if not engines_limited(start.get("deployment"), cell["condition"], p["engine"]["max_num_seqs"]):
+            raise StudyError("Completed cell service record does not show the engine sequence limit")
         warm_plan, warmed = _verified_serial(output, config, safe(output, plan["warmup_record_file"]).parent,
                                              cell["condition"], "warmup")
         if any(r.get("status") != "ok" for r in warmed):

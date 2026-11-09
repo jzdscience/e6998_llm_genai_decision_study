@@ -2,6 +2,22 @@
 
 最后核对：2026-11-08，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+## 11/8：节点首次预检中 StartLux-9B 未能启动，revision 4 加引擎并发上限后重新预检
+
+远端执行：用户在节点以 `main` 的 `fe7f9d2` 运行 `--preflight-only`，输出 `results/aux-anli-upgrade-service-v1`。
+回传诊断包（本机 SHA `c9392e10…`）显示 token 检查通过，StartLux-4B 预检 PASS：90/90 串行成功，并发 310 个
+请求全部在 500 ms 内成功，KV 7.6 GiB（203,075 token），启动 269 秒，停止核验无残留。StartLux-9B 在 0.50
+份额下加载权重 16.8 GiB、CUDA graph 0.39 GiB、KV 2.45 GiB（65,104 token），随后 vLLM 以
+`max_num_seqs (256) exceeds available Mamba cache blocks (151)` 拒绝启动引擎；级联未运行。控制器登记了
+启动失败的进程组，停止核验 0.12 秒完成、GPU 无残留，失败收据与诊断已保存。
+
+用户选择保持全部份额（0.40 / 0.50 / 0.90），三个 vLLM 引擎统一加 `--max-num-seqs 64`。V1 启动器不传这个参数
+并清除 `VLLM_*` 变量，因此新增 `decision_study/upgrade_study/launcher.py`：按 V1 单模型启动器的步骤与 V1 的
+命令构造，只给引擎命令追加该参数；预检收据与单元服务记录须显示这一上限。协议升为 revision 4，输出改到
+`results/aux-anli-upgrade-service-v1-r2`，首次输出原样保留。本机验证：upgrade 测试 52 项，全仓
+417 passed、11 skipped、64 subtests；命令与 V1 的逐项比对、启动器生命周期和演练都通过；8 处针对新代码的注入错误在隔离副本上全部被发现。待 Codex 复审后
+推送，再在节点重新预检三个条件。
+
 ## 11/8：I1–I4 修复软件验收通过，可以进入节点开发预检
 
 独立复审 `3fc84e2f06a443a5b58c83f4a86545d91f23910d`，I1–I4 关闭，没有新的阻断发现。

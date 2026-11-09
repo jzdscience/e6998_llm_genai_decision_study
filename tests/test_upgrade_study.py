@@ -21,7 +21,7 @@ import pytest
 from decision_study.common import StudyError, canonical, file_hash, fingerprint, write_jsonl
 from decision_study.service_study.measurement import summarize
 from decision_study.upgrade_study import client as up_client
-from decision_study.upgrade_study import cli, identity, runtime, study
+from decision_study.upgrade_study import cli, identity, launcher, runtime, study
 
 LABELS = ["entailment", "neutral", "contradiction"]
 ROOT = Path(__file__).resolve().parents[1]
@@ -60,6 +60,18 @@ def test_protocol_and_fixed_plan():
     schedules = study.schedules_for(p, workload)
     assert len(schedules) == 12 and schedules == study.schedules_for(p, workload)
     assert set(schedules) == {c["schedule_file"] for c in order}
+
+
+def test_protocol_pins_the_engine_sequence_limit(tmp_path, monkeypatch):
+    value = json.loads(identity.PROTOCOL.read_text())
+    assert value["engine"] == {**value["engine"], "max_num_seqs": 64, "applies_to": list(identity.ROLES)}
+    for engine in ({**value["engine"], "max_num_seqs": 256}, {**value["engine"], "applies_to": ["startlux9b"]}, None):
+        changed = {**value, "engine": engine} if engine is not None else {k: v for k, v in value.items() if k != "engine"}
+        path = tmp_path / "protocol.json"
+        path.write_text(json.dumps(changed))
+        monkeypatch.setattr(identity, "PROTOCOL", path)
+        with pytest.raises(StudyError, match="engine sequence limit"):
+            identity.protocol()
 
 
 # ---------------------------------------------------------------- client with a fake clock
@@ -548,6 +560,19 @@ def _v1_like_failing_launcher(state):
     return launcher
 
 
+def test_default_launcher_passes_the_protocol_sequence_limit(lifecycle, monkeypatch):
+    seen = []
+
+    def recording(control, model, *, max_num_seqs):
+        seen.append((control.name, model, max_num_seqs))
+        return lifecycle.launcher(control, model)
+
+    monkeypatch.setattr(runtime, "managed_service", recording)
+    with runtime.deployment(lifecycle.output, "cascade", lister=lifecycle.lister, preflight=False):
+        pass
+    assert seen == [("startlux4b", "startlux", 64), ("qwen9b", "qwen", 64)]
+
+
 def test_partially_started_fallback_is_registered_and_its_residual_worker_killed(lifecycle, monkeypatch):
     monkeypatch.setattr(runtime, "STOP_GRACE_SECONDS", 0.5)
     monkeypatch.setattr(runtime, "STOP_TERM_SECONDS", 0.5)
@@ -680,7 +705,10 @@ def completed_cell(tmp_path, monkeypatch):
     endpoints, pids = {"startlux4b": "http://127.0.0.1:1", "qwen9b": "http://127.0.0.1:2"}, [101, 102]
     records = out / "services/r0"
     records.mkdir(parents=True)
-    (records / "start.json").write_bytes(_bytes({"x": 1}))
+    (records / "start.json").write_bytes(_bytes({"deployment": {"roles": [
+        {"role": "startlux4b", "processes": [{"name": "startlux-engine", "command": ["python", "-m", "vllm.entrypoints.openai.api_server", "--max-num-seqs", "64"]},
+                                             {"name": "startlux", "command": ["startlux-decide", "serve"]}]},
+        {"role": "qwen9b", "processes": [{"name": "qwen-engine", "command": ["python", "-m", "vllm.entrypoints.openai.api_server", "--max-num-seqs", "64"]}]}]}}))
     warm = records / "warmup"
     warm.mkdir()
     warm_plan = study._serial_plan(config, [w["sample_id"] for w in warmup], "cascade", "warmup", endpoints, pids)
@@ -780,6 +808,40 @@ def test_measured_cell_without_a_confirmed_stop_is_not_accepted(completed_cell, 
     assert (c.folder / "unaccepted-complete.json").read_bytes() == receipt and (c.folder / "unaccepted.json").exists()
 
 
+def test_engines_limited_requires_the_flag_on_every_engine():
+    engine = lambda name, n="64": {"name": name, "command": ["python", "-m", "vllm.entrypoints.openai.api_server", "--max-num-seqs", n]}
+    frontend = {"name": "startlux", "command": ["startlux-decide", "serve"]}
+    good = {"roles": [{"role": "startlux4b", "processes": [engine("startlux-engine"), frontend]},
+                      {"role": "qwen9b", "processes": [engine("qwen-engine")]}]}
+    assert study.engines_limited(good, "cascade", 64)
+    assert not study.engines_limited(good, "cascade", 128)
+    assert not study.engines_limited(good, "startlux4b", 64)  # roles must match the condition
+    missing = {"roles": [good["roles"][0], {"role": "qwen9b", "processes": [{"name": "qwen-engine", "command": ["python"]}]}]}
+    assert not study.engines_limited(missing, "cascade", 64)
+    frontend_only = {"roles": [{"role": "startlux9b", "processes": [frontend]}]}
+    assert not study.engines_limited(frontend_only, "startlux9b", 64)
+    twice = {"roles": [{"role": "startlux9b", "processes": [{"name": "startlux-engine", "command": ["--max-num-seqs", "64", "--max-num-seqs", "64"]}]}]}
+    assert not study.engines_limited(twice, "startlux9b", 64)
+
+
+def test_completed_cell_needs_a_service_record_with_the_engine_limit(completed_cell):
+    c = completed_cell
+    start = json.loads((c.records / "start.json").read_text())
+    start["deployment"]["roles"][1]["processes"][0]["command"] = ["python", "-m", "vllm.entrypoints.openai.api_server"]
+    (c.records / "start.json").write_bytes(_bytes(start))
+    # Re-seal the attempt around the edited record, so only the missing limit is wrong.
+    plan = json.loads((c.folder / "plan.json").read_text())
+    plan["service_record_sha256"] = file_hash(c.records / "start.json")
+    (c.folder / "plan.json").write_bytes(_bytes(plan))
+    record = json.loads((c.folder / "complete.json").read_text())
+    record.pop("self_hash")
+    record.update(plan_hash=fingerprint(plan), files={**record["files"], "plan.json": file_hash(c.folder / "plan.json")})
+    record["self_hash"] = fingerprint(record)
+    (c.folder / "complete.json").write_bytes(_bytes(record))
+    with pytest.raises(StudyError, match="does not show the engine sequence limit"):
+        study.completed(c.out, c.config, c.cell)
+
+
 def test_pairing_flags_a_repeat_and_rate_split_across_allocations():
     first, second = {"hostname": "n1", "slurm_job_id": "101"}, {"hostname": "n1", "slurm_job_id": "102"}
     cells = [{"repeat": 0, "rate": 10, "allocation": first}, {"repeat": 0, "rate": 10, "allocation": first},
@@ -822,6 +884,85 @@ def test_allocation_renewal_needs_a_different_job_and_never_extends(tmp_path, mo
         runtime.check_time(out)
 
 
+def _initialized_controls(tmp_path, monkeypatch):
+    real_plans = runtime.plans
+    monkeypatch.setattr(runtime, "plans", lambda *a, **k: real_plans(*a, **{**k, "check_snapshots": False}))
+    monkeypatch.setenv("SLURM_JOB_ID", "launcher-test")
+    out = tmp_path / "study"
+    runtime.initialize(V1_DIR, V3_DIR, SIZE_DIR, out, 1)
+    return out
+
+
+@pytest.mark.skipif(not all(d.is_dir() for d in (V1_DIR, V3_DIR, SIZE_DIR)),
+                    reason="Needs the audited V1, V3 and size-control returns")
+def test_engine_specs_are_the_v1_commands_plus_the_sequence_limit(tmp_path, monkeypatch):
+    out = _initialized_controls(tmp_path, monkeypatch)
+    shares = {role: identity.protocol()["models"][role]["gpu_memory_utilization"] for role in identity.ROLES}
+    for role in identity.ROLES:
+        control, model = runtime.control_root(out, role).resolve(), identity.INTERFACE[role]
+        lock, installations = (json.loads((control / "runtime" / name).read_text()) for name in ("lock.json", "installations.json"))
+        profile = runtime.frozen._resolve_profile(control, model, None)
+        v1 = runtime.frozen._service_specs(identity.PROJECT, control, model, profile, lock, installations)
+        ours = launcher.engine_specs(identity.PROJECT, control, model, profile, lock, installations, 64)
+        assert [spec["name"] for spec in ours] == [spec["name"] for spec in v1]
+        for mine, theirs in zip(ours, v1):
+            limit = ["--max-num-seqs", "64"] if theirs["name"] == f"{model}-engine" else []
+            assert mine["command"] == theirs["command"] + limit
+            assert {k: v for k, v in mine.items() if k != "command"} == {k: v for k, v in theirs.items() if k != "command"}
+        engine = next(spec["command"] for spec in ours if spec["name"] == f"{model}-engine")
+        assert engine[engine.index("--gpu-memory-utilization") + 1] == str(shares[role])
+        for bad in (0, True, 64.0):
+            with pytest.raises(ValueError):
+                launcher.engine_specs(identity.PROJECT, control, model, profile, lock, installations, bad)
+
+
+@pytest.mark.skipif(not all(d.is_dir() for d in (V1_DIR, V3_DIR, SIZE_DIR)),
+                    reason="Needs the audited V1, V3 and size-control returns")
+def test_managed_service_runs_the_v1_steps_with_the_limit_and_always_stops(tmp_path, monkeypatch):
+    out = _initialized_controls(tmp_path, monkeypatch)
+    control = runtime.control_root(out, "startlux9b")
+    started, real_popen = [], subprocess.Popen
+
+    def spawn(command, **kwargs):
+        process = real_popen(["sleep", "60"], stdout=kwargs["stdout"], stderr=kwargs["stderr"], start_new_session=True)
+        started.append((command, process))
+        return process
+
+    healthy = {"prompt_attention": "bidirectional", "defaults": {"think_mode": "never"}}
+    monkeypatch.setattr(launcher.subprocess, "Popen", spawn)
+    monkeypatch.setattr(runtime.frozen, "doctor", lambda output_dir, require_gpu: {"gpu": [{"name": "NVIDIA L40S", "memory_mb": 46068.0}]})
+    monkeypatch.setattr(runtime.frozen, "_verify_environment", lambda output_dir, environment: None)
+    monkeypatch.setattr(runtime.frozen, "_check_port", lambda port: None)
+    monkeypatch.setattr(runtime.frozen, "_wait_ready", lambda process, spec, log_path, timeout: healthy)
+    lock = json.loads((control / "runtime/lock.json").read_text())
+    with launcher.managed_service(control, "startlux", max_num_seqs=64) as endpoints:
+        meta = json.loads((control / "runtime/last_services.json").read_text())
+        assert endpoints == {"startlux": f"http://127.0.0.1:{lock['models']['startlux']['port']}"}
+        assert meta["max_num_seqs"] == 64 and [p["name"] for p in meta["processes"]] == ["startlux-engine", "startlux"]
+        engine, frontend = (p["command"] for p in meta["processes"])
+        assert engine[-2:] == ["--max-num-seqs", "64"] and "--max-num-seqs" not in frontend
+        assert [command for command, _ in started] == [engine, frontend] and all(p.poll() is None for _, p in started)
+        assert meta["models"]["startlux"]["config"]["gpu_memory_utilization"] == 0.5
+    assert all(p.returncode == -signal.SIGTERM for _, p in started)
+    assert "stopped_at" in json.loads((control / "runtime/last_services.json").read_text())
+
+    # The frontend never becomes ready: the engine already started is recorded and stopped.
+    started.clear()
+
+    def frontend_fails(process, spec, log_path, timeout):
+        if spec["name"] == "startlux":
+            raise RuntimeError("startlux exited (1)")
+        return healthy
+
+    monkeypatch.setattr(runtime.frozen, "_wait_ready", frontend_fails)
+    with pytest.raises(RuntimeError, match="exited"):
+        with launcher.managed_service(control, "startlux", max_num_seqs=64):
+            pass
+    meta = json.loads((control / "runtime/last_services.json").read_text())
+    assert [p["name"] for p in meta["processes"]] == ["startlux-engine", "startlux"] and "stopped_at" in meta
+    assert len(started) == 2 and all(p.poll() is not None for _, p in started)
+
+
 class AnswerEverything(BaseHTTPRequestHandler):
     def log_message(self, *args):
         pass
@@ -850,6 +991,32 @@ class AnswerEverything(BaseHTTPRequestHandler):
         self.wfile.write(data)
 
 
+def _fake_managed_service(fake):
+    """Stand-in for launcher.managed_service: the real commands, one dummy process group per service."""
+    @contextmanager
+    def managed(control, model, *, max_num_seqs):
+        control = Path(control).resolve()
+        lock, installations = (json.loads((control / "runtime" / name).read_text()) for name in ("lock.json", "installations.json"))
+        profile = runtime.frozen._resolve_profile(control, model, None)
+        specs = launcher.engine_specs(identity.PROJECT, control, model, profile, lock, installations, max_num_seqs)
+        meta, processes = {"started_at": datetime.now(timezone.utc).isoformat(), "models": {}, "processes": [],
+                           "max_num_seqs": max_num_seqs}, []
+        try:
+            for spec in specs:
+                process = _dummy_group()
+                fake.state["launched"].append(process)
+                processes.append(process)
+                meta["processes"].append({"name": spec["name"], "pid": process.pid, "command": spec["command"], "log": ""})
+                (control / "runtime/last_services.json").write_text(json.dumps(meta))
+            meta["models"][model] = {"health": {"ok": True}, "config": {}}
+            (control / "runtime/last_services.json").write_text(json.dumps(meta))
+            yield {model: fake.state["endpoint"]}
+        finally:
+            for process in processes:
+                _stop_quietly(process)
+    return managed
+
+
 def _fake_token_report(project, control, model, examples, profile=None):
     """The frozen V1 tokenizer check's report, written where V1 writes it."""
     control = Path(control)
@@ -868,11 +1035,12 @@ def _fake_token_report(project, control, model, examples, profile=None):
 def rehearsal(tmp_path_factory):
     """The node's command sequence on the real evidence, with a shortened schedule.
 
-    Runtime binding, session, controls, ownership checks, token binding and every
-    child process are the production code. Faked: the GPU launcher, nvidia-smi, the
-    hardware doctor, the CUDA toolkit check, the tokenizer run (its V1-format report
-    is written in place), the model servers, and the legacy-environment scope (the
-    returned V1 copy records the node's absolute work path).
+    Runtime binding, session, controls, ownership checks, token binding, the service
+    commands (V1's builder plus the engine sequence limit) and every child process
+    are the production code. Faked: starting the service commands (one dummy process
+    group each), nvidia-smi, the hardware doctor, the CUDA toolkit check, the tokenizer
+    run (its V1-format report is written in place), the model servers, and the
+    legacy-environment scope (the returned V1 copy records the node's absolute work path).
     """
     if not all(d.is_dir() for d in (V1_DIR, V3_DIR, SIZE_DIR)):
         pytest.skip("Needs the audited V1, V3 and size-control returns")
@@ -904,7 +1072,7 @@ def rehearsal(tmp_path_factory):
         mp.setattr(runtime.frozen, "doctor", lambda control, require_gpu: {"gpu": [{"name": "NVIDIA L40S", "memory_mb": 46068.0}]})
         mp.setattr(runtime.v3_runtime, "_cuda_preflight", lambda control, binding, installed: {})
         mp.setattr(runtime, "legacy_environment", lambda binding, project: nullcontext())
-        mp.setattr(runtime.frozen, "managed_services", lambda project, control, models: fake.launcher(control, models[0]))
+        mp.setattr(runtime, "managed_service", _fake_managed_service(fake))
         mp.setattr(runtime.frozen, "token_preflight_examples", _fake_token_report)
         mp.setattr(runtime, "gpu_processes", fake.lister)
         try:
@@ -954,8 +1122,12 @@ def test_end_to_end_rehearsal_through_the_cli(rehearsal):
         assert cell["details"]["history"]["successful_responses"] == cell["primary"]["successful"]
     assert set(evaluation["historical_full_pool_accuracy"]) == set(identity.CONDITIONS)
     assert evaluation["pairing_same_allocation"] == {"r0-rate5": True}
-    # One preflight deployment per condition plus one fresh deployment per cell; all stopped.
-    assert rehearsal.launched_after_start == 2 * (2 + 2) and not rehearsal.lister_after_start
+    # One dummy group per service: StartLux runs an engine and a frontend, Qwen an engine. Preflight
+    # deploys each condition once and every cell deploys afresh: 2 * (2 + 2 + 3); all stopped.
+    assert rehearsal.launched_after_start == 14 and not rehearsal.lister_after_start
+    for condition in identity.CONDITIONS:
+        receipt = json.loads((out / f"preflight/{condition}.json").read_text())
+        assert study.engines_limited(receipt["deployment"], condition, 64)
     finished = sorted(out.glob("services/*/finished.json"))
     assert len(finished) == 3
     for path in finished:
@@ -975,18 +1147,31 @@ def test_changed_preflight_evidence_is_refused_on_reuse_start_and_completion(reh
     receipt_bytes = receipt_path.read_bytes()
     evidence = out / json.loads(receipt_bytes)["evidence_dir"]
     token_file = out / json.loads((out / "preflight/tokens.json").read_text())["reports"]["qwen9b"]["file"]
-    touched = [evidence / "concurrent/traces.jsonl", evidence / "serial/rows.json", token_file, receipt_path]
+    touched = [evidence / "concurrent/traces.jsonl", evidence / "serial/rows.json", token_file, receipt_path,
+               evidence / "receipt.json"]
+
+    def drop_engine_limit():
+        # Both copies of the receipt stay identical, so only the missing limit is wrong.
+        receipt = json.loads(receipt_bytes)
+        engine = next(p for role in receipt["deployment"]["roles"] for p in role["processes"] if p["name"].endswith("-engine"))
+        engine["command"] = [part for part in engine["command"] if part not in ("--max-num-seqs", "64")]
+        for path in (receipt_path, evidence / "receipt.json"):
+            path.write_bytes(_bytes(receipt))
     tampering = {
         "deleted concurrent traces": lambda: (evidence / "concurrent/traces.jsonl").unlink(),
         "edited serial rows": lambda: (evidence / "serial/rows.json").write_text("{}"),
         "edited raw token report": lambda: token_file.write_text(token_file.read_text().replace('"input_tokens": 100', '"input_tokens": 99', 1)),
         "missing cascade receipt": lambda: receipt_path.unlink(),
+        "engine command without the limit": drop_engine_limit,
     }
     for name, tamper in tampering.items():
         saved = {path: path.read_bytes() for path in touched}
         tamper()
         try:
-            if receipt_path.exists():
+            if name == "engine command without the limit":
+                with pytest.raises(StudyError, match="engine sequence limit"):
+                    study.preflight(out)  # reuse of the cached PASS
+            elif receipt_path.exists():
                 assert receipt_path.read_bytes() == receipt_bytes  # the top-level PASS itself is unchanged
                 with pytest.raises(StudyError):
                     study.preflight(out)  # reuse of the cached PASS

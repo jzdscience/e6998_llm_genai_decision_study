@@ -9,6 +9,10 @@
 - 2026-11-08 按实现交叉验收（[UPGRADE_IMPLEMENTATION_REVIEW_2026-11-08_ZH.md](UPGRADE_IMPLEMENTATION_REVIEW_2026-11-08_ZH.md)
   的 I1–I4）修订为 revision 3：晚到响应记 `deadline`，串行预检与预热进入有界子进程，部分启动的进程组登记
   并清理，单元以停止确认为完成条件，预检 PASS 在每次使用时对照原始证据。
+- 2026-11-08 节点首次预检（revision 3，输出 `results/aux-anli-upgrade-service-v1`）：StartLux-4B 通过，
+  StartLux-9B 启动失败，原因是 vLLM 0.31 要求 `max_num_seqs` 不超过份额内放得下的 Mamba 状态块（0.50 下为 151，
+  默认值 256）。修订为 revision 4：份额不变，三个 vLLM 引擎统一以 `--max-num-seqs 64` 启动，输出改到
+  `results/aux-anli-upgrade-service-v1-r2`。
 
 正式测量前还需三步：本机软件验收（Codex 交叉检查实现提交）、节点开发预检、最终运行绑定。预检失败时保留
 证据，修订配置版本后重新预检，不在同一身份下自动调整份额。
@@ -74,7 +78,10 @@ vLLM 0.31.0 的 `--gpu-memory-utilization` 是每个实例的预算，0.40 + 0.5
 5. launcher 停止各自的组后，控制器列出自有组里仍存活、且在本次部署开始之后启动的成员，依次发 SIGTERM、
    SIGKILL；早于本次部署启动的组成员不发信号，并使核验失败。确认自有成员都已退出、GPU 上没有 compute
    进程后，才进入下一个单元。单元的停止核验写入 `services/<单元>/finished.json`。
-6. 不嵌套 `size_control.runtime_context`（它每次进入都拒绝任何已有 GPU 进程），不改写 V3 或规模对照的控制
+6. 服务由 `decision_study/upgrade_study/launcher.py` 启动：按冻结 V1 单模型启动器的步骤与 V1 自己的命令构造，
+   只在每个 vLLM 引擎命令末尾追加 `--max-num-seqs 64`（V1 不传这个参数，也会清除 `VLLM_*` 环境变量）。
+   预检收据和每个单元的服务记录都须显示各引擎命令带有这一上限。
+7. 不嵌套 `size_control.runtime_context`（它每次进入都拒绝任何已有 GPU 进程），不改写 V3 或规模对照的控制
    记录；新输出目录绑定新协议、源码、环境与模型身份，旧运行时、安装记录和锁只读复用。
 
 ## 开发预检
@@ -109,6 +116,7 @@ trace 及其重算汇总，以及 token 收据。token 收据绑定各角色原�
 | 顺序 | 每轮内速率顺序按固定种子打乱；同一（轮次，速率）的三个条件紧挨着执行，顺序也按固定种子打乱 |
 | 隔离 | 每个单元重新启动服务并预热，结束后停止并确认后端退出；测量通过但停止未确认的单元不计为完成，保留证据，恢复时重测 |
 | 客户端 | 16 个 worker，最多 64 个在途加排队；每个模型调用最多一次 HTTP |
+| 引擎并发上限 | 三个 vLLM 引擎都以 `--max-num-seqs 64` 启动；客户端对每个引擎同时最多 16 个请求，这个上限不会成为约束，且不超过 StartLux-9B 在 0.50 下的 151 个 Mamba 状态块 |
 | 执行预算 | worker 开始执行时给出 `min(30 秒, drain 剩余时间)`，客户端排队不计入这 30 秒 |
 | SLO 计时 | 从预定到达到最终回答完成，包括客户端排队 |
 

@@ -29,7 +29,7 @@ fi
 export PYTHONDONTWRITEBYTECODE=1
 echo "Source commit: $(git rev-parse HEAD)"
 echo "Reading the actual current Slurm allowance; no hours variable or old session deadline reused."
-OUTPUT="$RUNTIME_ROOT/results/aux-anli-upgrade-service-v1"
+OUTPUT="$RUNTIME_ROOT/results/aux-anli-upgrade-service-v1-r2"
 INPUTS=(--v1-dir "$RUNTIME_ROOT/results/solo-v1" --v3-dir "$RUNTIME_ROOT/results/solo-v3"
         --size-control-dir "$RUNTIME_ROOT/results/aux-size-control-v1-r2" --output-dir "$OUTPUT")
 run() { "$CONTROLLER" -m decision_study.upgrade_study "$@"; }

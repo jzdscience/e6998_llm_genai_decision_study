@@ -520,3 +520,16 @@ Linux procps 上游默认日期格式与本地 parser fixture 相容，但已有
 交付最终 SHA 后先做节点 `--preflight-only` 并回传，验收后再做正式单元。本次未修改运行源码/协议、未调用
 真实模型或 GPU、未 commit/merge/push。独立证据保存在 `.validation/upgrade-fixes-review-2026-11-08/` 和
 `.validation/upgrade-fix-review-2026-11-08/runtime-independent.json`。
+
+## 2026-11-08：节点首次开发预检（revision 3）与 revision 4
+
+远端：节点以 `fe7f9d2` 运行 `bash scripts/run_upgrade_study.sh … --preflight-only`。token 检查与 StartLux-4B
+预检通过（串行 90/90；并发 310/310，全部在 500 ms 内；KV 7.6 GiB；启动 269 秒）。StartLux-9B 在 0.50 下
+KV 2.45 GiB，vLLM 0.31 报 `max_num_seqs (256) exceeds available Mamba cache blocks (151)`，引擎退出，CLI
+以 BLOCKED 结束并导出诊断包。回传验收（本机）：失败收据记录了启动失败的进程组，停止核验无残留，GPU 清空。
+
+修订：份额不变，三个引擎加 `--max-num-seqs 64`（客户端每引擎最多 16 个并发，等于 `max_inflight`，低于 151）。
+新增 `launcher.py`，用 V1 `_service_specs` 生成命令后只追加该参数；`engines_limited` 在预检核验与单元完成
+核验中检查记录里的引擎命令。演练改由真实命令构造生成每个服务的命令。输出改到
+`results/aux-anli-upgrade-service-v1-r2`，首次输出保留为证据。本机 upgrade 测试 52 项，全仓 417 passed、
+11 skipped、64 subtests。未运行模型或 GPU。

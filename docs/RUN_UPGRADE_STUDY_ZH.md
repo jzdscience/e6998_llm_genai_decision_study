@@ -16,6 +16,13 @@
 4. GPU 上没有其他 compute 进程，也没有其他实验命令在跑。控制器只读查询 GPU PID；遇到无关进程时控制器
    自己退出，那个进程保持原样。
 
+## 第一次预检（11/8，protocol revision 3）
+
+`results/aux-anli-upgrade-service-v1` 中 StartLux-4B 预检通过；StartLux-9B 在 0.50 份额下启动引擎时被 vLLM
+拒绝：默认 `max_num_seqs` 为 256，而这一混合架构模型在该份额下只放得下 151 个 Mamba 状态块，CUDA graph 无法
+捕获。级联未运行。该目录与诊断包原样保留，不复用、不删除。revision 4 保持全部份额，只给三个 vLLM 引擎加上
+`--max-num-seqs 64`，输出改到 `results/aux-anli-upgrade-service-v1-r2`，三个条件重新预检。
+
 ## 第一步：开发预检
 
 ```bash
@@ -24,7 +31,7 @@ bash scripts/run_upgrade_study.sh /home/zhanj289/e6998/decision-study --prefligh
 ```
 
 脚本依次执行 `prepare`、`init-runtime`、`preflight`，输出目录为
-`results/aux-anli-upgrade-service-v1`。剩余时间从当前 Slurm job 读取，每个条件开始前要求至少还剩
+`results/aux-anli-upgrade-service-v1-r2`。剩余时间从当前 Slurm job 读取，每个条件开始前要求至少还剩
 30 分钟。三种部署各冷启动一次，使用正式启动命令、显存份额和 token 上限：
 
 1. 每个角色对 3,200 条正式输入和 90 条开发输入做 tokenizer 长度检查，不截断。
@@ -42,7 +49,7 @@ bash scripts/run_upgrade_study.sh /home/zhanj289/e6998/decision-study --prefligh
 看到 `PREFLIGHT_COMPLETE` 后回传：
 
 ```text
-/home/zhanj289/e6998/decision-study/results/aux-anli-upgrade-service-v1/exports/upgrade_study_bundle.zip
+/home/zhanj289/e6998/decision-study/results/aux-anli-upgrade-service-v1-r2/exports/upgrade_study_bundle.zip
 ```
 
 审核看三份 `preflight/<条件>.json` 中的 KV 容量、最大并发和级联重叠时间。收据里的
@@ -92,7 +99,7 @@ drain 60 秒，然后停止服务。控制器只清理本次部署启动、仍�
 ```bash
 cd /home/zhanj289/e6998/decision-study-src
 PY=/home/zhanj289/e6998/decision-study/.venv-controller/bin/python
-OUT=/home/zhanj289/e6998/decision-study/results/aux-anli-upgrade-service-v1
+OUT=/home/zhanj289/e6998/decision-study/results/aux-anli-upgrade-service-v1-r2
 "$PY" -m decision_study.upgrade_study status --output-dir "$OUT"
 "$PY" -m decision_study.upgrade_study export --output-dir "$OUT"
 ```

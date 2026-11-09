@@ -1,7 +1,8 @@
 """Runtime control for the upgrade study, including the two-service cascade.
 
-The frozen V1 launcher (``decision_study.runtime.managed_services``) is used once
-per role, each with its own runtime-control root, inside one outer ExitStack.
+Each role starts through ``launcher.managed_service`` (the frozen V1 single-model
+launcher's steps and commands, plus the protocol's vLLM sequence limit), each with
+its own runtime-control root, inside one outer ExitStack.
 This controller therefore carries the checks the V1 paired launcher would have
 made: a single L40S, an idle GPU before the first start, only this deployment's
 process groups on the GPU before the second start, cleanup of every owned group
@@ -26,6 +27,7 @@ from ..runtime_compat import legacy_environment
 from ..size_control import runtime as size_runtime
 from ..v3 import runtime as v3_runtime
 from .identity import INTERFACE, PROJECT, PROTOCOL_ID, ROLES, SERVICES, fixed_write, protocol, safe
+from .launcher import managed_service
 
 CONTROL_FILES = ("lock.json", "installations.json", "selected_profiles.json", "selected_memory.json")
 LOG_PATTERNS = {
@@ -350,14 +352,15 @@ def health(endpoint, path="/health", timeout=10):
 def deployment(output_dir, condition, *, launcher=None, lister=None, preflight=True, sink=None):
     """Start this condition's services in order and always stop every owned group.
 
-    ``launcher`` and ``lister`` exist for tests; production uses the frozen V1
-    single-model launcher and nvidia-smi.
+    ``launcher`` and ``lister`` exist for tests; production uses the upgrade-study
+    launcher (V1's single-model launcher plus the engine sequence limit) and nvidia-smi.
     """
     if condition not in SERVICES:
         raise StudyError(f"Unknown condition: {condition}")
     controls, binding, session, _ = validate(output_dir)
     roles = SERVICES[condition]
-    launch = launcher or (lambda control, model: frozen.managed_services(PROJECT, control, [model]))
+    limit = protocol()["engine"]["max_num_seqs"]
+    launch = launcher or (lambda control, model: managed_service(control, model, max_num_seqs=limit))
     record = sink if sink is not None else {}
     record.update(condition=condition, started_at=utc_now(), allocation=session["allocation"], roles=[])
     owned, deployment_began = set(), time.time()

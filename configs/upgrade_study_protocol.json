@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "protocol": "anli-upgrade-service-v1",
-  "status": "revised_after_implementation_review_2026_11_08_pending_node_preflight",
+  "status": "revised_after_node_preflight_2026_11_08_pending_node_preflight",
   "seed": 6998,
   "task": "anli",
   "conditions": ["startlux4b", "startlux9b", "cascade"],
@@ -95,7 +95,7 @@
     "Capacity statements are limited to the tested rates and this client and vLLM configuration",
     "No dollar cost; resources reported as GPU budget, sampled memory and GPU time"
   ],
-  "revision": 3,
+  "revision": 4,
   "memory_estimates_gib": {
     "engine_visible_total": 44.39,
     "startlux4b_budget_at_0_40": 17.76,
@@ -105,7 +105,28 @@
     "qwen9b_budget_at_0_50": 22.2,
     "qwen9b_kv_estimate_at_0_50": 3.9,
     "basis": "Single-model 0.80 logs: StartLux-9B weights 16.8, KV 15.76, activation 2.57, graphs 0.24; Qwen-9B 16.8, 17.05, 1.27, 0.24 GiB",
-    "status": "estimate_not_hardware_acceptance"
+    "status": "estimate_not_hardware_acceptance",
+    "node_preflight_2026_11_08": {
+      "startlux4b_at_0_40": {"model_loading": 7.99, "kv": 7.6, "kv_tokens": 203075},
+      "startlux9b_at_0_50": {"model_loading": 16.8, "cuda_graphs": 0.39, "kv": 2.45, "kv_tokens": 65104, "mamba_blocks": 151}
+    }
   },
-  "request_budget": "Each offer receives min(30 s, remaining drain) when a worker starts it; client queueing is outside this budget but inside the SLO. Cascade stages share one monotonic deadline; the fallback gets only the remaining budget; an exhausted budget is recorded as deadline without a fallback call; a fallback failure is a request failure. The parent watchdog bounds each cell. Every successful model response is checked against the shared deadline when it arrives; a late response keeps its stage record, makes the request a deadline, is never a success and never triggers a fallback. Each child-process stage has an absolute parent watchdog; a child that exits after it has its completion receipt kept as unaccepted."
+  "request_budget": "Each offer receives min(30 s, remaining drain) when a worker starts it; client queueing is outside this budget but inside the SLO. Cascade stages share one monotonic deadline; the fallback gets only the remaining budget; an exhausted budget is recorded as deadline without a fallback call; a fallback failure is a request failure. The parent watchdog bounds each cell. Every successful model response is checked against the shared deadline when it arrives; a late response keeps its stage record, makes the request a deadline, is never a success and never triggers a fallback. Each child-process stage has an absolute parent watchdog; a child that exits after it has its completion receipt kept as unaccepted.",
+  "engine": {
+    "max_num_seqs": 64,
+    "applies_to": ["startlux4b", "startlux9b", "qwen9b"],
+    "reason": "vLLM 0.31 refuses CUDA graph capture on these hybrid models when max_num_seqs exceeds the Mamba state blocks that fit in the memory share; the node preflight of 2026-11-08 found 151 for StartLux-9B at 0.50 against the default 256. The client never has more than 16 requests in flight per engine, and 64 equals its max_inflight cap",
+    "launcher": "decision_study.upgrade_study.launcher: the frozen V1 single-model launcher's steps and V1's own command builder; the flag is appended to each vLLM engine command only. Shares are unchanged"
+  },
+  "preflight_history": [
+    {
+      "output": "results/aux-anli-upgrade-service-v1",
+      "protocol_revision": 3,
+      "date": "2026-11-08",
+      "startlux4b": "PASS: 90/90 serial, 310/310 concurrent within 500 ms; KV 7.6 GiB, 203,075 tokens; startup 269 s",
+      "startlux9b": "FAIL at engine start: weights 16.8 GiB, CUDA graphs 0.39 GiB, KV 2.45 GiB (65,104 tokens); max_num_seqs 256 exceeds 151 Mamba cache blocks",
+      "cascade": "not run",
+      "evidence": "kept in place with its diagnostic bundle; never reused for revision 4"
+    }
+  ]
 }

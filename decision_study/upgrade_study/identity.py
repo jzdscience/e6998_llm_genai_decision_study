@@ -23,6 +23,7 @@ GOLD_SHA256 = "ed3525b721ed564a4cdf733e94ac381cfebb4ba06eb4a3a6844a1a0b37824f14"
 POLICY_THRESHOLD = 0.272907934835248
 HISTORICAL_DEFERRALS = {"class_conditional": 766, "confidence": 743}
 WORKLOAD_COUNT, WARMUP_COUNT = 3200, 90
+MAX_NUM_SEQS = 64  # vLLM sequence limit for every engine (protocol revision 4)
 LABELS = ("entailment", "neutral", "contradiction")
 
 
@@ -43,6 +44,9 @@ def protocol():
         raise StudyError("Upgrade-study cascade policy binding differs")
     if value.get("workload", {}).get("examples_sha256") != V3_EXAMPLES_SHA256 or value.get("gold", {}).get("sha256") != GOLD_SHA256:
         raise StudyError("Upgrade-study input or gold identity differs")
+    engine = value.get("engine", {})
+    if engine.get("max_num_seqs") != MAX_NUM_SEQS or engine.get("applies_to") != list(ROLES):
+        raise StudyError("Upgrade-study engine sequence limit differs from this release")
     for role in ROLES:
         fraction = value["models"][role]["gpu_memory_utilization"]
         if isinstance(fraction, bool) or not 0.1 <= fraction <= 0.9:
