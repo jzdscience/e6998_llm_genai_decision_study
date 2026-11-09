@@ -54,6 +54,7 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 | [REVIEW_2026-11-08_ZH.md](REVIEW_2026-11-08_ZH.md) | Codex review of the analysis, paper draft and repository reorganization (R1–R5) |
 | [UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md](UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md) | Codex review of the serving-cost study design (U1–U5) and its acceptance checklist |
 | [UPGRADE_IMPLEMENTATION_REVIEW_2026-11-08_ZH.md](UPGRADE_IMPLEMENTATION_REVIEW_2026-11-08_ZH.md) | Codex cross-check of the serving-cost implementation (I1–I4) |
+| [UPGRADE_FIX_ACCEPTANCE_2026-11-08_ZH.md](UPGRADE_FIX_ACCEPTANCE_2026-11-08_ZH.md) | Codex acceptance of the I1–I4 fixes; cleared for the node preflight |
 
 ## History (`history/`)
 

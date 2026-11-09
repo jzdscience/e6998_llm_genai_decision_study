@@ -500,3 +500,23 @@ allocation。I4 晚到的成功响应记 `deadline`，串行预检与预热进�
 路由跨越截止时间、串行阶段超时清理、前级无效 schema，以及演练产物上的预检证据篡改。`tests/test_upgrade_study.py`
 46 项，全仓 411 passed、11 skipped、64 subtests。注入错误在隔离副本上运行，36 处各自在对应断言处失败，逐项日志见
 `.validation/upgrade-fixes-2026-11-08/`。未运行模型或 GPU，未合并推送。
+
+## 2026-11-08：I1–I4 修复独立验收通过
+
+复审 `3fc84e2f06a443a5b58c83f4a86545d91f23910d`，四项关闭，未发现新的阻断问题。允许 localhost/ps 的
+独立全仓测试 exit 0，411 passed、11 skipped、64 subtests，109.76 秒；包含全部 46 项 upgrade 测试。
+初次执行的失败来自沙箱本机端口和进程列表限制。核对 36 份完整 mutation 日志及隔离副本恢复后的文件身份，
+未独立重跑全部 mutation。
+
+重新执行上一轮运行时探针，部分启动失败的后级组已登记，忽略 TERM 的 worker 最终被清理；80 ms 预算的慢分块
+HTTP 响应现在记 deadline 并保留 stage。独立复制 revision 3 演练证据，删除并发 trace 或原始 token 报告时，
+缓存预检、单元完成和 freeze 均拒绝；删除停止确认时保留 measured 事实，但 completed/freeze 不通过，恢复后通过。
+
+Linux procps 上游默认日期格式与本地 parser fixture 相容，但已有 Linux 镜像不含 ps，未安装新工具，实际节点行为
+仍待预检。`unverified group members` 也可能来自更早启动的成员，不能仅凭该消息断定解析问题。30 秒约束保证
+超期响应不记成功，整个阶段由父 watchdog 兜底，不承诺 socket 在第 30 秒立即取消。
+
+新增 `docs/UPGRADE_FIX_ACCEPTANCE_2026-11-08_ZH.md`，更新状态。建议 Claude 将验收笔记一并提交、普通合并推送，
+交付最终 SHA 后先做节点 `--preflight-only` 并回传，验收后再做正式单元。本次未修改运行源码/协议、未调用
+真实模型或 GPU、未 commit/merge/push。独立证据保存在 `.validation/upgrade-fixes-review-2026-11-08/` 和
+`.validation/upgrade-fix-review-2026-11-08/runtime-independent.json`。

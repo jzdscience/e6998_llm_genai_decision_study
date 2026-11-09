@@ -2,6 +2,17 @@
 
 最后核对：2026-11-08，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+## 11/8：I1–I4 修复软件验收通过，可以进入节点开发预检
+
+独立复审 `3fc84e2f06a443a5b58c83f4a86545d91f23910d`，I1–I4 关闭，没有新的阻断发现。
+全仓测试 exit 0：411 passed、11 skipped、64 subtests，包含 46 项 upgrade 测试。独立重放确认部分启动的残留
+worker 被清理、慢分块响应记 deadline、缺原始预检/token 证据被拒绝、缺停止确认不能 freeze。
+核对了 36 份隔离 mutation 日志；本次未重跑全部 mutation。详见 [修复验收](UPGRADE_FIX_ACCEPTANCE_2026-11-08_ZH.md)。
+
+可由 Claude 提交本次验收笔记、合并并普通 push，再交付最终 SHA。节点先运行 `--preflight-only` 并回传验收，
+通过后再做正式 36 单元。实际节点 ps/vLLM 行为、0.50 单模型及 0.40+0.50 同驻留仍待开发预检；未验证全新依赖安装。
+本次未运行真实模型/GPU、未修改运行源码/协议、未 commit/merge/push。
+
 ## 11/8：按实现交叉验收修复 I1–I4，待复审后定交付 SHA
 
 修复都在 `decision_study/upgrade_study/` 内，V1、V3、规模对照与既有服务模块的源码未改。协议升为 revision 3，
