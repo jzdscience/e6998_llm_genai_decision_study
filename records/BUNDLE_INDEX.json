@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "maintained_as_of": "2026-11-07",
+  "maintained_as_of": "2026-11-08",
   "note": "archive and extracted_directory paths are relative to external_artifact_root, NOT this source checkout. Original archives and extraction trees are not included in Git. Historical receipt fields are preserved; inspect docs/ARTIFACTS_ZH.md.",
   "bundles": [
     {
@@ -436,6 +436,32 @@
         3.8129734060616545
       ],
       "note": "Retrospective direct-model size control on the V3 ANLI test already evaluated in V3; no fitting, thresholds or routing. Health metadata reports prefix_cache true while launch flags and engine logs disable it (same as V3). No 9B serving or co-residency measurement."
+    },
+    {
+      "id": "upgrade-preflight-r3-20261109-062535",
+      "archive": "records/bundles/upgrade-preflight-r3-20261109-c9392e10dfad.zip",
+      "sha256": "c9392e10dfad32fba5ba62ee513bdc4d0e93538cc44a2868b322f413595a6183",
+      "bytes": 7436661,
+      "diagnostic_at_utc": "2026-11-09T06:25:35.387456+00:00",
+      "diagnostic_at_local": "2026-11-08T22:25:35.387456-08:00",
+      "bundle_kind": "anli-upgrade-service-v1",
+      "protocol_revision": 3,
+      "verified_file_count": 74,
+      "original_filename": "upgrade_study_bundle.zip",
+      "reported_state": "blocked",
+      "reported_state_source": "diagnostics/last_error.json",
+      "verified_state": "diagnostic_preflight_verified_startlux9b_sequence_capacity_failure",
+      "integrity_validation": "112_checks_pass_unique_safe_members_crc_archival_sha_35_source_files_17_prepared_artifacts_token_reports_and_raw_preflight_receipts_verified",
+      "source_commit": "fe7f9d26da959f51165213baf3dfa0cf860f7f7f",
+      "completed_cells": 0,
+      "formal_prediction_count": 0,
+      "preflight": {
+        "startlux4b": "PASS",
+        "startlux9b": "FAIL",
+        "cascade": "not_run"
+      },
+      "review": "docs/UPGRADE_REVISION4_REVIEW_2026-11-08_ZH.md (canonical source repository)",
+      "note": "Development preflight only. StartLux4B serial90/90 and concurrent310/310 timely. StartLux9B at0.50 allocated16.8GiB weights and2.45GiB KV but max_num_seqs256 exceeded151 Mamba cache blocks. Failed startup group was registered; stop verification0.1206s and GPUcompute processes empty. No formal cells, freeze or evaluation. Revision4 max_num_seqs64 and co-residency remain untested on GPU. StartLux health prefix_cache=true conflicts with effective launch configuration false."
     }
   ],
   "copied_from_project_root": "/Users/zhanj289/Documents/ChatGPT/COMS6998/decision-study",

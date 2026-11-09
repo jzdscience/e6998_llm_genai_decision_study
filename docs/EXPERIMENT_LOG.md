@@ -533,3 +533,23 @@ KV 2.45 GiB，vLLM 0.31 报 `max_num_seqs (256) exceeds available Mamba cache bl
 核验中检查记录里的引擎命令。演练改由真实命令构造生成每个服务的命令。输出改到
 `results/aux-anli-upgrade-service-v1-r2`，首次输出保留为证据。本机 upgrade 测试 52 项，全仓 417 passed、
 11 skipped、64 subtests。未运行模型或 GPU。
+
+## 2026-11-08：revision 4 独立复审与首次诊断归档
+
+复审 `fe7f9d2..16e734f`，软件验收通过，可交付新一轮 `--preflight-only`。逐步对照新 launcher 与 V1 单模型
+启动/清理流程、三个角色命令、源码身份及协议/收据上限绑定；冻结源码保持。独立全仓测试 exit 0：417 passed、
+11 skipped、64 subtests，106.68 秒，包含 52 项 upgrade 测试。核查 8 份 mutation 日志，未独立重跑；n3 是
+回退 V1 GPU doctor 的间接捕获，另有正常路径接参断言，不构成阻断。
+
+原始诊断 ZIP SHA `c9392e10dfad32fba5ba62ee513bdc4d0e93538cc44a2868b322f413595a6183`，7,436,661 字节，
+74 个成员；112 项独立证据检查通过。35 份源码绑定 fe7f9d2，17 份准备文件与三个角色的 3,290 条 token 输入
+及原始预检记录一致。4B 串行 90/90、并发 310/310 均及时；9B 256 > 151 Mamba cache blocks 引擎启动失败，
+失败组已登记、停止核验 0.1206 秒且 GPU 空。诊断 UTC 时间为 2026-11-09T06:25:35.387456+00:00。
+级联未运行，没有正式单元或评价。原 ZIP 复制到外部证据根
+`records/bundles/upgrade-preflight-r3-20261109-c9392e10dfad.zip`，再核对完整 SHA；原件不变。
+canonical BUNDLE_INDEX 从 21 项增至 22 项，原条目内容保持。
+
+新增 `docs/UPGRADE_REVISION4_REVIEW_2026-11-08_ZH.md`，更新当前状态。下一步由 Claude 合并推送最终 SHA，
+节点在新 `aux-anli-upgrade-service-v1-r2` 输出根重新预检三个条件并回传；64 的硬件启动、Qwen9B KV 和同驻留
+仍待验证。独立审计与测试记录在 `.validation/revision4-review-2026-11-09/`。本次未修改运行源码/协议、
+未运行真实模型/GPU、未 commit/merge/push。Claudeception 已评估，候选硬件修复未验证，不另建修复技能。

@@ -2,6 +2,21 @@
 
 最后核对：2026-11-08，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+## 11/8：revision 4 独立复审通过，可以重新做节点预检
+
+独立复审 `16e734fc03f2755eb2c5592031042370e34c4743`，没有新的阻断问题。新启动器保持 V1 单模型生命周期，
+只给引擎追加 `--max-num-seqs 64`；协议、源码身份与预检/测量命令检查绑定这一设置。独立全仓测试 exit 0：
+417 passed、11 skipped、64 subtests，包含全部 52 项 upgrade 测试。核查 8 份 mutation 日志，n3 是旧 V1
+GPU doctor 的间接捕获；正常测试另有直接接参断言，本次未重跑全部 mutants。
+
+首次节点诊断包 `c9392e10…` 经 112 项独立证据检查通过，确认 4B PASS、9B 的 256 > 151 启动约束与失败后
+清理；这不是预检全部通过。原 ZIP 已按 SHA 归档，BUNDLE_INDEX 新增一项。详见
+[revision 4 复审](UPGRADE_REVISION4_REVIEW_2026-11-08_ZH.md)。
+
+可由 Claude 合并推送并交付最终 SHA，节点在 `results/aux-anli-upgrade-service-v1-r2` 重新预检三个条件后
+回传。64 的真实启动、Qwen-9B KV、0.40 + 0.50 同驻留仍待实测；本轮不放行正式测量。未修改实验源码/协议，
+未运行真实模型/GPU、未 commit/merge/push。下方保留修订前的历史状态。
+
 ## 11/8：节点首次预检中 StartLux-9B 未能启动，revision 4 加引擎并发上限后重新预检
 
 远端执行：用户在节点以 `main` 的 `fe7f9d2` 运行 `--preflight-only`，输出 `results/aux-anli-upgrade-service-v1`。
