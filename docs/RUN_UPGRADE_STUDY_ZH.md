@@ -6,53 +6,15 @@
 
 ## 运行前
 
-1. Codex 已验收实现提交，交付消息给出完整的 40 位 SHA。
-2. 独立源码 checkout `/home/zhanj289/e6998/decision-study-src` 已更新到该 SHA，工作区干净。
-   仓库从 2026-11-07 起为 private，[NODE_GIT_ZH.md](NODE_GIT_ZH.md) 里的 HTTPS fetch 需要 GitHub 凭据；
-   节点上没有凭据时按下一节用 bundle 更新。
+1. Codex 已验收实现提交，提交已合并进 GitHub 的 `main`，交付消息给出完整的 40 位 SHA。
+2. 独立源码 checkout `/home/zhanj289/e6998/decision-study-src` 已按 [NODE_GIT_ZH.md](NODE_GIT_ZH.md)
+   的“后续更新”取到该 SHA（把 `STUDY_COMMIT` 的赋值换成交付的 SHA），工作区干净。节点 checkout 若还停在
+   11-07 改写历史之前的 commit，fetch 输出里出现 `origin/main (forced update)` 属于预期。
 3. 旧运行根 `/home/zhanj289/e6998/decision-study` 保持原位，其中已有 `results/solo-v1`、`results/solo-v3`、
    `results/aux-size-control-v1-r2` 和 `.venv-controller`。StartLux9B 与 Qwen3.5-9B 沿用规模对照和 V3
    已下载的快照，本研究不下载模型；快照缺失时程序停止，不替换版本。
 4. GPU 上没有其他 compute 进程，也没有其他实验命令在跑。控制器只读查询 GPU PID；遇到无关进程时控制器
    自己退出，那个进程保持原样。
-
-### 用 bundle 更新源码
-
-在 Mac 上生成 bundle，并记下交付分支（例如 `main`）的完整 SHA：
-
-```bash
-cd /Users/zhanj289/Desktop/COMS6998/decision_study_repo
-git bundle create ~/Desktop/decision-study.bundle main
-git bundle verify ~/Desktop/decision-study.bundle
-git rev-parse main
-```
-
-把 bundle 拖进 code-server 的文件栏，例如放到 `/home/zhanj289/e6998/transfer/`。然后在节点终端执行
-整段，先把两处占位换成实际路径和 SHA：
-
-```bash
-(
-  set -eu
-  BUNDLE=/home/zhanj289/e6998/transfer/decision-study.bundle
-  STUDY_COMMIT=完整40位SHA
-  cd /home/zhanj289/e6998/decision-study-src
-  test -z "$(git status --porcelain)" || {
-    echo "STOP: local changes exist; preserve and inspect them."
-    git status --short
-    exit 2
-  }
-  git bundle verify "$BUNDLE"
-  git fetch "$BUNDLE" "+refs/heads/*:refs/remotes/bundle/*"
-  git checkout --detach "$STUDY_COMMIT"
-  /home/zhanj289/e6998/decision-study/.venv-controller/bin/python scripts/prepare_node_checkout.py \
-    --runtime-root /home/zhanj289/e6998/decision-study \
-    --expected-commit "$STUDY_COMMIT"
-)
-```
-
-bundle 带完整历史，节点 checkout 停在 11-07 改写历史之前的旧 commit 也能取到目标版本。`origin` 地址
-保持不变，以后配好凭据仍可按 NODE_GIT_ZH.md 更新。11/8 在本机用一个 origin 指向该 HTTPS 地址、停在旧
-commit 的模拟 checkout 跑过这段命令（`prepare_node_checkout.py` 除外），HEAD 落在指定 SHA。
 
 ## 第一步：开发预检
 

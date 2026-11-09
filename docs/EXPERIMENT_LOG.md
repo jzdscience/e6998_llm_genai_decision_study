@@ -449,3 +449,8 @@ preflight、run、freeze、evaluate、export；`cli` 处理命令与 SIGTERM/SIG
 真实证据 dry run 得到 36 个单元、162,801 个计划 offer、72 分钟 offered 窗口，重放 766/743 次转交。
 级联预检改为按实际路由原因确认强制转交。仓库为 private，节点 HTTPS fetch 需要凭据；运行文档里的 bundle
 更新方式已在本机模拟 checkout 上跑通。未运行模型或 GPU。
+
+## 2026-11-08：仓库改回 public
+
+用户把 GitHub 仓库改回 public，匿名 API 查询返回 `private: false`；GitHub 上只有 `main`（`c938300`），
+review 分支仍在本机。运行文档删去 bundle 一节，节点照 NODE_GIT_ZH.md 用 HTTPS fetch 更新到交付的 SHA。
