@@ -553,3 +553,13 @@ canonical BUNDLE_INDEX 从 21 项增至 22 项，原条目内容保持。
 节点在新 `aux-anli-upgrade-service-v1-r2` 输出根重新预检三个条件并回传；64 的硬件启动、Qwen9B KV 和同驻留
 仍待验证。独立审计与测试记录在 `.validation/revision4-review-2026-11-09/`。本次未修改运行源码/协议、
 未运行真实模型/GPU、未 commit/merge/push。Claudeception 已评估，候选硬件修复未验证，不另建修复技能。
+
+## 2026-11-09：revision 4 节点预检通过
+
+远端：节点以 `7c81947` 运行 `--preflight-only`（输出 `results/aux-anli-upgrade-service-v1-r2`），三个条件 PASS。
+StartLux-4B（0.40）KV 8.05 GiB，并发 310/310 在 500 ms 内；StartLux-9B（0.50）KV 2.93 GiB、78,039 token，并发
+310/310 在 500 ms 内；级联强制转交时 4B 0.40 与 Qwen-9B 0.50 同驻留（17.7 + 20.7 GiB），310/310 成功、69 个在
+500 ms 内，p50 624.6 ms，重叠 148 秒，Qwen KV 2.93 GiB。四次引擎启动的 vLLM 参数均含 `max_num_seqs` 64，停止核验均无残留。
+
+回传验收：诊断包 `8adafb29…` 归档到外部证据根并登记索引；仓库核验函数在解包副本上确认 settings、token 绑定和
+三份 PASS 收据。待 Codex 验收预检证据，之后在同一 checkout（`7c81947`）运行正式 36 单元；settings 固定该 commit。

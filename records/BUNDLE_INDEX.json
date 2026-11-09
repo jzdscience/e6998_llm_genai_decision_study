@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "maintained_as_of": "2026-11-08",
+  "maintained_as_of": "2026-11-09",
   "note": "archive and extracted_directory paths are relative to external_artifact_root, NOT this source checkout. Original archives and extraction trees are not included in Git. Historical receipt fields are preserved; inspect docs/ARTIFACTS_ZH.md.",
   "bundles": [
     {
@@ -462,6 +462,32 @@
       },
       "review": "docs/UPGRADE_REVISION4_REVIEW_2026-11-08_ZH.md (canonical source repository)",
       "note": "Development preflight only. StartLux4B serial90/90 and concurrent310/310 timely. StartLux9B at0.50 allocated16.8GiB weights and2.45GiB KV but max_num_seqs256 exceeded151 Mamba cache blocks. Failed startup group was registered; stop verification0.1206s and GPUcompute processes empty. No formal cells, freeze or evaluation. Revision4 max_num_seqs64 and co-residency remain untested on GPU. StartLux health prefix_cache=true conflicts with effective launch configuration false."
+    },
+    {
+      "id": "upgrade-preflight-r4-20261109-074915",
+      "archive": "records/bundles/upgrade-preflight-r4-20261109-8adafb29ff45.zip",
+      "sha256": "8adafb29ff4501e55c4a5c3e9572d97a63a5e6d82e63cf862d86b54d14589ce3",
+      "bytes": 7757957,
+      "preflight_finished_at_utc": "2026-11-09T07:49:15.551569+00:00",
+      "bundle_kind": "anli-upgrade-service-v1",
+      "protocol_revision": 4,
+      "output": "results/aux-anli-upgrade-service-v1-r2",
+      "verified_file_count": 103,
+      "original_filename": "upgrade_study_bundle.zip",
+      "reported_state": "preflight_complete",
+      "reported_state_source": "preflight/startlux4b.json, preflight/startlux9b.json, preflight/cascade.json",
+      "verified_state": "preflight_pass_three_conditions_verified",
+      "integrity_validation": "103 unique safe members, CRC ok, archival SHA re-checked; repo verifiers at 7c81947: settings (protocol, order, prepared inputs), token receipt bound to three raw tokenizer reports, all three PASS receipts against raw evidence including the engine limit and stop confirmation; vLLM logs show max_num_seqs 64 in all four engine starts",
+      "source_commit": "7c81947d8ed51b18ace9ba8ae0dad0476c9b6b19",
+      "completed_cells": 0,
+      "formal_prediction_count": 0,
+      "preflight": {
+        "startlux4b": "PASS",
+        "startlux9b": "PASS",
+        "cascade": "PASS"
+      },
+      "review": "pending Codex review of the preflight evidence",
+      "note": "Development preflight only. 4B at 0.40: KV 8.05 GiB, 310/310 within 500 ms (p95 99.5 ms). 9B at 0.50: KV 2.93 GiB (78,039 tokens), 310/310 within 500 ms (p95 99.0 ms). Cascade with forced deferral, 4B 0.40 + Qwen-9B 0.50 co-resident (17.7 + 20.7 GiB in use): 310/310 answered, 69 within 500 ms, p50 624.6 ms, p95 969.1 ms, engine overlap 148 s; Qwen KV 2.93 GiB. All stops clean, no residual processes. No formal cells, freeze or evaluation."
     }
   ],
   "copied_from_project_root": "/Users/zhanj289/Documents/ChatGPT/COMS6998/decision-study",
