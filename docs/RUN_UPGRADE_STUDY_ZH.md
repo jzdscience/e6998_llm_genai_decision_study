@@ -28,13 +28,16 @@ bash scripts/run_upgrade_study.sh /home/zhanj289/e6998/decision-study --prefligh
 30 分钟。三种部署各冷启动一次，使用正式启动命令、显存份额和 token 上限：
 
 1. 每个角色对 3,200 条正式输入和 90 条开发输入做 tokenizer 长度检查，不截断。
-2. 90 条开发输入串行调用。级联对每条输入调用两个模型，确认两个接口都能回答。
+2. 90 条开发输入串行调用。级联对每条输入调用两个模型，确认两个接口都能回答。这一步在自有子进程中运行，
+   父进程 watchdog 为 90 × 30 秒加 5 秒宽限。
 3. 16 个 worker、每秒 10 个开发请求、持续 30 秒的并发检查。级联在这一步强制转交每个请求
    （`preflight_forced_deferral`），要求两个引擎的工作时间有重叠，且每条成功请求都调用了后级。
 4. 记录启动参数、KV cache 容量、最大并发、GPU 进程与显存、health 和 preemption 信息。
 
-出现调用错误、超时或预算用尽，检查后 health 失败，引擎日志报告 OOM 或引擎退出，并发检查超出父进程
-watchdog 时限，或级联未满足第 3 条，该条件判为 FAIL，证据保存在 `preflight/<条件>-<时间戳>/`。预检不读 test gold，也不比较 goodput。
+出现调用错误、超时或预算用尽（包括响应晚于预算到达），检查后 health 失败，引擎日志报告 OOM 或引擎退出，
+串行或并发阶段超出父进程 watchdog 时限，部署停止后核验失败，或级联未满足第 3 条，该条件判为 FAIL，证据
+保存在 `preflight/<条件>-<时间戳>/`。预检不读 test gold，也不比较 goodput。PASS 收据每次复用时都会对照
+其中列出的全部原始文件和 token 报告，任何文件缺失或改动都会停止。
 
 看到 `PREFLIGHT_COMPLETE` 后回传：
 
@@ -61,8 +64,10 @@ bash scripts/run_upgrade_study.sh /home/zhanj289/e6998/decision-study
 ```
 
 `start` 先核验准备文件和三份 PASS 收据，再按固定顺序跑 36 个单元（3 次重复 × 4 个速率 × 3 种部署）。
-每个单元重新启动该部署的服务，串行预热 90 条开发输入，测 120 秒开环 Poisson 到达，最多 drain 60 秒，
-然后停止服务并确认 GPU 上没有自有进程。offered 窗口合计 72 分钟，另加 36 次冷启动、预热和 drain。
+每个单元重新启动该部署的服务，在自有子进程中串行预热 90 条开发输入，测 120 秒开环 Poisson 到达，最多
+drain 60 秒，然后停止服务。控制器只清理本次部署启动、仍存活的自有进程，确认 GPU 上没有 compute 进程后把
+停止核验写进 `services/<单元>/finished.json`；单元在测量与停止核验都通过后才算完成。offered 窗口合计
+72 分钟，另加 36 次冷启动、预热和 drain。
 每个单元开始前要求 allocation 至少还剩 18 分钟，不够时停止并导出，换新 allocation 后恢复。
 
 36 个单元全部完成并冻结后才读取 gold 计算指标。结束标志是 `UPGRADE_STUDY_COMPLETE`，回传同一个
@@ -74,8 +79,11 @@ bash scripts/run_upgrade_study.sh /home/zhanj289/e6998/decision-study
    重新核验，通过的不重跑；中断的尝试原样保留，该单元另开一次新尝试。
 2. 换了新的 Slurm job 时再加 `--new-allocation`。新 job ID 必须与旧的不同，这个开关不能延长旧 job。
    评价会报告每组配对单元是否来自同一 allocation。
-3. 已有 `evaluation-access.json` 而缺少 `evaluation.json` 时程序停止，保留现场等待检查。
-4. 已完成的研究再次 `start` 时只核验原有结果并重新导出，`evaluation.json` 保持原字节。
+3. 单元已测完但部署停止没有确认（`finished.json` 缺失或记录了错误）时，程序停止并提示检查节点。确认节点
+   上没有残留进程后，用 `--resume-interrupted` 恢复：原 `complete.json` 改名为 `unaccepted-complete.json`
+   保留，该单元重测一次。
+4. 已有 `evaluation-access.json` 而缺少 `evaluation.json` 时程序停止，保留现场等待检查。
+5. 已完成的研究再次 `start` 时只核验原有结果并重新导出，`evaluation.json` 保持原字节。
 
 ## 单独查看状态或导出
 
@@ -99,11 +107,14 @@ OUT=/home/zhanj289/e6998/decision-study/results/aux-anli-upgrade-service-v1
 
 11/8 在没有 GPU 的 Mac 上：
 
-1. `tests/test_upgrade_study.py` 的单元测试覆盖政策重放、共同预算、服务清理、计划、指标、恢复核验、
-   中断尝试的保留、跨 allocation 配对的报告、allocation 续期和 gold 读取时机。
+1. `tests/test_upgrade_study.py` 的单元测试覆盖政策重放、共同预算与晚到响应、服务清理（含启动到一半失败
+   和忽略 SIGTERM 的残留 worker）、计划、指标、恢复核验、停止确认、中断尝试的保留、跨 allocation 配对的
+   报告、allocation 续期、子进程 watchdog 和 gold 读取时机；慢分块响应和串行阶段超时用真实 localhost HTTP 测试。
 2. 一次 CLI 全流程演练在真实 V1/V3/规模对照证据上依次执行 `prepare`、`init-runtime`、`preflight`、
    `start` 和第二次 `start`。替换的部分只有 GPU launcher、nvidia-smi、硬件 doctor、CUDA 工具链检查、
-   tokenizer、模型服务和旧环境作用域；日程缩短为每种部署一个 2 秒单元。
-3. 20 处注入错误都被对应测试发现。
+   tokenizer 运行（按 V1 格式写出报告）、模型服务和旧环境作用域；日程缩短为每种部署一个 2 秒单元。
+   演练产物上逐一删除或改动预检原始文件和 token 报告时，缓存复用、正式开始、完成核验与冻结都拒绝继续。
+3. 注入错误在仓库的隔离副本上运行，每处都被对应测试发现；逐项日志见
+   `.validation/upgrade-fixes-2026-11-08/`（本机忽略目录，不进 Git）。
 
 0.50 单模型和 0.40 + 0.50 同驻留能否启动、KV 容量是否够用、真实延迟多少，要由节点预检和正式测量回答。

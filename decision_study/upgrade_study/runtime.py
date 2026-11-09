@@ -10,6 +10,7 @@ size-control environments, locks and installation records are read, never writte
 """
 from contextlib import ExitStack, contextmanager
 import copy
+from datetime import datetime
 import math
 import os
 from pathlib import Path
@@ -34,6 +35,11 @@ LOG_PATTERNS = {
     "max_concurrency": r"Maximum concurrency for [0-9,]+ tokens per request: ([0-9.]+)x",
 }
 FAILURE_PATTERNS = ("CUDA out of memory", "OutOfMemoryError", "EngineDeadError", "No available memory for the cache blocks")
+# After the launchers have signalled their own groups: time for residual members to exit on
+# their own, then after SIGTERM, then after SIGKILL.
+STOP_GRACE_SECONDS, STOP_TERM_SECONDS, STOP_KILL_SECONDS = 15, 10, 10
+START_TIME_TOLERANCE_SECONDS = 2  # ps start times have one-second resolution
+TOKEN_BINDING_KEYS = {"status", "file", "sha256", "n_examples", "max_model_len", "model_revision", "effective_config_hash"}
 
 
 def _within(path, root):
@@ -223,23 +229,95 @@ def group_alive(group):
         return True
 
 
-def verify_stopped(groups, *, timeout=60, lister=None, poll=0.5):
-    """Confirm owned groups have exited and the GPU has no compute processes."""
-    started = time.monotonic()
-    while True:
-        alive = [g for g in groups if group_alive(g)]
-        rows = (lister or gpu_processes)() if not alive else None
-        if not alive and not rows:
-            return {"at": utc_now(), "owned_groups": sorted(groups), "seconds": time.monotonic() - started, "gpu_compute_processes": []}
-        if time.monotonic() - started >= timeout:
-            for group in alive:
-                try:
-                    os.killpg(group, signal.SIGKILL)
-                except ProcessLookupError:
-                    pass
-            raise StudyError(f"Owned services did not stop within {timeout}s (alive groups {alive}, GPU processes {rows}); "
-                             "only this deployment's own groups were signalled")
-        time.sleep(poll)
+def process_table():
+    """Live processes with their group and start time (epoch seconds); zombies excluded."""
+    environment = {**os.environ, "LC_ALL": "C", "LANG": "C"}
+    try:
+        result = subprocess.run(["ps", "-A", "-o", "pid=,pgid=,stat=,lstart="], text=True, capture_output=True,
+                                check=True, timeout=20, env=environment)
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise StudyError("Cannot list processes") from exc
+    rows = []
+    for line in result.stdout.splitlines():
+        parts = line.split(None, 3)
+        if len(parts) != 4 or not parts[0].isdigit() or not parts[1].isdigit() or parts[2].startswith("Z"):
+            continue
+        try:
+            started = time.mktime(time.strptime(" ".join(parts[3].split()), "%a %b %d %H:%M:%S %Y"))
+        except ValueError:
+            started = None
+        rows.append({"pid": int(parts[0]), "pgid": int(parts[1]), "started": started})
+    return rows
+
+
+def owned_members(groups, since):
+    """Members of the owned groups, split into those started by this deployment and any others."""
+    mine, other = [], []
+    for row in process_table():
+        if row["pgid"] in groups:
+            started = row["started"]
+            (mine if started is not None and started >= since - START_TIME_TOLERANCE_SECONDS else other).append(row["pid"])
+    return sorted(mine), sorted(other)
+
+
+def _signal(pids, signum):
+    for pid in pids:
+        try:
+            os.kill(pid, signum)
+        except ProcessLookupError:
+            pass
+
+
+def verify_stopped(groups, *, since, lister=None, grace=None, term_wait=None, kill_wait=None, poll=0.25):
+    """Confirm this deployment's groups are gone and the GPU is clear.
+
+    The launchers have already signalled their own groups and waited for each group
+    leader; a descendant can outlive its leader, for example a worker that ignores
+    SIGTERM. Remaining members are signalled one by one, SIGTERM and then SIGKILL,
+    and only if they started after this deployment began. A group member that did
+    not is never signalled and makes the verification fail.
+    """
+    grace = STOP_GRACE_SECONDS if grace is None else grace
+    term_wait = STOP_TERM_SECONDS if term_wait is None else term_wait
+    kill_wait = STOP_KILL_SECONDS if kill_wait is None else kill_wait
+    began = time.monotonic()
+    record = {"owned_groups": sorted(groups), "residual_terminated": [], "residual_killed": []}
+
+    def remaining_after(seconds):
+        until = time.monotonic() + seconds
+        while True:
+            mine, other = owned_members(groups, since)
+            if not mine or time.monotonic() >= until:
+                return mine, other
+            time.sleep(poll)
+
+    mine, other = remaining_after(grace)
+    if mine:
+        record["residual_terminated"] = mine
+        _signal(mine, signal.SIGTERM)
+        mine, other = remaining_after(term_wait)
+    if mine:
+        record["residual_killed"] = mine
+        _signal(mine, signal.SIGKILL)
+        mine, other = remaining_after(kill_wait)
+    rows = (lister or gpu_processes)()
+    record.update(at=utc_now(), seconds=time.monotonic() - began, gpu_compute_processes=rows)
+    if mine or other or rows:
+        raise StudyError(f"Owned services did not stop (alive {mine}, unverified group members {other}, GPU processes "
+                         f"{rows}); only processes this deployment started were signalled")
+    return record
+
+
+def _launch_record(path, before, launched_at):
+    """This launch's last_services.json; None when absent or left over from an earlier launch."""
+    if not path.is_file() or (before is not None and file_hash(path) == before):
+        return None
+    meta = read_json(path)
+    try:
+        started = datetime.fromisoformat(meta["started_at"]).timestamp()
+    except (KeyError, TypeError, ValueError):
+        return None
+    return meta if started >= launched_at - START_TIME_TOLERANCE_SECONDS else None
 
 
 def engine_log_facts(processes):
@@ -282,7 +360,7 @@ def deployment(output_dir, condition, *, launcher=None, lister=None, preflight=T
     launch = launcher or (lambda control, model: frozen.managed_services(PROJECT, control, [model]))
     record = sink if sink is not None else {}
     record.update(condition=condition, started_at=utc_now(), allocation=session["allocation"], roles=[])
-    owned = set()
+    owned, deployment_began = set(), time.time()
     with legacy_environment(binding, PROJECT), v3_runtime._environment(binding, session):
         if preflight:
             report = frozen.doctor(controls[roles[0]], require_gpu=True)
@@ -299,10 +377,24 @@ def deployment(output_dir, condition, *, launcher=None, lister=None, preflight=T
                         {"role": role, "processes": assert_gpu_owned_by(owned, lister=lister)})
                     control, model = controls[role], INTERFACE[role]
                     write_json(safe(control, "runtime/session.json"), session)
-                    began = time.perf_counter()
-                    endpoints = stack.enter_context(launch(control, model))
-                    meta = read_json(safe(control, "runtime/last_services.json"))
-                    groups = {process["pid"] for process in meta["processes"]}
+                    services = safe(control, "runtime/last_services.json")
+                    before = file_hash(services) if services.is_file() else None
+                    launched_at, began = time.time(), time.perf_counter()
+                    try:
+                        endpoints = stack.enter_context(launch(control, model))
+                    except BaseException:
+                        # The launcher recorded each process as it started it; groups from a start
+                        # that failed half way must still be verified and cleaned below.
+                        partial = _launch_record(services, before, launched_at)
+                        if partial is not None:
+                            owned |= {int(process["pid"]) for process in partial.get("processes", [])}
+                            record["roles"].append({"role": role, "model": model, "startup_failed": True,
+                                                    "processes": partial.get("processes", [])})
+                        raise
+                    meta = _launch_record(services, before, launched_at)
+                    if meta is None:
+                        raise StudyError(f"{role} started without a record of this launch's processes")
+                    groups = {int(process["pid"]) for process in meta["processes"]}
                     owned |= groups
                     record["roles"].append({
                         "role": role, "model": model, "endpoint": endpoints[model],
@@ -322,20 +414,62 @@ def deployment(output_dir, condition, *, launcher=None, lister=None, preflight=T
             # The ExitStack has already run every launcher's own SIGTERM/SIGKILL cleanup.
             if owned:
                 try:
-                    record["stop_verification"] = verify_stopped(owned, lister=lister)
+                    record["stop_verification"] = verify_stopped(owned, since=deployment_began, lister=lister)
                 except StudyError as stop_error:
                     record["stop_verification"] = {"error": str(stop_error)}
                     if failure is None:
                         raise
 
 
+def token_report_path(output_dir, role, examples):
+    """Where the frozen V1 tokenizer check writes its full report for exactly these inputs."""
+    return safe(control_root(output_dir, role), f"runtime/tokens-interactive-{INTERFACE[role]}-{frozen._hash(examples)[:16]}.json")
+
+
+def verify_token_report(output_dir, role, binding, examples):
+    """The raw per-input report behind a token binding: file, hash, coverage, limits, effective configuration."""
+    output = Path(output_dir).absolute()
+    path = token_report_path(output, role, examples)
+    if not isinstance(binding, dict) or set(binding) != TOKEN_BINDING_KEYS or binding["file"] != str(path.relative_to(output)):
+        raise StudyError(f"Token binding for {role} has an unexpected shape or file")
+    if path.is_symlink() or not path.is_file() or file_hash(path) != binding["sha256"]:
+        raise StudyError(f"Raw token report for {role} is missing or changed")
+    report = read_json(path)
+    control, model = control_root(output, role), INTERFACE[role]
+    rows = report.get("rows")
+    max_len = read_json(safe(control, "runtime/lock.json"))["max_model_len"]
+    fields = ("n_examples", "max_model_len", "model_revision", "effective_config_hash")
+    if (report.get("status") != "ok" or binding["status"] != "ok" or report.get("model") != model
+            or report.get("model_revision") != protocol()["models"][role]["revision"]
+            or report.get("max_model_len") != max_len or report.get("n_examples") != len(examples)
+            or not isinstance(rows, list) or [row.get("sample_id") for row in rows] != [e["sample_id"] for e in examples]
+            or report.get("overlong") != [] or report.get("truncated") is not False
+            or any(row["input_tokens"] + row["reserved_output_tokens"] > max_len for row in rows)
+            or report.get("effective_config_hash") != frozen._hash(frozen.runtime_config(control, model))
+            or {k: binding[k] for k in fields} != {k: report.get(k) for k in fields}):
+        raise StudyError(f"Raw token report for {role} does not cover every input within the frozen limits")
+
+
+def bind_token_report(output_dir, role, examples):
+    output = Path(output_dir).absolute()
+    path = token_report_path(output, role, examples)
+    report = read_json(path)
+    binding = {"status": report.get("status"), "file": str(path.relative_to(output)), "sha256": file_hash(path),
+               **{k: report.get(k) for k in ("n_examples", "max_model_len", "model_revision", "effective_config_hash")}}
+    verify_token_report(output, role, binding, examples)
+    return binding
+
+
 def token_check(output_dir, examples):
-    """Exact tokenizer lengths for every role on all formal and development inputs; no truncation."""
+    """Exact tokenizer lengths for every role on all formal and development inputs; no truncation.
+
+    The frozen V1 check writes the full per-input report into each role's control
+    directory; the receipt binds that file's path, hash, coverage and configuration.
+    """
     controls, binding, session, _ = validate(output_dir)
     reports = {}
     with legacy_environment(binding, PROJECT), v3_runtime._environment(binding, session):
         for role in ROLES:
-            report = frozen.token_preflight_examples(PROJECT, controls[role], INTERFACE[role], examples)
-            reports[role] = {"status": report.get("status"),
-                             "summary": {k: v for k, v in report.items() if not isinstance(v, (list, dict))}}
+            frozen.token_preflight_examples(PROJECT, controls[role], INTERFACE[role], examples)
+            reports[role] = bind_token_report(output_dir, role, examples)
     return reports

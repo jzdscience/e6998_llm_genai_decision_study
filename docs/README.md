@@ -27,7 +27,7 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 | [CHEAP_BASELINES_PROTOCOL_ZH.md](CHEAP_BASELINES_PROTOCOL_ZH.md) | TF-IDF-1600, MiniLM-400 and MiniLM-1600 |
 | [SERVICE_STUDY_PROTOCOL_ZH.md](SERVICE_STUDY_PROTOCOL_ZH.md) | CPU/GPU service study, 500 ms SLO |
 | [SIZE_CONTROL_PROTOCOL_ZH.md](SIZE_CONTROL_PROTOCOL_ZH.md) | StartLux-9B size control on ANLI |
-| [UPGRADE_STUDY_PROTOCOL_ZH.md](UPGRADE_STUDY_PROTOCOL_ZH.md) | Serving cost of StartLux-9B versus a 4B to Qwen3.5-9B cascade on ANLI; revision 2 after the 11/8 review, awaiting the node preflight |
+| [UPGRADE_STUDY_PROTOCOL_ZH.md](UPGRADE_STUDY_PROTOCOL_ZH.md) | Serving cost of StartLux-9B versus a 4B to Qwen3.5-9B cascade on ANLI; revision 3 after the 11/8 design and implementation reviews, awaiting the node preflight |
 
 ## Runbooks
 
@@ -53,6 +53,7 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 |---|---|
 | [REVIEW_2026-11-08_ZH.md](REVIEW_2026-11-08_ZH.md) | Codex review of the analysis, paper draft and repository reorganization (R1–R5) |
 | [UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md](UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md) | Codex review of the serving-cost study design (U1–U5) and its acceptance checklist |
+| [UPGRADE_IMPLEMENTATION_REVIEW_2026-11-08_ZH.md](UPGRADE_IMPLEMENTATION_REVIEW_2026-11-08_ZH.md) | Codex cross-check of the serving-cost implementation (I1–I4) |
 
 ## History (`history/`)
 

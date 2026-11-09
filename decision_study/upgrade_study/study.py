@@ -5,9 +5,11 @@ The sealed ANLI gold is read only in ``evaluate`` and only after every one of th
 """
 from collections import Counter, defaultdict
 import hashlib
+import math
 import os
 from pathlib import Path
 import random
+import re
 import signal
 import subprocess
 import sys
@@ -20,11 +22,17 @@ from ..common import StudyError, canonical, file_hash, fingerprint, read_json, r
 from ..service_study.measurement import make_schedule, summarize, verify_cell
 from ..service_study.resources import hardware
 from . import runtime
-from .client import call
-from .identity import (CONDITIONS, GOLD_SHA256, PROJECT, fixed_write, load_history, load_inputs, load_policy,
-                       protocol, safe, source_identity)
+from .cell import SERIAL_FILES
+from .identity import (CONDITIONS, GOLD_SHA256, PROJECT, ROLES, SERVICES, fixed_write, load_history, load_inputs,
+                       load_policy, protocol, safe, source_identity)
 
 FAILURE_STATUSES = ("error", "timeout", "deadline", "http_rejected")
+PREFLIGHT_EVIDENCE = ("serial/plan.json", "serial/rows.json", "serial/complete.json", "concurrent/plan.json",
+                      "concurrent/complete.json", "concurrent/traces.jsonl", "concurrent/occupancy.jsonl",
+                      "concurrent/resources.jsonl")
+RECEIPT_KEYS = {"condition", "settings_hash", "started_at", "status", "prior_failed_attempts", "token_receipt_sha256",
+                "serial", "concurrent", "health", "gpu_processes_after_concurrent", "engine_log_before_stop",
+                "deployment", "finished_at", "evidence_dir", "evidence"}
 
 
 def _bytehash(value):
@@ -133,29 +141,200 @@ def _prior_failures(output, condition):
                   if read_json(p).get("status") != "PASS")
 
 
+def _watchdog_seconds(p, duration):
+    return duration + p["drain_seconds"] + p["watchdog_grace_seconds"]
+
+
+def _serial_plan(config, warmup_ids, condition, purpose, endpoints, pids):
+    """A serial stage (preflight serial check or cell warmup) in the owned child process."""
+    p, files = config["protocol"], config["file_sha256"]
+    return {"kind": "serial", "purpose": purpose, "condition": condition, "mode": _mode(condition, "serial"),
+            "settings_hash": fingerprint(config), "workload_file": "warmup.json", "workload_sha256": files["warmup.json"],
+            "sample_ids": warmup_ids, "policy_file": "policy.json", "policy_sha256": files["policy.json"],
+            "request_timeout_seconds": p["request_timeout_seconds"],
+            "watchdog_seconds": len(warmup_ids) * p["request_timeout_seconds"] + p["watchdog_grace_seconds"],
+            "endpoints": endpoints, "service_pids": pids}
+
+
+def _concurrent_plan(config, condition, endpoints, pids):
+    p, files = config["protocol"], config["file_sha256"]
+    concurrent = p["feasibility_preflight"]["concurrent_check"]
+    return {"cell_id": f"preflight-{condition}", "condition": condition, "mode": _mode(condition, "concurrent"),
+            "settings_hash": fingerprint(config),
+            "protocol": {**p, "duration_seconds": concurrent["duration_seconds"], "workers": concurrent["workers"],
+                         "max_inflight": concurrent["max_inflight"]},
+            "schedule_file": "preflight-schedule.json", "schedule_sha256": files["preflight-schedule.json"],
+            "workload_file": "warmup.json", "workload_sha256": files["warmup.json"],
+            "policy_file": "policy.json", "policy_sha256": files["policy.json"],
+            "watchdog_seconds": _watchdog_seconds(p, concurrent["duration_seconds"]),
+            "endpoints": endpoints, "service_pids": pids}
+
+
+def verify_stage(folder, plan_hash):
+    """Completion receipt of a serial stage; None when the stage never completed."""
+    path = folder / "complete.json"
+    if not path.is_file():
+        return None
+    record = read_json(path)
+    if (record.get("plan_hash") != plan_hash
+            or record.get("self_hash") != fingerprint({k: v for k, v in record.items() if k != "self_hash"})):
+        raise StudyError("Serial-stage completion identity mismatch")
+    if set(record.get("files", {})) != set(SERIAL_FILES):
+        raise StudyError("Serial-stage evidence inventory mismatch")
+    for name, digest in record["files"].items():
+        source = folder / name
+        if source.is_symlink() or not source.is_file() or file_hash(source) != digest:
+            raise StudyError(f"Serial-stage evidence changed or missing: {name}")
+    if fingerprint(read_json(folder / "plan.json")) != plan_hash:
+        raise StudyError("Saved serial-stage plan mismatch")
+    return record
+
+
+def _serial_stage(output, folder, plan):
+    folder.mkdir(parents=True)
+    _run_process(output, folder, plan)
+    if verify_stage(folder, fingerprint(plan)) is None:
+        raise StudyError("A serial stage exited without a completion receipt")
+    return read_json(folder / "rows.json")["rows"]
+
+
+def _verified_serial(output, config, folder, condition, purpose):
+    """Rows of a completed serial stage whose plan, receipt and inputs all match the fixed settings."""
+    warmup_ids = [e["sample_id"] for e in read_json(output / "warmup.json")]
+    plan = read_json(folder / "plan.json")
+    if plan != _serial_plan(config, warmup_ids, condition, purpose, plan.get("endpoints"), plan.get("service_pids")):
+        raise StudyError(f"{purpose} plan differs from the fixed settings")
+    if verify_stage(folder, fingerprint(plan)) is None:
+        raise StudyError(f"{purpose} has no completion receipt")
+    rows = read_json(folder / "rows.json")["rows"]
+    if [r.get("sample_id") for r in rows] != warmup_ids:
+        raise StudyError(f"{purpose} did not cover the development inputs in order")
+    return plan, rows
+
+
+def _schedule_rows(folder, schedule, what):
+    rows = sorted(read_jsonl(folder / "traces.jsonl"), key=lambda r: r["offer_id"])
+    if [{k: row.get(k) for k in ("offer_id", "sample_id", "arrival_seconds")} for row in rows] != schedule:
+        raise StudyError(f"{what} do not cover the exact offered schedule")
+    return rows
+
+
+def _serial_summary(rows):
+    bad = [r for r in rows if r["status"] != "ok" or any(s["status"] != "ok" for s in r["stages"])]
+    return {"count": len(rows), "failures": len(bad),
+            "stage_calls": dict(Counter(s["role"] for r in rows for s in r["stages"]))}
+
+
+def _concurrent_summary(condition, rows, report):
+    statuses = Counter(r["status"] for r in rows)
+    summary = {"report": report, "statuses": dict(statuses), "engine_overlap_seconds": _overlap_seconds(rows),
+               "label": "preflight_forced_deferral" if condition == "cascade" else "preflight_concurrent"}
+    if condition == "cascade":
+        routes = [(r.get("result") or {}).get("route") or {} for r in rows if r["status"] == "ok"]
+        summary["route_reasons"] = dict(Counter(str(route.get("reason")) for route in routes))
+        summary["fallback_called"] = sum(bool(route.get("fallback_called")) for route in routes)
+    return summary
+
+
+def _concurrent_problems(condition, summary):
+    """Why a concurrent check cannot pass, judged from its own rows."""
+    problems = []
+    failures = {k: v for k, v in summary["statuses"].items() if k in FAILURE_STATUSES}
+    if failures:
+        problems.append(f"Concurrent development check had failures {failures}")
+    if condition == "cascade":
+        ok = summary["statuses"].get("ok", 0)
+        if summary["route_reasons"] != {"preflight_forced_deferral": ok} or summary["fallback_called"] != ok:
+            problems.append("The cascade concurrent check did not send every request through both engines")
+        if summary["engine_overlap_seconds"] <= 0:
+            problems.append("The two engines never worked at the same time during the concurrent check")
+    return problems
+
+
+def verify_tokens(output, config):
+    """The token receipt and, behind it, each role's raw tokenizer report on all 3,290 inputs."""
+    path = safe(output, "preflight/tokens.json")
+    if not path.is_file():
+        raise StudyError("Run the development preflight first; the token receipt is missing")
+    tokens = read_json(path)
+    if set(tokens) != {"settings_hash", "at", "reports"} or tokens["settings_hash"] != fingerprint(config):
+        raise StudyError("Token receipt belongs to other settings or has an unexpected shape")
+    if set(tokens["reports"]) != set(ROLES):
+        raise StudyError("Token receipt does not cover every role")
+    examples = read_json(output / "workload.json") + read_json(output / "warmup.json")
+    for role, binding in tokens["reports"].items():
+        runtime.verify_token_report(output, role, binding, examples)
+    return file_hash(path)
+
+
+def verify_preflight(output, config, condition, *, token_sha256=None):
+    """Check a PASS receipt against every file it summarizes; return the receipt's SHA-256."""
+    output = Path(output)
+    path = safe(output, f"preflight/{condition}.json")
+    if not path.is_file():
+        raise StudyError(f"Run the development preflight first; missing PASS receipt for {condition}")
+    receipt = read_json(path)
+    if (set(receipt) != RECEIPT_KEYS or receipt["condition"] != condition or receipt["status"] != "PASS"
+            or receipt["settings_hash"] != fingerprint(config)):
+        raise StudyError(f"Preflight for {condition} is not a complete PASS for these settings")
+    if receipt["token_receipt_sha256"] != (token_sha256 or verify_tokens(output, config)):
+        raise StudyError(f"Preflight for {condition} is bound to another token receipt")
+    if not re.fullmatch(rf"preflight/{re.escape(condition)}-[0-9]+", receipt["evidence_dir"]):
+        raise StudyError(f"Preflight for {condition} names an unexpected evidence folder")
+    folder = safe(output, receipt["evidence_dir"])
+    if folder.is_symlink() or not folder.is_dir() or read_json(folder / "receipt.json") != receipt:
+        raise StudyError(f"Preflight folder for {condition} does not hold this receipt")
+    if set(receipt["evidence"]) != set(PREFLIGHT_EVIDENCE):
+        raise StudyError(f"Preflight evidence inventory for {condition} changed")
+    for name, digest in receipt["evidence"].items():
+        source = safe(folder, name)
+        if source.is_symlink() or not source.is_file() or file_hash(source) != digest:
+            raise StudyError(f"Preflight evidence for {condition} changed or missing: {name}")
+    serial_plan, serial = _verified_serial(output, config, folder / "serial", condition, "preflight_serial")
+    if _serial_summary(serial) != receipt["serial"] or receipt["serial"]["failures"]:
+        raise StudyError(f"Preflight serial summary for {condition} differs from its rows")
+    plan = read_json(folder / "concurrent/plan.json")
+    if (plan != _concurrent_plan(config, condition, plan.get("endpoints"), plan.get("service_pids"))
+            or (plan["endpoints"], plan["service_pids"]) != (serial_plan["endpoints"], serial_plan["service_pids"])):
+        raise StudyError(f"Preflight concurrent plan for {condition} differs from the fixed settings")
+    complete = verify_cell(folder / "concurrent", fingerprint(plan))
+    if complete is None:
+        raise StudyError(f"Preflight concurrent check for {condition} has no completion receipt")
+    rows = _schedule_rows(folder / "concurrent", read_json(output / "preflight-schedule.json"),
+                          f"Preflight concurrent traces for {condition}")
+    p = plan["protocol"]
+    if any(complete["report"].get(k) != v for k, v in summarize(rows, p["duration_seconds"], p["slo_ms"]).items()):
+        raise StudyError(f"Preflight concurrent summary for {condition} differs from raw responses")
+    summary = _concurrent_summary(condition, rows, complete["report"])
+    if summary != receipt["concurrent"] or _concurrent_problems(condition, summary):
+        raise StudyError(f"Preflight concurrent receipt for {condition} differs from its rows or does not pass")
+    deployment = receipt["deployment"]
+    stop = deployment.get("stop_verification") or {}
+    if ([r.get("role") for r in deployment.get("roles", [])] != list(SERVICES[condition])
+            or "error" in stop or stop.get("gpu_compute_processes") != []
+            or stop.get("owned_groups") != sorted(plan["service_pids"])):
+        raise StudyError(f"Preflight deployment record for {condition} is incomplete or its cleanup was not confirmed")
+    return file_hash(path)
+
+
 def preflight(output_dir, *, retry_failed=False, launcher=None, lister=None):
     output = Path(output_dir).absolute()
     config = settings(output, check_source=True)
     p = config["protocol"]
-    concurrent = p["feasibility_preflight"]["concurrent_check"]
     workload, warmup = read_json(output / "workload.json"), read_json(output / "warmup.json")
-    policy = read_json(output / "policy.json")["policy"]
+    warmup_ids = [e["sample_id"] for e in warmup]
     schedule = read_json(output / "preflight-schedule.json")
     token_path = safe(output, "preflight/tokens.json")
     if not token_path.exists():
         fixed_write(token_path, {"settings_hash": fingerprint(config), "at": utc_now(),
                                  "reports": runtime.token_check(output, workload + warmup)})
-    tokens = read_json(token_path)
-    if tokens["settings_hash"] != fingerprint(config) or any(r["status"] != "ok" for r in tokens["reports"].values()):
-        raise StudyError("Token preflight failed or belongs to other settings")
+    token_sha256 = verify_tokens(output, config)
     results = {}
     for condition in p["conditions"]:
         receipt_path = safe(output, f"preflight/{condition}.json")
         if receipt_path.exists():
-            receipt = read_json(receipt_path)
-            if receipt.get("status") != "PASS" or receipt.get("settings_hash") != fingerprint(config):
-                raise StudyError(f"Preflight receipt for {condition} is not a PASS for these settings")
-            results[condition] = receipt
+            verify_preflight(output, config, condition, token_sha256=token_sha256)
+            results[condition] = read_json(receipt_path)
             continue
         prior = _prior_failures(output, condition)
         if prior and not retry_failed:
@@ -164,121 +343,101 @@ def preflight(output_dir, *, retry_failed=False, launcher=None, lister=None):
         folder = safe(output, f"preflight/{condition}-{time.time_ns()}")
         folder.mkdir(parents=True)
         receipt = {"condition": condition, "settings_hash": fingerprint(config), "started_at": utc_now(),
-                   "status": "FAIL", "prior_failed_attempts": prior, "token_receipt_sha256": file_hash(token_path)}
+                   "status": "FAIL", "prior_failed_attempts": prior, "token_receipt_sha256": token_sha256}
         record = {}
         try:
             runtime.check_time(output, 1800)
             with runtime.deployment(output, condition, launcher=launcher, lister=lister, sink=record) as service:
-                serial = [call(condition, service["endpoints"], example, p["request_timeout_seconds"],
-                               policy if condition == "cascade" else None, mode=_mode(condition, "serial"))
-                          for example in warmup]
-                fixed_write(folder / "serial.json", {"rows": serial})
-                bad = [r for r in serial if r["status"] != "ok" or any(s["status"] != "ok" for s in r["stages"])]
-                receipt["serial"] = {"count": len(serial), "failures": len(bad),
-                                     "stage_calls": Counter(s["role"] for r in serial for s in r["stages"])}
-                if bad:
-                    raise StudyError(f"{len(bad)} serial development checks failed")
+                serial = _serial_stage(output, folder / "serial", _serial_plan(
+                    config, warmup_ids, condition, "preflight_serial", service["endpoints"], service["pids"]))
+                receipt["serial"] = _serial_summary(serial)
+                if receipt["serial"]["failures"]:
+                    raise StudyError(f"{receipt['serial']['failures']} serial development checks failed")
                 # Same owned child process and absolute parent watchdog as a formal cell;
                 # a socket timeout alone does not bound the concurrent run.
-                files = config["file_sha256"]
-                plan = {"cell_id": f"preflight-{condition}", "condition": condition, "mode": _mode(condition, "concurrent"),
-                        "settings_hash": fingerprint(config),
-                        "protocol": {**p, "duration_seconds": concurrent["duration_seconds"],
-                                     "workers": concurrent["workers"], "max_inflight": concurrent["max_inflight"]},
-                        "schedule_file": "preflight-schedule.json", "schedule_sha256": files["preflight-schedule.json"],
-                        "workload_file": "warmup.json", "workload_sha256": files["warmup.json"],
-                        "policy_file": "policy.json", "policy_sha256": files["policy.json"],
-                        "endpoints": service["endpoints"], "service_pids": service["pids"]}
-                _run_process(output, folder, plan)
-                complete = verify_cell(folder, fingerprint(plan))
+                plan = _concurrent_plan(config, condition, service["endpoints"], service["pids"])
+                (folder / "concurrent").mkdir()
+                _run_process(output, folder / "concurrent", plan)
+                complete = verify_cell(folder / "concurrent", fingerprint(plan))
                 if complete is None:
                     raise StudyError("The concurrent check exited without a completion receipt")
-                report = complete["report"]
-                rows = sorted(read_jsonl(folder / "traces.jsonl"), key=lambda r: r["offer_id"])
-                if [{k: row.get(k) for k in ("offer_id", "sample_id", "arrival_seconds")} for row in rows] != schedule:
-                    raise StudyError("The concurrent check's traces do not cover the exact preflight schedule")
-                statuses = Counter(r["status"] for r in rows)
-                overlap = _overlap_seconds(rows)
-                receipt["concurrent"] = {"report": report, "statuses": dict(statuses), "engine_overlap_seconds": overlap,
-                                         "label": "preflight_forced_deferral" if condition == "cascade" else "preflight_concurrent"}
-                if condition == "cascade":
-                    routes = [(r.get("result") or {}).get("route") or {} for r in rows if r["status"] == "ok"]
-                    receipt["concurrent"]["route_reasons"] = dict(Counter(str(route.get("reason")) for route in routes))
-                    receipt["concurrent"]["fallback_called"] = sum(bool(route.get("fallback_called")) for route in routes)
+                rows = _schedule_rows(folder / "concurrent", schedule, "The concurrent check's traces")
+                receipt["concurrent"] = _concurrent_summary(condition, rows, complete["report"])
                 receipt["health"] = {role: runtime.health(endpoint) for role, endpoint in service["endpoints"].items()}
                 receipt["gpu_processes_after_concurrent"] = (lister or runtime.gpu_processes)()
                 receipt["engine_log_before_stop"] = runtime.engine_log_facts(
                     [proc for role in record["roles"] for proc in role["processes"]])
-                failures = {k: v for k, v in statuses.items() if k in FAILURE_STATUSES}
-                if failures:
-                    raise StudyError(f"Concurrent development check had failures {failures}")
+                problems = _concurrent_problems(condition, receipt["concurrent"])
                 if not all(h.get("ok") for h in receipt["health"].values()):
-                    raise StudyError("A service failed its health check after the concurrent check")
+                    problems.append("A service failed its health check after the concurrent check")
                 if any(facts.get("failure_mentions") for facts in receipt["engine_log_before_stop"].values()):
-                    raise StudyError("Engine logs report out-of-memory or engine failure before shutdown")
-                if condition == "cascade" and (receipt["concurrent"]["route_reasons"] != {"preflight_forced_deferral": len(routes)}
-                                               or receipt["concurrent"]["fallback_called"] != len(routes)):
-                    raise StudyError("The cascade concurrent check did not send every request through both engines")
-                if condition == "cascade" and overlap <= 0:
-                    raise StudyError("The two engines never worked at the same time during the concurrent check")
+                    problems.append("Engine logs report out-of-memory or engine failure before shutdown")
+                if problems:
+                    raise StudyError("; ".join(problems))
             receipt.update(status="PASS", deployment=record, finished_at=utc_now(),
                            evidence_dir=str(folder.relative_to(output)),
-                           evidence={name: file_hash(folder / name) for name in
-                                     ("serial.json", "plan.json", "complete.json", "traces.jsonl", "occupancy.jsonl",
-                                      "resources.jsonl")})
+                           evidence={name: file_hash(folder / name) for name in PREFLIGHT_EVIDENCE})
         except BaseException as exc:
             receipt.update(error=str(exc), error_type=type(exc).__name__, deployment=record, finished_at=utc_now())
             fixed_write(folder / "receipt.json", receipt)
             raise
         fixed_write(folder / "receipt.json", receipt)
         fixed_write(receipt_path, receipt)
+        verify_preflight(output, config, condition, token_sha256=token_sha256)
         results[condition] = receipt
     return {condition: receipt["status"] for condition, receipt in results.items()}
 
 
 def preflight_hashes(output, config):
-    hashes = {}
-    for condition in config["protocol"]["conditions"]:
-        path = safe(output, f"preflight/{condition}.json")
-        if not path.exists():
-            raise StudyError(f"Run the development preflight first; missing PASS receipt for {condition}")
-        receipt = read_json(path)
-        if receipt.get("status") != "PASS" or receipt.get("settings_hash") != fingerprint(config):
-            raise StudyError(f"Preflight for {condition} is not a PASS for these settings")
-        hashes[condition] = file_hash(path)
-    return hashes
+    """Verified SHA-256 of each condition's PASS receipt; refuses missing or changed evidence."""
+    token_sha256 = verify_tokens(output, config)
+    return {condition: verify_preflight(output, config, condition, token_sha256=token_sha256)
+            for condition in config["protocol"]["conditions"]}
 
 
-def completed(output, config, cell):
+def _formal_plan(config, cell, receipts, service, start_path, warm_path, allocation, output):
+    p, files = config["protocol"], config["file_sha256"]
+    return {**cell, "settings_hash": fingerprint(config), "protocol": p,
+            "schedule_sha256": files[cell["schedule_file"]], "workload_file": "workload.json",
+            "workload_sha256": files["workload.json"], "policy_file": "policy.json", "policy_sha256": files["policy.json"],
+            "preflight_receipt_sha256": receipts, "watchdog_seconds": _watchdog_seconds(p, p["duration_seconds"]),
+            "endpoints": service["endpoints"], "service_pids": service["pids"],
+            "service_record_file": str(start_path.relative_to(output)), "service_record_sha256": file_hash(start_path),
+            "warmup_record_file": str(warm_path.relative_to(output)), "warmup_record_sha256": file_hash(warm_path),
+            "allocation": allocation}
+
+
+def measured(output, config, cell, receipts=None):
+    """The attempt whose measurement verifies from raw evidence, without the cleanup check."""
     parent = safe(output, "cells/" + cell["cell_id"])
     candidates = sorted(parent.glob("attempt-*")) if parent.exists() else []
     accepted = []
-    warmup_ids = [e["sample_id"] for e in read_json(safe(output, "warmup.json"))]
     for folder in candidates:
         if folder.is_symlink() or not folder.is_dir():
             raise StudyError("Unsafe cell attempt path")
         if not (folder / "complete.json").exists():
             continue
+        if receipts is None:
+            receipts = preflight_hashes(output, config)
         plan = read_json(folder / "plan.json")
-        files = config["file_sha256"]
-        expected = {**cell, "settings_hash": fingerprint(config), "protocol": config["protocol"],
+        p, files = config["protocol"], config["file_sha256"]
+        expected = {**cell, "settings_hash": fingerprint(config), "protocol": p,
                     "schedule_sha256": files[cell["schedule_file"]], "workload_file": "workload.json",
                     "workload_sha256": files["workload.json"], "policy_file": "policy.json", "policy_sha256": files["policy.json"],
-                    "preflight_receipt_sha256": preflight_hashes(output, config)}
+                    "preflight_receipt_sha256": receipts, "watchdog_seconds": _watchdog_seconds(p, p["duration_seconds"])}
         if any(plan.get(k) != v for k, v in expected.items()):
             raise StudyError(f"Completed cell {cell['cell_id']} differs from the fixed plan")
         for kind in ("service", "warmup"):
             if file_hash(safe(output, plan[f"{kind}_record_file"])) != plan[f"{kind}_record_sha256"]:
                 raise StudyError(f"Completed cell {kind} evidence changed")
-        warmed = read_json(safe(output, plan["warmup_record_file"]))["rows"]
-        if [r.get("sample_id") for r in warmed] != warmup_ids or any(r.get("status") != "ok" for r in warmed):
-            raise StudyError("Completed cell warmup is incomplete or failed")
+        warm_plan, warmed = _verified_serial(output, config, safe(output, plan["warmup_record_file"]).parent,
+                                             cell["condition"], "warmup")
+        if any(r.get("status") != "ok" for r in warmed):
+            raise StudyError("Completed cell warmup failed")
+        if (warm_plan["endpoints"], warm_plan["service_pids"]) != (plan["endpoints"], plan["service_pids"]):
+            raise StudyError("Completed cell warmup ran on another deployment")
         record = verify_cell(folder, fingerprint(plan))
-        schedule = read_json(safe(output, cell["schedule_file"]))
-        rows = sorted(read_jsonl(folder / "traces.jsonl"), key=lambda r: r["offer_id"])
-        if [{k: row.get(k) for k in ("offer_id", "sample_id", "arrival_seconds")} for row in rows] != schedule:
-            raise StudyError("Completed traces do not cover the exact offered schedule")
-        p = config["protocol"]
+        rows = _schedule_rows(folder, read_json(safe(output, cell["schedule_file"])), "Completed traces")
         summary = summarize(rows, p["duration_seconds"], p["slo_ms"])
         if any(record["report"].get(k) != v for k, v in summary.items()):
             raise StudyError("Completed cell summary differs from raw responses")
@@ -290,14 +449,40 @@ def completed(output, config, cell):
     return accepted[0] if accepted else None
 
 
+def cleanup_confirmed(output, plan, folder):
+    """Whether the deployment that served this attempt was verified stopped afterwards."""
+    path = safe(output, plan["service_record_file"]).parent / "finished.json"
+    if not path.is_file():
+        return False
+    finished = read_json(path)
+    stop = finished.get("stop_verification") or {}
+    return (finished.get("cell_id") == plan["cell_id"] and finished.get("attempt") == folder.name
+            and "error" not in stop and stop.get("gpu_compute_processes") == []
+            and stop.get("owned_groups") == sorted(plan["service_pids"]))
+
+
+def completed(output, config, cell, receipts=None):
+    """An accepted cell: a verified measurement whose deployment was confirmed stopped."""
+    accepted = measured(output, config, cell, receipts)
+    if accepted is None or not cleanup_confirmed(output, read_json(accepted[0] / "plan.json"), accepted[0]):
+        return None
+    return accepted
+
+
 def _attempt(output, cell, *, resume_interrupted):
     parent = safe(output, "cells/" + cell["cell_id"])
     previous = sorted(parent.glob("attempt-*")) if parent.exists() else []
     if previous and not resume_interrupted:
         raise StudyError(f"Interrupted attempt preserved for {cell['cell_id']}; inspect/export, then use --resume-interrupted")
     for path in previous:
-        if path.is_symlink() or (path / "complete.json").exists():
-            raise StudyError("Cannot rerun a completed or unsafe attempt")
+        if path.is_symlink():
+            raise StudyError("Cannot rerun an unsafe attempt")
+        if (path / "complete.json").exists():
+            if cleanup_confirmed(output, read_json(path / "plan.json"), path):
+                raise StudyError("Cannot rerun a completed attempt")
+            # Measured, but its deployment was never confirmed stopped: keep the receipt unaccepted.
+            (path / "complete.json").rename(path / "unaccepted-complete.json")
+            fixed_write(path / "unaccepted.json", {"at": utc_now(), "reason": "deployment stop not confirmed"})
     folder = parent / f"attempt-{len(previous) + 1:04d}"
     folder.mkdir(parents=True, exist_ok=False)
     fixed_write(folder / "attempt.json", {"started_at": utc_now(), "prior_interrupted_attempts": [p.name for p in previous],
@@ -320,21 +505,38 @@ def _stop_process(process):
 
 
 def _run_process(output, folder, plan, *, check_time=True):
-    p = plan["protocol"]
+    """Run one owned child under an absolute watchdog.
+
+    The exit is awaited with a timeout bounded by the deadline, and the clock and
+    allocation are checked again after it, so a completion observed after the
+    watchdog is preserved as unaccepted rather than accepted.
+    """
+    limit = plan["watchdog_seconds"]
+    if isinstance(limit, bool) or not isinstance(limit, (int, float)) or not math.isfinite(limit) or limit <= 0:
+        raise StudyError("A positive finite watchdog bound is required")
     fixed_write(folder / "plan.json", plan)
     command = [sys.executable, "-m", "decision_study.upgrade_study.cell", "--root", str(output), "--attempt", str(folder)]
     with (folder / "controller.log").open("x") as log:
         process = subprocess.Popen(command, cwd=PROJECT, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
-    until = time.monotonic() + p["duration_seconds"] + p["drain_seconds"] + p["watchdog_grace_seconds"]
+    until = time.monotonic() + limit
     try:
-        while process.poll() is None:
+        while True:
             if check_time:
                 runtime.check_time(output)
-            if time.monotonic() >= until:
-                raise StudyError("Cell exceeded the absolute parent watchdog; interrupted evidence preserved")
-            time.sleep(.25)
+            remaining = until - time.monotonic()
+            if remaining <= 0:
+                raise StudyError("Child process exceeded the absolute parent watchdog; interrupted evidence preserved")
+            try:
+                process.wait(timeout=min(0.25, remaining))
+                break
+            except subprocess.TimeoutExpired:
+                continue
+        if time.monotonic() > until:
+            raise StudyError("Child exit observed after the absolute parent watchdog; its completion is not accepted")
+        if check_time:
+            runtime.check_time(output)
         if process.returncode != 0:
-            raise StudyError(f"Cell process exited {process.returncode}; see {folder / 'controller.log'}")
+            raise StudyError(f"Child process exited {process.returncode}; see {folder / 'controller.log'}")
     except BaseException:
         _stop_process(process)
         if (folder / "complete.json").exists():
@@ -347,7 +549,7 @@ def run(output_dir, *, resume_interrupted=False, launcher=None, lister=None):
     config = settings(output, check_source=True)
     p = config["protocol"]
     receipts = preflight_hashes(output, config)
-    pending = [cell for cell in config["order"] if not completed(output, config, cell)]
+    pending = [cell for cell in config["order"] if not completed(output, config, cell, receipts)]
     if not pending:
         return freeze(output)
     if any((output / name).exists() for name in ("freeze.json", "evaluation-access.json", "evaluation.json")):
@@ -356,52 +558,49 @@ def run(output_dir, *, resume_interrupted=False, launcher=None, lister=None):
         for cell in pending:
             if list(safe(output, "cells/" + cell["cell_id"]).glob("attempt-*")):
                 raise StudyError("An interrupted attempt exists; export/inspect, then use --resume-interrupted")
-    warmup = read_json(output / "warmup.json")
-    policy = read_json(output / "policy.json")["policy"]
-    files = config["file_sha256"]
+    warmup_ids = [e["sample_id"] for e in read_json(output / "warmup.json")]
     for cell in pending:
         condition = cell["condition"]
-        runtime.check_time(output, p["duration_seconds"] + p["drain_seconds"] + 900)
+        runtime.check_time(output, _watchdog_seconds(p, p["duration_seconds"]) + 900)
         began = time.perf_counter()
-        with runtime.deployment(output, condition, launcher=launcher, lister=lister) as service:
-            record_dir = safe(output, f"services/{cell['cell_id']}-{time.time_ns()}")
-            record_dir.mkdir(parents=True)
-            start = {"cell_id": cell["cell_id"], "condition": condition, "repeat": cell["repeat"], "started_at": utc_now(),
-                     "startup_seconds": time.perf_counter() - began, "deployment": service["record"], "hardware": hardware(),
-                     "allocation": runtime.check_time(output)["allocation"],
-                     "runtime_binding_sha256": file_hash(output / "runtime/binding.json")}
-            start_path = record_dir / "start.json"
-            fixed_write(start_path, start)
-            warmed, warm_started = [], time.perf_counter()
-            for example in warmup:
-                runtime.check_time(output, p["request_timeout_seconds"] + 10)
-                warmed.append(call(condition, service["endpoints"], example, p["request_timeout_seconds"],
-                                   policy if condition == "cascade" else None, mode=_mode(condition, "serial")))
-            warm_path = record_dir / "warmup.json"
-            fixed_write(warm_path, {"rows": warmed, "elapsed_seconds": time.perf_counter() - warm_started})
-            if any(row["status"] != "ok" for row in warmed):
-                raise StudyError(f"Warmup failed for {condition}; no formal cell started with this service")
-            runtime.check_time(output, p["duration_seconds"] + p["drain_seconds"] + p["watchdog_grace_seconds"] + 10)
-            folder = _attempt(output, cell, resume_interrupted=resume_interrupted)
-            plan = {**cell, "settings_hash": fingerprint(config), "protocol": p,
-                    "schedule_sha256": files[cell["schedule_file"]], "workload_file": "workload.json",
-                    "workload_sha256": files["workload.json"], "policy_file": "policy.json", "policy_sha256": files["policy.json"],
-                    "preflight_receipt_sha256": receipts, "endpoints": service["endpoints"], "service_pids": service["pids"],
-                    "service_record_file": str(start_path.relative_to(output)), "service_record_sha256": file_hash(start_path),
-                    "warmup_record_file": str(warm_path.relative_to(output)), "warmup_record_sha256": file_hash(warm_path),
-                    "allocation": start["allocation"]}
-            try:
-                _run_process(output, folder, plan)
-            except BaseException as exc:
-                fixed_write(folder / "interrupted.json", {"at": utc_now(), "error": str(exc), "type": type(exc).__name__})
-                raise
-            accepted = completed(output, config, cell)
-            if accepted is None:
-                raise StudyError("Cell process exited without a valid completion receipt")
-            report = accepted[1]["report"]
-            print(f"{cell['cell_id']}: {report['offered']} offered, {report['met_slo']} within {p['slo_ms']} ms; "
-                  f"goodput={report['goodput_per_second']:.2f}/s", flush=True)
-        fixed_write(record_dir / "finished.json", {"at": utc_now(), "stop_verification": service["record"].get("stop_verification")})
+        record, record_dir, folder = {}, None, None
+        try:
+            with runtime.deployment(output, condition, launcher=launcher, lister=lister, sink=record) as service:
+                record_dir = safe(output, f"services/{cell['cell_id']}-{time.time_ns()}")
+                record_dir.mkdir(parents=True)
+                start = {"cell_id": cell["cell_id"], "condition": condition, "repeat": cell["repeat"], "started_at": utc_now(),
+                         "startup_seconds": time.perf_counter() - began, "deployment": service["record"],
+                         "hardware": hardware(), "allocation": runtime.check_time(output)["allocation"],
+                         "runtime_binding_sha256": file_hash(output / "runtime/binding.json")}
+                start_path = record_dir / "start.json"
+                fixed_write(start_path, start)
+                warmed = _serial_stage(output, record_dir / "warmup", _serial_plan(
+                    config, warmup_ids, condition, "warmup", service["endpoints"], service["pids"]))
+                if any(row["status"] != "ok" for row in warmed):
+                    raise StudyError(f"Warmup failed for {condition}; no formal cell started with this service")
+                runtime.check_time(output, _watchdog_seconds(p, p["duration_seconds"]) + 10)
+                folder = _attempt(output, cell, resume_interrupted=resume_interrupted)
+                plan = _formal_plan(config, cell, receipts, service, start_path, record_dir / "warmup/rows.json",
+                                    start["allocation"], output)
+                try:
+                    _run_process(output, folder, plan)
+                except BaseException as exc:
+                    fixed_write(folder / "interrupted.json", {"at": utc_now(), "error": str(exc), "type": type(exc).__name__})
+                    raise
+                measurement = measured(output, config, cell, receipts)
+                if measurement is None or measurement[0] != folder:
+                    raise StudyError("Cell process exited without a valid completion receipt")
+                report = measurement[1]["report"]
+                print(f"{cell['cell_id']}: {report['offered']} offered, {report['met_slo']} within {p['slo_ms']} ms; "
+                      f"goodput={report['goodput_per_second']:.2f}/s", flush=True)
+        finally:
+            if record_dir is not None:
+                fixed_write(record_dir / "finished.json", {
+                    "at": utc_now(), "cell_id": cell["cell_id"], "attempt": folder.name if folder is not None else None,
+                    "stop_verification": record.get("stop_verification")})
+        if completed(output, config, cell, receipts) is None:
+            raise StudyError(f"{cell['cell_id']} was measured, but its deployment was not confirmed stopped; inspect the "
+                             "node, then resume with --resume-interrupted to measure it again")
     return freeze(output)
 
 
@@ -410,11 +609,12 @@ def freeze(output_dir):
     if not (output / "freeze.json").exists() and any((output / n).exists() for n in ("evaluation-access.json", "evaluation.json")):
         raise StudyError("Scoring evidence exists without its freeze")
     config = settings(output)
+    receipts = preflight_hashes(output, config)
     cells = {}
     for cell in config["order"]:
-        accepted = completed(output, config, cell)
+        accepted = completed(output, config, cell, receipts)
         if accepted is None:
-            raise StudyError("All 36 fixed cells must complete before the gold is read")
+            raise StudyError("All 36 fixed cells must complete, with confirmed stops, before the gold is read")
         folder, _ = accepted
         cells[str((folder / "complete.json").relative_to(output))] = file_hash(folder / "complete.json")
     value = {"status": "FROZEN", "settings_hash": fingerprint(config), "cells": cells}
@@ -546,8 +746,9 @@ def evaluate(output_dir):
     gold = read_json(gold_path)
     history = read_json(output / "history.json")
     scored, labels = [], defaultdict(lambda: defaultdict(set))
+    receipts = preflight_hashes(output, config)
     for cell in config["order"]:
-        folder, _ = completed(output, config, cell)
+        folder, _ = completed(output, config, cell, receipts)
         rows = read_jsonl(folder / "traces.jsonl")
         plan = read_json(folder / "plan.json")
         start = read_json(safe(output, plan["service_record_file"]))
@@ -587,10 +788,16 @@ def evaluate(output_dir):
 
 def status(output_dir):
     config = settings(output_dir)
-    done = [cell["cell_id"] for cell in config["order"] if completed(output_dir, config, cell)]
+    try:
+        receipts, preflight_problem = preflight_hashes(output_dir, config), None
+    except StudyError as exc:
+        receipts, preflight_problem = None, str(exc)
+    # Every cell binds the verified preflight receipts, so none counts while they do not verify.
+    done = [cell["cell_id"] for cell in config["order"] if receipts is not None and completed(output_dir, config, cell, receipts)]
     preflight_state = {c: (read_json(safe(output_dir, f"preflight/{c}.json")).get("status")
                            if safe(output_dir, f"preflight/{c}.json").exists() else None) for c in CONDITIONS}
     return {"completed_cells": len(done), "required_cells": len(config["order"]), "preflight": preflight_state,
+            "preflight_verified": receipts is not None, "preflight_problem": preflight_problem,
             "evaluation_present": safe(output_dir, "evaluation.json").exists(), "notice": "No process liveness claim"}
 
 

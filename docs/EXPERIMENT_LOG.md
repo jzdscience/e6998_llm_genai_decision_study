@@ -469,3 +469,34 @@ session-history。`tests/test_upgrade_study.py` 30 项，全仓 395 passed、11 
 预检的 30 秒并发检查原先在控制器进程内调用。现改为与正式单元相同的 cell 子进程和父进程 watchdog
 （审核 U3），用 `verify_cell` 核对 completion receipt，并要求 trace 与预检调度逐条一致。CLI 演练确认
 级联预检的 `plan.json` 为 `forced_fallback`。注入错误增至 20 处。
+
+## 2026-11-08：9B 实现独立交叉验收
+
+核查 `9cb3274..65c57a9` 的四个提交。独立全仓测试 395 passed、11 skipped、64 subtests，exit 0；
+30 个 upgrade 测试均包含在内。科学口径、历史重放、共同调度、实际标签 goodput、正式 trace/计划/资源校验、
+全单元冻结后读取 gold、allocation 续期及主体生命周期实现符合修订方向。
+
+额外探针发现四个 P2，详见 `docs/UPGRADE_IMPLEMENTATION_REVIEW_2026-11-08_ZH.md`：
+I1 使用实际冻结 launcher 清理代码模拟后级 readiness 失败，组长退出后仍留下忽略 TERM 的自有 worker，
+新控制器因只在成功进入上下文后登记组而漏清理；探针 finalizer 已清理自身残留。I2 删除假服务 CLI 演练副本的
+级联预检 trace，不改任何收据，缓存预检与完成验证仍通过。I3 0.6 秒 watchdog 接受了 sleep 0.61 的真实子进程，
+观察到约 0.763 秒返回成功。I4 实际 localhost HTTP 每 45 ms 分块输出，80 ms 预算在约 290–310 ms 后仍记成功；
+串行预检/预热也不在有界子进程中。
+
+本次尚不通过节点预检前的软件验收，建议 Claude 修 I1–I4 后复审，不扩实验矩阵。独立日志和探针保存在
+`.validation/upgrade-review-2026-11-08/`。未独立重跑 Claude 的 20 项 mutation，未运行 GPU 或模型、未修改
+实验源码/协议/冻结证据，未 merge/push。更新当前状态并新增审阅文档。
+
+## 2026-11-08：修复实现验收 I1–I4
+
+按 `docs/UPGRADE_IMPLEMENTATION_REVIEW_2026-11-08_ZH.md` 修复四项，旧冻结源码未改，协议升为 revision 3。
+I1 启动失败时按本次新写的 `last_services.json` 登记进程组，停止核验按 `ps` 清理本次部署启动的残留成员
+（SIGTERM 后 SIGKILL），`finished.json` 的停止确认成为单元完成条件。I2 统一的 `verify_preflight` 在复用、
+开始、完成和冻结时核对全部预检原始文件，token 收据绑定原始 tokenizer 报告。I3 子进程退出后再查时钟与
+allocation。I4 晚到的成功响应记 `deadline`，串行预检与预热进入有界子进程。
+
+新增回归测试覆盖：忽略 SIGTERM 的残留 worker、遗留记录不发信号、早于部署的组成员不发信号、停止未确认的
+单元重测、截止前写 receipt 而截止后退出、退出后时钟越界、慢分块 HTTP 的直接/保留前级/后级三条路径、
+路由跨越截止时间、串行阶段超时清理、前级无效 schema，以及演练产物上的预检证据篡改。`tests/test_upgrade_study.py`
+46 项，全仓 411 passed、11 skipped、64 subtests。注入错误在隔离副本上运行，36 处各自在对应断言处失败，逐项日志见
+`.validation/upgrade-fixes-2026-11-08/`。未运行模型或 GPU，未合并推送。

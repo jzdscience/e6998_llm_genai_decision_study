@@ -4,6 +4,12 @@ Both cascade stages share one monotonic deadline. The fallback receives only the
 budget left after the front call and routing; an exhausted budget is recorded as
 ``deadline`` without a fallback call, and a fallback failure is the request's
 failure. Each model call makes at most one HTTP attempt.
+
+A socket timeout does not bound a slowly streamed response, so every successful
+model response is checked against the deadline when it arrives. A response that
+arrives late keeps its stage record but makes the request ``deadline``; it is
+never counted as a success and never triggers a fallback call. The owned child
+process and its parent watchdog bound the stage as a whole.
 """
 import math
 import time
@@ -36,6 +42,10 @@ def _done(status, prediction, source, stages, *, deferred=False, route_record=No
             "deferred": deferred, "route": route_record, "stages": stages, "error": error, "budget_seconds": budget}
 
 
+def _late(role, stage, deadline_ms):
+    return {"type": "response_after_deadline", "role": role, "ended_ms": stage["ended_ms"], "deadline_ms": deadline_ms}
+
+
 def call(condition, endpoints, example, timeout, policy=None, *, mode="formal", client=ModelClient, clock=time.monotonic):
     """Return a run_cell-compatible result with every stage preserved."""
     if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not math.isfinite(timeout) or timeout <= 0:
@@ -45,6 +55,7 @@ def call(condition, endpoints, example, timeout, policy=None, *, mode="formal", 
     start = clock()
     deadline = start + timeout
     elapsed_ms = lambda: 1000 * (clock() - start)
+    late = lambda: clock() > deadline
 
     def invoke(role, budget):
         began = elapsed_ms()
@@ -55,6 +66,8 @@ def call(condition, endpoints, example, timeout, policy=None, *, mode="formal", 
         if mode != "formal":
             raise StudyError("Direct conditions have no fallback mode")
         result, stage = invoke(condition, timeout)
+        if result["status"] == "ok" and late():
+            return _done("deadline", None, None, [stage], budget=timeout, error=_late(condition, stage, 1000 * timeout))
         status = "ok" if result["status"] == "ok" else "error"
         return _done(status, result["prediction"], condition, [stage], budget=timeout,
                      error=None if status == "ok" else {"type": "model_call", "detail": result["error"]})
@@ -67,6 +80,10 @@ def call(condition, endpoints, example, timeout, policy=None, *, mode="formal", 
     stages = [front_stage]
     route_record = {"mode": mode, "family": (policy or {}).get("family"),
                     "threshold": ((policy or {}).get("decision") or {}).get("threshold")}
+    if front["status"] == "ok" and late():
+        route_record.update(reason="front_response_after_deadline", deferred=False, fallback_called=False)
+        return _done("deadline", None, None, stages, route_record=route_record, budget=timeout,
+                     error=_late("startlux4b", front_stage, 1000 * timeout))
     if mode == "formal" and front["status"] == "ok":
         # The service checkpoint was verified at startup; the response model name is
         # the interface ("startlux"), while the frozen router expects the role name.
@@ -83,6 +100,9 @@ def call(condition, endpoints, example, timeout, policy=None, *, mode="formal", 
                             reason="score_at_or_above_threshold" if deferred else "score_below_threshold")
         if not deferred:
             route_record["fallback_called"] = False
+            if late():
+                return _done("deadline", None, None, stages, route_record=route_record, budget=timeout,
+                             error=_late("startlux4b", front_stage, 1000 * timeout))
             return _done("ok", front["prediction"], "startlux4b", stages, route_record=route_record, budget=timeout)
     elif mode == "formal":
         route_record.update(score=None, deferred=True, reason="front_failure")
@@ -97,6 +117,9 @@ def call(condition, endpoints, example, timeout, policy=None, *, mode="formal", 
     back, back_stage = invoke("qwen9b", remaining)
     stages.append(back_stage)
     route_record["fallback_called"] = True
+    if back["status"] == "ok" and late():
+        return _done("deadline", None, None, stages, deferred=True, route_record=route_record, budget=timeout,
+                     error=_late("qwen9b", back_stage, 1000 * timeout))
     if mode == "both_models" and front["status"] != "ok":
         return _done("error", None, None, stages, deferred=True, route_record=route_record, budget=timeout,
                      error={"type": "model_call", "detail": front["error"]})

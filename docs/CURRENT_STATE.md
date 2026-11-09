@@ -2,6 +2,40 @@
 
 最后核对：2026-11-08，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+## 11/8：按实现交叉验收修复 I1–I4，待复审后定交付 SHA
+
+修复都在 `decision_study/upgrade_study/` 内，V1、V3、规模对照与既有服务模块的源码未改。协议升为 revision 3，
+Markdown 与 JSON 同步。
+
+1. I1：部署对每个角色记下启动前的 `last_services.json`，启动失败时只登记本次新写的记录（内容已变且
+   `started_at` 晚于本次启动）里的进程组。launcher 停组后，控制器用 `ps` 列出自有组里仍存活、且在本次部署
+   开始之后启动的成员，依次发 SIGTERM、SIGKILL；更早的组成员不发信号并使核验失败。单元以测量通过且
+   `finished.json` 的停止核验通过为完成条件；测完但停止未确认的单元保留证据，`--resume-interrupted` 时重测。
+2. I2：`verify_preflight` 在缓存复用、正式开始、单元完成与冻结时核对收据 schema、身份、两阶段原始文件哈希、
+   completion receipt 与重算汇总；token 收据绑定各角色原始 tokenizer 报告的路径、SHA、3,290 条覆盖和有效
+   配置哈希。
+3. I3：`_run_process` 以不超过截止时间的超时等待子进程退出，退出后再查时钟和 allocation；越界的
+   completion receipt 改名保留。
+4. I4：每个成功的模型响应到达时对照共同截止时间，晚到即记 `deadline`、保留 stage、不触发后级；90 条串行
+   预检和每单元预热改在自有子进程中运行，watchdog 为 90 × 30 秒加 5 秒。另按非阻断意见补了前级无效
+   schema 的真实 HTTP 测试。
+
+本机验证：`tests/test_upgrade_study.py` 46 项，全仓 411 passed、11 skipped、64 subtests。CLI 演练改用真实 token 绑定代码（只伪造
+V1 格式的 tokenizer 报告），并在演练产物上逐一删除或改动预检原始文件与 token 报告，缓存复用、正式开始、
+完成与冻结均拒绝。注入错误改在仓库的隔离副本上运行，36 处各自在对应断言处失败，逐项日志在
+`.validation/upgrade-fixes-2026-11-08/`。尚待 Codex 复审；之后确定交付 SHA、合并推送并做节点预检。
+
+## 11/8：9B 实现交叉验收发现四个故障边界，先修复再进节点
+
+独立检查 `9cb3274..65c57a9`。主测试 exit 0：395 passed、11 skipped、64 subtests，包含 30 个新测试。
+主体实现及科学口径可保留，但额外探针复现四个尚未覆盖的缺口：后级部分启动失败可能漏清理自有 worker；
+缓存预检 PASS 不验证所引用的原始文件；watchdog 截止后的成功退出可能被接受；慢分块 HTTP 可越过共同请求
+预算仍记成功，串行预检和 warmup 也没有子进程时限保护。
+
+具体复现、源码位置和验收要求见 [实现交叉验收](UPGRADE_IMPLEMENTATION_REVIEW_2026-11-08_ZH.md)。
+建议 Claude 先修 I1–I4 再交叉确认；目前未通过节点预检前的软件验收。原冻结源码/结果保持，未执行模型/GPU，
+没有 merge/push。本次只新增审阅记录、更新状态并追加日志；独立日志/探针位于 `.validation/upgrade-review-2026-11-08/`。
+
 ## 11/8：9B 服务研究按 U1–U5 修订并实现，待交叉验收与节点预检
 
 协议 Markdown 与 JSON 按[审核清单](UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md)同步修订为 revision 2。实现位于

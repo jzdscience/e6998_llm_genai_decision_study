@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "protocol": "anli-upgrade-service-v1",
-  "status": "revised_after_review_2026_11_08_pending_node_preflight",
+  "status": "revised_after_implementation_review_2026_11_08_pending_node_preflight",
   "seed": 6998,
   "task": "anli",
   "conditions": ["startlux4b", "startlux9b", "cascade"],
@@ -49,11 +49,11 @@
   "watchdog_grace_seconds": 5,
   "max_attempts_per_model_call": 1,
   "order": "For each repeat, rates in a seeded shuffled order; for each repeat and rate, the three conditions run consecutively in a seeded shuffled order",
-  "cell_isolation": "Fresh owned services and warmup for every cell; stop all owned process groups after each cell",
+  "cell_isolation": "Fresh owned services and warmup for every cell; after the launchers stop their groups, residual members that started after the deployment began are sent SIGTERM, then SIGKILL; older group members are never signalled and fail the stop verification. A cell is complete only with a verified measurement and a confirmed stop (services/<cell>/finished.json); a measured cell without one is kept unaccepted and measured again on resume",
   "feasibility_preflight": {
     "deployments": ["startlux4b", "startlux9b", "cascade"],
-    "token_check": "All 3,200 formal and 90 development inputs per role, no truncation, output budget reserved",
-    "serial_check": "90 development inputs; cascade calls both models per input",
+    "token_check": "All 3,200 formal and 90 development inputs per role, no truncation, output budget reserved; the receipt binds each role's raw V1 tokenizer report (path, SHA-256, coverage of all 3,290 inputs, effective configuration hash)",
+    "serial_check": "90 development inputs; cascade calls both models per input; owned child process with a parent watchdog of 90 x 30 s plus 5 s grace, as for each cell's warmup",
     "concurrent_check": {
       "inputs": "development",
       "rate_per_second": 10,
@@ -79,7 +79,8 @@
       "a failed health check after the concurrent check",
       "cascade: no overlap between the two engines' work, or any successful request not routed as preflight_forced_deferral through the fallback"
     ],
-    "no_tuning": "Preflight never compares goodput; a configuration change requires a new protocol revision and a new preflight"
+    "no_tuning": "Preflight never compares goodput; a configuration change requires a new protocol revision and a new preflight",
+    "evidence_verification": "Reuse of a cached PASS, the start of formal measurement, cell completion and the freeze all re-verify every preflight file behind the receipt and the raw token reports"
   },
   "primary_metric": "Correct goodput at the 500 ms SLO from actual returned labels over the 120 s window: median, min and max over 3 repeats per condition and rate",
   "comparisons": [
@@ -94,7 +95,7 @@
     "Capacity statements are limited to the tested rates and this client and vLLM configuration",
     "No dollar cost; resources reported as GPU budget, sampled memory and GPU time"
   ],
-  "revision": 2,
+  "revision": 3,
   "memory_estimates_gib": {
     "engine_visible_total": 44.39,
     "startlux4b_budget_at_0_40": 17.76,
@@ -106,5 +107,5 @@
     "basis": "Single-model 0.80 logs: StartLux-9B weights 16.8, KV 15.76, activation 2.57, graphs 0.24; Qwen-9B 16.8, 17.05, 1.27, 0.24 GiB",
     "status": "estimate_not_hardware_acceptance"
   },
-  "request_budget": "Each offer receives min(30 s, remaining drain) when a worker starts it; client queueing is outside this budget but inside the SLO. Cascade stages share one monotonic deadline; the fallback gets only the remaining budget; an exhausted budget is recorded as deadline without a fallback call; a fallback failure is a request failure. The parent watchdog bounds each cell."
+  "request_budget": "Each offer receives min(30 s, remaining drain) when a worker starts it; client queueing is outside this budget but inside the SLO. Cascade stages share one monotonic deadline; the fallback gets only the remaining budget; an exhausted budget is recorded as deadline without a fallback call; a fallback failure is a request failure. The parent watchdog bounds each cell. Every successful model response is checked against the shared deadline when it arrives; a late response keeps its stage record, makes the request a deadline, is never a success and never triggers a fallback. Each child-process stage has an absolute parent watchdog; a child that exits after it has its completion receipt kept as unaccepted."
 }
