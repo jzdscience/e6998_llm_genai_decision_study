@@ -466,7 +466,65 @@ def test_run_requires_passing_preflight_for_every_condition(completed_cell, monk
         study.run(c.out)
 
 
+def test_interrupted_attempt_is_preserved_and_needs_explicit_resume(completed_cell, monkeypatch):
+    c = completed_cell
+    monkeypatch.setattr(study, "settings", lambda output, check_source=False: c.config)
+    with pytest.raises(StudyError, match="completed or unsafe"):
+        study._attempt(c.out, c.cell, resume_interrupted=True)
+    (c.folder / "complete.json").unlink()  # the cell process died before writing its receipt
+    kept = {path.name: path.read_bytes() for path in c.folder.iterdir()}
+    with pytest.raises(StudyError, match="interrupted attempt exists"):
+        study.run(c.out)
+    with pytest.raises(StudyError, match="Interrupted attempt preserved"):
+        study._attempt(c.out, c.cell, resume_interrupted=False)
+    folder = study._attempt(c.out, c.cell, resume_interrupted=True)
+    assert folder.name == "attempt-0002"
+    assert {path.name: path.read_bytes() for path in c.folder.iterdir()} == kept
+    record = json.loads((folder / "attempt.json").read_text())
+    assert record["prior_interrupted_attempts"] == ["attempt-0001"] and record["explicit_resume_acknowledgment"] is True
+
+
+def test_pairing_flags_a_repeat_and_rate_split_across_allocations():
+    first, second = {"hostname": "n1", "slurm_job_id": "101"}, {"hostname": "n1", "slurm_job_id": "102"}
+    cells = [{"repeat": 0, "rate": 10, "allocation": first}, {"repeat": 0, "rate": 10, "allocation": first},
+             {"repeat": 0, "rate": 10, "allocation": second}, {"repeat": 1, "rate": 10, "allocation": second},
+             {"repeat": 1, "rate": 10, "allocation": second}, {"repeat": 1, "rate": 10, "allocation": second}]
+    assert study.pairing_same_allocation(cells) == {"r0-rate10": False, "r1-rate10": True}
+
+
 # ---------------------------------------------------------------- end-to-end rehearsal with fake model services
+
+@pytest.mark.skipif(not all(d.is_dir() for d in (V1_DIR, V3_DIR, SIZE_DIR)),
+                    reason="Needs the audited V1, V3 and size-control returns")
+def test_allocation_renewal_needs_a_different_job_and_never_extends(tmp_path, monkeypatch):
+    real_plans = runtime.plans
+    monkeypatch.setattr(runtime, "plans", lambda *a, **k: real_plans(*a, **{**k, "check_snapshots": False}))
+    out = tmp_path / "study"
+
+    def initialize(job, hours, **kwargs):
+        monkeypatch.setenv("SLURM_JOB_ID", job)
+        began = time.time()
+        session = runtime.initialize(V1_DIR, V3_DIR, SIZE_DIR, out, hours, **kwargs)["session"]
+        return session, began
+
+    first, began = initialize("job-1", 2)
+    assert abs(first["deadline_epoch"] - (began + 2 * 3600)) < 60
+    again, _ = initialize("job-1", 5)  # the same allocation cannot be extended
+    assert again["deadline_epoch"] == first["deadline_epoch"]
+    with pytest.raises(StudyError, match="Cannot renew the same allocation"):
+        initialize("job-1", 1, new_allocation=True)
+    with pytest.raises(StudyError, match="different Slurm job"):
+        initialize("job-2", 3)
+    renewed, began = initialize("job-2", 3, new_allocation=True)
+    assert renewed["allocation"]["slurm_job_id"] == "job-2" and abs(renewed["deadline_epoch"] - (began + 3 * 3600)) < 60
+    assert [json.loads(path.read_text()) for path in (out / "runtime/session-history").glob("*.json")] == [first]
+    for role in identity.ROLES:
+        assert json.loads((runtime.control_root(out, role) / "runtime/session.json").read_text()) == renewed
+    assert runtime.validate(out)[2] == renewed
+    monkeypatch.setenv("SLURM_JOB_ID", "job-1")
+    with pytest.raises(StudyError, match="differs"):
+        runtime.check_time(out)
+
 
 class AnswerEverything(BaseHTTPRequestHandler):
     def log_message(self, *args):
@@ -560,6 +618,7 @@ def test_end_to_end_rehearsal_through_the_cli(tmp_path, monkeypatch):
             assert cell["primary"]["offered"] == cell["secondary"]["offered"] > 0
             assert cell["details"]["history"]["successful_responses"] == cell["primary"]["successful"]
         assert set(evaluation["historical_full_pool_accuracy"]) == set(identity.CONDITIONS)
+        assert evaluation["pairing_same_allocation"] == {"r0-rate5": True}
         # One preflight deployment per condition plus one fresh deployment per cell; all stopped.
         assert len(fake.state["launched"]) == 2 * (2 + 2) and not fake.lister()
         finished = sorted(out.glob("services/*/finished.json"))

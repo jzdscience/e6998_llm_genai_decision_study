@@ -99,11 +99,11 @@ OUT=/home/zhanj289/e6998/decision-study/results/aux-anli-upgrade-service-v1
 
 11/8 在没有 GPU 的 Mac 上：
 
-1. `tests/test_upgrade_study.py` 的单元测试覆盖政策重放、共同预算、服务清理、计划、指标、恢复核验和
-   gold 读取时机。
+1. `tests/test_upgrade_study.py` 的单元测试覆盖政策重放、共同预算、服务清理、计划、指标、恢复核验、
+   中断尝试的保留、跨 allocation 配对的报告、allocation 续期和 gold 读取时机。
 2. 一次 CLI 全流程演练在真实 V1/V3/规模对照证据上依次执行 `prepare`、`init-runtime`、`preflight`、
    `start` 和第二次 `start`。替换的部分只有 GPU launcher、nvidia-smi、硬件 doctor、CUDA 工具链检查、
    tokenizer、模型服务和旧环境作用域；日程缩短为每种部署一个 2 秒单元。
-3. 13 处注入错误都被对应测试发现。
+3. 19 处注入错误都被对应测试发现。
 
 0.50 单模型和 0.40 + 0.50 同驻留能否启动、KV 容量是否够用、真实延迟多少，要由节点预检和正式测量回答。

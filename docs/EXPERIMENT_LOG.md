@@ -454,3 +454,11 @@ preflight、run、freeze、evaluate、export；`cli` 处理命令与 SIGTERM/SIG
 
 用户把 GitHub 仓库改回 public，匿名 API 查询返回 `private: false`；GitHub 上只有 `main`（`c938300`），
 review 分支仍在本机。运行文档删去 bundle 一节，节点照 NODE_GIT_ZH.md 用 HTTPS fetch 更新到交付的 SHA。
+
+## 2026-11-08：补齐验收清单第 5、6 项的测试
+
+对照审核清单补三项测试：中断的单元尝试原样保留，`run` 与 `_attempt` 都要求显式 `--resume-interrupted`；
+同一 repeat/rate 的配对单元跨 allocation 时评价报告 `false`（计算抽成 `pairing_same_allocation`，输出不变）；
+allocation 续期在同一 job 内不能延长 deadline，换 job 必须带 `--new-allocation`，旧 session 进入
+session-history。`tests/test_upgrade_study.py` 30 项，全仓 395 passed、11 skipped、64 subtests；
+注入错误增至 19 处，全部被发现。

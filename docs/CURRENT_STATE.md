@@ -8,10 +8,10 @@
 `decision_study/upgrade_study/`，单命令入口为 `scripts/run_upgrade_study.sh`，节点步骤见
 [RUN_UPGRADE_STUDY_ZH.md](RUN_UPGRADE_STUDY_ZH.md)。errata 第 26 行已改为“没有客户端拒绝或晚返回”。
 
-在本机（无 GPU）上，`tests/test_upgrade_study.py` 27 项通过，全仓 392 passed、11 skipped、64 subtests。
+在本机（无 GPU）上，`tests/test_upgrade_study.py` 30 项通过，全仓 395 passed、11 skipped、64 subtests。
 其中一次 CLI 全流程演练在真实 V1/V3/规模对照证据上依次执行 prepare、init-runtime、preflight、start 和
 第二次 start，只替换 GPU launcher、nvidia-smi、硬件 doctor、CUDA 工具链检查、tokenizer、模型服务和旧环境
-作用域。13 处注入错误都被对应测试发现。真实证据上的 dry run 得到 36 个单元、162,801 个计划 offer，
+作用域。19 处注入错误都被对应测试发现。真实证据上的 dry run 得到 36 个单元、162,801 个计划 offer，
 历史重放 766/743 次转交。
 
 为演练设计注入错误时发现，级联预检的转交标签按条件名写入，请求即使没走强制转交也会记成

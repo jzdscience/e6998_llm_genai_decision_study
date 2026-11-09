@@ -417,6 +417,14 @@ def freeze(output_dir):
     return value
 
 
+def pairing_same_allocation(scored):
+    """For each repeat and rate, whether its paired cells all ran in one Slurm allocation."""
+    groups = defaultdict(set)
+    for cell in scored:
+        groups[f"r{cell['repeat']}-rate{cell['rate']}"].add(fingerprint(cell["allocation"]))
+    return {key: len(value) == 1 for key, value in groups.items()}
+
+
 def historical_label(history, condition, sid):
     if condition == "cascade":
         local = history["startlux4b"][sid]
@@ -531,7 +539,7 @@ def evaluate(output_dir):
         raise StudyError("ANLI gold identity mismatch")
     gold = read_json(gold_path)
     history = read_json(output / "history.json")
-    scored, allocations, labels = [], defaultdict(set), defaultdict(lambda: defaultdict(set))
+    scored, labels = [], defaultdict(lambda: defaultdict(set))
     for cell in config["order"]:
         folder, _ = completed(output, config, cell)
         rows = read_jsonl(folder / "traces.jsonl")
@@ -549,7 +557,6 @@ def evaluate(output_dir):
                        "service_roles": [{k: r.get(k) for k in ("role", "memory_fraction", "startup_seconds", "engine_log")}
                                          for r in start["deployment"]["roles"]],
                        "allocation": plan["allocation"], "attempt": str(folder.relative_to(output))})
-        allocations[f"r{cell['repeat']}-rate{cell['rate']}"].add(fingerprint(plan["allocation"]))
     full_pool = {}
     ids = list(gold)
     for condition in p["conditions"]:
@@ -561,7 +568,7 @@ def evaluate(output_dir):
              "historical_full_pool_accuracy": full_pool,
              "label_variability": {condition: {"inputs_with_more_than_one_live_label": sum(len(v) > 1 for v in by_id.values()),
                                                "inputs_seen": len(by_id)} for condition, by_id in labels.items()},
-             "pairing_same_allocation": {key: len(value) == 1 for key, value in allocations.items()},
+             "pairing_same_allocation": pairing_same_allocation(scored),
              "interpretation": ["Quality is retrospective on the ANLI test already evaluated in V3",
                                 "The three deployments differ in total GPU budget and compute; no causal attribution",
                                 "Three repeats describe service variability; no significance test",
