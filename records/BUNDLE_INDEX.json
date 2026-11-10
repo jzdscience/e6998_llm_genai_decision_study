@@ -488,6 +488,31 @@
       },
       "review": "pending Codex review of the preflight evidence",
       "note": "Development preflight only. 4B at 0.40: KV 8.05 GiB, 310/310 within 500 ms (p95 99.5 ms). 9B at 0.50: KV 2.93 GiB (78,039 tokens), 310/310 within 500 ms (p95 99.0 ms). Cascade with forced deferral, 4B 0.40 + Qwen-9B 0.50 co-resident (17.7 + 20.7 GiB in use): 310/310 answered, 69 within 500 ms, p50 624.6 ms, p95 969.1 ms, engine overlap 148 s; Qwen KV 2.93 GiB. All stops clean, no residual processes. No formal cells, freeze or evaluation."
+    },
+    {
+      "id": "upgrade-formal-20261109-180806",
+      "archive": "records/bundles/upgrade-formal-20261109-9baeca3eb7f8.zip",
+      "sha256": "9baeca3eb7f84a86fdc1f63bc16114c1a91c756bbefe323840152d7901f91be7",
+      "bytes": 50468712,
+      "measured_utc": "2026-11-09T15:29:51Z to 2026-11-09T18:07:48Z",
+      "gold_access_utc": "2026-11-09T18:08:06.737957+00:00",
+      "bundle_kind": "anli-upgrade-service-v1",
+      "protocol_revision": 4,
+      "output": "results/aux-anli-upgrade-service-v1-r2",
+      "verified_file_count": 731,
+      "original_filename": "upgrade_study_bundle.zip",
+      "reported_state": "complete",
+      "reported_state_source": "evaluation.json",
+      "verified_state": "complete_36_cells_verified_and_rescored",
+      "integrity_validation": "731 unique safe members, CRC ok, archival SHA re-checked; repo verifiers at 7c81947: settings, three preflight receipts, all 36 cells (raw traces, warmup stages, service records with the engine limit, confirmed stops), freeze and evaluation identity; independent re-score of every cell from raw traces with the sealed gold equals evaluation.json, including summaries and full-pool accuracy",
+      "source_commit": "7c81947d8ed51b18ace9ba8ae0dad0476c9b6b19",
+      "allocation": {
+        "hostname": "sc1ns055is14",
+        "slurm_job_id": "1224376"
+      },
+      "completed_cells": 36,
+      "review": "pending Codex audit of the formal results",
+      "note": "Retrospective ANLI test. Highest rate with >=99% timely success in all repeats: 500 ms 4B 40, 9B 20, cascade none; 1000 ms 4B 40, 9B 40, cascade 10. Median correct goodput/s at 500 ms (10/20/40/80 req/s): 4B 7.26/14.85/29.96/38.26, 9B 7.47/15.33/30.75/0.29, cascade 6.95/12.76/0.37/0.15. Live cascade deferral 23.3-24.7%, route agreement with history 99.0-99.5%. Only non-ok status anywhere is client_rejected under overload. One transient ~3.7 s client-side stall in r0-startlux4b-rate20 (96.9% timely), kept as measured."
     }
   ],
   "copied_from_project_root": "/Users/zhanj289/Documents/ChatGPT/COMS6998/decision-study",
