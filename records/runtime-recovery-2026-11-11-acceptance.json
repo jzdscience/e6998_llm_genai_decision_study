@@ -1,0 +1,99 @@
+{
+  "record": "runtime-recovery-2026-11-11",
+  "status": "ACCEPTED_FOR_NODE_RECOVERY_ATTEMPT",
+  "accepted_at": "2026-11-11T10:07:26.161337+00:00",
+  "base_and_required_matrix_commit": "4b4e38ab9c040fe7eb02ae5075e87c595399d980",
+  "release_branch": "runtime-recovery-2026-11-11",
+  "implementation": {
+    "agent": "Claude Code",
+    "model": "claude-opus-5-5",
+    "effort": "max",
+    "session": "d271bc95-acae-4125-b90c-46e4b200b3cc"
+  },
+  "independent_acceptance": "Codex: code review, real archive verification, five process/filesystem probes, focused suite and two additional causal mutation checks",
+  "scope": "Restore only dependencies required by direct-matrix-v1 after deletion of solo-v1/runtime and solo-v3/runtime-work; preserve matrix checkout and historical evidence.",
+  "files_sha256": {
+    "scripts/recover_node_runtime.py": "c1d6118f8c5c757ef703f950bd536daa284528718ee18d679441e25213cb0e52",
+    "configs/runtime_recovery_2026_11_11_pins.json": "7f3e27c095ead75991eef9a822695d211bb7fe649506687bead57806810c4e56",
+    "tests/test_recover_node_runtime.py": "a8b0e1566f29efe696be26bcfaed3a985e96f1053497291f88d96b9222d8ee67",
+    "tests/recover_node_runtime_fakes.py": "1254cb0155c9b4fab06caf600a79297b3222786dd16fe25b87ee9d17fd91308b",
+    "tests/recover_node_runtime_runner.py": "bbd3a63f8a912d96ffd55eb0f2d02811c4a17b5cd13fc94cbe14622ce8031e38",
+    "tests/test_recover_node_runtime_acceptance.py": "c2f12f41a1f13323dd60d11bdf35595f312dc8de577d7d1192d7485da3b72337",
+    "docs/RECOVER_NODE_RUNTIME_ZH.md": "6a1ecc8d0e2b9ade0962115db1d18a45c5e23f8f6d0c13f624621d0ff0d18870"
+  },
+  "evidence_archives": {
+    "size": {
+      "archive": "records/bundles/size-control-complete-20261106-f427f7762bac.zip",
+      "bytes": 4984446,
+      "sha256": "f427f7762bac745d9316cb02195c09f98ab551794de1da047509be7f9fe7d1ed"
+    },
+    "v1": {
+      "archive": "records/bundles/benchmark-complete-20261102-210735-72138989815c.zip",
+      "bytes": 21207174,
+      "sha256": "72138989815c042223cf990517bb32306aec692fe3278055e40d88571fd1f4e8"
+    },
+    "v3": {
+      "archive": "records/bundles/v3-return-20261103-232529-a8d0dc672d83.zip",
+      "bytes": 14454072,
+      "sha256": "a8d0dc672d83c3edcb85d005e66fa4b3d000132729f98f0beaab6865dfc57a9e"
+    }
+  },
+  "preservation": {
+    "existing_tracked_files_checked": 401,
+    "changed_or_missing": []
+  },
+  "tests": {
+    "passed": 43,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log_sha256": "3c324fbfae5d117e02204597f003f91b52521cbf3fe6a6bed119fb570d37227d",
+    "files_stable_during_run": true
+  },
+  "review_findings": {
+    "R1": "closed: bounded reap",
+    "R2": "closed: cleanup, queued signals, terminal stop uncertainty",
+    "R3": "closed: toolkit errors propagate",
+    "R4": "closed: source identity and preserved attempts",
+    "R5": "closed: verified pins bind actual state API",
+    "R6": "closed: metadata checks gate derived operations"
+  },
+  "mutation_checks": {
+    "isolated_mutants_detected": 21,
+    "summary_sha256": "7978b47fc2b2f049c028ddb25334f293b304b6bf40be49b965a038285d6e2b6a",
+    "additional_causal_checks": [
+      {
+        "mutant": "R6-execute-phase-gate-dropped",
+        "exit_code": 1,
+        "reasons": [
+          "E       AssertionError: metadata drift reached an installer or metadata-derived program",
+          "E       assert [{'tool': 'uv...e, ...}}, ...] == []",
+          "E",
+          "E         Left contains 14 more items, first extra item: {'tool': 'uv', 'args': ['--no-config', 'venv', '--managed-python', '--python', '3.12.8', '--seed', ...], 'cwd': '/priv...est-of-zhanj289/pytest-389/test_tampered_metadata_annotat0/decision-study/results/solo-v1/runtime/work/cache/uv', ...}}",
+          "E         Use -v to get more diff"
+        ]
+      },
+      {
+        "mutant": "tmpdir-unchecked",
+        "exit_code": 1,
+        "reasons": [
+          "E       AssertionError: verify created content inside the protected runtime root",
+          "E       assert ['decision_st...us.json', ...] == ['decision_st...us.json', ...]",
+          "E",
+          "E         Left contains one more item: 'results/tmp-for-verify/recover-node-runtime-verify-1zgy1b4p'",
+          "E         Use -v to get more diff"
+        ]
+      }
+    ]
+  },
+  "node_execution": "NOT_RUN: successful installation, downloads, toolkit equality, real plans(), Linux process enumeration and GPU/model preflight remain unverified on the node.",
+  "limitations": [
+    "Rehearsal fakes uv, environment interpreter, pip payloads and Hugging Face downloads; two absolute-path-bound model/plans checks are stubbed for its success path and explicitly rejected in its real-check path.",
+    "Only required matrix environments and weights are restored; original StartLux-4B, Qwen-4B and startlux-reference environment remain absent.",
+    "Runtime READY means file and recorded identity checks pass; GPU behavior is a separate preflight.",
+    "Original Python version and package freeze identities are available; exact managed Python build identity was not archived.",
+    "Installers can write normal OS temporary files and user caches; no filesystem sandbox is claimed.",
+    "Process supervision covers the owned process group, not descendants that leave it. Frozen settings() also uses read-only git checks outside the recovery supervisor.",
+    "Disk estimates do not detect filesystem quotas; registry and pinned revision availability require node verification."
+  ]
+}

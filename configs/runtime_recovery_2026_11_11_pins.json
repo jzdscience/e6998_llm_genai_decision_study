@@ -1,0 +1,493 @@
+{
+ "derived_from": {
+  "size": {
+   "archive": "records/bundles/size-control-complete-20261106-f427f7762bac.zip",
+   "bytes": 4984446,
+   "sha256": "f427f7762bac745d9316cb02195c09f98ab551794de1da047509be7f9fe7d1ed"
+  },
+  "v1": {
+   "archive": "records/bundles/benchmark-complete-20261102-210735-72138989815c.zip",
+   "bytes": 21207174,
+   "sha256": "72138989815c042223cf990517bb32306aec692fe3278055e40d88571fd1f4e8"
+  },
+  "v3": {
+   "archive": "records/bundles/v3-return-20261103-232529-a8d0dc672d83.zip",
+   "bytes": 14454072,
+   "sha256": "a8d0dc672d83c3edcb85d005e66fa4b3d000132729f98f0beaab6865dfc57a9e"
+  }
+ },
+ "matrix_files": {
+  "configs/cuda_build_toolkit_13_0_flashinfer.txt": "5fd9773bdc8bacad2e5ba2a1ee6e7687526d0c490339bfc911a2b3cab97a60b0",
+  "configs/direct_matrix_protocol.json": "655aa727dba7650c52a1c77e23d5f611a37f2835ef50d672068fb3e1d7f08d98",
+  "configs/runtime_defaults.json": "861e88b8c1f7b0174d17f65f2a69764bc2ce7b980bd5e2bdeac2358c74f2a9e2",
+  "configs/size_control_protocol.json": "b3412d947ec7413d9ca8f2f2d23558c320904a7add54771abb3a3495bd86224e",
+  "decision_study/common.py": "47b3192632789f830da69b7c3a43c0d2ad0dba2a25a5edb00183945e5176cd95",
+  "decision_study/direct_matrix/data.py": "c2306681fd2306e1a579764f17f053ffddc24fcd391cadafadf092d8c68fad23",
+  "decision_study/direct_matrix/identity.py": "af454f020c4aecb00eb74850b39f0af8c91b5bbf475b3491ad384153051a40d7",
+  "decision_study/direct_matrix/runtime.py": "84dcceec6fb4ba14d3f108fd4cccc881b0cc0c6421c6a5b6fd183e4c87834c33",
+  "decision_study/direct_matrix/study.py": "ab556fb149eebee51b338d74b2d96ffcf0ffef3310716b69b2f989fbc2679e27",
+  "decision_study/runtime.py": "3d1295e5e7cf5ea0c80c475016b2159fd1a1ae6974587ff08af7467a97509c5e",
+  "decision_study/runtime_compat.py": "45d335c6d68321b7a58ba75b872947a6c133978d32c27852ba3cb9442595491e",
+  "decision_study/size_control/runtime.py": "61ad03f195dc54f1dc72b9e179f4863edf82542d6e3d775dcb2af194ce029f7b",
+  "decision_study/upgrade_study/runtime.py": "00937ab791f9a3c434bd5768171447afb9b630631996d0383658b6e8ab022cfb",
+  "decision_study/v3/runtime.py": "dbb301bd5f9ab9e1fda0386194fd7dc8510b0c64367f83301b41d4f37f2e7ad3",
+  "scripts/model_probe.py": "e29b455f750b1f349599dd061fad6421fd667a65572100a26489c92709948ed1",
+  "scripts/prepare_cuda_toolkit.py": "0a5f3eacb3be762d7b18699ed201d39708fde00f1f2a4ca14f23e0a0e4979c24",
+  "scripts/run_direct_matrix.sh": "6e8c3eae6cb9b5f73b066bc529c9cd754459f929e78272e44d5a6df8e8128f59"
+ },
+ "size_controls": {
+  "runtime-controls/startlux9b/runtime/installations.json": "5e159b509165ca388cb2e3711dd0667b2e4939be26ef77d40b60df186955a24a",
+  "runtime-controls/startlux9b/runtime/lock.json": "da9a37ad2440e21b60a8cbcfe622bcdd6b5f04b660c0e12968e4a3b390bac857",
+  "runtime/binding.json": "3b00011b189b8cceaca2fd9e99fec9e4185efa0cd3d639e4c08c18442592ff8a"
+ },
+ "v1_not_restored": {
+  "runtime/last_services.json": {
+   "sha256": "c48b5706b37ee94ae83199a0262465d0f410af1fb8cc5b9e90ed8af21c845f1e",
+   "size": 7132
+  },
+  "runtime/session.json": {
+   "sha256": "aec08cf6fb6e8e27f1cb146940ab297f1d8cf0dba40fe91f78203b4fea05043f",
+   "size": 266
+  }
+ },
+ "v1_runtime_members": {
+  "runtime/cuda-toolchain-1793604486293663067.json": {
+   "sha256": "1ba3875d7ccf7776272b9a9f345af2680ac2bb39ca347af5148bc321d00b3319",
+   "size": 40803
+  },
+  "runtime/cuda-toolchain-1793606174948841258.json": {
+   "sha256": "d465635277e8781190505dbbc8300df924ae6c3ebc70b6fc88fd5897939d62d0",
+   "size": 32195
+  },
+  "runtime/cuda-toolchain-1793631770740191775.json": {
+   "sha256": "1d0e37fb8c7d5ca28525d875dae403d58a8c09b34a32f34b22228ed2739b18da",
+   "size": 6552
+  },
+  "runtime/cuda-toolchain-1793641820315093790.json": {
+   "sha256": "bb740939457c7730d333c5ede8f3a4f9321872b471eaf5e2bb8e5f1efac37252",
+   "size": 6552
+  },
+  "runtime/cuda-toolchain-1793642406462175981.json": {
+   "sha256": "6bdccefc1135c31f9c054f44396c000ef64e43ada01b294d3e2c9a199a3ca2bd",
+   "size": 6552
+  },
+  "runtime/cuda-toolchain-1793650332085549754.json": {
+   "sha256": "95c1ea541d5a204d8a7868d99037decb5c44a34e107d2a06b8df2f9b7558ebdd",
+   "size": 6552
+  },
+  "runtime/cuda-toolkit-setup-1793606174948841258.json": {
+   "sha256": "7d9267b923413a7c701454bc15208ab6e864f3754eda8bae1ac6576916a6ad70",
+   "size": 2401
+  },
+  "runtime/cuda-toolkit-setup-1793631770740191775.json": {
+   "sha256": "dbb0dff502dfee50dc3c7f43624fcbd7910c7a6f720f22532d082a2a5379ea0b",
+   "size": 2802
+  },
+  "runtime/cuda-toolkit-setup-1793641820315093790.json": {
+   "sha256": "822fa358c8bf86265521efdecfc50290b1438ce82b60b77ccf35ae73f1ddf9bd",
+   "size": 2801
+  },
+  "runtime/cuda-toolkit-setup-1793642406462175981.json": {
+   "sha256": "822fa358c8bf86265521efdecfc50290b1438ce82b60b77ccf35ae73f1ddf9bd",
+   "size": 2801
+  },
+  "runtime/cuda-toolkit-setup-1793650332085549754.json": {
+   "sha256": "822fa358c8bf86265521efdecfc50290b1438ce82b60b77ccf35ae73f1ddf9bd",
+   "size": 2801
+  },
+  "runtime/doctor.json": {
+   "sha256": "e95b83191feefd500f9e570017a490af7c05e287341389c6c15eaa6f982ca296",
+   "size": 565
+  },
+  "runtime/download-kev.json": {
+   "sha256": "930173ea43509d810633a77b30720d43e0ebba32253535b6462fc5b4240880a5",
+   "size": 556
+  },
+  "runtime/download-qwen.json": {
+   "sha256": "f12ac4ded8304c9b833a6939162d42e3f9ac4ba966db7fa77667dd5e97ff1cae",
+   "size": 338
+  },
+  "runtime/download-startlux.json": {
+   "sha256": "ca2680da129d71f9865cd0abd727163b8c3fc905216f22bd5ea18486ebe4c5d8",
+   "size": 378
+  },
+  "runtime/gpu-check-kev.json": {
+   "sha256": "cc67b22d459639c58c03c9f1e0f31e7b97441b3b78ed7a48b59c5dc4bc443f90",
+   "size": 855
+  },
+  "runtime/gpu-check-startlux-reference-deps.json": {
+   "sha256": "f5fee8f6b2d5dbe82052e1e72acf4969b4932d9d82b8f0acd2d3b85526664d05",
+   "size": 850
+  },
+  "runtime/gpu-check-startlux-reference.json": {
+   "sha256": "f5fee8f6b2d5dbe82052e1e72acf4969b4932d9d82b8f0acd2d3b85526664d05",
+   "size": 850
+  },
+  "runtime/gpu-check-vllm-0.31.0.json": {
+   "sha256": "4c972b9002931cfe24cffddbe72d5789de1ba05d7f6f696d22354c9b312566ef",
+   "size": 855
+  },
+  "runtime/installations.json": {
+   "sha256": "67081b84ae4c2717878f0a1b07d149e6044029b59ff8204b32d00b5848f648bc",
+   "size": 5738
+  },
+  "runtime/lock.json": {
+   "sha256": "ab0335647cfa181e5a3beeefa90be9b08e2359a9ffab26109ca9b6f8cb6a7225",
+   "size": 2413
+  },
+  "runtime/logs/cuda-toolchain-1793604486293663067.log": {
+   "sha256": "4e3898b99f583fb75963501ba65ef03e21262d2e2bb186270dcb1d036ef02887",
+   "size": 20220
+  },
+  "runtime/logs/cuda-toolchain-1793606174948841258.log": {
+   "sha256": "d8c6ec701b94125a5fe6790b79db423ff332b1766624cfe03d8bea5787aad534",
+   "size": 21064
+  },
+  "runtime/logs/cuda-toolchain-1793631770740191775.log": {
+   "sha256": "02ea220808e2cc8203d8b085c44eadf789d21ca4078302707c366ec2c163d87a",
+   "size": 7019
+  },
+  "runtime/logs/cuda-toolchain-1793641820315093790.log": {
+   "sha256": "b62b5e0c14588310c2794704b63ccbfd7f7782fd95785dc0ac611a870e6533a0",
+   "size": 3738
+  },
+  "runtime/logs/cuda-toolchain-1793642406462175981.log": {
+   "sha256": "f1c295042e92695038408188abd3dc7c52e48d4ccd1260621110fe24dd754bc2",
+   "size": 3738
+  },
+  "runtime/logs/cuda-toolchain-1793650332085549754.log": {
+   "sha256": "f08551b69b723c01db62f0f4044af1782d27326e455caeccb1ec4feaabe1720c",
+   "size": 3738
+  },
+  "runtime/logs/downloads.log": {
+   "sha256": "1d2a176768fce642d4663e0ac39195d457e0a751984256bfd3ee1317cce4edd2",
+   "size": 10650
+  },
+  "runtime/logs/environment-check.log": {
+   "sha256": "806f25237369e843df9284423e316ef2d4e2c628fdd54d590af264824804229e",
+   "size": 373149
+  },
+  "runtime/logs/gpu-check-kev.log": {
+   "sha256": "19f07b9c9fa60d73b6849e44a60f2bdf967e1d943829bee05a11853632e81e57",
+   "size": 1780
+  },
+  "runtime/logs/gpu-check-startlux-reference.log": {
+   "sha256": "b056498719543ffdc4eca3aa57dda336c2370d3d9a27549b63b3960dfdf0aec3",
+   "size": 2737
+  },
+  "runtime/logs/gpu-check-vllm-0.31.0.log": {
+   "sha256": "0ffb4351460cd929e2476cacc54411cd46f18299a7ccf2eb9b136b045db45192",
+   "size": 4524
+  },
+  "runtime/logs/install.log": {
+   "sha256": "310aef611e883361aaefd460dc1a3d39e451c3a4f51bd273399dd9aefaf1e7ec",
+   "size": 61575
+  },
+  "runtime/logs/kev-1793391527972336654.log": {
+   "sha256": "58202ada468aef217216008d75838f1b0836e008d0fd441646ba730105f1053a",
+   "size": 9311
+  },
+  "runtime/logs/kev-1793407884924085710.log": {
+   "sha256": "41d717fa54f087995e652b930d7e5a33547db672f0010c1be82e55d9e681ee4f",
+   "size": 9311
+  },
+  "runtime/logs/kev-1793407928773499867.log": {
+   "sha256": "27f7ab4bcad4f6fafec1487b6a27c2c890c245c623afe8919445d5cd1ab3c152",
+   "size": 9311
+  },
+  "runtime/logs/kev-1793407970804494901.log": {
+   "sha256": "e130144dce49387b83d2396cbb0c3f7c5cb797540f533dc6e0b2d0eb85ec429b",
+   "size": 407241
+  },
+  "runtime/logs/kev-1793650501840771133.log": {
+   "sha256": "8d3bad6018bac3577900a3e867c840757bc8a06d298ccbe60f303278baca15b4",
+   "size": 10969
+  },
+  "runtime/logs/kev-1793650779804382378.log": {
+   "sha256": "6a3299d7f7398488312203684c03ba531b130d3acae5aa6bd8601bfef2d644f9",
+   "size": 9311
+  },
+  "runtime/logs/kev-1793651011298896013.log": {
+   "sha256": "088f894ca869dd28ffd54422c4d3f111ea0dd49273337ca66efdf826471a292d",
+   "size": 997311
+  },
+  "runtime/logs/kev-1793652477848646672.log": {
+   "sha256": "3aa3205f4391329bb55b99bff5bfbef8124eb266e0916be4da1cda1cdaae4ac5",
+   "size": 438311
+  },
+  "runtime/logs/python-headers-kev.log": {
+   "sha256": "1ccf974c99b88e04dad003c642617edd4e6fa32e825567066f3cb1554e2d90eb",
+   "size": 6048
+  },
+  "runtime/logs/python-headers-startlux-reference.log": {
+   "sha256": "630139becbce5c22fb1ba211d88823f0d743cdbfaff61fa2fdf97ec58a21dcbc",
+   "size": 9352
+  },
+  "runtime/logs/python-headers-vllm-0.31.0.log": {
+   "sha256": "36d9829406eebec19ddde2ac0fe6ef43a1e382548258a3ee24347bd9cfefa084",
+   "size": 15015
+  },
+  "runtime/logs/qwen-engine-1793581376926487327.log": {
+   "sha256": "b1ed46bfa2ca2f8a4ee8c3aa8f0ff3bbe5e51a115d8bcec329125989f6566831",
+   "size": 47620
+  },
+  "runtime/logs/qwen-engine-1793602308827803883.log": {
+   "sha256": "f9bdfcff13018c2b99f697a872bf5407c87b4ecf839c32e5fb13fdbdabef0d4d",
+   "size": 79202
+  },
+  "runtime/logs/qwen-engine-1793631931929969536.log": {
+   "sha256": "a9a4854d54c0a4ab5b50f5ebb881fa51c4afd0e36fb2b6938d29390fc223917e",
+   "size": 36158
+  },
+  "runtime/logs/qwen-engine-1793632139221207104.log": {
+   "sha256": "a4aa987e6b004b60ca540ab95d11e175c81c7a7040ffcff769ddd998fab15125",
+   "size": 34872
+  },
+  "runtime/logs/qwen-engine-1793642433174197978.log": {
+   "sha256": "7012b554c4545da77fad3fda51f5d0eeaef94b126562ca5224089bdde42be9b9",
+   "size": 46505
+  },
+  "runtime/logs/qwen-engine-1793650699915830099.log": {
+   "sha256": "b92e41a4612b1d7f6b9e9569e0bf0694ef37a79d822088cab512217e778f5f9d",
+   "size": 35152
+  },
+  "runtime/logs/qwen-engine-1793650799218620878.log": {
+   "sha256": "dcdbcb889e55cf3d1b9f70b39b5ac00a36a86912a75ce4d9b235474623005d26",
+   "size": 36463
+  },
+  "runtime/logs/qwen-engine-1793650943916006436.log": {
+   "sha256": "2350183b0d41575b8bcc9b265ec970d2849517f0cbb2750d1c90494d0b6ac2d0",
+   "size": 35052
+  },
+  "runtime/logs/qwen-engine-1793651879046370552.log": {
+   "sha256": "cbb3a202d48c04399fce7f662a346b3085e7de4c583c0332d8cb618592d288f3",
+   "size": 47795
+  },
+  "runtime/logs/qwen-engine-1793652499294118999.log": {
+   "sha256": "69d033d451332907f3d90997d5668becb0f927bf3b125f0a8b2fdc750a1ad46c",
+   "size": 46240
+  },
+  "runtime/logs/qwen-engine-1793653106418357664.log": {
+   "sha256": "19fc3223928ad797cd3fdb03d33105e3e0ef09a3855c11a8236fa6f9ce2bcc70",
+   "size": 44655
+  },
+  "runtime/logs/reference-kev.log": {
+   "sha256": "d9150633e481f5d7dd3f8141e7d06c0534780858b7f1ace4679cb4d7960865ff",
+   "size": 19085
+  },
+  "runtime/logs/reference-startlux.log": {
+   "sha256": "c5d30c8e358eda023c30ec16432a284381a67e7c39345ff2633bcf4ef889f23d",
+   "size": 36576
+  },
+  "runtime/logs/repair-startlux-reference-deps.log": {
+   "sha256": "1251e0f02fde526eb91ba3f15b3a1e3872a075ba36f67e8e9262cfe3e00d67f1",
+   "size": 11100
+  },
+  "runtime/logs/startlux-1793554469485132056.log": {
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "size": 0
+  },
+  "runtime/logs/startlux-1793557303807256112.log": {
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "size": 0
+  },
+  "runtime/logs/startlux-1793579623983592931.log": {
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "size": 0
+  },
+  "runtime/logs/startlux-1793581212772927717.log": {
+   "sha256": "bfe32da216aecd90b0f55da164d64f0fc47b9788fc39ecc95450c78b82589fdc",
+   "size": 391
+  },
+  "runtime/logs/startlux-1793581318066607399.log": {
+   "sha256": "5316327066a90144d0d462e2d41087795a8e625eab2ba0796c79c42380fbeb8b",
+   "size": 391
+  },
+  "runtime/logs/startlux-1793642112548033229.log": {
+   "sha256": "2860458871f965d4ff049c00f897faa44dfce6820ad82d2c4e44b9097602214d",
+   "size": 391
+  },
+  "runtime/logs/startlux-1793650688665789543.log": {
+   "sha256": "c93ccc159f0ab990f2607b1ed01b7956c4513a63023ceb707add9d8838867b38",
+   "size": 391
+  },
+  "runtime/logs/startlux-1793650937519445748.log": {
+   "sha256": "3ef2e97b79a1f6b4c2785a219c14596bfff635b7a4c2961eafce6b6cd362aada",
+   "size": 391
+  },
+  "runtime/logs/startlux-1793651495637055500.log": {
+   "sha256": "f51a27c838d31733b148db712f6b439d61cc1c130368aea32bf71a7d28902eb4",
+   "size": 391
+  },
+  "runtime/logs/startlux-1793653100026536446.log": {
+   "sha256": "fd39122d350043ff8792b3bf0d15dc680d80b214771e090f756b527530b90d3e",
+   "size": 391
+  },
+  "runtime/logs/startlux-engine-1793554071025202457.log": {
+   "sha256": "4d7b1b91cd0cc3865c4611a910621a2eef1fd7e6ccfe6b47d6b2a321380a5fdb",
+   "size": 35948
+  },
+  "runtime/logs/startlux-engine-1793557174718331397.log": {
+   "sha256": "add75561aec03cb597481752ab4ba1c84976aac9e7fbc47c59ebd68b9ee2f69e",
+   "size": 35221
+  },
+  "runtime/logs/startlux-engine-1793579500891794449.log": {
+   "sha256": "2ae515054f4f440b93e54c8f1e8487e792b30264ff9b0d18ea2426d47985977e",
+   "size": 35219
+  },
+  "runtime/logs/startlux-engine-1793581130738067927.log": {
+   "sha256": "5326aaaf6898a17d1fa5b64f13c4a98569822ca9ef4bc49a37a649da13b6b925",
+   "size": 39659
+  },
+  "runtime/logs/startlux-engine-1793581234032381427.log": {
+   "sha256": "eb9ad2217314f0cfdaf4554136d89cb06ac5faa65e76d413f0b159d4daa3ed6f",
+   "size": 40121
+  },
+  "runtime/logs/startlux-engine-1793641910461329439.log": {
+   "sha256": "84328e3144fea8b7c77d80e10f550e71ea750a4f94dcb2205c76f436ea873b60",
+   "size": 46786
+  },
+  "runtime/logs/startlux-engine-1793650576620418933.log": {
+   "sha256": "978eb30d6811443c2c95dc775ff65501f2b0c3fa04b10dc51fa69c15bd87d9b9",
+   "size": 39950
+  },
+  "runtime/logs/startlux-engine-1793650874494078778.log": {
+   "sha256": "c46f20629f5fe435d6eb1ccc658ecb22f57341ca6ff7cbb712a54f7332046cf7",
+   "size": 39035
+  },
+  "runtime/logs/startlux-engine-1793651432612082671.log": {
+   "sha256": "8d45bc2db17d52c89fdce1fd0d70ed8eafec1ccf620b171a4584365b305c8f62",
+   "size": 47896
+  },
+  "runtime/logs/startlux-engine-1793653036000164776.log": {
+   "sha256": "34d0e3d14a6833bb4934ab076405aa32a193969c714d5670cfa00b501d5c55c0",
+   "size": 49040
+  },
+  "runtime/logs/tokens-kev.log": {
+   "sha256": "a4e1a96b8d2c6d50d5d27aeeb48f8f3666ab876eec46101e3c12a5ceb8d8ec85",
+   "size": 1538
+  },
+  "runtime/logs/tokens-qwen.log": {
+   "sha256": "d67266b4b1aa626d47e1d5dd9ec0ac4898297fc8c0c9931bd8b1cb39a16b2343",
+   "size": 1800
+  },
+  "runtime/logs/tokens-startlux.log": {
+   "sha256": "e0d1ea8d987c478e2d948d9b794467f01efe1d3213287b6d2cd66af457c42c85",
+   "size": 2576
+  },
+  "runtime/python-headers-kev.json": {
+   "sha256": "b1162fd7ea8e2d6aff4d804b2a13c9cbc63324aa783bbb704745d44637ebdb06",
+   "size": 436
+  },
+  "runtime/python-headers-startlux-reference.json": {
+   "sha256": "a6743956b0315fdbaf23e274c2f32081708a868eed40662b286dad7d269bff39",
+   "size": 586
+  },
+  "runtime/python-headers-vllm-0.31.0.json": {
+   "sha256": "dc5f13bc13c994e90fcd4211d65698465586ac654c50081113b8f9c3e150b126",
+   "size": 579
+  },
+  "runtime/reference-inputs-kev.jsonl": {
+   "sha256": "2f2fdc0b465a6248c111f4db6050c5f24ec2c401456341d057f3d4085bca9452",
+   "size": 226947
+  },
+  "runtime/reference-inputs-startlux.jsonl": {
+   "sha256": "2f2fdc0b465a6248c111f4db6050c5f24ec2c401456341d057f3d4085bca9452",
+   "size": 226947
+  },
+  "runtime/reference-kev.json": {
+   "sha256": "0b30f1c73412e0e187f66ba17787f2e8119492b45db959c08da0b5bbc549ebee",
+   "size": 108787
+  },
+  "runtime/reference-startlux.json": {
+   "sha256": "2c675d59b6ca851f7721890b0849e0a1dc47e6a534fa9b27d6223757da22cd07",
+   "size": 192299
+  },
+  "runtime/repair-kev.json": {
+   "sha256": "04753c475c6b9a644ff687027a3129893be8866e7a4dc3759f070f0152a04150",
+   "size": 620
+  },
+  "runtime/repair-startlux-reference-deps.json": {
+   "sha256": "212132ace04c108fbad37b23313c93d9cc7dff83f3c0a8f2b0d59c3d92744412",
+   "size": 37479
+  },
+  "runtime/resolved/kev-portable.txt": {
+   "sha256": "160c5faf49fc21777243feb9ffab0a120c39742ca2f99ae54b80670112a35a9b",
+   "size": 1692
+  },
+  "runtime/resolved/kev.txt": {
+   "sha256": "8fda5f213b89e759328948a1e7e32a67bb57014d75a839d5d0ecd4ca911a1f9a",
+   "size": 1830
+  },
+  "runtime/resolved/repair-kev-1793389867905478686/environment-check.log.tail.txt": {
+   "sha256": "0717aeccf7ac948d742957cc47a007cfcad9f052d108d943bda7f97325d2da7a",
+   "size": 7840
+  },
+  "runtime/resolved/repair-kev-1793389867905478686/gpu-check-kev.json": {
+   "sha256": "65eba79b6ddcbb735e6176ad01d9cf3701ac9378cd8b6f09bb278be32f50954a",
+   "size": 486
+  },
+  "runtime/resolved/repair-kev-1793389867905478686/gpu-check-kev.log.tail.txt": {
+   "sha256": "1c3f9f8c11430450b8f7c36fca6a54d59ad83d505909d26ecf54947d330294f2",
+   "size": 356
+  },
+  "runtime/resolved/repair-kev-1793389867905478686/install.log.tail.txt": {
+   "sha256": "551ab81073d4a82921b2b3836d5d9e2bc84fb251e7d3adb184db4dce75d18c09",
+   "size": 9472
+  },
+  "runtime/resolved/repair-kev-1793389867905478686/installations.json": {
+   "sha256": "514938fe95d4ac88b37045f730fdbc111e2b2293008c9b72b2b216e82b422e6a",
+   "size": 1620
+  },
+  "runtime/resolved/repair-kev-1793389867905478686/kev.txt": {
+   "sha256": "8fda5f213b89e759328948a1e7e32a67bb57014d75a839d5d0ecd4ca911a1f9a",
+   "size": 1830
+  },
+  "runtime/resolved/repair-kev-1793389867905478686/lock.json": {
+   "sha256": "ab0335647cfa181e5a3beeefa90be9b08e2359a9ffab26109ca9b6f8cb6a7225",
+   "size": 2413
+  },
+  "runtime/resolved/repair-kev-1793389867905478686/reference-kev.log.tail.txt": {
+   "sha256": "60fae53b4f63f6c07951a574aed9cdaed7a84d86c172a5bb93b940181ac3f46d",
+   "size": 14219
+  },
+  "runtime/resolved/repair-kev-1793389867905478686/tokens-kev.log.tail.txt": {
+   "sha256": "80390f26230a5a37dc16bae287c57dffbba0c5a1d2b8bfaed9c83d8747b1375f",
+   "size": 488
+  },
+  "runtime/resolved/startlux-deps-1793553848324018419/installations-before.json": {
+   "sha256": "5cf8e47ece64661d995069ec08bc3fa2857c988fed208c6dc56bc43ff3034dee",
+   "size": 5283
+  },
+  "runtime/resolved/startlux-deps-1793553848324018419/reference-before.txt": {
+   "sha256": "5e8def7bfd67fe3a928e79b68e52212c5928b971f48497a51a8eecebf21c54ec",
+   "size": 1345
+  },
+  "runtime/resolved/startlux-reference.txt": {
+   "sha256": "377917ccbd51fcd3357c8d1ce863b1b380bde6e0e98a08115f80c5cf022554d2",
+   "size": 1378
+  },
+  "runtime/resolved/vllm-0.31.0.txt": {
+   "sha256": "3a97f698c87b307f3d5618e039fcd2c0b7a818d1c34d4c49973626ede49d6d8a",
+   "size": 4399
+  },
+  "runtime/tokens-kev.json": {
+   "sha256": "77d09c8ba7c5e51fc39abe5efec0c73448e81e545da1c11f8b5b78ebfade5395",
+   "size": 1417704
+  },
+  "runtime/tokens-qwen.json": {
+   "sha256": "4d170829bef954be05884ff9d95adb88948e8e147d59d1d686047d98968bee24",
+   "size": 1424083
+  },
+  "runtime/tokens-startlux.json": {
+   "sha256": "a56ad596b5db52cd1d5f17f1c6f1fe78a51d5f9a921eaefceabc78d8358dc782",
+   "size": 1417709
+  }
+ },
+ "v3_controls": {
+  "runtime-controls/qwen9b/runtime/download-qwen9b.json": "4d9cf0214a31affaf7551786a2d1667fdc6189632c72d65cf4c49a5d200a4881",
+  "runtime-controls/qwen9b/runtime/installations.json": "44cf15456a98101502ac309bfee67b2894038f7d8620d7699b7d92a16d5bb167",
+  "runtime-controls/qwen9b/runtime/lock.json": "cbd7060efe7b88c05104e399f878179de73998631c1c5d999460b15b316c1da7",
+  "runtime/binding.json": "5705a32533241c0cf2e088dff3287e0c2f38c8e8d792d59a0b8d60e315fb74ca"
+ }
+}
