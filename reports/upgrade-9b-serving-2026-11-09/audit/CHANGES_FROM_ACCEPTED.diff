@@ -1,0 +1,125 @@
+--- accepted/integrity/audit_integrity.py
++++ audit/audit_integrity.py
+@@ -1,17 +1,41 @@
+-"""Independent stdlib-only audit of archived upgrade study; never executes bundle code."""
++"""Independent stdlib-only audit of archived upgrade study; never executes bundle code.
++
++Portable copy of the script accepted on 2026-11-10 (see audit/README.md). Only the location of the
++inputs and of the output changed; every check is the accepted one.
++
++  python3 -I audit_integrity.py --repo-root REPO --evidence-root ROOT --output DIR
++  (--evidence-root defaults to $EVIDENCE_ROOT; --repo-root to the checkout holding this file)
++
++REPO is a git checkout that contains commit 7c81947 and records/BUNDLE_INDEX.json. ROOT is the
++external evidence root: the archive paths in the bundle index are relative to it. Writes
++DIR/integrity-audit.json and exits non-zero if any check fails.
++"""
+ from pathlib import Path, PurePosixPath
++import argparse
+ import collections
+ import datetime
+ import hashlib
+ import json
+ import math
++import os
+ import re
+ import stat
+ import subprocess
+ import zipfile
+ 
+-REPO = Path(__file__).resolve().parents[3]
+-ROOT = REPO.parent / 'project/solo-experiments-2026-10-30/decision-study'
++if not __debug__:
++    raise SystemExit('Run without -O: the audit relies on its checks raising.')
++_parser = argparse.ArgumentParser(description='Independent integrity audit of the 9B serving-cost bundles.')
++_parser.add_argument('--repo-root', type=Path, default=Path(__file__).resolve().parents[3])
++_parser.add_argument('--evidence-root', type=Path, default=os.environ.get('EVIDENCE_ROOT'))
++_parser.add_argument('--output', type=Path, required=True, help='new or existing directory for integrity-audit.json')
++_args = _parser.parse_args()
++if _args.evidence_root is None:
++    _parser.error('pass --evidence-root or set EVIDENCE_ROOT')
++REPO = _args.repo_root.resolve()
++ROOT = _args.evidence_root.resolve()
++if not (REPO / 'records/BUNDLE_INDEX.json').is_file():
++    _parser.error(f'{REPO} has no records/BUNDLE_INDEX.json; pass --repo-root')
+ INDEX = json.loads((REPO / 'records/BUNDLE_INDEX.json').read_text())
+ FORMAL = next(x for x in INDEX['bundles'] if x['id'] == 'upgrade-formal-20261109-180806')
+ PRE = next(x for x in INDEX['bundles'] if x['id'] == 'upgrade-preflight-r4-20261109-074915')
+@@ -218,5 +242,6 @@
+     return {key: entry[key] for key in keys if key in entry}
+ 
+ out={'status':'PASS','scope':'Independent stdlib identity, runtime and raw preflight evidence audit; no production verifier/evaluate imports, model execution or re-tokenization.', 'formal_bundle':bundle_identity(FORMAL),'preflight_bundle':bundle_identity(PRE),'source_files_checked':len(settings['source']['files']),'prepared_files_checked':len(settings['file_sha256']),'completion_receipts_checked':stage_count,'engine_starts_checked':len(launch_info),'settings_hash':sh,'token_reports':token_summary,'preflight_summary':preflight_summary,'allocation':allocation,'physical_gpu_uuids':sorted(all_uuids),'formal_resource_samples':resources_count,'formal_cell_count':len(cellinfo),'formal_offers':sum(c['offered'] for c in cellinfo),'formal_warmup_requests':sum(c['warmup_count'] for c in cellinfo),'formal_startup_kv_ranges':summary,'cell_inventory':cellinfo,'launches':launch_info,'checks':CHECKS,'limits':['Hashes and recorded access prove an internally consistent artifact chain, not independent OS access surveillance. The input test was already inspected in prior studies.','Raw GPU samples show the same device UUID throughout; they are device-level samples, not exclusive process accounting.','preflight engine_overlap_seconds is the sum of pairwise HTTP-stage interval intersections, with duplicate temporal counting; not wall-clock simultaneous GPU execution or GPU kernel overlap.','Preflight memory is not the fixed formal memory allocation: actual KV differs by startup; formal per-role ranges retained.','Health prefix_cache=true conflicts with actual engine launch no-enable-prefix-caching and effective runtime false.','Per-cell finished.json cleanup receipts are checked but not individually SHA-bound by freeze.json; freeze binds complete->plan->start/warmup/raw evidence. Existing verifier rechecks finished.json separately.','Historical prediction mapping and scored goodput are independently audited by sibling metrics task.']}
+-target=Path(__file__).with_name('integrity-audit.json');target.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
++_args.output.mkdir(parents=True, exist_ok=True)
++target=_args.output/'integrity-audit.json';target.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+ print(json.dumps({k:out[k] for k in ['status','source_files_checked','completion_receipts_checked','engine_starts_checked','formal_resource_samples','formal_offers','formal_startup_kv_ranges','preflight_summary']},indent=2));print('checks',len(CHECKS));print(target)
+--- accepted/metrics/audit_metrics.py
++++ audit/audit_metrics.py
+@@ -1,14 +1,38 @@
+ #!/usr/bin/env python3
+-"""Independent stdlib-only replay of saved service traces; never invokes a model."""
++"""Independent stdlib-only replay of saved service traces; never invokes a model.
++
++Portable copy of the script accepted on 2026-11-10 (see audit/README.md). Only the location of the
++inputs and of the output changed; every check and every computed value is the accepted one.
++
++  python3 -I audit_metrics.py --evidence-root ROOT --output DIR
++  (--evidence-root defaults to $EVIDENCE_ROOT; --bundle, --gold, --v3-bundle and --size-bundle
++   override the individual inputs, which otherwise sit at their indexed paths under ROOT)
++
++Writes audit-receipt.json, recomputed.json, cells.csv, stall-analysis.json and stall_late_rows.csv
++to DIR and exits non-zero on any failed assertion or discrepancy.
++"""
+ import argparse
+ from collections import Counter, defaultdict
+ import csv
+ import hashlib
+ import json
+ import math
++import os
+ from pathlib import Path
+ import statistics
+ import zipfile
++
++if not __debug__:
++    raise SystemExit('Run without -O: the replay checks are assert statements.')
++
++# Paths of the inputs relative to the external evidence root (records/BUNDLE_INDEX.json and
++# docs/ARTIFACTS_ZH.md); the hashes below are checked inside the replay.
++DEFAULT_INPUTS = {
++    'bundle': 'records/bundles/upgrade-formal-20261109-9baeca3eb7f8.zip',
++    'gold': 'results/solo-v3-prepared/sealed/holdout_gold.json',
++    'v3_bundle': 'records/bundles/v3-return-20261103-232529-a8d0dc672d83.zip',
++    'size_bundle': 'records/bundles/size-control-complete-20261106-f427f7762bac.zip',
++}
+ 
+ 
+ def quantile(values, q):
+@@ -132,15 +156,19 @@
+ 
+ 
+ def main():
+-    repo = Path(__file__).resolve().parents[3]
+-    external = repo.parent / 'project/solo-experiments-2026-10-30/decision-study'
+-    parser = argparse.ArgumentParser()
+-    parser.add_argument('--bundle', type=Path, default=external / 'records/bundles/upgrade-formal-20261109-9baeca3eb7f8.zip')
+-    parser.add_argument('--gold', type=Path, default=external / 'results/solo-v3-prepared/sealed/holdout_gold.json')
+-    parser.add_argument('--v3-bundle', type=Path, default=external / 'records/bundles/v3-return-20261103-232529-a8d0dc672d83.zip')
+-    parser.add_argument('--size-bundle', type=Path, default=external / 'records/bundles/size-control-complete-20261106-f427f7762bac.zip')
+-    parser.add_argument('--output', type=Path, default=Path(__file__).parent)
++    parser = argparse.ArgumentParser(description='Independent replay of the 9B serving-cost traces.')
++    parser.add_argument('--evidence-root', type=Path, default=os.environ.get('EVIDENCE_ROOT'))
++    parser.add_argument('--bundle', type=Path)
++    parser.add_argument('--gold', type=Path)
++    parser.add_argument('--v3-bundle', type=Path)
++    parser.add_argument('--size-bundle', type=Path)
++    parser.add_argument('--output', type=Path, required=True, help='new or existing directory for the receipts')
+     args = parser.parse_args()
++    for name, relative in DEFAULT_INPUTS.items():
++        if getattr(args, name) is None:
++            if args.evidence_root is None:
++                parser.error(f'pass --evidence-root (or set EVIDENCE_ROOT) or --{name.replace("_", "-")}')
++            setattr(args, name, args.evidence_root / relative)
+     args.output.mkdir(parents=True, exist_ok=True)
+     gold_bytes = args.gold.read_bytes()
+     assert hashlib.sha256(gold_bytes).hexdigest() == 'ed3525b721ed564a4cdf733e94ac381cfebb4ba06eb4a3a6844a1a0b37824f14'

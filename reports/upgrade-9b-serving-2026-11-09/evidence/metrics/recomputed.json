@@ -1,0 +1,4345 @@
+{
+  "cells": [
+    {
+      "cell_id": "r0-startlux9b-rate80",
+      "condition": "startlux9b",
+      "rate": 80,
+      "repeat": 0,
+      "primary": {
+        "offered": 9654,
+        "admitted": 5746,
+        "successful": 5746,
+        "failed_admitted": 0,
+        "rejected": 3908,
+        "status_counts": {
+          "ok": 5746,
+          "client_rejected": 3908
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.45,
+        "met_slo": 63,
+        "slo_fraction_all_offered": 0.006525792417650715,
+        "goodput_per_second": 0.525,
+        "successful_per_offered_window_second": 47.88333333333333,
+        "latency_ms_all_admitted": {
+          "p50": 1295.6849077178827,
+          "p95": 1358.866636238897,
+          "p99": 1379.9538797967182
+        },
+        "max_dispatch_lag_ms": 29.908209193848734,
+        "correct": 4393,
+        "correct_met_slo": 48,
+        "correct_goodput_per_second": 0.4,
+        "correct_fraction_all_offered": 0.45504454112285064,
+        "accuracy_successful": 0.7645318482422555
+      },
+      "secondary": {
+        "offered": 9654,
+        "admitted": 5746,
+        "successful": 5746,
+        "failed_admitted": 0,
+        "rejected": 3908,
+        "status_counts": {
+          "ok": 5746,
+          "client_rejected": 3908
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.45,
+        "met_slo": 145,
+        "slo_fraction_all_offered": 0.015019680961259581,
+        "goodput_per_second": 1.2083333333333333,
+        "successful_per_offered_window_second": 47.88333333333333,
+        "latency_ms_all_admitted": {
+          "p50": 1295.6849077178827,
+          "p95": 1358.866636238897,
+          "p99": 1379.9538797967182
+        },
+        "max_dispatch_lag_ms": 29.908209193848734,
+        "correct": 4393,
+        "correct_met_slo": 111,
+        "correct_goodput_per_second": 0.925,
+        "correct_fraction_all_offered": 0.45504454112285064,
+        "accuracy_successful": 0.7645318482422555
+      },
+      "details": {
+        "offered": 9654,
+        "admitted": 5746,
+        "successful": 5746,
+        "rejected": 3908,
+        "status_counts": {
+          "ok": 5746,
+          "client_rejected": 3908
+        },
+        "late_successful": {
+          "500": 5683,
+          "1000": 5601
+        },
+        "history": {
+          "successful_responses": 5746,
+          "label_agreement": 0.9966933518969718,
+          "matched_subset_historical_accuracy": 0.7654020187956839,
+          "live_accuracy": 0.7645318482422555
+        }
+      }
+    },
+    {
+      "cell_id": "r0-cascade-rate80",
+      "condition": "cascade",
+      "rate": 80,
+      "repeat": 0,
+      "primary": {
+        "offered": 9654,
+        "admitted": 4209,
+        "successful": 4209,
+        "failed_admitted": 0,
+        "rejected": 5445,
+        "status_counts": {
+          "ok": 4209,
+          "client_rejected": 5445
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.45,
+        "met_slo": 24,
+        "slo_fraction_all_offered": 0.002486016159105034,
+        "goodput_per_second": 0.2,
+        "successful_per_offered_window_second": 35.075,
+        "latency_ms_all_admitted": {
+          "p50": 1651.697007001772,
+          "p95": 2652.2649295753,
+          "p99": 2876.0404953662146
+        },
+        "max_dispatch_lag_ms": 24.10823528194328,
+        "correct": 3135,
+        "correct_met_slo": 21,
+        "correct_goodput_per_second": 0.175,
+        "correct_fraction_all_offered": 0.3247358607830951,
+        "accuracy_successful": 0.744832501781896
+      },
+      "secondary": {
+        "offered": 9654,
+        "admitted": 4209,
+        "successful": 4209,
+        "failed_admitted": 0,
+        "rejected": 5445,
+        "status_counts": {
+          "ok": 4209,
+          "client_rejected": 5445
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.45,
+        "met_slo": 54,
+        "slo_fraction_all_offered": 0.005593536357986327,
+        "goodput_per_second": 0.45,
+        "successful_per_offered_window_second": 35.075,
+        "latency_ms_all_admitted": {
+          "p50": 1651.697007001772,
+          "p95": 2652.2649295753,
+          "p99": 2876.0404953662146
+        },
+        "max_dispatch_lag_ms": 24.10823528194328,
+        "correct": 3135,
+        "correct_met_slo": 46,
+        "correct_goodput_per_second": 0.38333333333333336,
+        "correct_fraction_all_offered": 0.3247358607830951,
+        "accuracy_successful": 0.744832501781896
+      },
+      "details": {
+        "offered": 9654,
+        "admitted": 4209,
+        "successful": 4209,
+        "rejected": 5445,
+        "status_counts": {
+          "ok": 4209,
+          "client_rejected": 5445
+        },
+        "late_successful": {
+          "500": 4185,
+          "1000": 4155
+        },
+        "history": {
+          "successful_responses": 4209,
+          "label_agreement": 0.9931100023758612,
+          "matched_subset_historical_accuracy": 0.747208363031599,
+          "live_accuracy": 0.744832501781896
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 3203,
+            "score_at_or_above_threshold": 1006
+          },
+          "routed": 4209,
+          "deferred": 1006,
+          "deferral_rate_routed": 0.23901164172012354,
+          "fallback_calls": 1006,
+          "route_agreement_with_history": 0.9904965550011879
+        }
+      }
+    },
+    {
+      "cell_id": "r0-startlux4b-rate80",
+      "condition": "startlux4b",
+      "rate": 80,
+      "repeat": 0,
+      "primary": {
+        "offered": 9654,
+        "admitted": 9335,
+        "successful": 9335,
+        "failed_admitted": 0,
+        "rejected": 319,
+        "status_counts": {
+          "ok": 9335,
+          "client_rejected": 319
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.45,
+        "met_slo": 4891,
+        "slo_fraction_all_offered": 0.5066293764242801,
+        "goodput_per_second": 40.75833333333333,
+        "successful_per_offered_window_second": 77.79166666666667,
+        "latency_ms_all_admitted": {
+          "p50": 444.22665938195394,
+          "p95": 809.4754825008009,
+          "p99": 858.3693951975972
+        },
+        "max_dispatch_lag_ms": 58.08054101578364,
+        "correct": 6926,
+        "correct_met_slo": 3627,
+        "correct_goodput_per_second": 30.225,
+        "correct_fraction_all_offered": 0.7174228299150611,
+        "accuracy_successful": 0.7419389394750937
+      },
+      "secondary": {
+        "offered": 9654,
+        "admitted": 9335,
+        "successful": 9335,
+        "failed_admitted": 0,
+        "rejected": 319,
+        "status_counts": {
+          "ok": 9335,
+          "client_rejected": 319
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.45,
+        "met_slo": 9327,
+        "slo_fraction_all_offered": 0.9661280298321939,
+        "goodput_per_second": 77.725,
+        "successful_per_offered_window_second": 77.79166666666667,
+        "latency_ms_all_admitted": {
+          "p50": 444.22665938195394,
+          "p95": 809.4754825008009,
+          "p99": 858.3693951975972
+        },
+        "max_dispatch_lag_ms": 58.08054101578364,
+        "correct": 6926,
+        "correct_met_slo": 6919,
+        "correct_goodput_per_second": 57.65833333333333,
+        "correct_fraction_all_offered": 0.7174228299150611,
+        "accuracy_successful": 0.7419389394750937
+      },
+      "details": {
+        "offered": 9654,
+        "admitted": 9335,
+        "successful": 9335,
+        "rejected": 319,
+        "status_counts": {
+          "ok": 9335,
+          "client_rejected": 319
+        },
+        "late_successful": {
+          "500": 4444,
+          "1000": 8
+        },
+        "history": {
+          "successful_responses": 9335,
+          "label_agreement": 0.9971076593465452,
+          "matched_subset_historical_accuracy": 0.7412961971076594,
+          "live_accuracy": 0.7419389394750937
+        }
+      }
+    },
+    {
+      "cell_id": "r0-startlux4b-rate40",
+      "condition": "startlux4b",
+      "rate": 40,
+      "repeat": 0,
+      "primary": {
+        "offered": 4752,
+        "admitted": 4752,
+        "successful": 4752,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4752
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 39.6,
+        "met_slo": 4752,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 39.6,
+        "successful_per_offered_window_second": 39.6,
+        "latency_ms_all_admitted": {
+          "p50": 100.51138545718175,
+          "p95": 124.46855777911168,
+          "p99": 127.94532755116225
+        },
+        "max_dispatch_lag_ms": 35.06522046968996,
+        "correct": 3512,
+        "correct_met_slo": 3512,
+        "correct_goodput_per_second": 29.266666666666666,
+        "correct_fraction_all_offered": 0.7390572390572391,
+        "accuracy_successful": 0.7390572390572391
+      },
+      "secondary": {
+        "offered": 4752,
+        "admitted": 4752,
+        "successful": 4752,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4752
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 39.6,
+        "met_slo": 4752,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 39.6,
+        "successful_per_offered_window_second": 39.6,
+        "latency_ms_all_admitted": {
+          "p50": 100.51138545718175,
+          "p95": 124.46855777911168,
+          "p99": 127.94532755116225
+        },
+        "max_dispatch_lag_ms": 35.06522046968996,
+        "correct": 3512,
+        "correct_met_slo": 3512,
+        "correct_goodput_per_second": 29.266666666666666,
+        "correct_fraction_all_offered": 0.7390572390572391,
+        "accuracy_successful": 0.7390572390572391
+      },
+      "details": {
+        "offered": 4752,
+        "admitted": 4752,
+        "successful": 4752,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4752
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 4752,
+          "label_agreement": 0.9945286195286195,
+          "matched_subset_historical_accuracy": 0.7380050505050505,
+          "live_accuracy": 0.7390572390572391
+        }
+      }
+    },
+    {
+      "cell_id": "r0-cascade-rate40",
+      "condition": "cascade",
+      "rate": 40,
+      "repeat": 0,
+      "primary": {
+        "offered": 4752,
+        "admitted": 4182,
+        "successful": 4182,
+        "failed_admitted": 0,
+        "rejected": 570,
+        "status_counts": {
+          "ok": 4182,
+          "client_rejected": 570
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 39.6,
+        "met_slo": 75,
+        "slo_fraction_all_offered": 0.015782828282828284,
+        "goodput_per_second": 0.625,
+        "successful_per_offered_window_second": 34.85,
+        "latency_ms_all_admitted": {
+          "p50": 1549.1831152421423,
+          "p95": 2538.5400368160863,
+          "p99": 2755.714483598105
+        },
+        "max_dispatch_lag_ms": 34.24553506954453,
+        "correct": 3071,
+        "correct_met_slo": 58,
+        "correct_goodput_per_second": 0.48333333333333334,
+        "correct_fraction_all_offered": 0.6462542087542088,
+        "accuracy_successful": 0.734337637494022
+      },
+      "secondary": {
+        "offered": 4752,
+        "admitted": 4182,
+        "successful": 4182,
+        "failed_admitted": 0,
+        "rejected": 570,
+        "status_counts": {
+          "ok": 4182,
+          "client_rejected": 570
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 39.6,
+        "met_slo": 145,
+        "slo_fraction_all_offered": 0.030513468013468013,
+        "goodput_per_second": 1.2083333333333333,
+        "successful_per_offered_window_second": 34.85,
+        "latency_ms_all_admitted": {
+          "p50": 1549.1831152421423,
+          "p95": 2538.5400368160863,
+          "p99": 2755.714483598105
+        },
+        "max_dispatch_lag_ms": 34.24553506954453,
+        "correct": 3071,
+        "correct_met_slo": 109,
+        "correct_goodput_per_second": 0.9083333333333333,
+        "correct_fraction_all_offered": 0.6462542087542088,
+        "accuracy_successful": 0.734337637494022
+      },
+      "details": {
+        "offered": 4752,
+        "admitted": 4182,
+        "successful": 4182,
+        "rejected": 570,
+        "status_counts": {
+          "ok": 4182,
+          "client_rejected": 570
+        },
+        "late_successful": {
+          "500": 4107,
+          "1000": 4037
+        },
+        "history": {
+          "successful_responses": 4182,
+          "label_agreement": 0.9937828790052606,
+          "matched_subset_historical_accuracy": 0.736728837876614,
+          "live_accuracy": 0.734337637494022
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 3169,
+            "score_at_or_above_threshold": 1013
+          },
+          "routed": 4182,
+          "deferred": 1013,
+          "deferral_rate_routed": 0.2422285987565758,
+          "fallback_calls": 1013,
+          "route_agreement_with_history": 0.9928263988522238
+        }
+      }
+    },
+    {
+      "cell_id": "r0-startlux9b-rate40",
+      "condition": "startlux9b",
+      "rate": 40,
+      "repeat": 0,
+      "primary": {
+        "offered": 4752,
+        "admitted": 4752,
+        "successful": 4752,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4752
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 39.6,
+        "met_slo": 4749,
+        "slo_fraction_all_offered": 0.9993686868686869,
+        "goodput_per_second": 39.575,
+        "successful_per_offered_window_second": 39.6,
+        "latency_ms_all_admitted": {
+          "p50": 151.8938110213206,
+          "p95": 325.22653610325943,
+          "p99": 398.44778286424895
+        },
+        "max_dispatch_lag_ms": 7.99451559721831,
+        "correct": 3619,
+        "correct_met_slo": 3616,
+        "correct_goodput_per_second": 30.133333333333333,
+        "correct_fraction_all_offered": 0.7615740740740741,
+        "accuracy_successful": 0.7615740740740741
+      },
+      "secondary": {
+        "offered": 4752,
+        "admitted": 4752,
+        "successful": 4752,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4752
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 39.6,
+        "met_slo": 4752,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 39.6,
+        "successful_per_offered_window_second": 39.6,
+        "latency_ms_all_admitted": {
+          "p50": 151.8938110213206,
+          "p95": 325.22653610325943,
+          "p99": 398.44778286424895
+        },
+        "max_dispatch_lag_ms": 7.99451559721831,
+        "correct": 3619,
+        "correct_met_slo": 3619,
+        "correct_goodput_per_second": 30.158333333333335,
+        "correct_fraction_all_offered": 0.7615740740740741,
+        "accuracy_successful": 0.7615740740740741
+      },
+      "details": {
+        "offered": 4752,
+        "admitted": 4752,
+        "successful": 4752,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4752
+        },
+        "late_successful": {
+          "500": 3,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 4752,
+          "label_agreement": 0.9968434343434344,
+          "matched_subset_historical_accuracy": 0.7617845117845118,
+          "live_accuracy": 0.7615740740740741
+        }
+      }
+    },
+    {
+      "cell_id": "r0-cascade-rate20",
+      "condition": "cascade",
+      "rate": 20,
+      "repeat": 0,
+      "primary": {
+        "offered": 2528,
+        "admitted": 2528,
+        "successful": 2528,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2528
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 21.066666666666666,
+        "met_slo": 1995,
+        "slo_fraction_all_offered": 0.7891613924050633,
+        "goodput_per_second": 16.625,
+        "successful_per_offered_window_second": 21.066666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 121.34042824773417,
+          "p95": 842.2248810515357,
+          "p99": 1012.0486817104908
+        },
+        "max_dispatch_lag_ms": 2.143158249467092,
+        "correct": 1867,
+        "correct_met_slo": 1585,
+        "correct_goodput_per_second": 13.208333333333334,
+        "correct_fraction_all_offered": 0.7385284810126582,
+        "accuracy_successful": 0.7385284810126582
+      },
+      "secondary": {
+        "offered": 2528,
+        "admitted": 2528,
+        "successful": 2528,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2528
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 21.066666666666666,
+        "met_slo": 2498,
+        "slo_fraction_all_offered": 0.9881329113924051,
+        "goodput_per_second": 20.816666666666666,
+        "successful_per_offered_window_second": 21.066666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 121.34042824773417,
+          "p95": 842.2248810515357,
+          "p99": 1012.0486817104908
+        },
+        "max_dispatch_lag_ms": 2.143158249467092,
+        "correct": 1867,
+        "correct_met_slo": 1848,
+        "correct_goodput_per_second": 15.4,
+        "correct_fraction_all_offered": 0.7385284810126582,
+        "accuracy_successful": 0.7385284810126582
+      },
+      "details": {
+        "offered": 2528,
+        "admitted": 2528,
+        "successful": 2528,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2528
+        },
+        "late_successful": {
+          "500": 533,
+          "1000": 30
+        },
+        "history": {
+          "successful_responses": 2528,
+          "label_agreement": 0.9924841772151899,
+          "matched_subset_historical_accuracy": 0.7424841772151899,
+          "live_accuracy": 0.7385284810126582
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 1915,
+            "score_at_or_above_threshold": 613
+          },
+          "routed": 2528,
+          "deferred": 613,
+          "deferral_rate_routed": 0.24248417721518986,
+          "fallback_calls": 613,
+          "route_agreement_with_history": 0.9909018987341772
+        }
+      }
+    },
+    {
+      "cell_id": "r0-startlux4b-rate20",
+      "condition": "startlux4b",
+      "rate": 20,
+      "repeat": 0,
+      "primary": {
+        "offered": 2528,
+        "admitted": 2527,
+        "successful": 2527,
+        "failed_admitted": 0,
+        "rejected": 1,
+        "status_counts": {
+          "ok": 2527,
+          "client_rejected": 1
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 21.066666666666666,
+        "met_slo": 2449,
+        "slo_fraction_all_offered": 0.96875,
+        "goodput_per_second": 20.408333333333335,
+        "successful_per_offered_window_second": 21.058333333333334,
+        "latency_ms_all_admitted": {
+          "p50": 83.99057500815132,
+          "p95": 122.52169797772581,
+          "p99": 2274.8207043937737
+        },
+        "max_dispatch_lag_ms": 162.51906085460632,
+        "correct": 1865,
+        "correct_met_slo": 1806,
+        "correct_goodput_per_second": 15.05,
+        "correct_fraction_all_offered": 0.7377373417721519,
+        "accuracy_successful": 0.7380292837356549
+      },
+      "secondary": {
+        "offered": 2528,
+        "admitted": 2527,
+        "successful": 2527,
+        "failed_admitted": 0,
+        "rejected": 1,
+        "status_counts": {
+          "ok": 2527,
+          "client_rejected": 1
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 21.066666666666666,
+        "met_slo": 2458,
+        "slo_fraction_all_offered": 0.9723101265822784,
+        "goodput_per_second": 20.483333333333334,
+        "successful_per_offered_window_second": 21.058333333333334,
+        "latency_ms_all_admitted": {
+          "p50": 83.99057500815132,
+          "p95": 122.52169797772581,
+          "p99": 2274.8207043937737
+        },
+        "max_dispatch_lag_ms": 162.51906085460632,
+        "correct": 1865,
+        "correct_met_slo": 1813,
+        "correct_goodput_per_second": 15.108333333333333,
+        "correct_fraction_all_offered": 0.7377373417721519,
+        "accuracy_successful": 0.7380292837356549
+      },
+      "details": {
+        "offered": 2528,
+        "admitted": 2527,
+        "successful": 2527,
+        "rejected": 1,
+        "status_counts": {
+          "ok": 2527,
+          "client_rejected": 1
+        },
+        "late_successful": {
+          "500": 78,
+          "1000": 69
+        },
+        "history": {
+          "successful_responses": 2527,
+          "label_agreement": 0.998021369212505,
+          "matched_subset_historical_accuracy": 0.738425009893154,
+          "live_accuracy": 0.7380292837356549
+        }
+      }
+    },
+    {
+      "cell_id": "r0-startlux9b-rate20",
+      "condition": "startlux9b",
+      "rate": 20,
+      "repeat": 0,
+      "primary": {
+        "offered": 2528,
+        "admitted": 2528,
+        "successful": 2528,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2528
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 21.066666666666666,
+        "met_slo": 2528,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 21.066666666666666,
+        "successful_per_offered_window_second": 21.066666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 85.81440324421408,
+          "p95": 123.13137287688694,
+          "p99": 163.6310222810682
+        },
+        "max_dispatch_lag_ms": 13.349999745841501,
+        "correct": 1930,
+        "correct_met_slo": 1930,
+        "correct_goodput_per_second": 16.083333333333332,
+        "correct_fraction_all_offered": 0.7634493670886076,
+        "accuracy_successful": 0.7634493670886076
+      },
+      "secondary": {
+        "offered": 2528,
+        "admitted": 2528,
+        "successful": 2528,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2528
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 21.066666666666666,
+        "met_slo": 2528,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 21.066666666666666,
+        "successful_per_offered_window_second": 21.066666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 85.81440324421408,
+          "p95": 123.13137287688694,
+          "p99": 163.6310222810682
+        },
+        "max_dispatch_lag_ms": 13.349999745841501,
+        "correct": 1930,
+        "correct_met_slo": 1930,
+        "correct_goodput_per_second": 16.083333333333332,
+        "correct_fraction_all_offered": 0.7634493670886076,
+        "accuracy_successful": 0.7634493670886076
+      },
+      "details": {
+        "offered": 2528,
+        "admitted": 2528,
+        "successful": 2528,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2528
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 2528,
+          "label_agreement": 0.9988132911392406,
+          "matched_subset_historical_accuracy": 0.7626582278481012,
+          "live_accuracy": 0.7634493670886076
+        }
+      }
+    },
+    {
+      "cell_id": "r0-startlux9b-rate10",
+      "condition": "startlux9b",
+      "rate": 10,
+      "repeat": 0,
+      "primary": {
+        "offered": 1154,
+        "admitted": 1154,
+        "successful": 1154,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1154
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.616666666666667,
+        "met_slo": 1154,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.616666666666667,
+        "successful_per_offered_window_second": 9.616666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 60.10964473308533,
+          "p95": 108.98319718724844,
+          "p99": 119.41062260899443
+        },
+        "max_dispatch_lag_ms": 3.8005916705117215,
+        "correct": 890,
+        "correct_met_slo": 890,
+        "correct_goodput_per_second": 7.416666666666667,
+        "correct_fraction_all_offered": 0.7712305025996534,
+        "accuracy_successful": 0.7712305025996534
+      },
+      "secondary": {
+        "offered": 1154,
+        "admitted": 1154,
+        "successful": 1154,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1154
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.616666666666667,
+        "met_slo": 1154,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.616666666666667,
+        "successful_per_offered_window_second": 9.616666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 60.10964473308533,
+          "p95": 108.98319718724844,
+          "p99": 119.41062260899443
+        },
+        "max_dispatch_lag_ms": 3.8005916705117215,
+        "correct": 890,
+        "correct_met_slo": 890,
+        "correct_goodput_per_second": 7.416666666666667,
+        "correct_fraction_all_offered": 0.7712305025996534,
+        "accuracy_successful": 0.7712305025996534
+      },
+      "details": {
+        "offered": 1154,
+        "admitted": 1154,
+        "successful": 1154,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1154
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 1154,
+          "label_agreement": 0.9974003466204506,
+          "matched_subset_historical_accuracy": 0.7694974003466204,
+          "live_accuracy": 0.7712305025996534
+        }
+      }
+    },
+    {
+      "cell_id": "r0-startlux4b-rate10",
+      "condition": "startlux4b",
+      "rate": 10,
+      "repeat": 0,
+      "primary": {
+        "offered": 1154,
+        "admitted": 1154,
+        "successful": 1154,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1154
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.616666666666667,
+        "met_slo": 1154,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.616666666666667,
+        "successful_per_offered_window_second": 9.616666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 57.840352725577304,
+          "p95": 110.61075979866558,
+          "p99": 121.79473079938226
+        },
+        "max_dispatch_lag_ms": 2.5749641678913804,
+        "correct": 864,
+        "correct_met_slo": 864,
+        "correct_goodput_per_second": 7.2,
+        "correct_fraction_all_offered": 0.7487001733102253,
+        "accuracy_successful": 0.7487001733102253
+      },
+      "secondary": {
+        "offered": 1154,
+        "admitted": 1154,
+        "successful": 1154,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1154
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.616666666666667,
+        "met_slo": 1154,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.616666666666667,
+        "successful_per_offered_window_second": 9.616666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 57.840352725577304,
+          "p95": 110.61075979866558,
+          "p99": 121.79473079938226
+        },
+        "max_dispatch_lag_ms": 2.5749641678913804,
+        "correct": 864,
+        "correct_met_slo": 864,
+        "correct_goodput_per_second": 7.2,
+        "correct_fraction_all_offered": 0.7487001733102253,
+        "accuracy_successful": 0.7487001733102253
+      },
+      "details": {
+        "offered": 1154,
+        "admitted": 1154,
+        "successful": 1154,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1154
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 1154,
+          "label_agreement": 0.9965337954939342,
+          "matched_subset_historical_accuracy": 0.7504332755632582,
+          "live_accuracy": 0.7487001733102253
+        }
+      }
+    },
+    {
+      "cell_id": "r0-cascade-rate10",
+      "condition": "cascade",
+      "rate": 10,
+      "repeat": 0,
+      "primary": {
+        "offered": 1154,
+        "admitted": 1154,
+        "successful": 1154,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1154
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.616666666666667,
+        "met_slo": 1079,
+        "slo_fraction_all_offered": 0.9350086655112652,
+        "goodput_per_second": 8.991666666666667,
+        "successful_per_offered_window_second": 9.616666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 84.6774323493662,
+          "p95": 524.7075324843486,
+          "p99": 623.349481141746
+        },
+        "max_dispatch_lag_ms": 5.4621689085649905,
+        "correct": 861,
+        "correct_met_slo": 819,
+        "correct_goodput_per_second": 6.825,
+        "correct_fraction_all_offered": 0.7461005199306759,
+        "accuracy_successful": 0.7461005199306759
+      },
+      "secondary": {
+        "offered": 1154,
+        "admitted": 1154,
+        "successful": 1154,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1154
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.616666666666667,
+        "met_slo": 1154,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.616666666666667,
+        "successful_per_offered_window_second": 9.616666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 84.6774323493662,
+          "p95": 524.7075324843486,
+          "p99": 623.349481141746
+        },
+        "max_dispatch_lag_ms": 5.4621689085649905,
+        "correct": 861,
+        "correct_met_slo": 861,
+        "correct_goodput_per_second": 7.175,
+        "correct_fraction_all_offered": 0.7461005199306759,
+        "accuracy_successful": 0.7461005199306759
+      },
+      "details": {
+        "offered": 1154,
+        "admitted": 1154,
+        "successful": 1154,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1154
+        },
+        "late_successful": {
+          "500": 75,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 1154,
+          "label_agreement": 0.9982668977469671,
+          "matched_subset_historical_accuracy": 0.7461005199306759,
+          "live_accuracy": 0.7461005199306759
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 885,
+            "score_at_or_above_threshold": 269
+          },
+          "routed": 1154,
+          "deferred": 269,
+          "deferral_rate_routed": 0.23310225303292895,
+          "fallback_calls": 269,
+          "route_agreement_with_history": 0.9948006932409013
+        }
+      }
+    },
+    {
+      "cell_id": "r1-startlux4b-rate80",
+      "condition": "startlux4b",
+      "rate": 80,
+      "repeat": 1,
+      "primary": {
+        "offered": 9741,
+        "admitted": 9631,
+        "successful": 9631,
+        "failed_admitted": 0,
+        "rejected": 110,
+        "status_counts": {
+          "ok": 9631,
+          "client_rejected": 110
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 81.175,
+        "met_slo": 6548,
+        "slo_fraction_all_offered": 0.6722102453546864,
+        "goodput_per_second": 54.56666666666667,
+        "successful_per_offered_window_second": 80.25833333333334,
+        "latency_ms_all_admitted": {
+          "p50": 338.35115960732765,
+          "p95": 738.5819980477919,
+          "p99": 780.1975416556502
+        },
+        "max_dispatch_lag_ms": 64.92083280066652,
+        "correct": 7152,
+        "correct_met_slo": 4879,
+        "correct_goodput_per_second": 40.65833333333333,
+        "correct_fraction_all_offered": 0.7342161995688328,
+        "accuracy_successful": 0.7426020143287302
+      },
+      "secondary": {
+        "offered": 9741,
+        "admitted": 9631,
+        "successful": 9631,
+        "failed_admitted": 0,
+        "rejected": 110,
+        "status_counts": {
+          "ok": 9631,
+          "client_rejected": 110
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 81.175,
+        "met_slo": 9631,
+        "slo_fraction_all_offered": 0.9887075248947746,
+        "goodput_per_second": 80.25833333333334,
+        "successful_per_offered_window_second": 80.25833333333334,
+        "latency_ms_all_admitted": {
+          "p50": 338.35115960732765,
+          "p95": 738.5819980477919,
+          "p99": 780.1975416556502
+        },
+        "max_dispatch_lag_ms": 64.92083280066652,
+        "correct": 7152,
+        "correct_met_slo": 7152,
+        "correct_goodput_per_second": 59.6,
+        "correct_fraction_all_offered": 0.7342161995688328,
+        "accuracy_successful": 0.7426020143287302
+      },
+      "details": {
+        "offered": 9741,
+        "admitted": 9631,
+        "successful": 9631,
+        "rejected": 110,
+        "status_counts": {
+          "ok": 9631,
+          "client_rejected": 110
+        },
+        "late_successful": {
+          "500": 3083,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 9631,
+          "label_agreement": 0.997300384176098,
+          "matched_subset_historical_accuracy": 0.7420828574395182,
+          "live_accuracy": 0.7426020143287302
+        }
+      }
+    },
+    {
+      "cell_id": "r1-startlux9b-rate80",
+      "condition": "startlux9b",
+      "rate": 80,
+      "repeat": 1,
+      "primary": {
+        "offered": 9741,
+        "admitted": 5705,
+        "successful": 5705,
+        "failed_admitted": 0,
+        "rejected": 4036,
+        "status_counts": {
+          "ok": 5705,
+          "client_rejected": 4036
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 81.175,
+        "met_slo": 41,
+        "slo_fraction_all_offered": 0.0042090134483112615,
+        "goodput_per_second": 0.3416666666666667,
+        "successful_per_offered_window_second": 47.541666666666664,
+        "latency_ms_all_admitted": {
+          "p50": 1308.116947671941,
+          "p95": 1369.9796400926743,
+          "p99": 1389.2671520709634
+        },
+        "max_dispatch_lag_ms": 24.222935833734027,
+        "correct": 4364,
+        "correct_met_slo": 28,
+        "correct_goodput_per_second": 0.23333333333333334,
+        "correct_fraction_all_offered": 0.448003285083667,
+        "accuracy_successful": 0.764943032427695
+      },
+      "secondary": {
+        "offered": 9741,
+        "admitted": 5705,
+        "successful": 5705,
+        "failed_admitted": 0,
+        "rejected": 4036,
+        "status_counts": {
+          "ok": 5705,
+          "client_rejected": 4036
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 81.175,
+        "met_slo": 90,
+        "slo_fraction_all_offered": 0.009239297813366184,
+        "goodput_per_second": 0.75,
+        "successful_per_offered_window_second": 47.541666666666664,
+        "latency_ms_all_admitted": {
+          "p50": 1308.116947671941,
+          "p95": 1369.9796400926743,
+          "p99": 1389.2671520709634
+        },
+        "max_dispatch_lag_ms": 24.222935833734027,
+        "correct": 4364,
+        "correct_met_slo": 66,
+        "correct_goodput_per_second": 0.55,
+        "correct_fraction_all_offered": 0.448003285083667,
+        "accuracy_successful": 0.764943032427695
+      },
+      "details": {
+        "offered": 9741,
+        "admitted": 5705,
+        "successful": 5705,
+        "rejected": 4036,
+        "status_counts": {
+          "ok": 5705,
+          "client_rejected": 4036
+        },
+        "late_successful": {
+          "500": 5664,
+          "1000": 5615
+        },
+        "history": {
+          "successful_responses": 5705,
+          "label_agreement": 0.9971954425942156,
+          "matched_subset_historical_accuracy": 0.7645924627519719,
+          "live_accuracy": 0.764943032427695
+        }
+      }
+    },
+    {
+      "cell_id": "r1-cascade-rate80",
+      "condition": "cascade",
+      "rate": 80,
+      "repeat": 1,
+      "primary": {
+        "offered": 9741,
+        "admitted": 4172,
+        "successful": 4172,
+        "failed_admitted": 0,
+        "rejected": 5569,
+        "status_counts": {
+          "ok": 4172,
+          "client_rejected": 5569
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 81.175,
+        "met_slo": 22,
+        "slo_fraction_all_offered": 0.0022584950210450673,
+        "goodput_per_second": 0.18333333333333332,
+        "successful_per_offered_window_second": 34.766666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 1657.630857519534,
+          "p95": 2681.9764762758577,
+          "p99": 2849.3750658111135
+        },
+        "max_dispatch_lag_ms": 27.20675283813989,
+        "correct": 3091,
+        "correct_met_slo": 18,
+        "correct_goodput_per_second": 0.15,
+        "correct_fraction_all_offered": 0.31731855045683194,
+        "accuracy_successful": 0.7408916586768935
+      },
+      "secondary": {
+        "offered": 9741,
+        "admitted": 4172,
+        "successful": 4172,
+        "failed_admitted": 0,
+        "rejected": 5569,
+        "status_counts": {
+          "ok": 4172,
+          "client_rejected": 5569
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 81.175,
+        "met_slo": 44,
+        "slo_fraction_all_offered": 0.004516990042090135,
+        "goodput_per_second": 0.36666666666666664,
+        "successful_per_offered_window_second": 34.766666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 1657.630857519534,
+          "p95": 2681.9764762758577,
+          "p99": 2849.3750658111135
+        },
+        "max_dispatch_lag_ms": 27.20675283813989,
+        "correct": 3091,
+        "correct_met_slo": 30,
+        "correct_goodput_per_second": 0.25,
+        "correct_fraction_all_offered": 0.31731855045683194,
+        "accuracy_successful": 0.7408916586768935
+      },
+      "details": {
+        "offered": 9741,
+        "admitted": 4172,
+        "successful": 4172,
+        "rejected": 5569,
+        "status_counts": {
+          "ok": 4172,
+          "client_rejected": 5569
+        },
+        "late_successful": {
+          "500": 4150,
+          "1000": 4128
+        },
+        "history": {
+          "successful_responses": 4172,
+          "label_agreement": 0.9932885906040269,
+          "matched_subset_historical_accuracy": 0.7418504314477469,
+          "live_accuracy": 0.7408916586768935
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 3141,
+            "score_at_or_above_threshold": 1031
+          },
+          "routed": 4172,
+          "deferred": 1031,
+          "deferral_rate_routed": 0.2471236816874401,
+          "fallback_calls": 1031,
+          "route_agreement_with_history": 0.9911313518696069
+        }
+      }
+    },
+    {
+      "cell_id": "r1-startlux9b-rate10",
+      "condition": "startlux9b",
+      "rate": 10,
+      "repeat": 1,
+      "primary": {
+        "offered": 1157,
+        "admitted": 1157,
+        "successful": 1157,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1157
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.641666666666667,
+        "met_slo": 1157,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.641666666666667,
+        "successful_per_offered_window_second": 9.641666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 63.21203061592939,
+          "p95": 105.11176024709386,
+          "p99": 120.43734194414017
+        },
+        "max_dispatch_lag_ms": 1.7816945261506234,
+        "correct": 896,
+        "correct_met_slo": 896,
+        "correct_goodput_per_second": 7.466666666666667,
+        "correct_fraction_all_offered": 0.7744165946413137,
+        "accuracy_successful": 0.7744165946413137
+      },
+      "secondary": {
+        "offered": 1157,
+        "admitted": 1157,
+        "successful": 1157,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1157
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.641666666666667,
+        "met_slo": 1157,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.641666666666667,
+        "successful_per_offered_window_second": 9.641666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 63.21203061592939,
+          "p95": 105.11176024709386,
+          "p99": 120.43734194414017
+        },
+        "max_dispatch_lag_ms": 1.7816945261506234,
+        "correct": 896,
+        "correct_met_slo": 896,
+        "correct_goodput_per_second": 7.466666666666667,
+        "correct_fraction_all_offered": 0.7744165946413137,
+        "accuracy_successful": 0.7744165946413137
+      },
+      "details": {
+        "offered": 1157,
+        "admitted": 1157,
+        "successful": 1157,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1157
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 1157,
+          "label_agreement": 0.9956784788245462,
+          "matched_subset_historical_accuracy": 0.7718236819360415,
+          "live_accuracy": 0.7744165946413137
+        }
+      }
+    },
+    {
+      "cell_id": "r1-startlux4b-rate10",
+      "condition": "startlux4b",
+      "rate": 10,
+      "repeat": 1,
+      "primary": {
+        "offered": 1157,
+        "admitted": 1157,
+        "successful": 1157,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1157
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.641666666666667,
+        "met_slo": 1157,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.641666666666667,
+        "successful_per_offered_window_second": 9.641666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 60.03364700798386,
+          "p95": 104.18578029258755,
+          "p99": 121.30193937622953
+        },
+        "max_dispatch_lag_ms": 0.32939511975271785,
+        "correct": 871,
+        "correct_met_slo": 871,
+        "correct_goodput_per_second": 7.258333333333334,
+        "correct_fraction_all_offered": 0.7528089887640449,
+        "accuracy_successful": 0.7528089887640449
+      },
+      "secondary": {
+        "offered": 1157,
+        "admitted": 1157,
+        "successful": 1157,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1157
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.641666666666667,
+        "met_slo": 1157,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.641666666666667,
+        "successful_per_offered_window_second": 9.641666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 60.03364700798386,
+          "p95": 104.18578029258755,
+          "p99": 121.30193937622953
+        },
+        "max_dispatch_lag_ms": 0.32939511975271785,
+        "correct": 871,
+        "correct_met_slo": 871,
+        "correct_goodput_per_second": 7.258333333333334,
+        "correct_fraction_all_offered": 0.7528089887640449,
+        "accuracy_successful": 0.7528089887640449
+      },
+      "details": {
+        "offered": 1157,
+        "admitted": 1157,
+        "successful": 1157,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1157
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 1157,
+          "label_agreement": 0.9956784788245462,
+          "matched_subset_historical_accuracy": 0.7502160760587727,
+          "live_accuracy": 0.7528089887640449
+        }
+      }
+    },
+    {
+      "cell_id": "r1-cascade-rate10",
+      "condition": "cascade",
+      "rate": 10,
+      "repeat": 1,
+      "primary": {
+        "offered": 1157,
+        "admitted": 1157,
+        "successful": 1157,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1157
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.641666666666667,
+        "met_slo": 1082,
+        "slo_fraction_all_offered": 0.9351771823681936,
+        "goodput_per_second": 9.016666666666667,
+        "successful_per_offered_window_second": 9.641666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 85.79449434286346,
+          "p95": 533.6048685118458,
+          "p99": 647.5773588269006
+        },
+        "max_dispatch_lag_ms": 0.45070251950285467,
+        "correct": 877,
+        "correct_met_slo": 834,
+        "correct_goodput_per_second": 6.95,
+        "correct_fraction_all_offered": 0.7579948141745895,
+        "accuracy_successful": 0.7579948141745895
+      },
+      "secondary": {
+        "offered": 1157,
+        "admitted": 1157,
+        "successful": 1157,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1157
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.641666666666667,
+        "met_slo": 1157,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.641666666666667,
+        "successful_per_offered_window_second": 9.641666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 85.79449434286346,
+          "p95": 533.6048685118458,
+          "p99": 647.5773588269006
+        },
+        "max_dispatch_lag_ms": 0.45070251950285467,
+        "correct": 877,
+        "correct_met_slo": 877,
+        "correct_goodput_per_second": 7.308333333333334,
+        "correct_fraction_all_offered": 0.7579948141745895,
+        "accuracy_successful": 0.7579948141745895
+      },
+      "details": {
+        "offered": 1157,
+        "admitted": 1157,
+        "successful": 1157,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1157
+        },
+        "late_successful": {
+          "500": 75,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 1157,
+          "label_agreement": 0.996542783059637,
+          "matched_subset_historical_accuracy": 0.759723422644771,
+          "live_accuracy": 0.7579948141745895
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 879,
+            "score_at_or_above_threshold": 278
+          },
+          "routed": 1157,
+          "deferred": 278,
+          "deferral_rate_routed": 0.24027657735522903,
+          "fallback_calls": 278,
+          "route_agreement_with_history": 0.9904926534140017
+        }
+      }
+    },
+    {
+      "cell_id": "r1-startlux4b-rate40",
+      "condition": "startlux4b",
+      "rate": 40,
+      "repeat": 1,
+      "primary": {
+        "offered": 4859,
+        "admitted": 4859,
+        "successful": 4859,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4859
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.49166666666667,
+        "met_slo": 4859,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 40.49166666666667,
+        "successful_per_offered_window_second": 40.49166666666667,
+        "latency_ms_all_admitted": {
+          "p50": 99.34562884117071,
+          "p95": 124.39591311656154,
+          "p99": 127.49560570859302
+        },
+        "max_dispatch_lag_ms": 37.57173711977657,
+        "correct": 3595,
+        "correct_met_slo": 3595,
+        "correct_goodput_per_second": 29.958333333333332,
+        "correct_fraction_all_offered": 0.7398641695822186,
+        "accuracy_successful": 0.7398641695822186
+      },
+      "secondary": {
+        "offered": 4859,
+        "admitted": 4859,
+        "successful": 4859,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4859
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.49166666666667,
+        "met_slo": 4859,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 40.49166666666667,
+        "successful_per_offered_window_second": 40.49166666666667,
+        "latency_ms_all_admitted": {
+          "p50": 99.34562884117071,
+          "p95": 124.39591311656154,
+          "p99": 127.49560570859302
+        },
+        "max_dispatch_lag_ms": 37.57173711977657,
+        "correct": 3595,
+        "correct_met_slo": 3595,
+        "correct_goodput_per_second": 29.958333333333332,
+        "correct_fraction_all_offered": 0.7398641695822186,
+        "accuracy_successful": 0.7398641695822186
+      },
+      "details": {
+        "offered": 4859,
+        "admitted": 4859,
+        "successful": 4859,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4859
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 4859,
+          "label_agreement": 0.9962955340605063,
+          "matched_subset_historical_accuracy": 0.7396583659189133,
+          "live_accuracy": 0.7398641695822186
+        }
+      }
+    },
+    {
+      "cell_id": "r1-startlux9b-rate40",
+      "condition": "startlux9b",
+      "rate": 40,
+      "repeat": 1,
+      "primary": {
+        "offered": 4859,
+        "admitted": 4859,
+        "successful": 4859,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4859
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.49166666666667,
+        "met_slo": 4857,
+        "slo_fraction_all_offered": 0.9995883926733896,
+        "goodput_per_second": 40.475,
+        "successful_per_offered_window_second": 40.49166666666667,
+        "latency_ms_all_admitted": {
+          "p50": 162.55048150258088,
+          "p95": 311.16810471973713,
+          "p99": 386.6096835444893
+        },
+        "max_dispatch_lag_ms": 8.445412893848925,
+        "correct": 3723,
+        "correct_met_slo": 3722,
+        "correct_goodput_per_second": 31.016666666666666,
+        "correct_fraction_all_offered": 0.766207038485285,
+        "accuracy_successful": 0.766207038485285
+      },
+      "secondary": {
+        "offered": 4859,
+        "admitted": 4859,
+        "successful": 4859,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4859
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.49166666666667,
+        "met_slo": 4859,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 40.49166666666667,
+        "successful_per_offered_window_second": 40.49166666666667,
+        "latency_ms_all_admitted": {
+          "p50": 162.55048150258088,
+          "p95": 311.16810471973713,
+          "p99": 386.6096835444893
+        },
+        "max_dispatch_lag_ms": 8.445412893848925,
+        "correct": 3723,
+        "correct_met_slo": 3723,
+        "correct_goodput_per_second": 31.025,
+        "correct_fraction_all_offered": 0.766207038485285,
+        "accuracy_successful": 0.766207038485285
+      },
+      "details": {
+        "offered": 4859,
+        "admitted": 4859,
+        "successful": 4859,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4859
+        },
+        "late_successful": {
+          "500": 2,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 4859,
+          "label_agreement": 0.9975303560403375,
+          "matched_subset_historical_accuracy": 0.7660012348219798,
+          "live_accuracy": 0.766207038485285
+        }
+      }
+    },
+    {
+      "cell_id": "r1-cascade-rate40",
+      "condition": "cascade",
+      "rate": 40,
+      "repeat": 1,
+      "primary": {
+        "offered": 4859,
+        "admitted": 4181,
+        "successful": 4181,
+        "failed_admitted": 0,
+        "rejected": 678,
+        "status_counts": {
+          "ok": 4181,
+          "client_rejected": 678
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.49166666666667,
+        "met_slo": 50,
+        "slo_fraction_all_offered": 0.010290183165260341,
+        "goodput_per_second": 0.4166666666666667,
+        "successful_per_offered_window_second": 34.84166666666667,
+        "latency_ms_all_admitted": {
+          "p50": 1565.8213675837019,
+          "p95": 2549.2436830414536,
+          "p99": 2787.6878260264275
+        },
+        "max_dispatch_lag_ms": 11.042413093022674,
+        "correct": 3110,
+        "correct_met_slo": 44,
+        "correct_goodput_per_second": 0.36666666666666664,
+        "correct_fraction_all_offered": 0.6400493928791933,
+        "accuracy_successful": 0.7438411863190624
+      },
+      "secondary": {
+        "offered": 4859,
+        "admitted": 4181,
+        "successful": 4181,
+        "failed_admitted": 0,
+        "rejected": 678,
+        "status_counts": {
+          "ok": 4181,
+          "client_rejected": 678
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.49166666666667,
+        "met_slo": 163,
+        "slo_fraction_all_offered": 0.03354599711874871,
+        "goodput_per_second": 1.3583333333333334,
+        "successful_per_offered_window_second": 34.84166666666667,
+        "latency_ms_all_admitted": {
+          "p50": 1565.8213675837019,
+          "p95": 2549.2436830414536,
+          "p99": 2787.6878260264275
+        },
+        "max_dispatch_lag_ms": 11.042413093022674,
+        "correct": 3110,
+        "correct_met_slo": 133,
+        "correct_goodput_per_second": 1.1083333333333334,
+        "correct_fraction_all_offered": 0.6400493928791933,
+        "accuracy_successful": 0.7438411863190624
+      },
+      "details": {
+        "offered": 4859,
+        "admitted": 4181,
+        "successful": 4181,
+        "rejected": 678,
+        "status_counts": {
+          "ok": 4181,
+          "client_rejected": 678
+        },
+        "late_successful": {
+          "500": 4131,
+          "1000": 4018
+        },
+        "history": {
+          "successful_responses": 4181,
+          "label_agreement": 0.9925855058598422,
+          "matched_subset_historical_accuracy": 0.7462329586223392,
+          "live_accuracy": 0.7438411863190624
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 3168,
+            "score_at_or_above_threshold": 1013
+          },
+          "routed": 4181,
+          "deferred": 1013,
+          "deferral_rate_routed": 0.24228653432193256,
+          "fallback_calls": 1013,
+          "route_agreement_with_history": 0.9921071513991868
+        }
+      }
+    },
+    {
+      "cell_id": "r1-cascade-rate20",
+      "condition": "cascade",
+      "rate": 20,
+      "repeat": 1,
+      "primary": {
+        "offered": 2401,
+        "admitted": 2401,
+        "successful": 2401,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2401
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 20.008333333333333,
+        "met_slo": 1935,
+        "slo_fraction_all_offered": 0.8059142024156601,
+        "goodput_per_second": 16.125,
+        "successful_per_offered_window_second": 20.008333333333333,
+        "latency_ms_all_admitted": {
+          "p50": 115.63963407719768,
+          "p95": 839.470139523705,
+          "p99": 1046.4139597843384
+        },
+        "max_dispatch_lag_ms": 14.553892881295383,
+        "correct": 1776,
+        "correct_met_slo": 1531,
+        "correct_goodput_per_second": 12.758333333333333,
+        "correct_fraction_all_offered": 0.7396917950853811,
+        "accuracy_successful": 0.7396917950853811
+      },
+      "secondary": {
+        "offered": 2401,
+        "admitted": 2401,
+        "successful": 2401,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2401
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 20.008333333333333,
+        "met_slo": 2355,
+        "slo_fraction_all_offered": 0.9808413161182841,
+        "goodput_per_second": 19.625,
+        "successful_per_offered_window_second": 20.008333333333333,
+        "latency_ms_all_admitted": {
+          "p50": 115.63963407719768,
+          "p95": 839.470139523705,
+          "p99": 1046.4139597843384
+        },
+        "max_dispatch_lag_ms": 14.553892881295383,
+        "correct": 1776,
+        "correct_met_slo": 1747,
+        "correct_goodput_per_second": 14.558333333333334,
+        "correct_fraction_all_offered": 0.7396917950853811,
+        "accuracy_successful": 0.7396917950853811
+      },
+      "details": {
+        "offered": 2401,
+        "admitted": 2401,
+        "successful": 2401,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2401
+        },
+        "late_successful": {
+          "500": 466,
+          "1000": 46
+        },
+        "history": {
+          "successful_responses": 2401,
+          "label_agreement": 0.994585589337776,
+          "matched_subset_historical_accuracy": 0.7426072469804248,
+          "live_accuracy": 0.7396917950853811
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 1833,
+            "score_at_or_above_threshold": 568
+          },
+          "routed": 2401,
+          "deferred": 568,
+          "deferral_rate_routed": 0.23656809662640566,
+          "fallback_calls": 568,
+          "route_agreement_with_history": 0.9929196168263223
+        }
+      }
+    },
+    {
+      "cell_id": "r1-startlux9b-rate20",
+      "condition": "startlux9b",
+      "rate": 20,
+      "repeat": 1,
+      "primary": {
+        "offered": 2401,
+        "admitted": 2401,
+        "successful": 2401,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2401
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 20.008333333333333,
+        "met_slo": 2401,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 20.008333333333333,
+        "successful_per_offered_window_second": 20.008333333333333,
+        "latency_ms_all_admitted": {
+          "p50": 85.56550543978858,
+          "p95": 123.03396099985164,
+          "p99": 139.79948213532012
+        },
+        "max_dispatch_lag_ms": 11.314812514285677,
+        "correct": 1840,
+        "correct_met_slo": 1840,
+        "correct_goodput_per_second": 15.333333333333334,
+        "correct_fraction_all_offered": 0.7663473552686381,
+        "accuracy_successful": 0.7663473552686381
+      },
+      "secondary": {
+        "offered": 2401,
+        "admitted": 2401,
+        "successful": 2401,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2401
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 20.008333333333333,
+        "met_slo": 2401,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 20.008333333333333,
+        "successful_per_offered_window_second": 20.008333333333333,
+        "latency_ms_all_admitted": {
+          "p50": 85.56550543978858,
+          "p95": 123.03396099985164,
+          "p99": 139.79948213532012
+        },
+        "max_dispatch_lag_ms": 11.314812514285677,
+        "correct": 1840,
+        "correct_met_slo": 1840,
+        "correct_goodput_per_second": 15.333333333333334,
+        "correct_fraction_all_offered": 0.7663473552686381,
+        "accuracy_successful": 0.7663473552686381
+      },
+      "details": {
+        "offered": 2401,
+        "admitted": 2401,
+        "successful": 2401,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2401
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 2401,
+          "label_agreement": 0.9983340274885465,
+          "matched_subset_historical_accuracy": 0.7663473552686381,
+          "live_accuracy": 0.7663473552686381
+        }
+      }
+    },
+    {
+      "cell_id": "r1-startlux4b-rate20",
+      "condition": "startlux4b",
+      "rate": 20,
+      "repeat": 1,
+      "primary": {
+        "offered": 2401,
+        "admitted": 2401,
+        "successful": 2401,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2401
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 20.008333333333333,
+        "met_slo": 2401,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 20.008333333333333,
+        "successful_per_offered_window_second": 20.008333333333333,
+        "latency_ms_all_admitted": {
+          "p50": 83.78657434640502,
+          "p95": 119.4909235686481,
+          "p99": 123.8927380578545
+        },
+        "max_dispatch_lag_ms": 7.513399648084729,
+        "correct": 1782,
+        "correct_met_slo": 1782,
+        "correct_goodput_per_second": 14.85,
+        "correct_fraction_all_offered": 0.7421907538525614,
+        "accuracy_successful": 0.7421907538525614
+      },
+      "secondary": {
+        "offered": 2401,
+        "admitted": 2401,
+        "successful": 2401,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2401
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 20.008333333333333,
+        "met_slo": 2401,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 20.008333333333333,
+        "successful_per_offered_window_second": 20.008333333333333,
+        "latency_ms_all_admitted": {
+          "p50": 83.78657434640502,
+          "p95": 119.4909235686481,
+          "p99": 123.8927380578545
+        },
+        "max_dispatch_lag_ms": 7.513399648084729,
+        "correct": 1782,
+        "correct_met_slo": 1782,
+        "correct_goodput_per_second": 14.85,
+        "correct_fraction_all_offered": 0.7421907538525614,
+        "accuracy_successful": 0.7421907538525614
+      },
+      "details": {
+        "offered": 2401,
+        "admitted": 2401,
+        "successful": 2401,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2401
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 2401,
+          "label_agreement": 0.9975010412328197,
+          "matched_subset_historical_accuracy": 0.7426072469804248,
+          "live_accuracy": 0.7421907538525614
+        }
+      }
+    },
+    {
+      "cell_id": "r2-cascade-rate80",
+      "condition": "cascade",
+      "rate": 80,
+      "repeat": 2,
+      "primary": {
+        "offered": 9656,
+        "admitted": 4208,
+        "successful": 4208,
+        "failed_admitted": 0,
+        "rejected": 5448,
+        "status_counts": {
+          "ok": 4208,
+          "client_rejected": 5448
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.46666666666667,
+        "met_slo": 19,
+        "slo_fraction_all_offered": 0.001967688483844242,
+        "goodput_per_second": 0.15833333333333333,
+        "successful_per_offered_window_second": 35.06666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 1645.7406855645972,
+          "p95": 2658.2163723411354,
+          "p99": 2853.5346250266143
+        },
+        "max_dispatch_lag_ms": 109.57268437170598,
+        "correct": 3112,
+        "correct_met_slo": 16,
+        "correct_goodput_per_second": 0.13333333333333333,
+        "correct_fraction_all_offered": 0.32228666114333054,
+        "accuracy_successful": 0.7395437262357415
+      },
+      "secondary": {
+        "offered": 9656,
+        "admitted": 4208,
+        "successful": 4208,
+        "failed_admitted": 0,
+        "rejected": 5448,
+        "status_counts": {
+          "ok": 4208,
+          "client_rejected": 5448
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.46666666666667,
+        "met_slo": 31,
+        "slo_fraction_all_offered": 0.0032104391052195525,
+        "goodput_per_second": 0.25833333333333336,
+        "successful_per_offered_window_second": 35.06666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 1645.7406855645972,
+          "p95": 2658.2163723411354,
+          "p99": 2853.5346250266143
+        },
+        "max_dispatch_lag_ms": 109.57268437170598,
+        "correct": 3112,
+        "correct_met_slo": 24,
+        "correct_goodput_per_second": 0.2,
+        "correct_fraction_all_offered": 0.32228666114333054,
+        "accuracy_successful": 0.7395437262357415
+      },
+      "details": {
+        "offered": 9656,
+        "admitted": 4208,
+        "successful": 4208,
+        "rejected": 5448,
+        "status_counts": {
+          "ok": 4208,
+          "client_rejected": 5448
+        },
+        "late_successful": {
+          "500": 4189,
+          "1000": 4177
+        },
+        "history": {
+          "successful_responses": 4208,
+          "label_agreement": 0.9935836501901141,
+          "matched_subset_historical_accuracy": 0.7407319391634981,
+          "live_accuracy": 0.7395437262357415
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 3197,
+            "score_at_or_above_threshold": 1011
+          },
+          "routed": 4208,
+          "deferred": 1011,
+          "deferral_rate_routed": 0.24025665399239543,
+          "fallback_calls": 1011,
+          "route_agreement_with_history": 0.9928707224334601
+        }
+      }
+    },
+    {
+      "cell_id": "r2-startlux4b-rate80",
+      "condition": "startlux4b",
+      "rate": 80,
+      "repeat": 2,
+      "primary": {
+        "offered": 9656,
+        "admitted": 9428,
+        "successful": 9428,
+        "failed_admitted": 0,
+        "rejected": 228,
+        "status_counts": {
+          "ok": 9428,
+          "client_rejected": 228
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.46666666666667,
+        "met_slo": 6178,
+        "slo_fraction_all_offered": 0.6398094449047225,
+        "goodput_per_second": 51.483333333333334,
+        "successful_per_offered_window_second": 78.56666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 369.1924721276614,
+          "p95": 796.8452031513315,
+          "p99": 876.7002041438902
+        },
+        "max_dispatch_lag_ms": 48.17709335617337,
+        "correct": 7009,
+        "correct_met_slo": 4591,
+        "correct_goodput_per_second": 38.25833333333333,
+        "correct_fraction_all_offered": 0.7258699254349628,
+        "accuracy_successful": 0.7434238438693254
+      },
+      "secondary": {
+        "offered": 9656,
+        "admitted": 9428,
+        "successful": 9428,
+        "failed_admitted": 0,
+        "rejected": 228,
+        "status_counts": {
+          "ok": 9428,
+          "client_rejected": 228
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.46666666666667,
+        "met_slo": 9428,
+        "slo_fraction_all_offered": 0.9763877381938691,
+        "goodput_per_second": 78.56666666666666,
+        "successful_per_offered_window_second": 78.56666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 369.1924721276614,
+          "p95": 796.8452031513315,
+          "p99": 876.7002041438902
+        },
+        "max_dispatch_lag_ms": 48.17709335617337,
+        "correct": 7009,
+        "correct_met_slo": 7009,
+        "correct_goodput_per_second": 58.40833333333333,
+        "correct_fraction_all_offered": 0.7258699254349628,
+        "accuracy_successful": 0.7434238438693254
+      },
+      "details": {
+        "offered": 9656,
+        "admitted": 9428,
+        "successful": 9428,
+        "rejected": 228,
+        "status_counts": {
+          "ok": 9428,
+          "client_rejected": 228
+        },
+        "late_successful": {
+          "500": 3250,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 9428,
+          "label_agreement": 0.9960755197284684,
+          "matched_subset_historical_accuracy": 0.7427874416631312,
+          "live_accuracy": 0.7434238438693254
+        }
+      }
+    },
+    {
+      "cell_id": "r2-startlux9b-rate80",
+      "condition": "startlux9b",
+      "rate": 80,
+      "repeat": 2,
+      "primary": {
+        "offered": 9656,
+        "admitted": 5799,
+        "successful": 5799,
+        "failed_admitted": 0,
+        "rejected": 3857,
+        "status_counts": {
+          "ok": 5799,
+          "client_rejected": 3857
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.46666666666667,
+        "met_slo": 48,
+        "slo_fraction_all_offered": 0.004971002485501243,
+        "goodput_per_second": 0.4,
+        "successful_per_offered_window_second": 48.325,
+        "latency_ms_all_admitted": {
+          "p50": 1297.8527164905954,
+          "p95": 1350.887512586388,
+          "p99": 1368.7482749934645
+        },
+        "max_dispatch_lag_ms": 25.526673729700633,
+        "correct": 4483,
+        "correct_met_slo": 35,
+        "correct_goodput_per_second": 0.2916666666666667,
+        "correct_fraction_all_offered": 0.4642709196354598,
+        "accuracy_successful": 0.7730643214347301
+      },
+      "secondary": {
+        "offered": 9656,
+        "admitted": 5799,
+        "successful": 5799,
+        "failed_admitted": 0,
+        "rejected": 3857,
+        "status_counts": {
+          "ok": 5799,
+          "client_rejected": 3857
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 80.46666666666667,
+        "met_slo": 131,
+        "slo_fraction_all_offered": 0.013566694283347142,
+        "goodput_per_second": 1.0916666666666666,
+        "successful_per_offered_window_second": 48.325,
+        "latency_ms_all_admitted": {
+          "p50": 1297.8527164905954,
+          "p95": 1350.887512586388,
+          "p99": 1368.7482749934645
+        },
+        "max_dispatch_lag_ms": 25.526673729700633,
+        "correct": 4483,
+        "correct_met_slo": 101,
+        "correct_goodput_per_second": 0.8416666666666667,
+        "correct_fraction_all_offered": 0.4642709196354598,
+        "accuracy_successful": 0.7730643214347301
+      },
+      "details": {
+        "offered": 9656,
+        "admitted": 5799,
+        "successful": 5799,
+        "rejected": 3857,
+        "status_counts": {
+          "ok": 5799,
+          "client_rejected": 3857
+        },
+        "late_successful": {
+          "500": 5751,
+          "1000": 5668
+        },
+        "history": {
+          "successful_responses": 5799,
+          "label_agreement": 0.9979306777030522,
+          "matched_subset_historical_accuracy": 0.7737540955337127,
+          "live_accuracy": 0.7730643214347301
+        }
+      }
+    },
+    {
+      "cell_id": "r2-startlux9b-rate20",
+      "condition": "startlux9b",
+      "rate": 20,
+      "repeat": 2,
+      "primary": {
+        "offered": 2282,
+        "admitted": 2282,
+        "successful": 2282,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2282
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 19.016666666666666,
+        "met_slo": 2282,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 19.016666666666666,
+        "successful_per_offered_window_second": 19.016666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 84.22466620021574,
+          "p95": 123.30921877218141,
+          "p99": 152.5249372296444
+        },
+        "max_dispatch_lag_ms": 2.0390325437817935,
+        "correct": 1748,
+        "correct_met_slo": 1748,
+        "correct_goodput_per_second": 14.566666666666666,
+        "correct_fraction_all_offered": 0.7659947414548641,
+        "accuracy_successful": 0.7659947414548641
+      },
+      "secondary": {
+        "offered": 2282,
+        "admitted": 2282,
+        "successful": 2282,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2282
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 19.016666666666666,
+        "met_slo": 2282,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 19.016666666666666,
+        "successful_per_offered_window_second": 19.016666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 84.22466620021574,
+          "p95": 123.30921877218141,
+          "p99": 152.5249372296444
+        },
+        "max_dispatch_lag_ms": 2.0390325437817935,
+        "correct": 1748,
+        "correct_met_slo": 1748,
+        "correct_goodput_per_second": 14.566666666666666,
+        "correct_fraction_all_offered": 0.7659947414548641,
+        "accuracy_successful": 0.7659947414548641
+      },
+      "details": {
+        "offered": 2282,
+        "admitted": 2282,
+        "successful": 2282,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2282
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 2282,
+          "label_agreement": 0.9978089395267309,
+          "matched_subset_historical_accuracy": 0.7659947414548641,
+          "live_accuracy": 0.7659947414548641
+        }
+      }
+    },
+    {
+      "cell_id": "r2-cascade-rate20",
+      "condition": "cascade",
+      "rate": 20,
+      "repeat": 2,
+      "primary": {
+        "offered": 2282,
+        "admitted": 2282,
+        "successful": 2282,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2282
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 19.016666666666666,
+        "met_slo": 1864,
+        "slo_fraction_all_offered": 0.8168273444347064,
+        "goodput_per_second": 15.533333333333333,
+        "successful_per_offered_window_second": 19.016666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 112.1952719598891,
+          "p95": 792.9719575973838,
+          "p99": 1022.6814819413993
+        },
+        "max_dispatch_lag_ms": 17.873083471954487,
+        "correct": 1712,
+        "correct_met_slo": 1484,
+        "correct_goodput_per_second": 12.366666666666667,
+        "correct_fraction_all_offered": 0.7502191060473269,
+        "accuracy_successful": 0.7502191060473269
+      },
+      "secondary": {
+        "offered": 2282,
+        "admitted": 2282,
+        "successful": 2282,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2282
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 19.016666666666666,
+        "met_slo": 2253,
+        "slo_fraction_all_offered": 0.9872918492550394,
+        "goodput_per_second": 18.775,
+        "successful_per_offered_window_second": 19.016666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 112.1952719598891,
+          "p95": 792.9719575973838,
+          "p99": 1022.6814819413993
+        },
+        "max_dispatch_lag_ms": 17.873083471954487,
+        "correct": 1712,
+        "correct_met_slo": 1695,
+        "correct_goodput_per_second": 14.125,
+        "correct_fraction_all_offered": 0.7502191060473269,
+        "accuracy_successful": 0.7502191060473269
+      },
+      "details": {
+        "offered": 2282,
+        "admitted": 2282,
+        "successful": 2282,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2282
+        },
+        "late_successful": {
+          "500": 418,
+          "1000": 29
+        },
+        "history": {
+          "successful_responses": 2282,
+          "label_agreement": 0.992988606485539,
+          "matched_subset_historical_accuracy": 0.7541630148992112,
+          "live_accuracy": 0.7502191060473269
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 1750,
+            "score_at_or_above_threshold": 532
+          },
+          "routed": 2282,
+          "deferred": 532,
+          "deferral_rate_routed": 0.2331288343558282,
+          "fallback_calls": 532,
+          "route_agreement_with_history": 0.9925503943908852
+        }
+      }
+    },
+    {
+      "cell_id": "r2-startlux4b-rate20",
+      "condition": "startlux4b",
+      "rate": 20,
+      "repeat": 2,
+      "primary": {
+        "offered": 2282,
+        "admitted": 2282,
+        "successful": 2282,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2282
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 19.016666666666666,
+        "met_slo": 2282,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 19.016666666666666,
+        "successful_per_offered_window_second": 19.016666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 83.19774241582323,
+          "p95": 118.87189563532235,
+          "p99": 123.59246781021632
+        },
+        "max_dispatch_lag_ms": 6.105025138978704,
+        "correct": 1695,
+        "correct_met_slo": 1695,
+        "correct_goodput_per_second": 14.125,
+        "correct_fraction_all_offered": 0.7427695004382121,
+        "accuracy_successful": 0.7427695004382121
+      },
+      "secondary": {
+        "offered": 2282,
+        "admitted": 2282,
+        "successful": 2282,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2282
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 19.016666666666666,
+        "met_slo": 2282,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 19.016666666666666,
+        "successful_per_offered_window_second": 19.016666666666666,
+        "latency_ms_all_admitted": {
+          "p50": 83.19774241582323,
+          "p95": 118.87189563532235,
+          "p99": 123.59246781021632
+        },
+        "max_dispatch_lag_ms": 6.105025138978704,
+        "correct": 1695,
+        "correct_met_slo": 1695,
+        "correct_goodput_per_second": 14.125,
+        "correct_fraction_all_offered": 0.7427695004382121,
+        "accuracy_successful": 0.7427695004382121
+      },
+      "details": {
+        "offered": 2282,
+        "admitted": 2282,
+        "successful": 2282,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 2282
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 2282,
+          "label_agreement": 0.9960560911481157,
+          "matched_subset_historical_accuracy": 0.7432077125328659,
+          "live_accuracy": 0.7427695004382121
+        }
+      }
+    },
+    {
+      "cell_id": "r2-cascade-rate10",
+      "condition": "cascade",
+      "rate": 10,
+      "repeat": 2,
+      "primary": {
+        "offered": 1196,
+        "admitted": 1196,
+        "successful": 1196,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1196
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.966666666666667,
+        "met_slo": 1122,
+        "slo_fraction_all_offered": 0.9381270903010034,
+        "goodput_per_second": 9.35,
+        "successful_per_offered_window_second": 9.966666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 84.38605865643112,
+          "p95": 533.2793715099733,
+          "p99": 649.3622776462541
+        },
+        "max_dispatch_lag_ms": 8.092018964354963,
+        "correct": 887,
+        "correct_met_slo": 845,
+        "correct_goodput_per_second": 7.041666666666667,
+        "correct_fraction_all_offered": 0.7416387959866221,
+        "accuracy_successful": 0.7416387959866221
+      },
+      "secondary": {
+        "offered": 1196,
+        "admitted": 1196,
+        "successful": 1196,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1196
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.966666666666667,
+        "met_slo": 1196,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.966666666666667,
+        "successful_per_offered_window_second": 9.966666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 84.38605865643112,
+          "p95": 533.2793715099733,
+          "p99": 649.3622776462541
+        },
+        "max_dispatch_lag_ms": 8.092018964354963,
+        "correct": 887,
+        "correct_met_slo": 887,
+        "correct_goodput_per_second": 7.391666666666667,
+        "correct_fraction_all_offered": 0.7416387959866221,
+        "accuracy_successful": 0.7416387959866221
+      },
+      "details": {
+        "offered": 1196,
+        "admitted": 1196,
+        "successful": 1196,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1196
+        },
+        "late_successful": {
+          "500": 74,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 1196,
+          "label_agreement": 0.9882943143812709,
+          "matched_subset_historical_accuracy": 0.7474916387959866,
+          "live_accuracy": 0.7416387959866221
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 906,
+            "score_at_or_above_threshold": 290
+          },
+          "routed": 1196,
+          "deferred": 290,
+          "deferral_rate_routed": 0.24247491638795987,
+          "fallback_calls": 290,
+          "route_agreement_with_history": 0.9908026755852842
+        }
+      }
+    },
+    {
+      "cell_id": "r2-startlux4b-rate10",
+      "condition": "startlux4b",
+      "rate": 10,
+      "repeat": 2,
+      "primary": {
+        "offered": 1196,
+        "admitted": 1196,
+        "successful": 1196,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1196
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.966666666666667,
+        "met_slo": 1196,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.966666666666667,
+        "successful_per_offered_window_second": 9.966666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 60.480923938190045,
+          "p95": 105.07057813083343,
+          "p99": 121.14478260641232
+        },
+        "max_dispatch_lag_ms": 13.346535706432405,
+        "correct": 875,
+        "correct_met_slo": 875,
+        "correct_goodput_per_second": 7.291666666666667,
+        "correct_fraction_all_offered": 0.7316053511705686,
+        "accuracy_successful": 0.7316053511705686
+      },
+      "secondary": {
+        "offered": 1196,
+        "admitted": 1196,
+        "successful": 1196,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1196
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.966666666666667,
+        "met_slo": 1196,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.966666666666667,
+        "successful_per_offered_window_second": 9.966666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 60.480923938190045,
+          "p95": 105.07057813083343,
+          "p99": 121.14478260641232
+        },
+        "max_dispatch_lag_ms": 13.346535706432405,
+        "correct": 875,
+        "correct_met_slo": 875,
+        "correct_goodput_per_second": 7.291666666666667,
+        "correct_fraction_all_offered": 0.7316053511705686,
+        "accuracy_successful": 0.7316053511705686
+      },
+      "details": {
+        "offered": 1196,
+        "admitted": 1196,
+        "successful": 1196,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1196
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 1196,
+          "label_agreement": 1.0,
+          "matched_subset_historical_accuracy": 0.7316053511705686,
+          "live_accuracy": 0.7316053511705686
+        }
+      }
+    },
+    {
+      "cell_id": "r2-startlux9b-rate10",
+      "condition": "startlux9b",
+      "rate": 10,
+      "repeat": 2,
+      "primary": {
+        "offered": 1196,
+        "admitted": 1196,
+        "successful": 1196,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1196
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.966666666666667,
+        "met_slo": 1196,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.966666666666667,
+        "successful_per_offered_window_second": 9.966666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 64.91775329615379,
+          "p95": 107.07185813816977,
+          "p99": 121.65244497606027
+        },
+        "max_dispatch_lag_ms": 0.3181171089607915,
+        "correct": 923,
+        "correct_met_slo": 923,
+        "correct_goodput_per_second": 7.691666666666666,
+        "correct_fraction_all_offered": 0.7717391304347826,
+        "accuracy_successful": 0.7717391304347826
+      },
+      "secondary": {
+        "offered": 1196,
+        "admitted": 1196,
+        "successful": 1196,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1196
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 9.966666666666667,
+        "met_slo": 1196,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 9.966666666666667,
+        "successful_per_offered_window_second": 9.966666666666667,
+        "latency_ms_all_admitted": {
+          "p50": 64.91775329615379,
+          "p95": 107.07185813816977,
+          "p99": 121.65244497606027
+        },
+        "max_dispatch_lag_ms": 0.3181171089607915,
+        "correct": 923,
+        "correct_met_slo": 923,
+        "correct_goodput_per_second": 7.691666666666666,
+        "correct_fraction_all_offered": 0.7717391304347826,
+        "accuracy_successful": 0.7717391304347826
+      },
+      "details": {
+        "offered": 1196,
+        "admitted": 1196,
+        "successful": 1196,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 1196
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 1196,
+          "label_agreement": 0.9974916387959866,
+          "matched_subset_historical_accuracy": 0.7709030100334449,
+          "live_accuracy": 0.7717391304347826
+        }
+      }
+    },
+    {
+      "cell_id": "r2-startlux4b-rate40",
+      "condition": "startlux4b",
+      "rate": 40,
+      "repeat": 2,
+      "primary": {
+        "offered": 4887,
+        "admitted": 4887,
+        "successful": 4887,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4887
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.725,
+        "met_slo": 4887,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 40.725,
+        "successful_per_offered_window_second": 40.725,
+        "latency_ms_all_admitted": {
+          "p50": 99.34946053424198,
+          "p95": 124.20422003761082,
+          "p99": 126.95804427961421
+        },
+        "max_dispatch_lag_ms": 22.515508475123625,
+        "correct": 3618,
+        "correct_met_slo": 3618,
+        "correct_goodput_per_second": 30.15,
+        "correct_fraction_all_offered": 0.7403314917127072,
+        "accuracy_successful": 0.7403314917127072
+      },
+      "secondary": {
+        "offered": 4887,
+        "admitted": 4887,
+        "successful": 4887,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4887
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.725,
+        "met_slo": 4887,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 40.725,
+        "successful_per_offered_window_second": 40.725,
+        "latency_ms_all_admitted": {
+          "p50": 99.34946053424198,
+          "p95": 124.20422003761082,
+          "p99": 126.95804427961421
+        },
+        "max_dispatch_lag_ms": 22.515508475123625,
+        "correct": 3618,
+        "correct_met_slo": 3618,
+        "correct_goodput_per_second": 30.15,
+        "correct_fraction_all_offered": 0.7403314917127072,
+        "accuracy_successful": 0.7403314917127072
+      },
+      "details": {
+        "offered": 4887,
+        "admitted": 4887,
+        "successful": 4887,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4887
+        },
+        "late_successful": {
+          "500": 0,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 4887,
+          "label_agreement": 0.996316758747698,
+          "matched_subset_historical_accuracy": 0.7391037446286065,
+          "live_accuracy": 0.7403314917127072
+        }
+      }
+    },
+    {
+      "cell_id": "r2-startlux9b-rate40",
+      "condition": "startlux9b",
+      "rate": 40,
+      "repeat": 2,
+      "primary": {
+        "offered": 4887,
+        "admitted": 4887,
+        "successful": 4887,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4887
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.725,
+        "met_slo": 4832,
+        "slo_fraction_all_offered": 0.9887456517290771,
+        "goodput_per_second": 40.266666666666666,
+        "successful_per_offered_window_second": 40.725,
+        "latency_ms_all_admitted": {
+          "p50": 159.0670303804984,
+          "p95": 370.58010035822366,
+          "p99": 507.5769966710158
+        },
+        "max_dispatch_lag_ms": 31.76634117242827,
+        "correct": 3739,
+        "correct_met_slo": 3690,
+        "correct_goodput_per_second": 30.75,
+        "correct_fraction_all_offered": 0.7650910579087374,
+        "accuracy_successful": 0.7650910579087374
+      },
+      "secondary": {
+        "offered": 4887,
+        "admitted": 4887,
+        "successful": 4887,
+        "failed_admitted": 0,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4887
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.725,
+        "met_slo": 4887,
+        "slo_fraction_all_offered": 1.0,
+        "goodput_per_second": 40.725,
+        "successful_per_offered_window_second": 40.725,
+        "latency_ms_all_admitted": {
+          "p50": 159.0670303804984,
+          "p95": 370.58010035822366,
+          "p99": 507.5769966710158
+        },
+        "max_dispatch_lag_ms": 31.76634117242827,
+        "correct": 3739,
+        "correct_met_slo": 3739,
+        "correct_goodput_per_second": 31.158333333333335,
+        "correct_fraction_all_offered": 0.7650910579087374,
+        "accuracy_successful": 0.7650910579087374
+      },
+      "details": {
+        "offered": 4887,
+        "admitted": 4887,
+        "successful": 4887,
+        "rejected": 0,
+        "status_counts": {
+          "ok": 4887
+        },
+        "late_successful": {
+          "500": 55,
+          "1000": 0
+        },
+        "history": {
+          "successful_responses": 4887,
+          "label_agreement": 0.9983630038878658,
+          "matched_subset_historical_accuracy": 0.7648864333947207,
+          "live_accuracy": 0.7650910579087374
+        }
+      }
+    },
+    {
+      "cell_id": "r2-cascade-rate40",
+      "condition": "cascade",
+      "rate": 40,
+      "repeat": 2,
+      "primary": {
+        "offered": 4887,
+        "admitted": 4190,
+        "successful": 4190,
+        "failed_admitted": 0,
+        "rejected": 697,
+        "status_counts": {
+          "ok": 4190,
+          "client_rejected": 697
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.725,
+        "met_slo": 31,
+        "slo_fraction_all_offered": 0.0063433599345201555,
+        "goodput_per_second": 0.25833333333333336,
+        "successful_per_offered_window_second": 34.916666666666664,
+        "latency_ms_all_admitted": {
+          "p50": 1571.0657428778277,
+          "p95": 2595.334828456337,
+          "p99": 2792.0890635690494
+        },
+        "max_dispatch_lag_ms": 26.330456081154807,
+        "correct": 3080,
+        "correct_met_slo": 25,
+        "correct_goodput_per_second": 0.20833333333333334,
+        "correct_fraction_all_offered": 0.63024350317168,
+        "accuracy_successful": 0.7350835322195705
+      },
+      "secondary": {
+        "offered": 4887,
+        "admitted": 4190,
+        "successful": 4190,
+        "failed_admitted": 0,
+        "rejected": 697,
+        "status_counts": {
+          "ok": 4190,
+          "client_rejected": 697
+        },
+        "duration_seconds": 120,
+        "offered_rate_actual": 40.725,
+        "met_slo": 101,
+        "slo_fraction_all_offered": 0.0206670759156947,
+        "goodput_per_second": 0.8416666666666667,
+        "successful_per_offered_window_second": 34.916666666666664,
+        "latency_ms_all_admitted": {
+          "p50": 1571.0657428778277,
+          "p95": 2595.334828456337,
+          "p99": 2792.0890635690494
+        },
+        "max_dispatch_lag_ms": 26.330456081154807,
+        "correct": 3080,
+        "correct_met_slo": 79,
+        "correct_goodput_per_second": 0.6583333333333333,
+        "correct_fraction_all_offered": 0.63024350317168,
+        "accuracy_successful": 0.7350835322195705
+      },
+      "details": {
+        "offered": 4887,
+        "admitted": 4190,
+        "successful": 4190,
+        "rejected": 697,
+        "status_counts": {
+          "ok": 4190,
+          "client_rejected": 697
+        },
+        "late_successful": {
+          "500": 4159,
+          "1000": 4089
+        },
+        "history": {
+          "successful_responses": 4190,
+          "label_agreement": 0.9921241050119332,
+          "matched_subset_historical_accuracy": 0.7365155131264917,
+          "live_accuracy": 0.7350835322195705
+        },
+        "cascade": {
+          "route_reasons": {
+            "score_below_threshold": 3173,
+            "score_at_or_above_threshold": 1017
+          },
+          "routed": 4190,
+          "deferred": 1017,
+          "deferral_rate_routed": 0.24272076372315035,
+          "fallback_calls": 1017,
+          "route_agreement_with_history": 0.990692124105012
+        }
+      }
+    }
+  ],
+  "summaries": [
+    {
+      "condition": "startlux4b",
+      "rate": 10,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 7.258333333333334,
+          "min": 7.2,
+          "max": 7.291666666666667,
+          "values": [
+            7.2,
+            7.258333333333334,
+            7.291666666666667
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 9.641666666666667,
+          "min": 9.616666666666667,
+          "max": 9.966666666666667,
+          "values": [
+            9.616666666666667,
+            9.641666666666667,
+            9.966666666666667
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.7487001733102253,
+          "min": 0.7316053511705686,
+          "max": 0.7528089887640449,
+          "values": [
+            0.7487001733102253,
+            0.7528089887640449,
+            0.7316053511705686
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 7.258333333333334,
+          "min": 7.2,
+          "max": 7.291666666666667,
+          "values": [
+            7.2,
+            7.258333333333334,
+            7.291666666666667
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 9.641666666666667,
+          "min": 9.616666666666667,
+          "max": 9.966666666666667,
+          "values": [
+            9.616666666666667,
+            9.641666666666667,
+            9.966666666666667
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.7487001733102253,
+          "min": 0.7316053511705686,
+          "max": 0.7528089887640449,
+          "values": [
+            0.7487001733102253,
+            0.7528089887640449,
+            0.7316053511705686
+          ]
+        },
+        "successful_per_second": {
+          "median": 9.641666666666667,
+          "min": 9.616666666666667,
+          "max": 9.966666666666667,
+          "values": [
+            9.616666666666667,
+            9.641666666666667,
+            9.966666666666667
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 105.07057813083343,
+          "min": 104.18578029258755,
+          "max": 110.61075979866558,
+          "values": [
+            110.61075979866558,
+            104.18578029258755,
+            105.07057813083343
+          ]
+        }
+      }
+    },
+    {
+      "condition": "startlux4b",
+      "rate": 20,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 14.85,
+          "min": 14.125,
+          "max": 15.05,
+          "values": [
+            15.05,
+            14.85,
+            14.125
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 20.008333333333333,
+          "min": 19.016666666666666,
+          "max": 20.408333333333335,
+          "values": [
+            20.408333333333335,
+            20.008333333333333,
+            19.016666666666666
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 0.96875,
+          "max": 1.0,
+          "values": [
+            0.96875,
+            1.0,
+            1.0
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.7421907538525614,
+          "min": 0.7380292837356549,
+          "max": 0.7427695004382121,
+          "values": [
+            0.7380292837356549,
+            0.7421907538525614,
+            0.7427695004382121
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 14.85,
+          "min": 14.125,
+          "max": 15.108333333333333,
+          "values": [
+            15.108333333333333,
+            14.85,
+            14.125
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 20.008333333333333,
+          "min": 19.016666666666666,
+          "max": 20.483333333333334,
+          "values": [
+            20.483333333333334,
+            20.008333333333333,
+            19.016666666666666
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 0.9723101265822784,
+          "max": 1.0,
+          "values": [
+            0.9723101265822784,
+            1.0,
+            1.0
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.7421907538525614,
+          "min": 0.7380292837356549,
+          "max": 0.7427695004382121,
+          "values": [
+            0.7380292837356549,
+            0.7421907538525614,
+            0.7427695004382121
+          ]
+        },
+        "successful_per_second": {
+          "median": 20.008333333333333,
+          "min": 19.016666666666666,
+          "max": 21.058333333333334,
+          "values": [
+            21.058333333333334,
+            20.008333333333333,
+            19.016666666666666
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 119.4909235686481,
+          "min": 118.87189563532235,
+          "max": 122.52169797772581,
+          "values": [
+            122.52169797772581,
+            119.4909235686481,
+            118.87189563532235
+          ]
+        }
+      }
+    },
+    {
+      "condition": "startlux4b",
+      "rate": 40,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 29.958333333333332,
+          "min": 29.266666666666666,
+          "max": 30.15,
+          "values": [
+            29.266666666666666,
+            29.958333333333332,
+            30.15
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 40.49166666666667,
+          "min": 39.6,
+          "max": 40.725,
+          "values": [
+            39.6,
+            40.49166666666667,
+            40.725
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.7398641695822186,
+          "min": 0.7390572390572391,
+          "max": 0.7403314917127072,
+          "values": [
+            0.7390572390572391,
+            0.7398641695822186,
+            0.7403314917127072
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 29.958333333333332,
+          "min": 29.266666666666666,
+          "max": 30.15,
+          "values": [
+            29.266666666666666,
+            29.958333333333332,
+            30.15
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 40.49166666666667,
+          "min": 39.6,
+          "max": 40.725,
+          "values": [
+            39.6,
+            40.49166666666667,
+            40.725
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.7398641695822186,
+          "min": 0.7390572390572391,
+          "max": 0.7403314917127072,
+          "values": [
+            0.7390572390572391,
+            0.7398641695822186,
+            0.7403314917127072
+          ]
+        },
+        "successful_per_second": {
+          "median": 40.49166666666667,
+          "min": 39.6,
+          "max": 40.725,
+          "values": [
+            39.6,
+            40.49166666666667,
+            40.725
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 124.39591311656154,
+          "min": 124.20422003761082,
+          "max": 124.46855777911168,
+          "values": [
+            124.46855777911168,
+            124.39591311656154,
+            124.20422003761082
+          ]
+        }
+      }
+    },
+    {
+      "condition": "startlux4b",
+      "rate": 80,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 38.25833333333333,
+          "min": 30.225,
+          "max": 40.65833333333333,
+          "values": [
+            30.225,
+            40.65833333333333,
+            38.25833333333333
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 51.483333333333334,
+          "min": 40.75833333333333,
+          "max": 54.56666666666667,
+          "values": [
+            40.75833333333333,
+            54.56666666666667,
+            51.483333333333334
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 0.6398094449047225,
+          "min": 0.5066293764242801,
+          "max": 0.6722102453546864,
+          "values": [
+            0.5066293764242801,
+            0.6722102453546864,
+            0.6398094449047225
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.7426020143287302,
+          "min": 0.7419389394750937,
+          "max": 0.7434238438693254,
+          "values": [
+            0.7419389394750937,
+            0.7426020143287302,
+            0.7434238438693254
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 58.40833333333333,
+          "min": 57.65833333333333,
+          "max": 59.6,
+          "values": [
+            57.65833333333333,
+            59.6,
+            58.40833333333333
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 78.56666666666666,
+          "min": 77.725,
+          "max": 80.25833333333334,
+          "values": [
+            77.725,
+            80.25833333333334,
+            78.56666666666666
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 0.9763877381938691,
+          "min": 0.9661280298321939,
+          "max": 0.9887075248947746,
+          "values": [
+            0.9661280298321939,
+            0.9887075248947746,
+            0.9763877381938691
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.7426020143287302,
+          "min": 0.7419389394750937,
+          "max": 0.7434238438693254,
+          "values": [
+            0.7419389394750937,
+            0.7426020143287302,
+            0.7434238438693254
+          ]
+        },
+        "successful_per_second": {
+          "median": 78.56666666666666,
+          "min": 77.79166666666667,
+          "max": 80.25833333333334,
+          "values": [
+            77.79166666666667,
+            80.25833333333334,
+            78.56666666666666
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 796.8452031513315,
+          "min": 738.5819980477919,
+          "max": 809.4754825008009,
+          "values": [
+            809.4754825008009,
+            738.5819980477919,
+            796.8452031513315
+          ]
+        }
+      }
+    },
+    {
+      "condition": "startlux9b",
+      "rate": 10,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 7.466666666666667,
+          "min": 7.416666666666667,
+          "max": 7.691666666666666,
+          "values": [
+            7.416666666666667,
+            7.466666666666667,
+            7.691666666666666
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 9.641666666666667,
+          "min": 9.616666666666667,
+          "max": 9.966666666666667,
+          "values": [
+            9.616666666666667,
+            9.641666666666667,
+            9.966666666666667
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.7717391304347826,
+          "min": 0.7712305025996534,
+          "max": 0.7744165946413137,
+          "values": [
+            0.7712305025996534,
+            0.7744165946413137,
+            0.7717391304347826
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 7.466666666666667,
+          "min": 7.416666666666667,
+          "max": 7.691666666666666,
+          "values": [
+            7.416666666666667,
+            7.466666666666667,
+            7.691666666666666
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 9.641666666666667,
+          "min": 9.616666666666667,
+          "max": 9.966666666666667,
+          "values": [
+            9.616666666666667,
+            9.641666666666667,
+            9.966666666666667
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.7717391304347826,
+          "min": 0.7712305025996534,
+          "max": 0.7744165946413137,
+          "values": [
+            0.7712305025996534,
+            0.7744165946413137,
+            0.7717391304347826
+          ]
+        },
+        "successful_per_second": {
+          "median": 9.641666666666667,
+          "min": 9.616666666666667,
+          "max": 9.966666666666667,
+          "values": [
+            9.616666666666667,
+            9.641666666666667,
+            9.966666666666667
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 107.07185813816977,
+          "min": 105.11176024709386,
+          "max": 108.98319718724844,
+          "values": [
+            108.98319718724844,
+            105.11176024709386,
+            107.07185813816977
+          ]
+        }
+      }
+    },
+    {
+      "condition": "startlux9b",
+      "rate": 20,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 15.333333333333334,
+          "min": 14.566666666666666,
+          "max": 16.083333333333332,
+          "values": [
+            16.083333333333332,
+            15.333333333333334,
+            14.566666666666666
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 20.008333333333333,
+          "min": 19.016666666666666,
+          "max": 21.066666666666666,
+          "values": [
+            21.066666666666666,
+            20.008333333333333,
+            19.016666666666666
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.7659947414548641,
+          "min": 0.7634493670886076,
+          "max": 0.7663473552686381,
+          "values": [
+            0.7634493670886076,
+            0.7663473552686381,
+            0.7659947414548641
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 15.333333333333334,
+          "min": 14.566666666666666,
+          "max": 16.083333333333332,
+          "values": [
+            16.083333333333332,
+            15.333333333333334,
+            14.566666666666666
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 20.008333333333333,
+          "min": 19.016666666666666,
+          "max": 21.066666666666666,
+          "values": [
+            21.066666666666666,
+            20.008333333333333,
+            19.016666666666666
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.7659947414548641,
+          "min": 0.7634493670886076,
+          "max": 0.7663473552686381,
+          "values": [
+            0.7634493670886076,
+            0.7663473552686381,
+            0.7659947414548641
+          ]
+        },
+        "successful_per_second": {
+          "median": 20.008333333333333,
+          "min": 19.016666666666666,
+          "max": 21.066666666666666,
+          "values": [
+            21.066666666666666,
+            20.008333333333333,
+            19.016666666666666
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 123.13137287688694,
+          "min": 123.03396099985164,
+          "max": 123.30921877218141,
+          "values": [
+            123.13137287688694,
+            123.03396099985164,
+            123.30921877218141
+          ]
+        }
+      }
+    },
+    {
+      "condition": "startlux9b",
+      "rate": 40,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 30.75,
+          "min": 30.133333333333333,
+          "max": 31.016666666666666,
+          "values": [
+            30.133333333333333,
+            31.016666666666666,
+            30.75
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 40.266666666666666,
+          "min": 39.575,
+          "max": 40.475,
+          "values": [
+            39.575,
+            40.475,
+            40.266666666666666
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 0.9993686868686869,
+          "min": 0.9887456517290771,
+          "max": 0.9995883926733896,
+          "values": [
+            0.9993686868686869,
+            0.9995883926733896,
+            0.9887456517290771
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.7650910579087374,
+          "min": 0.7615740740740741,
+          "max": 0.766207038485285,
+          "values": [
+            0.7615740740740741,
+            0.766207038485285,
+            0.7650910579087374
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 31.025,
+          "min": 30.158333333333335,
+          "max": 31.158333333333335,
+          "values": [
+            30.158333333333335,
+            31.025,
+            31.158333333333335
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 40.49166666666667,
+          "min": 39.6,
+          "max": 40.725,
+          "values": [
+            39.6,
+            40.49166666666667,
+            40.725
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.7650910579087374,
+          "min": 0.7615740740740741,
+          "max": 0.766207038485285,
+          "values": [
+            0.7615740740740741,
+            0.766207038485285,
+            0.7650910579087374
+          ]
+        },
+        "successful_per_second": {
+          "median": 40.49166666666667,
+          "min": 39.6,
+          "max": 40.725,
+          "values": [
+            39.6,
+            40.49166666666667,
+            40.725
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 325.22653610325943,
+          "min": 311.16810471973713,
+          "max": 370.58010035822366,
+          "values": [
+            325.22653610325943,
+            311.16810471973713,
+            370.58010035822366
+          ]
+        }
+      }
+    },
+    {
+      "condition": "startlux9b",
+      "rate": 80,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 0.2916666666666667,
+          "min": 0.23333333333333334,
+          "max": 0.4,
+          "values": [
+            0.4,
+            0.23333333333333334,
+            0.2916666666666667
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 0.4,
+          "min": 0.3416666666666667,
+          "max": 0.525,
+          "values": [
+            0.525,
+            0.3416666666666667,
+            0.4
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 0.004971002485501243,
+          "min": 0.0042090134483112615,
+          "max": 0.006525792417650715,
+          "values": [
+            0.006525792417650715,
+            0.0042090134483112615,
+            0.004971002485501243
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.764943032427695,
+          "min": 0.7645318482422555,
+          "max": 0.7730643214347301,
+          "values": [
+            0.7645318482422555,
+            0.764943032427695,
+            0.7730643214347301
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 0.8416666666666667,
+          "min": 0.55,
+          "max": 0.925,
+          "values": [
+            0.925,
+            0.55,
+            0.8416666666666667
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 1.0916666666666666,
+          "min": 0.75,
+          "max": 1.2083333333333333,
+          "values": [
+            1.2083333333333333,
+            0.75,
+            1.0916666666666666
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 0.013566694283347142,
+          "min": 0.009239297813366184,
+          "max": 0.015019680961259581,
+          "values": [
+            0.015019680961259581,
+            0.009239297813366184,
+            0.013566694283347142
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.764943032427695,
+          "min": 0.7645318482422555,
+          "max": 0.7730643214347301,
+          "values": [
+            0.7645318482422555,
+            0.764943032427695,
+            0.7730643214347301
+          ]
+        },
+        "successful_per_second": {
+          "median": 47.88333333333333,
+          "min": 47.541666666666664,
+          "max": 48.325,
+          "values": [
+            47.88333333333333,
+            47.541666666666664,
+            48.325
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 1358.866636238897,
+          "min": 1350.887512586388,
+          "max": 1369.9796400926743,
+          "values": [
+            1358.866636238897,
+            1369.9796400926743,
+            1350.887512586388
+          ]
+        }
+      }
+    },
+    {
+      "condition": "cascade",
+      "rate": 10,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 6.95,
+          "min": 6.825,
+          "max": 7.041666666666667,
+          "values": [
+            6.825,
+            6.95,
+            7.041666666666667
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 9.016666666666667,
+          "min": 8.991666666666667,
+          "max": 9.35,
+          "values": [
+            8.991666666666667,
+            9.016666666666667,
+            9.35
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 0.9351771823681936,
+          "min": 0.9350086655112652,
+          "max": 0.9381270903010034,
+          "values": [
+            0.9350086655112652,
+            0.9351771823681936,
+            0.9381270903010034
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.7461005199306759,
+          "min": 0.7416387959866221,
+          "max": 0.7579948141745895,
+          "values": [
+            0.7461005199306759,
+            0.7579948141745895,
+            0.7416387959866221
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 7.308333333333334,
+          "min": 7.175,
+          "max": 7.391666666666667,
+          "values": [
+            7.175,
+            7.308333333333334,
+            7.391666666666667
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 9.641666666666667,
+          "min": 9.616666666666667,
+          "max": 9.966666666666667,
+          "values": [
+            9.616666666666667,
+            9.641666666666667,
+            9.966666666666667
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.7461005199306759,
+          "min": 0.7416387959866221,
+          "max": 0.7579948141745895,
+          "values": [
+            0.7461005199306759,
+            0.7579948141745895,
+            0.7416387959866221
+          ]
+        },
+        "successful_per_second": {
+          "median": 9.641666666666667,
+          "min": 9.616666666666667,
+          "max": 9.966666666666667,
+          "values": [
+            9.616666666666667,
+            9.641666666666667,
+            9.966666666666667
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 533.2793715099733,
+          "min": 524.7075324843486,
+          "max": 533.6048685118458,
+          "values": [
+            524.7075324843486,
+            533.6048685118458,
+            533.2793715099733
+          ]
+        },
+        "deferral_rate_routed": {
+          "median": 0.24027657735522903,
+          "min": 0.23310225303292895,
+          "max": 0.24247491638795987,
+          "values": [
+            0.23310225303292895,
+            0.24027657735522903,
+            0.24247491638795987
+          ]
+        }
+      }
+    },
+    {
+      "condition": "cascade",
+      "rate": 20,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 12.758333333333333,
+          "min": 12.366666666666667,
+          "max": 13.208333333333334,
+          "values": [
+            13.208333333333334,
+            12.758333333333333,
+            12.366666666666667
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 16.125,
+          "min": 15.533333333333333,
+          "max": 16.625,
+          "values": [
+            16.625,
+            16.125,
+            15.533333333333333
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 0.8059142024156601,
+          "min": 0.7891613924050633,
+          "max": 0.8168273444347064,
+          "values": [
+            0.7891613924050633,
+            0.8059142024156601,
+            0.8168273444347064
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.7396917950853811,
+          "min": 0.7385284810126582,
+          "max": 0.7502191060473269,
+          "values": [
+            0.7385284810126582,
+            0.7396917950853811,
+            0.7502191060473269
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 14.558333333333334,
+          "min": 14.125,
+          "max": 15.4,
+          "values": [
+            15.4,
+            14.558333333333334,
+            14.125
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 19.625,
+          "min": 18.775,
+          "max": 20.816666666666666,
+          "values": [
+            20.816666666666666,
+            19.625,
+            18.775
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 0.9872918492550394,
+          "min": 0.9808413161182841,
+          "max": 0.9881329113924051,
+          "values": [
+            0.9881329113924051,
+            0.9808413161182841,
+            0.9872918492550394
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.7396917950853811,
+          "min": 0.7385284810126582,
+          "max": 0.7502191060473269,
+          "values": [
+            0.7385284810126582,
+            0.7396917950853811,
+            0.7502191060473269
+          ]
+        },
+        "successful_per_second": {
+          "median": 20.008333333333333,
+          "min": 19.016666666666666,
+          "max": 21.066666666666666,
+          "values": [
+            21.066666666666666,
+            20.008333333333333,
+            19.016666666666666
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 839.470139523705,
+          "min": 792.9719575973838,
+          "max": 842.2248810515357,
+          "values": [
+            842.2248810515357,
+            839.470139523705,
+            792.9719575973838
+          ]
+        },
+        "deferral_rate_routed": {
+          "median": 0.23656809662640566,
+          "min": 0.2331288343558282,
+          "max": 0.24248417721518986,
+          "values": [
+            0.24248417721518986,
+            0.23656809662640566,
+            0.2331288343558282
+          ]
+        }
+      }
+    },
+    {
+      "condition": "cascade",
+      "rate": 40,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 0.36666666666666664,
+          "min": 0.20833333333333334,
+          "max": 0.48333333333333334,
+          "values": [
+            0.48333333333333334,
+            0.36666666666666664,
+            0.20833333333333334
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 0.4166666666666667,
+          "min": 0.25833333333333336,
+          "max": 0.625,
+          "values": [
+            0.625,
+            0.4166666666666667,
+            0.25833333333333336
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 0.010290183165260341,
+          "min": 0.0063433599345201555,
+          "max": 0.015782828282828284,
+          "values": [
+            0.015782828282828284,
+            0.010290183165260341,
+            0.0063433599345201555
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.7350835322195705,
+          "min": 0.734337637494022,
+          "max": 0.7438411863190624,
+          "values": [
+            0.734337637494022,
+            0.7438411863190624,
+            0.7350835322195705
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 0.9083333333333333,
+          "min": 0.6583333333333333,
+          "max": 1.1083333333333334,
+          "values": [
+            0.9083333333333333,
+            1.1083333333333334,
+            0.6583333333333333
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 1.2083333333333333,
+          "min": 0.8416666666666667,
+          "max": 1.3583333333333334,
+          "values": [
+            1.2083333333333333,
+            1.3583333333333334,
+            0.8416666666666667
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 0.030513468013468013,
+          "min": 0.0206670759156947,
+          "max": 0.03354599711874871,
+          "values": [
+            0.030513468013468013,
+            0.03354599711874871,
+            0.0206670759156947
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.7350835322195705,
+          "min": 0.734337637494022,
+          "max": 0.7438411863190624,
+          "values": [
+            0.734337637494022,
+            0.7438411863190624,
+            0.7350835322195705
+          ]
+        },
+        "successful_per_second": {
+          "median": 34.85,
+          "min": 34.84166666666667,
+          "max": 34.916666666666664,
+          "values": [
+            34.85,
+            34.84166666666667,
+            34.916666666666664
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 2549.2436830414536,
+          "min": 2538.5400368160863,
+          "max": 2595.334828456337,
+          "values": [
+            2538.5400368160863,
+            2549.2436830414536,
+            2595.334828456337
+          ]
+        },
+        "deferral_rate_routed": {
+          "median": 0.24228653432193256,
+          "min": 0.2422285987565758,
+          "max": 0.24272076372315035,
+          "values": [
+            0.2422285987565758,
+            0.24228653432193256,
+            0.24272076372315035
+          ]
+        }
+      }
+    },
+    {
+      "condition": "cascade",
+      "rate": 80,
+      "repeats": 3,
+      "metrics": {
+        "primary.correct_goodput_per_second": {
+          "median": 0.15,
+          "min": 0.13333333333333333,
+          "max": 0.175,
+          "values": [
+            0.175,
+            0.15,
+            0.13333333333333333
+          ]
+        },
+        "primary.goodput_per_second": {
+          "median": 0.18333333333333332,
+          "min": 0.15833333333333333,
+          "max": 0.2,
+          "values": [
+            0.2,
+            0.18333333333333332,
+            0.15833333333333333
+          ]
+        },
+        "primary.slo_fraction_all_offered": {
+          "median": 0.0022584950210450673,
+          "min": 0.001967688483844242,
+          "max": 0.002486016159105034,
+          "values": [
+            0.002486016159105034,
+            0.0022584950210450673,
+            0.001967688483844242
+          ]
+        },
+        "primary.accuracy_successful": {
+          "median": 0.7408916586768935,
+          "min": 0.7395437262357415,
+          "max": 0.744832501781896,
+          "values": [
+            0.744832501781896,
+            0.7408916586768935,
+            0.7395437262357415
+          ]
+        },
+        "secondary.correct_goodput_per_second": {
+          "median": 0.25,
+          "min": 0.2,
+          "max": 0.38333333333333336,
+          "values": [
+            0.38333333333333336,
+            0.25,
+            0.2
+          ]
+        },
+        "secondary.goodput_per_second": {
+          "median": 0.36666666666666664,
+          "min": 0.25833333333333336,
+          "max": 0.45,
+          "values": [
+            0.45,
+            0.36666666666666664,
+            0.25833333333333336
+          ]
+        },
+        "secondary.slo_fraction_all_offered": {
+          "median": 0.004516990042090135,
+          "min": 0.0032104391052195525,
+          "max": 0.005593536357986327,
+          "values": [
+            0.005593536357986327,
+            0.004516990042090135,
+            0.0032104391052195525
+          ]
+        },
+        "secondary.accuracy_successful": {
+          "median": 0.7408916586768935,
+          "min": 0.7395437262357415,
+          "max": 0.744832501781896,
+          "values": [
+            0.744832501781896,
+            0.7408916586768935,
+            0.7395437262357415
+          ]
+        },
+        "successful_per_second": {
+          "median": 35.06666666666667,
+          "min": 34.766666666666666,
+          "max": 35.075,
+          "values": [
+            35.075,
+            34.766666666666666,
+            35.06666666666667
+          ]
+        },
+        "latency_p95_ms": {
+          "median": 2658.2163723411354,
+          "min": 2652.2649295753,
+          "max": 2681.9764762758577,
+          "values": [
+            2652.2649295753,
+            2681.9764762758577,
+            2658.2163723411354
+          ]
+        },
+        "deferral_rate_routed": {
+          "median": 0.24025665399239543,
+          "min": 0.23901164172012354,
+          "max": 0.2471236816874401,
+          "values": [
+            0.23901164172012354,
+            0.2471236816874401,
+            0.24025665399239543
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -8,6 +8,7 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 
 | Document | Content |
 |---|---|
+| [START_HERE_ZH.md](START_HERE_ZH.md) | Reading order, demo commands and the presentation entry (Chinese) |
 | [CURRENT_STATE.md](CURRENT_STATE.md) | Current status, newest section first |
 | [EXPERIMENT_LOG.md](EXPERIMENT_LOG.md) | Chronological log of every run, failure, repair and acceptance |
 | [ARTIFACTS_ZH.md](ARTIFACTS_ZH.md) | What lives outside Git (bundles, prepared data, weights) and how to restore it |
@@ -27,7 +28,8 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 | [CHEAP_BASELINES_PROTOCOL_ZH.md](CHEAP_BASELINES_PROTOCOL_ZH.md) | TF-IDF-1600, MiniLM-400 and MiniLM-1600 |
 | [SERVICE_STUDY_PROTOCOL_ZH.md](SERVICE_STUDY_PROTOCOL_ZH.md) | CPU/GPU service study, 500 ms SLO |
 | [SIZE_CONTROL_PROTOCOL_ZH.md](SIZE_CONTROL_PROTOCOL_ZH.md) | StartLux-9B size control on ANLI |
-| [UPGRADE_STUDY_PROTOCOL_ZH.md](UPGRADE_STUDY_PROTOCOL_ZH.md) | Serving cost of StartLux-9B versus a 4B to Qwen3.5-9B cascade on ANLI; revision 4 after the first node preflight, awaiting the second |
+| [UPGRADE_STUDY_PROTOCOL_ZH.md](UPGRADE_STUDY_PROTOCOL_ZH.md) | Serving cost of StartLux-9B versus a 4B to Qwen3.5-9B cascade on ANLI; revision 4, preflight and 36 formal cells accepted on 2026-11-10 ([report](../reports/upgrade-9b-serving-2026-11-09/RESULTS_ZH.md)) |
+| [DIRECT_MATRIX_PROTOCOL_ZH.md](DIRECT_MATRIX_PROTOCOL_ZH.md) | Retrospective completion of the five-LLM direct-accuracy matrix: 8 new cells, 20,400 test predictions, 12 accepted cells reused (`configs/direct_matrix_protocol.json`, revision 1). Local acceptance passed; the GPU run is pending |
 
 ## Runbooks
 
@@ -42,20 +44,24 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 | [RUN_FOLLOWUPS_ZH.md](RUN_FOLLOWUPS_ZH.md) | Running the service study and the size control together |
 | [RUN_SIZE_CONTROL_ZH.md](RUN_SIZE_CONTROL_ZH.md) | Running the size control alone |
 | [RUN_UPGRADE_STUDY_ZH.md](RUN_UPGRADE_STUDY_ZH.md) | Running the StartLux-9B serving-cost study: development preflight, then 36 formal cells |
+| [RUN_DIRECT_MATRIX_ZH.md](RUN_DIRECT_MATRIX_ZH.md) | Running the direct-accuracy matrix completion on the node (one command with automatic preflight; `--preflight-only`, `--resume`, `--new-allocation`) and the offline audit of the returned bundle |
 | [NODE_GIT_ZH.md](NODE_GIT_ZH.md) | Preparing the node from a pinned Git checkout |
 | [REPO_MANAGEMENT_ZH.md](REPO_MANAGEMENT_ZH.md) | How this repository, the node and the evidence root relate |
 | [LAB.md](LAB.md) **bound** | The V1 Decision Lab |
-| [LAB_CURRENT_ZH.md](LAB_CURRENT_ZH.md) | The current V1–V3 Decision Lab and demo order |
+| [LAB_CURRENT_ZH.md](LAB_CURRENT_ZH.md) | The current Decision Lab (V1–V3 and the follow-up page) and demo order |
+| [PRESENTATION_ZH.md](PRESENTATION_ZH.md) | Presentation outline, speaker notes, demo clicks and selected examples |
 
 ## Reviews
 
 | Document | Content |
 |---|---|
+| [DIRECT_MATRIX_ACCEPTANCE_2026-11-10_ZH.md](DIRECT_MATRIX_ACCEPTANCE_2026-11-10_ZH.md) | Codex acceptance of the matrix-completion software, recovery tests and paper tables; 8 new GPU cells still unrun |
 | [REVIEW_2026-11-08_ZH.md](REVIEW_2026-11-08_ZH.md) | Codex review of the analysis, paper draft and repository reorganization (R1–R5) |
 | [UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md](UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md) | Codex review of the serving-cost study design (U1–U5) and its acceptance checklist |
 | [UPGRADE_IMPLEMENTATION_REVIEW_2026-11-08_ZH.md](UPGRADE_IMPLEMENTATION_REVIEW_2026-11-08_ZH.md) | Codex cross-check of the serving-cost implementation (I1–I4) |
 | [UPGRADE_FIX_ACCEPTANCE_2026-11-08_ZH.md](UPGRADE_FIX_ACCEPTANCE_2026-11-08_ZH.md) | Codex acceptance of the I1–I4 fixes; cleared for the node preflight |
 | [UPGRADE_REVISION4_REVIEW_2026-11-08_ZH.md](UPGRADE_REVISION4_REVIEW_2026-11-08_ZH.md) | First node preflight audit and Codex review of revision 4 (engine sequence limit); cleared for a new preflight |
+| [UPGRADE_RESULTS_REVIEW_2026-11-10_ZH.md](UPGRADE_RESULTS_REVIEW_2026-11-10_ZH.md) | Independent acceptance of the revision 4 preflight and the 36 formal 9B serving cells, with the interpretation corrections |
 
 ## History (`history/`)
 

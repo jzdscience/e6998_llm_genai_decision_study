@@ -27,6 +27,8 @@ if len(sys.argv) > 2 and sys.argv[1] == "--out":
 # 1-4 pass CVD/normal-vision gates; aqua and yellow sit below 3:1 contrast, so every
 # series is also direct-labelled and carries its own marker shape.
 BLUE, ORANGE, AQUA, YELLOW, RED = "#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e34948"
+# Slot 6 (green) for StartLux-9B: blue/green/yellow passes the all-pairs validator on white.
+GREEN = "#008300"
 INK, INK2, MUTED, GRID, AXIS = "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7"
 ENTITY = {"startlux4b": BLUE, "qwen4b": ORANGE, "minilm1600": AQUA, "cascade": YELLOW}
 
@@ -238,8 +240,62 @@ def fig_serving():
     save(fig, "fig_serving")
 
 
+def fig_upgrade_serving():
+    """ANLI 9B serving follow-up: correct goodput at 500 ms and 1,000 ms, every repeat shown.
+
+    The four tested rates are categorical groups; deployments sit at small offsets inside each group
+    only for legibility, and a short grey bar marks the group's offered rate. With three repeats per
+    cell, the marker (median) and the whisker ends (min, max) are the three measured values. Markers
+    are filled when every repeat met the 99%-on-time rule. No other rate was measured.
+    """
+    rows = {}
+    with open(ROOT / "reports/upgrade-9b-serving-2026-11-09/summary.csv") as fh:
+        for r in csv.DictReader(fh):
+            rows[(r["condition"], int(r["rate_per_second"]), int(r["slo_ms"]))] = r
+    series = [("startlux4b", "StartLux-4B (0.40)", BLUE, "o", -0.22),
+              ("startlux9b", "StartLux-9B (0.50)", GREEN, "s", 0.0),
+              ("cascade", "4B → Qwen3.5-9B (0.40 + 0.50)", YELLOW, "D", 0.22)]
+    rates = [10, 20, 40, 80]
+    fig, axes = plt.subplots(1, 2, figsize=(6.3, 2.2), gridspec_kw={"wspace": 0.3})
+    for ax, slo, tag in zip(axes, (500, 1000), ("(a) 500 ms SLO", "(b) 1,000 ms SLO")):
+        for group, rate in enumerate(rates):
+            ax.plot([group - 0.36, group + 0.36], [rate, rate], color=GRID, linewidth=1.4, zorder=0)
+        ax.text(-0.36, 11.2, "offered rate", ha="left", va="bottom", fontsize=6, color=MUTED)
+        for key, label, color, marker, offset in series:
+            for group, rate in enumerate(rates):
+                r = rows[(key, rate, slo)]
+                values = sorted(float(r[f"correct_goodput_r{k}"]) for k in range(3))
+                x, passed = group + offset, r["passes_99pct_all_repeats"] == "True"
+                ax.plot([x, x], [values[0], values[2]], color=color, linewidth=0.8, zorder=2)
+                ax.scatter([x, x], [values[0], values[2]], s=4, color=color, linewidths=0, zorder=3)
+                ax.scatter([x], [values[1]], s=20, marker=marker, linewidths=0.9, zorder=4,
+                           facecolor=color if passed else "white", edgecolor=color)
+            end = float(rows[(key, 80, slo)]["correct_goodput_median"])
+            ax.annotate(f"{end:.1f}" if end >= 10 else f"{end:.2f}", (len(rates) - 1 + offset, end), xytext=(4, 0),
+                        textcoords="offset points", ha="left", va="center", fontsize=6.3, color=INK)
+        ax.set_yscale("log")
+        ax.set_xlim(-0.55, len(rates) - 0.25)
+        ax.set_ylim(0.1, 110)
+        ax.set_xticks(range(len(rates)), [str(r) for r in rates])
+        ax.tick_params(axis="x", length=0)
+        ax.set_yticks([0.1, 1, 10, 100], ["0.1", "1", "10", "100"])
+        ax.minorticks_off()
+        ax.set_xlabel("Tested offered load, ANLI (requests/s)")
+        ax.set_ylabel(f"Correct within {slo:,} ms per s")
+        style(ax, "y")
+        ax.text(0.0, 1.03, tag, transform=ax.transAxes, fontsize=7, color=INK)
+    from matplotlib.lines import Line2D
+    handles = [Line2D([0], [0], color=c, marker=m, markersize=4.2, linewidth=0) for _, _, c, m, _ in series]
+    handles.append(Line2D([0], [0], color=INK2, marker="o", markersize=4.2, linewidth=0,
+                          markerfacecolor="white", markeredgecolor=INK2))
+    fig.legend(handles, [s[1] for s in series] + ["open: a repeat below 99% on time"], loc="lower center",
+               bbox_to_anchor=(0.5, 0.98), ncol=4, frameon=False, handletextpad=0.3, columnspacing=1.4)
+    save(fig, "fig_upgrade_serving")
+
+
 if __name__ == "__main__":
     fig_rescue_harm()
     fig_budget_transfer()
     fig_serving()
+    fig_upgrade_serving()
     print("wrote", sorted(p.name for p in OUT.glob("fig_*.pdf")))

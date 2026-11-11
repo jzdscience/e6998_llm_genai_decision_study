@@ -1,7 +1,8 @@
 # 实验结果入口
 
 V1–V3 共 44,450 条正式模型预测，11/6 的 StartLux9B 规模对照另有 3,200 条，合计 47,650 条。
-两批 CPU 分类器预测 7,400 条和服务测量的 469,804 次请求另计。下面是已验收的报告，保留原内容与
+两批 CPU 分类器预测 7,400 条、服务测量的 469,804 次请求和 9B 服务研究的 162,801 次 offered 请求另计；
+服务请求重复已评分的输入，不增加独立质量样本。下面是已验收的报告，保留原内容与
 SHA 清单；原始预测、审计脚本和大包位于 [外部证据目录](../docs/ARTIFACTS_ZH.md)。
 
 | 证据 | 范围 | 主要结论 |
@@ -14,11 +15,13 @@ SHA 清单；原始预测、审计脚本和大包位于 [外部证据目录](../
 | [CLINC 完整预算与 MiniLM](cheap-baselines-2026-11-04/RESULTS_ZH.md) | TF-IDF1600、MiniLM400/1600；另计 5,550 条 CPU 预测 | MiniLM1600 main93.17%，银行95.11%、OOS recall87.33%；主测试接近StartLux，mixed排名不同 |
 | [CPU/GPU 服务测量](followups-2026-11-06/RESULTS_ZH.md) | 4 个直接服务 × 5/25/100 请求/秒 × 5 轮；60 单元、469,804 次请求 | 100 请求/秒时及时且正确输出 MiniLM1600 93.43/秒，StartLux4B 0.46/秒；StartLux4B 约每秒完成 65 个、Qwen4B 约 47 个 |
 | [StartLux9B 规模对照](followups-2026-11-06/RESULTS_ZH.md#startlux9b-规模对照) | 3,200 题 ANLI test，回顾性 | 76.69%，比 StartLux4B +2.50pp，95% CI [1.34, 3.81]pp |
+| [9B 服务研究](upgrade-9b-serving-2026-11-09/RESULTS_ZH.md) | StartLux4B（0.40）、StartLux9B（0.50）、4B→Qwen9B 级联（0.40 + 0.50）× 10/20/40/80 请求/秒 × 3 轮；36 单元、162,801 次 offers，ANLI test，回顾性 | 四档负载下直接 9B 的中位正确 goodput 都高于冻结级联；80 请求/秒时直接 4B 最高（500 ms 下 38.26/秒）。99% 及时规则在 500 ms 下的通过点：4B {10, 40}、9B {10, 20}、级联无 |
 
 后续两项实验报告的几处表述以 [11/8 勘误](followups-2026-11-06/ERRATA_2026-11-08_ZH.md) 为准（低负载 SLO、CPU 用量、启动时间、显存单位、标签变化的原因）；原报告保持验收时的字节。
 
 两个主比较区间均跨零，未显示主方法改善。V3 positive_gain 冻结为零转交，与直接
-StartLux 一致；实验仍完整采集了后级预测。Qwen9B 已做顺序质量实验，未测同卡共驻留性能。
+StartLux 一致；实验仍完整采集了后级预测。V3 本身只做了 Qwen9B 的顺序质量实验；11/9 的 9B 服务研究
+另外测量了 StartLux4B 与 Qwen9B 同卡驻留的级联，结果见上表最后一行，V3 的原报告保持原样。
 
 V1 的完整分析指标（含全部 selective-risk 区间）另存为
 [formal-2026-11-02/analysis/metrics.json](formal-2026-11-02/analysis/metrics.json)，与 V1 原始结果包内的
@@ -36,10 +39,14 @@ V1 的完整分析指标（含全部 selective-risk 区间）另存为
   [V3 预算与主比较](v3-complete-2026-11-03/routing_budget_and_primary.png)。
 - [服务测量](followups-2026-11-06/figures/service_correct_goodput.png)、
   [StartLux9B 规模对照](followups-2026-11-06/figures/size_control_accuracy.png)。
+- [9B 服务研究的正确 goodput（500/1,000 ms）](upgrade-9b-serving-2026-11-09/figures/correct_goodput.png)、
+  [36 单元 CSV](upgrade-9b-serving-2026-11-09/evidence/metrics/cells.csv)、
+  [汇总 CSV](upgrade-9b-serving-2026-11-09/summary.csv)。
 
 历史报告里指向 `results/`、`.validation/` 和原始 ZIP 的链接需要额外取得 artifact；
 本入口没有把它们当作 clone 自带文件。原始报告的 SHA 清单保持不变，当前复制清单见
 [仓库整合记录](../records/repo-adoption-2026-11-03.json)。
 
-CPU Decision Lab 已整合 V1–V3，启动见 [LAB_CURRENT_ZH.md](../docs/LAB_CURRENT_ZH.md)。
-V2/V3 便携包保存在 `decision-lab-2026-11-04/`，原 V1 回放包保持不变。
+CPU Decision Lab 已整合 V1–V3 和 follow-up 页，启动见 [LAB_CURRENT_ZH.md](../docs/LAB_CURRENT_ZH.md)。
+V2/V3 便携包保存在 `decision-lab-2026-11-04/`，follow-up 便携包在 `decision-lab-followups-2026-11-10/`，
+原 V1 回放包保持不变。

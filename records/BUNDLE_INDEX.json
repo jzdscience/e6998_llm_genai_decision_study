@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "maintained_as_of": "2026-11-09",
+  "maintained_as_of": "2026-11-10",
   "note": "archive and extracted_directory paths are relative to external_artifact_root, NOT this source checkout. Original archives and extraction trees are not included in Git. Historical receipt fields are preserved; inspect docs/ARTIFACTS_ZH.md.",
   "bundles": [
     {
@@ -476,7 +476,7 @@
       "original_filename": "upgrade_study_bundle.zip",
       "reported_state": "preflight_complete",
       "reported_state_source": "preflight/startlux4b.json, preflight/startlux9b.json, preflight/cascade.json",
-      "verified_state": "preflight_pass_three_conditions_verified",
+      "verified_state": "preflight_pass_three_conditions_independently_verified",
       "integrity_validation": "103 unique safe members, CRC ok, archival SHA re-checked; repo verifiers at 7c81947: settings (protocol, order, prepared inputs), token receipt bound to three raw tokenizer reports, all three PASS receipts against raw evidence including the engine limit and stop confirmation; vLLM logs show max_num_seqs 64 in all four engine starts",
       "source_commit": "7c81947d8ed51b18ace9ba8ae0dad0476c9b6b19",
       "completed_cells": 0,
@@ -486,8 +486,9 @@
         "startlux9b": "PASS",
         "cascade": "PASS"
       },
-      "review": "pending Codex review of the preflight evidence",
-      "note": "Development preflight only. 4B at 0.40: KV 8.05 GiB, 310/310 within 500 ms (p95 99.5 ms). 9B at 0.50: KV 2.93 GiB (78,039 tokens), 310/310 within 500 ms (p95 99.0 ms). Cascade with forced deferral, 4B 0.40 + Qwen-9B 0.50 co-resident (17.7 + 20.7 GiB in use): 310/310 answered, 69 within 500 ms, p50 624.6 ms, p95 969.1 ms, engine overlap 148 s; Qwen KV 2.93 GiB. All stops clean, no residual processes. No formal cells, freeze or evaluation."
+      "review": "Independent Codex audit PASS on 2026-11-10; docs/UPGRADE_RESULTS_REVIEW_2026-11-10_ZH.md",
+      "note": "Development preflight only. 4B at 0.40: KV 8.05 GiB, 310/310 within 500 ms (p95 99.5 ms). 9B at 0.50: KV 2.93 GiB (78,039 tokens), 310/310 within 500 ms (p95 99.0 ms). Cascade with forced deferral, 4B 0.40 + Qwen-9B 0.50 co-resident (17.7 + 20.7 GiB in use): 310/310 answered, 69 within 500 ms, p50 624.6 ms, p95 969.1 ms, pairwise HTTP-stage interval overlap sum147.9986s; simultaneous in-flight HTTP interval union14.7769s, not GPU kernel overlap; Qwen KV 2.93 GiB. All stops clean, no residual processes. No formal cells, freeze or evaluation.",
+      "acceptance_receipt": "records/upgrade-service-acceptance-2026-11-10.json (canonical source repository)"
     },
     {
       "id": "upgrade-formal-20261109-180806",
@@ -503,7 +504,7 @@
       "original_filename": "upgrade_study_bundle.zip",
       "reported_state": "complete",
       "reported_state_source": "evaluation.json",
-      "verified_state": "complete_36_cells_verified_and_rescored",
+      "verified_state": "complete_independently_verified_and_rescored",
       "integrity_validation": "731 unique safe members, CRC ok, archival SHA re-checked; repo verifiers at 7c81947: settings, three preflight receipts, all 36 cells (raw traces, warmup stages, service records with the engine limit, confirmed stops), freeze and evaluation identity; independent re-score of every cell from raw traces with the sealed gold equals evaluation.json, including summaries and full-pool accuracy",
       "source_commit": "7c81947d8ed51b18ace9ba8ae0dad0476c9b6b19",
       "allocation": {
@@ -511,8 +512,12 @@
         "slurm_job_id": "1224376"
       },
       "completed_cells": 36,
-      "review": "pending Codex audit of the formal results",
-      "note": "Retrospective ANLI test. Highest rate with >=99% timely success in all repeats: 500 ms 4B 40, 9B 20, cascade none; 1000 ms 4B 40, 9B 40, cascade 10. Median correct goodput/s at 500 ms (10/20/40/80 req/s): 4B 7.26/14.85/29.96/38.26, 9B 7.47/15.33/30.75/0.29, cascade 6.95/12.76/0.37/0.15. Live cascade deferral 23.3-24.7%, route agreement with history 99.0-99.5%. Only non-ok status anywhere is client_rejected under overload. One transient ~3.7 s client-side stall in r0-startlux4b-rate20 (96.9% timely), kept as measured."
+      "review": "Independent Codex audit PASS on 2026-11-10; docs/UPGRADE_RESULTS_REVIEW_2026-11-10_ZH.md",
+      "note": "Retrospective ANLI test with36cells in one allocation. All raw500/1000ms metrics and35860live routes independently reproduced;9600historical predictions verified. Passing tested rates with>=99%timely in every repeat:500ms 4B{10,40},9B{10,20},cascade{};1000ms 4B{10,40},9B{10,20,40},cascade{10}. These are not continuous capacity bounds. r0-4B-rate20 has78late500ms requests and1client rejection; affected arrivals span110.6489-114.2715s, with major delay outside recorded model-call timing; root cause not isolated. All attempts retained. Formal KV:4B8.78GiB,9B/Qwen9B4.22GiB.",
+      "acceptance_receipt": "records/upgrade-service-acceptance-2026-11-10.json (canonical source repository)",
+      "formal_offers": 162801,
+      "successful_offers": 131935,
+      "client_rejected": 30866
     }
   ],
   "copied_from_project_root": "/Users/zhanj289/Documents/ChatGPT/COMS6998/decision-study",

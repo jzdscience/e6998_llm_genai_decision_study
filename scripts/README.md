@@ -8,7 +8,7 @@ top-level README).
 
 | Script | Purpose |
 |---|---|
-| `reproduce_cpu.sh` | All CPU checks: tests, Lab evidence, follow-up audits, figures, paper build (`--strict` for a full acceptance run) |
+| `reproduce_cpu.sh` | All CPU checks: tests, Lab evidence, the 11/6 and 9B serving audits, the 9B report tables and figure, paper figures, paper build (`--strict` for a full acceptance run, `--only <step>` for one step) |
 | `run_lab.sh` | Start the Decision Lab at `http://127.0.0.1:7860` (`--port` to change) |
 
 ## GPU node: experiment entry points
@@ -24,6 +24,7 @@ top-level README).
 | `run_service_study.sh`, `run_size_control.sh` | CPU/GPU service study and StartLux-9B size control, one at a time |
 | `run_followup_suite.sh` | Both follow-ups in sequence; reads the Slurm time left (`--new-allocation` after a new session) |
 | `run_upgrade_study.sh` | StartLux-9B serving-cost study: `--preflight-only` first, then the full run (`--resume-interrupted`, `--new-allocation`, `--retry-preflight`) |
+| `run_direct_matrix.sh` | Direct-accuracy matrix completion (8 cells; GPU run pending): one command runs prepare, runtime binding, preflight, collection, evaluation and export; `--preflight-only` stops after the preflight; `--resume`, `--new-allocation`, `--retry-preflight`. Refuses to run from the runtime root or a dirty checkout |
 | `run_vm.sh` **bound** | Original Study 1 batch entry: all jobs, then evaluation (`JOB=all bash scripts/run_vm.sh`) |
 | `prepare_node_checkout.py` | Connect a pinned Git checkout to the existing runtime root and verify the prepared data |
 

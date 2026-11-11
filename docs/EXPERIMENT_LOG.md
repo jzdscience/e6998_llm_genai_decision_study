@@ -576,3 +576,149 @@ StartLux-4B（0.40）KV 8.05 GiB，并发 310/310 在 500 ms 内；StartLux-9B�
 级联 6.95/12.76/0.37/0.15；三轮至少 99% 及时成功的最高速率 500 ms 为 4B 40、9B 20、级联无，1,000 ms 为 40/40/10。
 级联实时转交 23.3–24.7%，路由与历史一致 99.0–99.5%。非成功状态仅有过载时的客户端拒绝。`r0-startlux4b-rate20`
 有一次约 3.7 秒、主要在模型调用之外的停顿（及时率 96.9%），原样保留。待 Codex 审计。
+
+## 2026-11-10：9B 服务预检与正式结果独立验收
+
+审阅仓库 HEAD `23033c12bd2a5fd7fcb00354c8fb78257734d797`，节点源码仍固定 `7c81947`、协议 revision 4。
+两条独立 stdlib 审计分别直接核验原 ZIP 的身份/生命周期和全部原始指标，不调用生产 evaluate/verifier，
+不运行模型或重新拟合。预检包 `8adafb29…`、正式包 `9baeca3e…` 均通过；2,097 项完整性检查、36 份源码、
+17 份准备文件、78 份 completion、52 次 cap64 引擎启动与所有停止确认一致。36 单元同一 L40S UUID 和 job
+1224376，每单元唯一 attempt-0001；3,985 个正式 GPU 采样身份一致，freeze/access/evaluation 链完整。
+
+162,801 次 offers = 131,935 成功 + 30,866 客户端拒绝，无其他状态。140,576 个实际 HTTP stage 预测核验，
+35,860 次实时级联从概率独立重算路由，9,600 条历史预测对照原 V3/规模对照 384 个 shard 全部一致。
+500/1,000 ms 全部指标、matched-subset 历史比较、三轮汇总和标签变化与 evaluation 一致。没有重跑实验的需要。
+
+解释修正：99% 规则的通过点在 500 ms 下为 4B{10,40}、9B{10,20}、级联{}；1,000 ms 为{10,40}、
+{10,20,40}、{10}，不能写成连续稳定容量。4B20/s 的 78 个晚请求 arrival 跨度为3.6226秒，另有1次拒绝；
+记录的调用之外存在明显等待，根因未隔离。强制级联预检的148秒是两两HTTP区间交集累计，真实在途重叠并集
+14.7769秒，不是GPU kernel并行证明。正式KV为4B8.78GiB、9B/Qwen9B4.22GiB，不能复用早期预检2.93GiB；
+graph与KV前后变化的因果未隔离。原实验文件保持，当前状态已修正上述文字。
+
+新增 `records/upgrade-service-acceptance-2026-11-10.json`、`docs/UPGRADE_RESULTS_REVIEW_2026-11-10_ZH.md`；
+更新最近两个 BUNDLE_INDEX 条目的独立验收状态，原先条目保持。审计代码与CSV/收据位于
+`.validation/upgrade-return-review-2026-11-10/{integrity,metrics,delivery}/`，尚未整合为clone便携报告。
+Lab现有V1–V3证据检查PASS。论文/README仍有“9B服务未测”旧句，新结果未进入统一复现和Lab；建议Claude完成
+报告图表、论文/复现同步和独立follow-up页，再做贡献确认与演示排练。研究范围足够，不再把新增GPU实验当作交付前提。
+本轮未修改运行源码/协议或原始结果，未提交或推送。Claudeception 已评估，不另建重复技能。
+
+## 2026-11-10：9B 服务结果整合进报告、论文、复现与 Lab
+
+本机整合（Claude Opus 5.5，max effort），基线为 HEAD `23033c1` 加 Codex 的五个未提交复审文件；这些文件保持原样，
+只在当前状态与本日志中补记。未运行模型或 GPU，未修改冻结实验源码、协议、原始 ZIP、gold、验收收据或旧报告与
+旧便携包，未提交或推送。
+
+报告：新建 `reports/upgrade-9b-serving-2026-11-09/`。`evidence/` 复制验收时的 6 份审计收据（SHA 与验收收据记录
+一致）；`audit/` 中两个脚本改为便携版本，只改输入输出位置并加 `-O` 保护，本机重跑 6 份输出逐字节一致，从其他
+工作目录或经 `EVIDENCE_ROOT` 运行结果相同。`build_tables.py` 从收据生成 24 行汇总、质量表与资源表，写出前重算中位数、
+通过集与总数；`render_figures.py` 画 500/1,000 ms 两栏图（三轮中位数与两端值，三轮都达 99% 时实心，已测速率之间
+不连线）。报告的 24 个 goodput 区间、24 个最差轮及时比例与 6 个准确率由脚本对照 `summary.csv` 和收据核对；起初
+手写的 11 个三位小数有误，已改为由表格生成。
+
+论文：新增 Figure 5（`paper/figures/fig_upgrade_serving.pdf`）与 RQ3 段落，更新摘要、引言计数（约 720,000 次计时
+服务请求）、方法中的份额说明、讨论、限制、结论与附录；`\dbltopfraction` 设为 0.85，使两张服务图同页。12 页，
+无未定义引用与 overfull；旧三张图逐字节不变。
+
+Lab：新增 `decision_study/lab/followups.py`、`followup_view.py` 与便携包 `reports/decision-lab-followups-2026-11-10/`，
+`app.py` 增加可选的 follow-up 包与 Follow-ups 页，`cli.py` 增加 `build-followups` 并在 `check` 中核验新包。
+新增测试 `tests/test_lab_followups.py`（48 项）与 `tests/test_reproduce_cpu.py`（2 项）；10 处注入错误全部被对应测试
+发现。
+
+复现：`scripts/reproduce_cpu.sh` 扩为 7 步并支持 `--only`。`--strict` 全程 exit 0（165 秒；主环境 467 passed、
+11 skipped、64 subtests，基线环境 65 passed）。只缺新正式 ZIP 时 strict 返回 1、非 strict 显示 SKIP；仓库副本中改动
+一份收据时第 4 步返回 1。
+
+浏览器与干净副本：真实 Gradio 服务（7871）与干净源码副本自己的服务（7872）都通过 headless Chromium 检查，
+检查后停止；7861 端口已有的服务未触碰。干净副本用现有依赖：测试 461 passed、17 skipped，报告与论文图逐字节一致；
+没有做全新依赖安装。
+
+新增 `docs/START_HERE_ZH.md` 与 `docs/PRESENTATION_ZH.md`，并更新 README、README_ZH、报告与文档索引、Lab 说明、
+artifact 指南、9B 运行说明和论文 README。待人工：成员贡献与致谢措辞、演示录屏与队友排练、Codex 独立验收。
+
+## 2026-11-10：按 Ju 的分工指示与 Codex 复审修订整合
+
+Ju 11/10 回复“你合理分配一下分工就可以了；不用致谢算力”。论文 Contributions 改为 Team responsibilities：Ju Zhang
+负责实验设计、运行时与流水线实现、整合和最终技术审阅，Weiyu Chen 负责统计核验、结果解读和稿件审阅，Yizhi Hu
+负责复现检查、演示讲解和展示材料；只写分工，不记录尚未发生的核对。删去算力致谢的待办和橙色拟议文字。
+
+按 Codex 复审：报告图与论文 Figure 5 改为四个已测速率分组（组内偏移只为区分标记，每组画 offered rate），去掉按
+数值偏移的对数横轴和斜线，旧三张论文图逐字节不变；报告、论文图注与 Lab 说明写明正确 goodput 按 120 秒到达窗口
+选请求、按各自 SLO 判断及时。论文改正 80 请求/秒（最高正确 goodput，三轮都未达 99% 规则）、结论中的级联 99%
+规则、CLINC 服务研究两个 allocation 的范围与“每项研究一张 L40S”的硬件表述，Figure 5 图注改为分组横轴和
+“78 个晚到请求的计划到达跨度 3.6 秒”。Lab 案例说明区分 3,200 条保存预测与该单元成功返回的实时请求，第三类标题改为
+“两个直接模型都答对、级联答错”，并给出所属更大类别（245、164、157 条）；follow-up 便携包重建两次逐字节一致。
+审计 README 写明 `--bundle` 等选项只属于 `audit_metrics.py`；Lab 说明改正源码保持原字节的范围。
+
+验证：Lab 与复现相关测试 75 passed（复现测试拆成非 strict 与 strict 两项）；13 处注入错误重跑并保留完整日志，全部由
+对应测试以预期失败信息发现，M8b 与直接 strict 探针确认 strict 失败行为（注入后 exit 0，原版 exit 1），M2 记录为由
+错误信息区分（篡改仍被后面的汇总核对拒绝）。论文重新编译 12 页，无未定义引用与 overfull，Figure 5 所在页已目视检查。
+全量 strict 与浏览器验收留给 Codex 在本轮之后执行。未运行模型或 GPU，未提交或推送。
+## 2026-11-10 Codex 独立整合验收
+
+Claude Code 使用同一 Opus 5.5 session、显式 max effort 完成整合及两轮修订。Codex 在最终工作区分两次运行
+`reproduce_cpu.sh --strict` 的全部七个阶段：主测试 470 passed、11 skipped、64 subtests（112.05 秒），基线 65
+passed（7.59 秒）；两批 12 + 6 项收据比较、raw PASS、2,097 项完整性检查、原始指标重放、Lab 包重建、报告表图、
+四张论文图和临时论文编译全部通过。报告清单 18 项及 6 份验收收据副本验证一致。
+
+最终真实浏览器检查使用 `http://127.0.0.1:7860/`，阻断所有外部请求，遍历 8 个 ANLI 组合、3 档 CLINC 负载、
+4 个案例和 V1/V2/V3 标签页，零页面错误。Codex 停止了自己此前的 7861 测试实例，最终 7860 实例保留供本机查看。
+13 项 mutation 完整日志另经复核，M2 的后续汇总拒绝与 M8/M8b 的直接 strict 返回码检查均明确记录。
+
+与整合前工作区快照相比，17 个允许修改的跟踪文件更新，其余 332 个基线文件、原复审文档、BUNDLE_INDEX 与
+9B 验收收据保持原字节。新报告/论文/便携包、分工与无算力致谢已同步；无新模型/GPU 实验，未 commit/push。
+新增 `docs/INTEGRATION_ACCEPTANCE_2026-11-10_ZH.md` 与 `records/integration-acceptance-2026-11-10.json`，
+当前状态更新为独立验收通过。干净源码副本复用了现有依赖；未验证全新联网安装，也未声称队友已完成排练。
+
+## 2026-11-10：直接准确率矩阵补全的协议文档与论文表格（本机）
+
+Ju 当天授权补齐论文 Table 2 中五个 LLM × 四个评价集的 8 个未测单元。两个 Claude Code 会话（Opus 5.5，max effort）
+并行：一个实现 `decision_study/direct_matrix/`、`configs/direct_matrix_protocol.json`、`scripts/run_direct_matrix.sh`
+和测试，交接在 `.validation/matrix-completion-2026-11-10/claude-handoff.md`；本会话只改论文与文档。两边都没有运行
+模型或 GPU，没有提交、推送或重置。节点 GPU 进度为 0/8，没有新的模型准确率。
+
+实现方面已观察到的结果（来自其交接，本会话未重跑全仓 pytest）：`tests/test_direct_matrix.py` 43 项通过（222.85 秒）；
+补强后前 5 项针对性测试含完整的中途 SIGKILL CLI 演练，通过（110 秒）；17 处单一守卫注入错误都按预期原因失败。
+全仓 pytest 第一次为 505 passed、11 skipped、8 failed，失败都来自演练输出位于主 checkout 内而触发的目录重叠保护；
+夹具改到临时目录后，实现会话在最终代码上单独重跑全仓：514 passed、11 skipped、64 subtests，exit 0，346.76 秒，
+含全部 44 项 direct-matrix 测试（`final-pytest.log`）。Codex 的审阅提出 M1–M6、S1、S2，M1–M5 与
+S1、S2 在复查版本中关闭，M6 的修复通过针对性探针。
+
+论文：Table 2 改为两级表头（CLINC main；SQuAD 2.0 的 S1 test 与 S2 holdout；ANLI test），8 个未测 LLM 格标 NM，
+CPU 行在 CLINC-only 协议之外的格写明未尝试，StartLux-9B 的 ANLI 格与 CPU 行加回顾性标记，图注写明各格的研究来源与
+状态，并说明没有一格是主终点；去掉了在有缺格的列上暗示“最佳”的粗体。引言、RQ1、摘要和讨论中的比较限定在实际测过
+的模型。Table 4 图注写明它是 Study 2 的 10% 主预算与 Study 3 的 Qwen3.5-9B 主后级，标出主比较两臂，“--”为不适用，
+0 为实测值；Figure 2、3 的图注同样写明所选设置。附录新增 Table 7，列出 V2 的 3 个预算 × 3 个政策、V3 的 2 个后级 × 4 个
+政策，并单列 V1 gate 在 V2 holdout 上的重放（5% selective-risk 目标，没有调用预算，validation 拒绝 53/1,000，test
+92.325%、219/4,000 转交、救回 61、误伤 39）。validation 转交率逐行取自已验收的 `policy_freeze.json`，如 5% 预算下
+confidence 4.3%、class_conditional 4.5%，20% 预算下 19.8% 与 19.9%。四份源文件的 SHA-256（`d1493c56…`、`03f549a6…`、
+`5bd4cf2a…`、`28efefe7…`）与 Codex 的提取记录一致，V1 gate 的 947/1,000 另与 `reports/formal-2026-11-02/analysis/metrics.json`
+核对。RQ2 中“实际转交率与 validation 相差不超过 1.7 个百分点”限定为 10% 预算，三档预算合计为 2.3 个百分点以内。
+Limitations 加入 8 个未测格及其影响。原 Table 9（只含 5%/20% 的预算敏感性）并入新表。
+
+编译：pdflatex、bibtex、两遍 pdflatex，13 页（此前 12 页，多出的一页来自附录全宽表），无未定义引用、overfull、`??` 或
+Type 3 字体；与基线源码的同条件编译相比，新增 2 个 underfull hbox（摘要换行）和 3 个 underfull vbox（附录浮动体）。
+逐页渲染检查了 Table 2、Table 4、附录与改动段落；第一次编译时 Table 2 因跨列表头被缩得过小、附录 B 节只剩标题，
+已改正。`bash scripts/reproduce_cpu.sh --only paper` 退出 0。Codex 用只读解析器在 `main.tex` SHA `e4a71a05…` 上核对了
+附录 18 行、主/参照标记、validation 选中标记与 Table 2 的 12 个历史值和 8 个 NM，未发现数值或状态问题。之后的改动
+只涉及版式（Table 2 表头与 † 位置、附录表顺序与引导句）；最终源码 `f103726e…`（PDF `753c2e3b…`）由本会话的只读脚本
+`verify_tables.py` 对照已验收 JSON 与协议固定的正确数重新核对通过，改错附录数值、把 NM 改成数值、挪动主比较标记
+三种注入都使它以预期信息失败。完整编译日志、渲染图与核对脚本在 `.validation/matrix-completion-2026-11-10/paper/`。
+
+文档：新增 `docs/DIRECT_MATRIX_PROTOCOL_ZH.md`、`docs/RUN_DIRECT_MATRIX_ZH.md`，更新 `docs/CURRENT_STATE.md`、
+README、README_ZH、`docs/README.md`、`docs/ARTIFACTS_ZH.md`、`scripts/README.md`、`paper/README.md` 和
+`docs/PRESENTATION_ZH.md` 第 3 张幻灯片的同一句。历史报告、验收收据与已有日志条目不变。最终验收由 Codex 另行追加。
+
+## 2026-11-10：Codex 验收直接准确率矩阵补全，交付节点前准备
+
+实际 Claude Code Opus 5.5、max effort 完成实现与论文，Codex 独立审阅通过。最终全仓 514 passed、11 skipped、
+64 subtests，exit 0（346.76 秒），其中新增模块 44 项；Codex 独立快速检查 24 passed。17 项隔离 mutation 原始日志
+复核通过。首次全仓的 8 项目录重叠失败保留，修正测试夹具位置后重跑通过，生产保护不变。
+
+第 53 行后 SIGKILL、50 条分片加 3 条 journal 的恢复、换 allocation 后只采剩余 3,947 条，以及两种末行故障均已
+通过假服务 CLI 演练；12 个历史计数一致，离线 audit 通过。未运行真实模型或 GPU，新增真实预测为 0。
+论文 13 页，Table 2 / Table 4 / 完整附录 Table 7 分别在第 5 / 7 / 12 页，数值、主次标记与排版验收通过。
+
+新增本机验收文档与机器可读记录；370/381 个本轮基线文件保持原字节，11 个变更为论文和入口文档，旧科学源码、
+协议、报告、Lab 包与历史收据保持。本轮交付采用独立分支 matrix-completion-2026-11-10，节点按最终交付 SHA
+固定源码并运行自动预检与采集。运行说明用 git fetch origin 取得独立分支，并说明前置失败可能没有诊断包。
+真实 8 单元、20,400 条测试预测待节点运行及回传验收；不将假服务标签当作实验结果。

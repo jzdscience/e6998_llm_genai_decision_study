@@ -1,4 +1,4 @@
-"""CPU viewer for immutable V1–V3 evidence; no fitting or model requests."""
+"""CPU viewer for immutable V1–V3 evidence and the accepted follow-ups; no fitting or model requests."""
 from __future__ import annotations
 
 from html import escape
@@ -57,6 +57,7 @@ CSS = V1_CSS + """
 .ds-perf-track span {display:block;background:#4467a1;height:100%;}
 .ds-perf-number {text-align:right;font-variant-numeric:tabular-nums;font-weight:600;}
 .ds-footer {color:#64748b;font-size:12px;line-height:1.65;padding:20px 0;}
+.ds-dot-chart {width:100%;min-width:620px;height:auto;display:block;margin:6px 0 4px;}
 @media(max-width:720px){
  .ds-section{padding:18px 15px;}.ds-case-grid{grid-template-columns:1fr;}
  .ds-perf-row{grid-template-columns:125px minmax(50px,1fr) 58px;font-size:12px;gap:8px;}
@@ -162,7 +163,7 @@ def render_primary_comparison(experiments: list[dict]) -> str:
     return '<section class="ds-section"><h2>Does learned routing improve accuracy?</h2>' + f'<p>{interpretation}</p><div class="ds-ci-wrap">' + "".join(svg) + '</div><div class="ds-ci-mobile">' + ''.join(mobile) + '</div>' + _table(["Study", "Prespecified comparison", "Difference", "95% paired interval"], rows) + '<p class="ds-caption">These are separate tasks and holdouts, not pooled estimates. Positive values favor the candidate. Intervals use the saved paired cluster bootstrap.</p></section>'
 
 
-def render_overview(data: dict, v1: dict) -> str:
+def render_overview(data: dict, v1: dict, followups: dict | None = None) -> str:
     experiments = [data["experiments"][key] for key in ("v2", "v3")]
     v1_count = sum(int(v) for v in v1["metrics"]["prediction_counts"].values())
     rows = [["V1", "CLINC and SQuAD answerability", f"{v1_count:,}", "Frozen model quality, calibration and measured service performance"]]
@@ -170,6 +171,9 @@ def render_overview(data: dict, v1: dict) -> str:
     total = v1_count + sum(int(e["formal_predictions"]) for e in experiments)
     intro = '<section class="ds-section"><h2>Three completed experiments</h2>' + _table(["Study", "Question", "Formal predictions", "Evidence"], rows)
     intro += f'<p class="ds-caption">{total:,} formal model predictions in total. Smoke checks and performance requests are counted separately. This viewer reads recorded evidence and makes no model calls.</p></section>'
+    if followups is not None:
+        from .followup_view import render_followup_overview
+        intro += render_followup_overview(followups)
     return render_primary_comparison(experiments) + intro
 
 
@@ -205,11 +209,13 @@ def render_experiment(exp: dict) -> str:
             + notes + '</section>' + budget)
 
 
-def render_performance(exp: dict, offered_rate: float | None = None) -> str:
+def render_performance(exp: dict, offered_rate: float | None = None, followup_hint: bool = False) -> str:
     perf = exp["performance"]
     title = '<section class="ds-section"><h2>Measured service performance</h2>'
     if not perf["measured"]:
-        return title + '<div class="ds-callout ds-uncertain"><strong>No co-resident performance measurement in this study.</strong><br>' + _text(perf["note"]) + '</div><p>Sequential collection latency is not a measured cascade goodput.</p></section>'
+        hint = ('<p>A separate follow-up on 2026-11-09 measured StartLux-9B and a StartLux-4B → Qwen3.5-9B cascade under load on the same ANLI test; '
+                'see the Follow-ups tab. It does not change this study’s frozen evidence.</p>') if followup_hint else ''
+        return title + '<div class="ds-callout ds-uncertain"><strong>No co-resident performance measurement in this study.</strong><br>' + _text(perf["note"]) + '</div><p>Sequential collection latency is not a measured cascade goodput.</p>' + hint + '</section>'
     rows = perf["rows"]
     if offered_rate is None:
         offered_rate = min(_number(r["offered_rate"]) for r in rows)
@@ -265,7 +271,7 @@ def show_case(exp: dict, sample_id: str, policy_id: str) -> tuple[str, dict]:
     return render_case(result), result
 
 
-def _experiment_tab(gr, exp: dict):
+def _experiment_tab(gr, exp: dict, followup_hint: bool = False):
     gr.HTML(render_experiment(exp))
     if exp["performance"]["measured"]:
         rates = sorted({_number(row["offered_rate"]) for row in exp["performance"]["rows"]})
@@ -273,7 +279,7 @@ def _experiment_tab(gr, exp: dict):
         perf = gr.HTML(render_performance(exp, rates[-1]))
         rate.change(lambda value: render_performance(exp, float(value)), rate, perf, api_name=f'{exp["id"]}_performance')
     else:
-        gr.HTML(render_performance(exp))
+        gr.HTML(render_performance(exp, followup_hint=followup_hint))
     gr.Markdown("### Follow a saved handoff")
     gr.Markdown(exp["case_note"])
     initial_case = exp["cases"][0]["sample_id"]
@@ -291,7 +297,7 @@ def _experiment_tab(gr, exp: dict):
     policy.change(callback, [cases, policy], [panels, trace], api_name=f'{exp["id"]}_policy')
 
 
-def create_app(bundle_dir: Path | str, v1_bundle_dir: Path | str):
+def create_app(bundle_dir: Path | str, v1_bundle_dir: Path | str, followup_bundle_dir: Path | str | None = None):
     """Create the viewer without serving, fitting, opening a browser or calling models."""
     os.environ.setdefault("GRADIO_ANALYTICS_ENABLED", "False")
     try:
@@ -301,29 +307,40 @@ def create_app(bundle_dir: Path | str, v1_bundle_dir: Path | str):
     from .evidence import load_bundle
     data = load_bundle(bundle_dir)
     v1 = load_v1_bundle(v1_bundle_dir)
+    followups = None
+    if followup_bundle_dir is not None:
+        from .followups import load_bundle as load_followups
+        from .followup_view import followup_tab
+        followups = load_followups(followup_bundle_dir)
     original = create_v1_app(v1_bundle_dir)
-    with gr.Blocks(title="Decision Lab | V1–V3 evidence", analytics_enabled=False, delete_cache=(3600, 3600)) as app:
-        gr.HTML('<header class="ds-hero"><div class="ds-brand">Decision Lab</div><h1>When is a handoff worth it?</h1><p>Compare the quality gained, the errors introduced, and the service cost across three completed experiments.</p><div class="ds-status">Recorded V1–V3 evidence. CPU only. No model calls.</div></header>')
+    scope = "V1–V3 and follow-up evidence" if followups is not None else "V1–V3 evidence"
+    with gr.Blocks(title=f"Decision Lab | {scope}", analytics_enabled=False, delete_cache=(3600, 3600)) as app:
+        gr.HTML('<header class="ds-hero"><div class="ds-brand">Decision Lab</div><h1>When is a handoff worth it?</h1><p>Compare the quality gained, the errors introduced, and the service cost across three completed experiments'
+                + (' and their follow-ups' if followups is not None else '') + f'.</p><div class="ds-status">Recorded {scope}. CPU only. No model calls.</div></header>')
         with gr.Tabs():
             with gr.Tab("Overview", id="overview"):
-                gr.HTML(render_overview(data, v1))
+                gr.HTML(render_overview(data, v1, followups))
             with gr.Tab("V2 · SQuAD", id="v2"):
                 _experiment_tab(gr, data["experiments"]["v2"])
             with gr.Tab("V3 · ANLI", id="v3"):
-                _experiment_tab(gr, data["experiments"]["v3"])
+                _experiment_tab(gr, data["experiments"]["v3"], followup_hint=followups is not None)
+            if followups is not None:
+                with gr.Tab("Follow-ups", id="followups"):
+                    followup_tab(gr, followups)
             with gr.Tab("V1 replay", id="v1"):
                 gr.Markdown("The original V1 viewer below retains its saved cases, exploratory threshold controls and measured performance. Its descriptions apply to V1 only.")
                 original.render()
-        gr.HTML('<footer class="ds-footer">All displayed policies and primary intervals come from saved evaluations. Illustrative cases are selected by known outcomes and do not estimate their frequency. Exploring evidence does not change a frozen study.</footer>')
+        gr.HTML('<footer class="ds-footer">All displayed policies and primary intervals come from saved evaluations, and serving values from accepted measurements at the tested loads only. Illustrative cases are selected by known outcomes and do not estimate their frequency. Exploring evidence does not change a frozen study.</footer>')
     app._decision_lab_original = original  # Keep original callback export files alive.
     app.queue(max_size=16, default_concurrency_limit=1)
     return app
 
 
-def launch(bundle_dir: Path | str, v1_bundle_dir: Path | str, host: str = "127.0.0.1", port: int = 7860):
+def launch(bundle_dir: Path | str, v1_bundle_dir: Path | str, host: str = "127.0.0.1", port: int = 7860,
+           followup_bundle_dir: Path | str | None = None):
     if host not in {"127.0.0.1", "localhost", "::1"}:
         raise ValueError("The evidence viewer binds to localhost only")
-    app = create_app(bundle_dir, v1_bundle_dir)
+    app = create_app(bundle_dir, v1_bundle_dir, followup_bundle_dir)
     import gradio as gr
     theme = gr.themes.Base(primary_hue="teal", neutral_hue="slate", radius_size="sm",
                            font=("Aptos", "Trebuchet MS", "Arial", "sans-serif"))

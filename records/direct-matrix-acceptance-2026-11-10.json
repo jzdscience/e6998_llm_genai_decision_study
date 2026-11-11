@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-10",
+  "timezone": "America/Los_Angeles",
+  "status": "accepted_local_preparation_only",
+  "release_branch": "matrix-completion-2026-11-10",
+  "working_tree_parent": "23033c12bd2a5fd7fcb00354c8fb78257734d797",
+  "implementation": {
+    "tool": "Claude Code CLI",
+    "model": "claude-opus-5-5",
+    "effort": "max",
+    "sessions_for_software_and_paper": 2
+  },
+  "independent_reviewer": "Codex",
+  "scope": {
+    "protocol": "direct-matrix-v1",
+    "revision": 1,
+    "new_cells": 8,
+    "planned_new_test_predictions": 20400,
+    "historical_cells": 12,
+    "historical_test_predictions": 28600,
+    "planned_total_matrix_cells": 20,
+    "planned_total_matrix_test_predictions": 49000,
+    "real_gpu_cells_completed": 0,
+    "new_real_model_predictions": 0,
+    "interpretation": "retrospective_descriptive_extension"
+  },
+  "validation": {
+    "whole_repository": {
+      "passed": 514,
+      "skipped": 11,
+      "subtests_passed": 64,
+      "exit_code": 0,
+      "seconds": 346.76,
+      "new_module_tests": 44
+    },
+    "independent_focused": {
+      "passed": 24,
+      "exit_code": 0,
+      "seconds": 3.63
+    },
+    "mutations": {
+      "count": 17,
+      "isolated_copies": true,
+      "raw_failure_reasons_independently_reviewed": true
+    },
+    "rehearsal": {
+      "fake_model_services": true,
+      "new_simulated_predictions": 20400,
+      "mid_cell_kill_after_row": 53,
+      "sharded_rows_preserved": 50,
+      "journal_rows_preserved": 3,
+      "remaining_rows_collected_in_new_deployment": 3947,
+      "last_row_failure_cases": 2,
+      "offline_bundle_audit_passed": true,
+      "historical_counts_matched": true,
+      "leftover_test_processes": 0
+    },
+    "paper": {
+      "pages": 13,
+      "unresolved_markers": 0,
+      "type3_fonts": false,
+      "latex_issues": [],
+      "pdf_sha256": "753c2e3b1e1c512985aee97f70dac71893a8c223e84bcf411f6b5d07d6ee1b9a",
+      "tex_sha256": "f103726eb3efeb74296692e2037dbcfe274e070b8111639780a659e9fe91b11b",
+      "reviewed_pages": [
+        5,
+        7,
+        12
+      ]
+    }
+  },
+  "preservation": {
+    "baseline_files": 381,
+    "unchanged": 370,
+    "changed_document_and_paper_files": [
+      "docs/PRESENTATION_ZH.md",
+      "README.md",
+      "README_ZH.md",
+      "docs/ARTIFACTS_ZH.md",
+      "docs/CURRENT_STATE.md",
+      "docs/EXPERIMENT_LOG.md",
+      "docs/README.md",
+      "paper/README.md",
+      "paper/main.pdf",
+      "paper/main.tex",
+      "scripts/README.md"
+    ],
+    "frozen_sources_and_protocols_unchanged": true,
+    "historical_reports_bundles_lab_packages_receipts_unchanged": true,
+    "baseline_manifest_sha256": "cadf24fc880260fb08e507d24861bb5d300ca153dce8137e388798fd91a4c652"
+  },
+  "new_software_files_sha256": {
+    "configs/direct_matrix_protocol.json": "655aa727dba7650c52a1c77e23d5f611a37f2835ef50d672068fb3e1d7f08d98",
+    "decision_study/direct_matrix/__init__.py": "9fdd437e83a070914db101db757332d36e8f0a17d97559356b3836d49847c3b1",
+    "decision_study/direct_matrix/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+    "decision_study/direct_matrix/audit.py": "b7b3e7128b422c7bf547223a36ea926a2c2ceb232c5aa8d94fb1221892f0f0a8",
+    "decision_study/direct_matrix/cli.py": "aa9a3212db8f57a8e7b6c1726cdd294ca5abaf3dfe86ca0cebffe60f518e257f",
+    "decision_study/direct_matrix/collect.py": "617cab71cca2d1341e48a7be926dfe048179c726e99866542053491606d529ab",
+    "decision_study/direct_matrix/data.py": "c2306681fd2306e1a579764f17f053ffddc24fcd391cadafadf092d8c68fad23",
+    "decision_study/direct_matrix/identity.py": "af454f020c4aecb00eb74850b39f0af8c91b5bbf475b3491ad384153051a40d7",
+    "decision_study/direct_matrix/runtime.py": "84dcceec6fb4ba14d3f108fd4cccc881b0cc0c6421c6a5b6fd183e4c87834c33",
+    "decision_study/direct_matrix/stats.py": "a294ba98299cbc166c573d39ead1127d4fc2571df0da3780fbdd2e3204b5155c",
+    "decision_study/direct_matrix/study.py": "ab556fb149eebee51b338d74b2d96ffcf0ffef3310716b69b2f989fbc2679e27",
+    "decision_study/direct_matrix/worker.py": "59e62a121d39df9057a49384484ff99c0798469cbfa2339701d078618e08bb4b",
+    "scripts/run_direct_matrix.sh": "6e8c3eae6cb9b5f73b066bc529c9cd754459f929e78272e44d5a6df8e8128f59",
+    "tests/test_direct_matrix.py": "7af467ab761923e96dd9fed126f5dc1893d5bca1dcf8831215db0c89dc2f5f0c",
+    "tests/direct_matrix_rehearsal.py": "35fb9fa6a6a81605409385b5e60144a4ce004ecdc03535c13945e1dd5d3ffe01",
+    "tests/direct_matrix_fault_worker.py": "b7528f7506c83b5a91ce9de1d2d055b17a11b621f563324a988adf7ef85e099b"
+  },
+  "delivery_working_tree_sha256": {
+    "configs/direct_matrix_protocol.json": "655aa727dba7650c52a1c77e23d5f611a37f2835ef50d672068fb3e1d7f08d98",
+    "decision_study/direct_matrix/__init__.py": "9fdd437e83a070914db101db757332d36e8f0a17d97559356b3836d49847c3b1",
+    "decision_study/direct_matrix/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+    "decision_study/direct_matrix/audit.py": "b7b3e7128b422c7bf547223a36ea926a2c2ceb232c5aa8d94fb1221892f0f0a8",
+    "decision_study/direct_matrix/cli.py": "aa9a3212db8f57a8e7b6c1726cdd294ca5abaf3dfe86ca0cebffe60f518e257f",
+    "decision_study/direct_matrix/collect.py": "617cab71cca2d1341e48a7be926dfe048179c726e99866542053491606d529ab",
+    "decision_study/direct_matrix/data.py": "c2306681fd2306e1a579764f17f053ffddc24fcd391cadafadf092d8c68fad23",
+    "decision_study/direct_matrix/identity.py": "af454f020c4aecb00eb74850b39f0af8c91b5bbf475b3491ad384153051a40d7",
+    "decision_study/direct_matrix/runtime.py": "84dcceec6fb4ba14d3f108fd4cccc881b0cc0c6421c6a5b6fd183e4c87834c33",
+    "decision_study/direct_matrix/stats.py": "a294ba98299cbc166c573d39ead1127d4fc2571df0da3780fbdd2e3204b5155c",
+    "decision_study/direct_matrix/study.py": "ab556fb149eebee51b338d74b2d96ffcf0ffef3310716b69b2f989fbc2679e27",
+    "decision_study/direct_matrix/worker.py": "59e62a121d39df9057a49384484ff99c0798469cbfa2339701d078618e08bb4b",
+    "docs/DIRECT_MATRIX_ACCEPTANCE_2026-11-10_ZH.md": "55093c32e511b2efce58649be71ba6cbab350e9414359d5fc9d1accf05182d92",
+    "docs/DIRECT_MATRIX_PROTOCOL_ZH.md": "3bf146f8e6a5126cf49787ff807cd610a0449630f4fd74a523debe1f9bc80a66",
+    "docs/PRESENTATION_ZH.md": "1025e07d58b8a4a9eff996c8f1a680b8a173eaed449c2501bdba2f6e2e4cb80d",
+    "docs/RUN_DIRECT_MATRIX_ZH.md": "0f658c66114fa9b52bb30eac311e71f9a02941e02d7e16a675a6a28638ce1cee",
+    "scripts/run_direct_matrix.sh": "6e8c3eae6cb9b5f73b066bc529c9cd754459f929e78272e44d5a6df8e8128f59",
+    "tests/direct_matrix_fault_worker.py": "b7528f7506c83b5a91ce9de1d2d055b17a11b621f563324a988adf7ef85e099b",
+    "tests/direct_matrix_rehearsal.py": "35fb9fa6a6a81605409385b5e60144a4ce004ecdc03535c13945e1dd5d3ffe01",
+    "tests/test_direct_matrix.py": "7af467ab761923e96dd9fed126f5dc1893d5bca1dcf8831215db0c89dc2f5f0c",
+    "README.md": "6d0177e7f53798b4e5b9486d4e9f7df0d40b81f75554bfad2b4c5b79abcfc90c",
+    "README_ZH.md": "8d839b80e75f238a65de47c35064453949f52f41291123d81c54f0d1d7109646",
+    "docs/ARTIFACTS_ZH.md": "393a8c4791400e02bfcd65750dc8836ce02e8ec9ce3901180036550a57191861",
+    "docs/CURRENT_STATE.md": "5c457789d68db50294fe0777c9abb105bebc2e95e8eadd9df33a290357cbb3fd",
+    "docs/EXPERIMENT_LOG.md": "abeefdad6b340791263f13b195ac16f95a8b2f046460ff5ca8a51334e7f044c6",
+    "docs/README.md": "bb279674e1891355f0300577ddc726089857957033671ec89ccf6137065df87e",
+    "paper/README.md": "e27b097e2be6a496f905064cecdcf10daca3e2bb12e4dbec128d422fada858dc",
+    "paper/main.pdf": "753c2e3b1e1c512985aee97f70dac71893a8c223e84bcf411f6b5d07d6ee1b9a",
+    "paper/main.tex": "f103726eb3efeb74296692e2037dbcfe274e070b8111639780a659e9fe91b11b",
+    "scripts/README.md": "6d5966a093b5919e871daa0c61f9c691e9c6e9e14ed27985f6a169255d12bff5"
+  },
+  "validation_local_logs_sha256": {
+    "final-pytest.log": "8371872acce88bfc54399b62dbf52e233bf07860f0a8554c04d2be12ccf369d0",
+    "codex-focused-pytest.log": "a9f1f4c1373cd6247356a881e860ad1b02eb51e37d21e5756d084a9f3a462003",
+    "codex-focused-pytest.json": "b7fcd8c87eac220b229939457ecf74460afc87e2166bd2682c1331d52f7cb245",
+    "review-implementation.md": "240342c0102065d327bd9ec37134460e59abc35b813aeec289736967e0cf0eec",
+    "review-scoring.md": "2e19bd0f919bf7e5cd098e1216816f02af0e31c4aad52ba1c91f27e5f6d490e7",
+    "review-paper-routing.md": "a652d8b7cde06b6e7325e4b85bc9fdc395aea8cb9ba6a623d66e1f92a882005c",
+    "review-mutations.md": "792b99dfd9a360dcbe388ce62c3774c7e1a1af967e1a8db30a6b4ccd24de5362",
+    "review_journal_fix_probes.log": "a3eb0dffaebca5e5798420536e081da4c3f7e46b91255ca1cb4f230c768eee6f",
+    "mutation/table.md": "1f0756f10ecec575a8b40d89b7ef08eb319c554c0aef9cae381a5895e51bfa81",
+    "codex-paper/verification.json": "977b0aff83361d132723597696e41344512970ebab68af9413f148e3aabdd84a"
+  },
+  "limitations": [
+    "Real model, tokenizer and GPU behavior remain unverified until node preflight.",
+    "Fresh dependency installation has not been tested.",
+    "Offline audit reuses production scoring; independent raw-metric recomputation follows the real returned bundle.",
+    "One redundant completion check for pending journal bytes has no isolated mutation; reachable interrupted attempts are blocked earlier."
+  ],
+  "review_document": "docs/DIRECT_MATRIX_ACCEPTANCE_2026-11-10_ZH.md"
+}

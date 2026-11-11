@@ -1,0 +1,5 @@
+condition,deployment,role,gpu_memory_share,formal_engine_starts,formal_kv_gib_min,formal_kv_gib_max,formal_kv_tokens_min,formal_kv_tokens_max,formal_startup_seconds_min,formal_startup_seconds_max,preflight_kv_gib,preflight_kv_tokens,deployment_sampled_gpu_peak_gib_min,deployment_sampled_gpu_peak_gib_max
+startlux4b,StartLux-4B direct,startlux4b,0.40,12,8.78,8.78,234549,234549,79.00519142858684,142.06101266480982,8.05,215147,17.7470703125,19.5185546875
+startlux9b,StartLux-9B direct,startlux9b,0.50,12,4.22,4.22,112532,112532,83.9808516651392,181.16897364892066,2.93,78039,21.9990234375,22.6533203125
+cascade,StartLux-4B to Qwen3.5-9B cascade,startlux4b,0.40,12,8.78,8.78,234549,234549,78.9903025534004,119.02435309626162,8.78,234549,39.72265625,40.380859375
+cascade,StartLux-4B to Qwen3.5-9B cascade,qwen9b,0.50,12,4.22,4.22,112532,112532,71.9768056795001,129.69811755791306,2.93,78039,39.72265625,40.380859375

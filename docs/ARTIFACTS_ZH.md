@@ -1,5 +1,24 @@
 # 数据、结果与源码的边界
 
+11/10 准备的直接准确率矩阵补全（[协议](DIRECT_MATRIX_PROTOCOL_ZH.md)）还没有在节点运行，下面这些文件目前都不存在。
+节点只读复用运行根下的 `results/solo-v1`、`results/solo-v2`、`results/solo-v3`、`results/aux-size-control-v1-r2`，
+以及其中已有的 StartLux-9B 与 Qwen3.5-9B 快照、V1 的 kev 环境和 Hugging Face 缓存；唯一的新输出是运行根下的
+`results/aux-direct-matrix-v1`。回传文件为其中的 `exports/direct_matrix_bundle.zip`，含准备输入、原始回答、收据、
+日志和评价时导出的逐 ID 测试 gold 子集（`sealed/*-gold.json`），不含权重、环境和缓存。包里有 gold 与节点路径，按
+其他结果包的做法放在 Git 外、不公开：回传后按 SHA 归档到外部证据根的 `records/bundles/` 并登记
+[BUNDLE_INDEX.json](../records/BUNDLE_INDEX.json)。Mac 上的离线审计只需要这个 ZIP 和与节点同一 commit 的 checkout，
+不需要外部证据根、模型或 GPU，命令见[运行说明](RUN_DIRECT_MATRIX_ZH.md)。
+
+11/9 的 9B 服务研究（11/10 验收）：正式包与预检包按 SHA 归档在外部证据根的
+`records/bundles/upgrade-formal-20261109-9baeca3eb7f8.zip` 与
+`records/bundles/upgrade-preflight-r4-20261109-8adafb29ff45.zip`，没有解压目录，审计直接读 ZIP。
+重跑审计另需 V3 回传包、规模对照包和 V3 密封 gold `results/solo-v3-prepared/sealed/holdout_gold.json`，
+完整性审计还要用含 commit `7c81947` 的 git clone 核对源码哈希。便携审计脚本、精选收据、36 单元 CSV
+和图在 [reports/upgrade-9b-serving-2026-11-09/](../reports/upgrade-9b-serving-2026-11-09/RESULTS_ZH.md)，
+命令见其 `audit/README.md`；`scripts/reproduce_cpu.sh` 的第 4 步按 `EVIDENCE_ROOT` 读取这些文件。
+Lab follow-up 便携包 `reports/decision-lab-followups-2026-11-10/` 只依赖已跟踪文件即可查看，重建时才需要
+正式 ZIP 与 gold。
+
 11/5新增两项独立实验的准备记录与运行入口见
 [followups-preparation-2026-11-05.json](../records/followups-preparation-2026-11-05.json)和
 [RUN_FOLLOWUPS_ZH.md](RUN_FOLLOWUPS_ZH.md)。11/5启动兼容修复后，node新输出分别为旧运行根下

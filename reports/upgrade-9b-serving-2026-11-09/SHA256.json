@@ -1,0 +1,59 @@
+{
+  "created_date": "2026-11-10",
+  "source_bundle_sha256": {
+    "upgrade-formal-20261109-180806": "9baeca3eb7f84a86fdc1f63bc16114c1a91c756bbefe323840152d7901f91be7",
+    "upgrade-preflight-r4-20261109-074915": "8adafb29ff4501e55c4a5c3e9572d97a63a5e6d82e63cf862d86b54d14589ce3"
+  },
+  "acceptance_receipt": {
+    "path": "records/upgrade-service-acceptance-2026-11-10.json",
+    "sha256": "3bc4c53f566ef9bf87527e613dea34dbd0f4f19f26fd63ce446aadf4e791c604"
+  },
+  "evidence_copies_of_accepted_receipts": {
+    "reports/upgrade-9b-serving-2026-11-09/evidence/integrity-audit.json": {
+      "accepted_path": ".validation/upgrade-return-review-2026-11-10/integrity/integrity-audit.json",
+      "sha256": "99b1d5c0451eced1a09d97e15ecd4322a43238bf38d2b2f0efd19f56c53af4be"
+    },
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/audit-receipt.json": {
+      "accepted_path": ".validation/upgrade-return-review-2026-11-10/metrics/audit-receipt.json",
+      "sha256": "e4d0dcc4ed75b5d485c82ee07708f64c3247a30495cd646dcd49e52698452896"
+    },
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/recomputed.json": {
+      "accepted_path": ".validation/upgrade-return-review-2026-11-10/metrics/recomputed.json",
+      "sha256": "812493682b545e6f98ef439b4ec541f8d43a3e2901db5a9baf16a7ef4eb1f8d7"
+    },
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/cells.csv": {
+      "accepted_path": ".validation/upgrade-return-review-2026-11-10/metrics/cells.csv",
+      "sha256": "aa60854cf91dd4319abc9c2c1479b41bf155a80553799df061974da26d2eac3a"
+    },
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/stall-analysis.json": {
+      "accepted_path": ".validation/upgrade-return-review-2026-11-10/metrics/stall-analysis.json",
+      "sha256": "336e8533b4c3019b07c85dcc2ec63b30a8efc8ffbaa72f84501eb088a76fcaf5"
+    },
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/stall_late_rows.csv": {
+      "accepted_path": ".validation/upgrade-return-review-2026-11-10/metrics/stall_late_rows.csv",
+      "sha256": "6419eb0d160e4d75d66c0478af5e3b844d8690df74574b8b716293ac2df3b6b6"
+    }
+  },
+  "note": "Evidence files are byte-identical copies of the receipts accepted on 2026-11-10; the audit scripts are portable versions of the accepted ones (audit/CHANGES_FROM_ACCEPTED.diff).",
+  "path_base": "source repository root",
+  "sha256": {
+    "reports/upgrade-9b-serving-2026-11-09/RESULTS_ZH.md": "d2d098c6997c2899551534b35f74bc443cc806c7ad37c22948b8e8fad61a554b",
+    "reports/upgrade-9b-serving-2026-11-09/audit/CHANGES_FROM_ACCEPTED.diff": "17423d08afa92b2152c3eafdfe4fca22b5c895f4fbffc0abd3930edc8407792e",
+    "reports/upgrade-9b-serving-2026-11-09/audit/README.md": "83e18d269b4061c3f5a0014437ef179d31c796b602fc90dd4baea38e64f56efe",
+    "reports/upgrade-9b-serving-2026-11-09/audit/audit_integrity.py": "21d7566130d6d99f88048465041975a63ba07ce83777efe2224ce06adcc69ff7",
+    "reports/upgrade-9b-serving-2026-11-09/audit/audit_metrics.py": "7705cc8e9da65a4cfdfc438e4edad1b1dfeb0a219b97408f3f2d24a594f2f2a5",
+    "reports/upgrade-9b-serving-2026-11-09/build_tables.py": "9b39a34773807d0ad4b2ae4819f36273ada48874431da26949521da1892e6503",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/integrity-audit.json": "99b1d5c0451eced1a09d97e15ecd4322a43238bf38d2b2f0efd19f56c53af4be",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/audit-receipt.json": "e4d0dcc4ed75b5d485c82ee07708f64c3247a30495cd646dcd49e52698452896",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/cells.csv": "aa60854cf91dd4319abc9c2c1479b41bf155a80553799df061974da26d2eac3a",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/recomputed.json": "812493682b545e6f98ef439b4ec541f8d43a3e2901db5a9baf16a7ef4eb1f8d7",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/stall-analysis.json": "336e8533b4c3019b07c85dcc2ec63b30a8efc8ffbaa72f84501eb088a76fcaf5",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/stall_late_rows.csv": "6419eb0d160e4d75d66c0478af5e3b844d8690df74574b8b716293ac2df3b6b6",
+    "reports/upgrade-9b-serving-2026-11-09/figures/correct_goodput.png": "dee16a66f5caa9057b42b38eb54fdbe30620f820207b1a38464a51be0b14d60f",
+    "reports/upgrade-9b-serving-2026-11-09/figures/correct_goodput.svg": "8619d95714070ae946f2ec490e3074ecfa60cb3a6bde22ac02163a5a672bd99d",
+    "reports/upgrade-9b-serving-2026-11-09/quality.csv": "2a2ffdf106d79db47eabf58ede84a166500ce1b41c65cf69a4f618b07543fd55",
+    "reports/upgrade-9b-serving-2026-11-09/render_figures.py": "8e7d87d2f45d51bc4b95a931d3ad56f3c6710171a15e504cbf1d21c14a49b5cc",
+    "reports/upgrade-9b-serving-2026-11-09/resources.csv": "6b641203af2c436ae54d3355c7ca85432ca71fffb425818111036c0fc6e3f680",
+    "reports/upgrade-9b-serving-2026-11-09/summary.csv": "cdab483401b8d1b7cb682db848b522beb89e3489de820e44cea3ff1d7af965de"
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "reviewed_on_local_date": "2026-11-10",
+  "timezone": "America/Los_Angeles",
+  "reviewed_repository_commit": "23033c12bd2a5fd7fcb00354c8fb78257734d797",
+  "experiment_source_commit": "7c81947d8ed51b18ace9ba8ae0dad0476c9b6b19",
+  "protocol_revision": 4,
+  "formal_bundle": {
+    "archive": "records/bundles/upgrade-formal-20261109-9baeca3eb7f8.zip",
+    "sha256": "9baeca3eb7f84a86fdc1f63bc16114c1a91c756bbefe323840152d7901f91be7",
+    "bytes": 50468712,
+    "verified_file_count": 731
+  },
+  "preflight_bundle": {
+    "archive": "records/bundles/upgrade-preflight-r4-20261109-8adafb29ff45.zip",
+    "sha256": "8adafb29ff4501e55c4a5c3e9572d97a63a5e6d82e63cf862d86b54d14589ce3",
+    "bytes": 7757957,
+    "verified_file_count": 103
+  },
+  "integrity": {
+    "source_files_checked": 36,
+    "prepared_files_checked": 17,
+    "completion_receipts_checked": 78,
+    "engine_starts_checked": 52,
+    "allocation": {
+      "hostname": "sc1ns055is14",
+      "slurm_job_id": "1224376"
+    },
+    "physical_gpu_uuids": [
+      "GPU-5a580f96-512e-d4b7-81fc-37a0a23d4fb8"
+    ],
+    "formal_resource_samples": 3985,
+    "formal_cell_count": 36,
+    "formal_offers": 162801,
+    "formal_warmup_requests": 3240,
+    "formal_startup_kv_ranges": {
+      "startlux4b:startlux4b": {
+        "count": 12,
+        "kv_gib_min": 8.78,
+        "kv_gib_max": 8.78,
+        "kv_tokens_min": 234549,
+        "kv_tokens_max": 234549
+      },
+      "startlux9b:startlux9b": {
+        "count": 12,
+        "kv_gib_min": 4.22,
+        "kv_gib_max": 4.22,
+        "kv_tokens_min": 112532,
+        "kv_tokens_max": 112532
+      },
+      "cascade:startlux4b": {
+        "count": 12,
+        "kv_gib_min": 8.78,
+        "kv_gib_max": 8.78,
+        "kv_tokens_min": 234549,
+        "kv_tokens_max": 234549
+      },
+      "cascade:qwen9b": {
+        "count": 12,
+        "kv_gib_min": 4.22,
+        "kv_gib_max": 4.22,
+        "kv_tokens_min": 112532,
+        "kv_tokens_max": 112532
+      }
+    }
+  },
+  "integrity_check_count": 2097,
+  "metrics": {
+    "cells": 36,
+    "offered_total": 162801,
+    "status_counts": {
+      "ok": 131935,
+      "client_rejected": 30866
+    },
+    "raw_checks": {
+      "offered_schedule_rows": 162801,
+      "admitted_timing_decompositions": 131935,
+      "stage_predictions_match_raw_HTTP_response": 140576,
+      "cascade_routes_replayed_from_probabilities": 35860
+    },
+    "route_score_max_abs_difference": 2.220446049250313e-16,
+    "history_source_checks": {
+      "startlux4b": {
+        "source_zip_sha256": "a8d0dc672d83c3edcb85d005e66fa4b3d000132729f98f0beaab6865dfc57a9e",
+        "source_prediction_hash": "3edd64ae3b73ac240c39d614a6186be516257da4a5cbcc8b70a883f8ad27af62",
+        "shards": 128,
+        "predictions_compared": 3200
+      },
+      "qwen9b": {
+        "source_zip_sha256": "a8d0dc672d83c3edcb85d005e66fa4b3d000132729f98f0beaab6865dfc57a9e",
+        "source_prediction_hash": "5e579724946d22c191cee57bef9fd4ffcabadd58fd875fef8e6925b227952879",
+        "shards": 128,
+        "predictions_compared": 3200
+      },
+      "startlux9b": {
+        "source_zip_sha256": "f427f7762bac745d9316cb02195c09f98ab551794de1da047509be7f9fe7d1ed",
+        "source_prediction_hash": "92b12177886419e9ff8f5feb33e9ee669663e2d92e937423ae60bd7d4e62dad5",
+        "shards": 128,
+        "predictions_compared": 3200
+      }
+    },
+    "passing_rates_all_three_repeats_99pct": {
+      "startlux4b": {
+        "primary": [
+          10,
+          40
+        ],
+        "secondary": [
+          10,
+          40
+        ]
+      },
+      "startlux9b": {
+        "primary": [
+          10,
+          20
+        ],
+        "secondary": [
+          10,
+          20,
+          40
+        ]
+      },
+      "cascade": {
+        "primary": [],
+        "secondary": [
+          10
+        ]
+      }
+    },
+    "live_history_comparison": {
+      "startlux4b": {
+        "successful_response_count": 53609,
+        "live_accuracy_per_cell_range": [
+          0.7316053511705686,
+          0.7528089887640449
+        ],
+        "live_minus_matched_historical_accuracy_pp_per_cell_range": [
+          -0.17331022530329143,
+          0.2592912705272177
+        ],
+        "pooled_live_accuracy": 0.7417411255572758,
+        "pooled_matched_historical_accuracy": 0.7412374787815479
+      },
+      "startlux9b": {
+        "successful_response_count": 42466,
+        "live_accuracy_per_cell_range": [
+          0.7615740740740741,
+          0.7744165946413137
+        ],
+        "live_minus_matched_historical_accuracy_pp_per_cell_range": [
+          -0.08701705534284176,
+          0.2592912705272288
+        ],
+        "pooled_live_accuracy": 0.766448452879951,
+        "pooled_matched_historical_accuracy": 0.766401356379221
+      },
+      "cascade": {
+        "successful_response_count": 35860,
+        "live_accuracy_per_cell_range": [
+          0.734337637494022,
+          0.7579948141745895
+        ],
+        "live_minus_matched_historical_accuracy_pp_per_cell_range": [
+          -0.5852842809364489,
+          0.0
+        ],
+        "pooled_live_accuracy": 0.7411879531511434,
+        "pooled_matched_historical_accuracy": 0.7434188510875628
+      }
+    },
+    "label_variability": {
+      "startlux9b": {
+        "inputs_seen": 3200,
+        "inputs_with_more_than_one_live_label": 19
+      },
+      "cascade": {
+        "inputs_seen": 3200,
+        "inputs_with_more_than_one_live_label": 49
+      },
+      "startlux4b": {
+        "inputs_seen": 3200,
+        "inputs_with_more_than_one_live_label": 33
+      }
+    },
+    "discrepancies": []
+  },
+  "resource_sample_peak_ranges": {
+    "startlux9b": {
+      "min_cell_sampled_peak_gib": 21.9990234375,
+      "max_cell_sampled_peak_gib": 22.6533203125
+    },
+    "cascade": {
+      "min_cell_sampled_peak_gib": 39.72265625,
+      "max_cell_sampled_peak_gib": 40.380859375
+    },
+    "startlux4b": {
+      "min_cell_sampled_peak_gib": 17.7470703125,
+      "max_cell_sampled_peak_gib": 19.5185546875
+    }
+  },
+  "preflight_cascade_http_overlap": {
+    "pairwise_http_stage_overlap_seconds": 147.99857565015554,
+    "wall_clock_http_stage_overlap_union_seconds": 14.77691512554884
+  },
+  "audit_files_sha256": {
+    ".validation/upgrade-return-review-2026-11-10/integrity/audit_integrity.py": "27a59de292b99b3aff11ba3e6c376a28caf199db91c4cf96f78a051863c0691c",
+    ".validation/upgrade-return-review-2026-11-10/integrity/integrity-audit.json": "99b1d5c0451eced1a09d97e15ecd4322a43238bf38d2b2f0efd19f56c53af4be",
+    ".validation/upgrade-return-review-2026-11-10/metrics/audit_metrics.py": "d0431f3090c33aa92c32070221ac3ccd739e117bd989affc15f7f40594a052ad",
+    ".validation/upgrade-return-review-2026-11-10/metrics/audit-receipt.json": "e4d0dcc4ed75b5d485c82ee07708f64c3247a30495cd646dcd49e52698452896",
+    ".validation/upgrade-return-review-2026-11-10/metrics/recomputed.json": "812493682b545e6f98ef439b4ec541f8d43a3e2901db5a9baf16a7ef4eb1f8d7",
+    ".validation/upgrade-return-review-2026-11-10/metrics/cells.csv": "aa60854cf91dd4319abc9c2c1479b41bf155a80553799df061974da26d2eac3a",
+    ".validation/upgrade-return-review-2026-11-10/metrics/stall-analysis.json": "336e8533b4c3019b07c85dcc2ec63b30a8efc8ffbaa72f84501eb088a76fcaf5",
+    ".validation/upgrade-return-review-2026-11-10/metrics/stall_late_rows.csv": "6419eb0d160e4d75d66c0478af5e3b844d8690df74574b8b716293ac2df3b6b6",
+    ".validation/upgrade-return-review-2026-11-10/delivery/lab-check.json": "561260698771239d7e15d0981a266a1885ad0ac41ec5ac96b1c1b22d723d2d3d",
+    ".validation/upgrade-return-review-2026-11-10/delivery/notes.md": "82f1a65901d5aa1c26070ad3962574ce6f8215226898ac6b6e5999528869a3df"
+  },
+  "audit_files_note": "These files currently live in the ignored local validation directory. Integrate selected scripts and receipts into a new reports directory before claiming clone-portable reproduction of this study.",
+  "limits": [
+    "Hashes and recorded access prove an internally consistent artifact chain, not independent OS access surveillance. The input test was already inspected in prior studies.",
+    "Raw GPU samples show the same device UUID throughout; they are device-level samples, not exclusive process accounting.",
+    "preflight engine_overlap_seconds is the sum of pairwise HTTP-stage interval intersections, with duplicate temporal counting; not wall-clock simultaneous GPU execution or GPU kernel overlap.",
+    "Preflight memory is not the fixed formal memory allocation: actual KV differs by startup; formal per-role ranges retained.",
+    "Health prefix_cache=true conflicts with actual engine launch no-enable-prefix-caching and effective runtime false.",
+    "Per-cell finished.json cleanup receipts are checked but not individually SHA-bound by freeze.json; freeze binds complete->plan->start/warmup/raw evidence. Existing verifier rechecks finished.json separately.",
+    "Historical prediction mapping and scored goodput are independently audited by sibling metrics task.",
+    "99% passing points are not continuous capacity boundaries, especially 4B failing20 but passing40.",
+    "Successful-response accuracy is offer-weighted and load-selected; compare the matched historical subset, not only whole-pool accuracy.",
+    "Three serving repeats are not independent input samples or statistical replication of model quality.",
+    "Client/engine settings and unequal resource budgets restrict generalization; no causal or dollar-cost conclusion."
+  ],
+  "report": "docs/UPGRADE_RESULTS_REVIEW_2026-11-10_ZH.md",
+  "actions": {
+    "new_model_calls": 0,
+    "refitting": false,
+    "production_evaluate_invoked": false,
+    "raw_or_frozen_result_changes": false,
+    "full_software_test_suite_rerun": false,
+    "commit_or_push": false
+  }
+}

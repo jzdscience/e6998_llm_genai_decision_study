@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-10",
+  "timezone": "America/Los_Angeles",
+  "status": "PASS",
+  "scope": "Report, paper, portable Decision Lab and CPU reproduction integration; no new GPU experiment.",
+  "implementation": {
+    "agent": "Claude Code",
+    "observed_model": "claude-opus-5-5",
+    "configured_effort": "max",
+    "effort_arguments": [
+      "--effort max",
+      "CLAUDE_CODE_EFFORT_LEVEL=max"
+    ],
+    "runs": [
+      {
+        "local_log": ".validation/integration-2026-11-10/claude-stream.jsonl",
+        "session_id": "155e27b3-5c25-4feb-8d28-7d20e0a92b46",
+        "result": "success"
+      },
+      {
+        "local_log": ".validation/integration-2026-11-10/claude-fixes-stream.jsonl",
+        "session_id": "155e27b3-5c25-4feb-8d28-7d20e0a92b46",
+        "result": "success"
+      },
+      {
+        "local_log": ".validation/integration-2026-11-10/claude-copyedit-stream.jsonl",
+        "session_id": "155e27b3-5c25-4feb-8d28-7d20e0a92b46",
+        "result": "success"
+      }
+    ]
+  },
+  "independent_reviewer": "Codex",
+  "base_head": "23033c12bd2a5fd7fcb00354c8fb78257734d797",
+  "branch": "preflight-r2-results-2026-11-09",
+  "working_tree": "uncommitted; no commit, merge or push performed",
+  "experiment_source_commit": "7c81947d8ed51b18ace9ba8ae0dad0476c9b6b19",
+  "strict_validation": {
+    "all_seven_stages_passed": true,
+    "commands": [
+      {
+        "command": "bash scripts/reproduce_cpu.sh --strict --only tests,lab,audits-1106,audits-9b,report-9b,figures",
+        "exit_code": 0
+      },
+      {
+        "command": "bash scripts/reproduce_cpu.sh --strict --only paper",
+        "exit_code": 0
+      }
+    ],
+    "main_tests": {
+      "passed": 470,
+      "skipped": 11,
+      "subtests_passed": 64,
+      "seconds": 112.05
+    },
+    "cpu_baseline_tests": {
+      "passed": 65,
+      "seconds": 7.59
+    },
+    "old_receipt_comparisons": 12,
+    "new_byte_identical_receipts": 6,
+    "integrity_checks": 2097,
+    "paper_pages": 12,
+    "figure_environment": "Matplotlib 3.11.2"
+  },
+  "browser": {
+    "url": "http://127.0.0.1:7860/",
+    "anli_combinations": 8,
+    "clinc_loads": 3,
+    "cases": 4,
+    "page_errors": [],
+    "external_requests_blocked_by_policy": true,
+    "observed_external_requests": 0,
+    "v3_unmeasured_guard_retained": true,
+    "final_server_pid": 66904
+  },
+  "mutation_review": {
+    "variants_detected": 13,
+    "full_tracebacks_reviewed": true,
+    "incidental_import_or_environment_failures": 0,
+    "notes": [
+      "M2 is caught through the required arithmetic-specific error; later summary validation still rejects the tampered payload.",
+      "M8 and M8b directly return 0 in strict mode while the unmutated missing-input baseline returns 1."
+    ]
+  },
+  "identity": {
+    "baseline_tracked_files": 349,
+    "unchanged_outside_17_mutable_files": 332,
+    "baseline_snapshot_sha256": "919b6db00b9b5583dcccd6f9193f4d5db31513c8980942b968a7d2a256bc5aab",
+    "prior_review_files_preserved": {
+      "docs/UPGRADE_RESULTS_REVIEW_2026-11-10_ZH.md": "cce570c32d306139868b3a11558a2d8f011c0b714f4e559969cf51df4a67c15c",
+      "records/upgrade-service-acceptance-2026-11-10.json": "3bc4c53f566ef9bf87527e613dea34dbd0f4f19f26fd63ce446aadf4e791c604",
+      "records/BUNDLE_INDEX.json": "e97d21eab64756de76407c455b299c207e1abe54c903fc0723bdd705c2d6c63a"
+    },
+    "report_manifest_entries": 18,
+    "accepted_receipts_byte_identical": 6
+  },
+  "limitations": [
+    "Clean source snapshot used existing installed dependencies, not a fresh network installation; snapshot walkthrough preceded final prose/figure/case-note fixes, followed by independent final working-tree checks.",
+    "Pytest optional skips are distinct from strict stage skipping; all seven reproduction stages executed.",
+    "Team roles are allocated responsibilities; teammate rehearsal and demo recording are not claimed completed.",
+    "Serving results remain retrospective, use unequal resource shares, and cover only measured rate points."
+  ],
+  "validation_local_logs_sha256": {
+    ".validation/integration-2026-11-10/codex-strict.log": "ff961604da4b59c8809b405da42bd5def785b224db09c923cb8f2e3f781729b0",
+    ".validation/integration-2026-11-10/codex-strict-paper.log": "4d45f786d6f61eec7b1c5e3acc811f072265a8eba7d2299bf50f674898fe948b",
+    ".validation/integration-2026-11-10/codex-final-identity.json": "669293808385653a9e5c4df3c3258f2b028497d9ce53f2bac4658912a5b028f8",
+    ".validation/integration-2026-11-10/browser-review.json": "60b9a0ba7b5fbc2c95a8f07709ea6fc0bfe4da48e8e7d6fd0022beced6e8b783",
+    ".validation/integration-2026-11-10/mutation/logs/summary.json": "86c2812af0ee399398dc6f3bd362f2011c41ae63441c7d2ad777f6cd840ce855",
+    ".validation/integration-2026-11-10/review-lab.md": "61df9e00808db92c888ecb76de7870e338725a4b56af84821f559f94657027c4",
+    ".validation/integration-2026-11-10/review-audits.md": "3f5249dcba333ff0e96def538c6883605a90e5fbba89898b4e2e2c19f4a56a48",
+    ".validation/integration-2026-11-10/review-paper-final.md": "44101cd1bda92164fb165d81493e319215c5d66e645ccc9b3f0b2310db7a4ba3",
+    ".validation/integration-2026-11-10/review-report.md": "3f8b3c505dec080e27d054e3c0a3372add77b9d48812a1294c87722e51a37636"
+  },
+  "delivery_working_tree_sha256": {
+    "README.md": "a1d115068c88ef0bd67a50752f50ec218a8d9f4b9c1cfdcb2bf22ff4381cf394",
+    "README_ZH.md": "d8f1b228ab3405b5942dfaf7894ee89fc9f963e717d09a70b10a3f98e1f6d112",
+    "decision_study/lab/app.py": "5bddb32acaf07a7da26ffa71bb31209bbb794ecaeccabcb13080d42a5a652356",
+    "decision_study/lab/cli.py": "81a92cb9bfe0294d85ca8b021b98cda40e18717ddc945608159026c45dc6508b",
+    "decision_study/lab/followup_view.py": "6fe09d178463e7dfb08bf11a0085377c7e74f3a714c6b577cb5d52984b04686a",
+    "decision_study/lab/followups.py": "d088947c7bc75dec8075c5ea23e6449f354cdb4ba42aa3fcf473948a9fc4b094",
+    "docs/ARTIFACTS_ZH.md": "e5f3da603ae9c1e077d2ef375fcc52fed8d31dedb75be2f97a98ec01481d7799",
+    "docs/CURRENT_STATE.md": "5b955e727cf1e913ca9f0f2fd60cd42deb9cbb20110030626bc7ccc19359e566",
+    "docs/EXPERIMENT_LOG.md": "b13ce6bae693fc70ae10a7e28c1a276f965ff6b541b018ef5d62cff81f928b80",
+    "docs/INTEGRATION_ACCEPTANCE_2026-11-10_ZH.md": "155e13024b51617d7c3b11e701b43e8ef14d7702e4333e5949e56b2572a6f750",
+    "docs/LAB_CURRENT_ZH.md": "e9150985132b976143cc1cc1f096f17ab9cad93969fd9f3026c3bd75496583c6",
+    "docs/PRESENTATION_ZH.md": "3dcd9abb45da9e3cb3251cfc770d39c6d80756aad12b684d1332180f5ecf6978",
+    "docs/README.md": "48adeac86abbbd485f07158a0ec5dbb6f27b73680606d2aa8df276c78b67090c",
+    "docs/RUN_UPGRADE_STUDY_ZH.md": "c9cdbcc58abb02927b46141920a535e2d97f144d9a70cb5cfd8e9ff8a2d04a46",
+    "docs/START_HERE_ZH.md": "93cfa9b647556ae816e491261d15fa35bc848fd1eb3903b5e6bee39de4ffe11f",
+    "docs/UPGRADE_RESULTS_REVIEW_2026-11-10_ZH.md": "cce570c32d306139868b3a11558a2d8f011c0b714f4e559969cf51df4a67c15c",
+    "paper/README.md": "a3ad56b9c72840e9d403a76ef1c0076a1d66e733434e760d7c9f3a0555d82629",
+    "paper/figures/fig_upgrade_serving.pdf": "2b319843f2a5c2c703135148a7a7b15762bd2570fc6a314f27e21870bc559d98",
+    "paper/figures/make_figures.py": "c0ea8a40e5b8a8415f5212ba38d3f18c97ddd03120fe0e6b6427d3ef733d1912",
+    "paper/main.pdf": "4f90a497f52e385dcfc6da53885f6c8a4156be941370fd920a04b86a24d9c169",
+    "paper/main.tex": "03ba24087c2ae30947f708e99d53ca98c8fb091721b7e8a887bdc3858acf3529",
+    "records/BUNDLE_INDEX.json": "e97d21eab64756de76407c455b299c207e1abe54c903fc0723bdd705c2d6c63a",
+    "records/upgrade-service-acceptance-2026-11-10.json": "3bc4c53f566ef9bf87527e613dea34dbd0f4f19f26fd63ce446aadf4e791c604",
+    "reports/README.md": "59755aca93337d228dc25e9654602552c6a5310cbef8346fea724c55809bad14",
+    "reports/decision-lab-followups-2026-11-10/followups.json": "430fcbedf64157fa29ada0f4e13cd970002e71aa5a3899ce6a3724ba6a79c7a0",
+    "reports/decision-lab-followups-2026-11-10/manifest.json": "fe7b7d741cd352545d8c69cf6701830d24a34dafa7ee454707141a6afc03fb59",
+    "reports/upgrade-9b-serving-2026-11-09/RESULTS_ZH.md": "d2d098c6997c2899551534b35f74bc443cc806c7ad37c22948b8e8fad61a554b",
+    "reports/upgrade-9b-serving-2026-11-09/SHA256.json": "34db9f894032d64dd8cd7386192bcef3a667ae444c32b3d47030b8aa5ddd0ed2",
+    "reports/upgrade-9b-serving-2026-11-09/audit/CHANGES_FROM_ACCEPTED.diff": "17423d08afa92b2152c3eafdfe4fca22b5c895f4fbffc0abd3930edc8407792e",
+    "reports/upgrade-9b-serving-2026-11-09/audit/README.md": "83e18d269b4061c3f5a0014437ef179d31c796b602fc90dd4baea38e64f56efe",
+    "reports/upgrade-9b-serving-2026-11-09/audit/audit_integrity.py": "21d7566130d6d99f88048465041975a63ba07ce83777efe2224ce06adcc69ff7",
+    "reports/upgrade-9b-serving-2026-11-09/audit/audit_metrics.py": "7705cc8e9da65a4cfdfc438e4edad1b1dfeb0a219b97408f3f2d24a594f2f2a5",
+    "reports/upgrade-9b-serving-2026-11-09/build_tables.py": "9b39a34773807d0ad4b2ae4819f36273ada48874431da26949521da1892e6503",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/integrity-audit.json": "99b1d5c0451eced1a09d97e15ecd4322a43238bf38d2b2f0efd19f56c53af4be",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/audit-receipt.json": "e4d0dcc4ed75b5d485c82ee07708f64c3247a30495cd646dcd49e52698452896",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/cells.csv": "aa60854cf91dd4319abc9c2c1479b41bf155a80553799df061974da26d2eac3a",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/recomputed.json": "812493682b545e6f98ef439b4ec541f8d43a3e2901db5a9baf16a7ef4eb1f8d7",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/stall-analysis.json": "336e8533b4c3019b07c85dcc2ec63b30a8efc8ffbaa72f84501eb088a76fcaf5",
+    "reports/upgrade-9b-serving-2026-11-09/evidence/metrics/stall_late_rows.csv": "6419eb0d160e4d75d66c0478af5e3b844d8690df74574b8b716293ac2df3b6b6",
+    "reports/upgrade-9b-serving-2026-11-09/figures/correct_goodput.png": "dee16a66f5caa9057b42b38eb54fdbe30620f820207b1a38464a51be0b14d60f",
+    "reports/upgrade-9b-serving-2026-11-09/figures/correct_goodput.svg": "8619d95714070ae946f2ec490e3074ecfa60cb3a6bde22ac02163a5a672bd99d",
+    "reports/upgrade-9b-serving-2026-11-09/quality.csv": "2a2ffdf106d79db47eabf58ede84a166500ce1b41c65cf69a4f618b07543fd55",
+    "reports/upgrade-9b-serving-2026-11-09/render_figures.py": "8e7d87d2f45d51bc4b95a931d3ad56f3c6710171a15e504cbf1d21c14a49b5cc",
+    "reports/upgrade-9b-serving-2026-11-09/resources.csv": "6b641203af2c436ae54d3355c7ca85432ca71fffb425818111036c0fc6e3f680",
+    "reports/upgrade-9b-serving-2026-11-09/summary.csv": "cdab483401b8d1b7cb682db848b522beb89e3489de820e44cea3ff1d7af965de",
+    "scripts/README.md": "da2f8d81de0f554edd5fa742ec20dee2e5699fcf4548eeceefb2af39187eb679",
+    "scripts/reproduce_cpu.sh": "fa291d50defe451806d9ce1352b8d6af7f4c66c4b9e2658e503468fcd3d0a90f",
+    "tests/test_lab_followups.py": "bbd629e854ae09d05f91527c68c1409582d8b0e3aa0f81df48e79b277a2a6096",
+    "tests/test_reproduce_cpu.py": "73566b54af5e227bd7342e6e7541876711c602d875e28652e817737d94eccc53"
+  },
+  "review_document": "docs/INTEGRATION_ACCEPTANCE_2026-11-10_ZH.md"
+}

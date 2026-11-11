@@ -1,0 +1,135 @@
+{
+  "status": "PASS",
+  "scope": "Independent stdlib replay; no production scoring, routing or verification imports; no new model calls or fitting.",
+  "bundle_sha256": "9baeca3eb7f84a86fdc1f63bc16114c1a91c756bbefe323840152d7901f91be7",
+  "gold_sha256": "ed3525b721ed564a4cdf733e94ac381cfebb4ba06eb4a3a6844a1a0b37824f14",
+  "cells": 36,
+  "offered_total": 162801,
+  "status_counts": {
+    "ok": 131935,
+    "client_rejected": 30866
+  },
+  "raw_checks": {
+    "offered_schedule_rows": 162801,
+    "admitted_timing_decompositions": 131935,
+    "stage_predictions_match_raw_HTTP_response": 140576,
+    "cascade_routes_replayed_from_probabilities": 35860
+  },
+  "route_score_max_abs_difference": 2.220446049250313e-16,
+  "history_source_checks": {
+    "startlux4b": {
+      "source_zip_sha256": "a8d0dc672d83c3edcb85d005e66fa4b3d000132729f98f0beaab6865dfc57a9e",
+      "source_prediction_hash": "3edd64ae3b73ac240c39d614a6186be516257da4a5cbcc8b70a883f8ad27af62",
+      "shards": 128,
+      "predictions_compared": 3200
+    },
+    "qwen9b": {
+      "source_zip_sha256": "a8d0dc672d83c3edcb85d005e66fa4b3d000132729f98f0beaab6865dfc57a9e",
+      "source_prediction_hash": "5e579724946d22c191cee57bef9fd4ffcabadd58fd875fef8e6925b227952879",
+      "shards": 128,
+      "predictions_compared": 3200
+    },
+    "startlux9b": {
+      "source_zip_sha256": "f427f7762bac745d9316cb02195c09f98ab551794de1da047509be7f9fe7d1ed",
+      "source_prediction_hash": "92b12177886419e9ff8f5feb33e9ee669663e2d92e937423ae60bd7d4e62dad5",
+      "shards": 128,
+      "predictions_compared": 3200
+    }
+  },
+  "historical_full_pool_accuracy": {
+    "startlux4b": 0.741875,
+    "startlux9b": 0.766875,
+    "cascade": 0.7440625
+  },
+  "passing_rates_all_three_repeats_99pct": {
+    "startlux4b": {
+      "primary": [
+        10,
+        40
+      ],
+      "secondary": [
+        10,
+        40
+      ]
+    },
+    "startlux9b": {
+      "primary": [
+        10,
+        20
+      ],
+      "secondary": [
+        10,
+        20,
+        40
+      ]
+    },
+    "cascade": {
+      "primary": [],
+      "secondary": [
+        10
+      ]
+    }
+  },
+  "live_history_comparison": {
+    "startlux4b": {
+      "successful_response_count": 53609,
+      "live_accuracy_per_cell_range": [
+        0.7316053511705686,
+        0.7528089887640449
+      ],
+      "live_minus_matched_historical_accuracy_pp_per_cell_range": [
+        -0.17331022530329143,
+        0.2592912705272177
+      ],
+      "pooled_live_accuracy": 0.7417411255572758,
+      "pooled_matched_historical_accuracy": 0.7412374787815479
+    },
+    "startlux9b": {
+      "successful_response_count": 42466,
+      "live_accuracy_per_cell_range": [
+        0.7615740740740741,
+        0.7744165946413137
+      ],
+      "live_minus_matched_historical_accuracy_pp_per_cell_range": [
+        -0.08701705534284176,
+        0.2592912705272288
+      ],
+      "pooled_live_accuracy": 0.766448452879951,
+      "pooled_matched_historical_accuracy": 0.766401356379221
+    },
+    "cascade": {
+      "successful_response_count": 35860,
+      "live_accuracy_per_cell_range": [
+        0.734337637494022,
+        0.7579948141745895
+      ],
+      "live_minus_matched_historical_accuracy_pp_per_cell_range": [
+        -0.5852842809364489,
+        0.0
+      ],
+      "pooled_live_accuracy": 0.7411879531511434,
+      "pooled_matched_historical_accuracy": 0.7434188510875628
+    }
+  },
+  "label_variability": {
+    "startlux9b": {
+      "inputs_seen": 3200,
+      "inputs_with_more_than_one_live_label": 19
+    },
+    "cascade": {
+      "inputs_seen": 3200,
+      "inputs_with_more_than_one_live_label": 49
+    },
+    "startlux4b": {
+      "inputs_seen": 3200,
+      "inputs_with_more_than_one_live_label": 33
+    }
+  },
+  "discrepancies": [],
+  "interpretation_limits": [
+    "99% passing points are not continuous capacity boundaries, especially 4B failing20 but passing40.",
+    "Successful-response accuracy is offer-weighted and load-selected; compare the matched historical subset, not only whole-pool accuracy.",
+    "Three serving repeats are not independent input samples or statistical replication of model quality.",
+    "Client/engine settings and unequal resource budgets restrict generalization; no causal or dollar-cost conclusion."
+  ]
+}

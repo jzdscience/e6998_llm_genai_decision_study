@@ -1,0 +1,4 @@
+condition,deployment,historical_full_pool_accuracy,successful_responses,pooled_live_accuracy,pooled_matched_historical_accuracy,live_accuracy_cell_min,live_accuracy_cell_max,inputs_seen,inputs_with_more_than_one_live_label
+startlux4b,StartLux-4B direct,0.741875,53609,0.7417411255572758,0.7412374787815479,0.7316053511705686,0.7528089887640449,3200,33
+startlux9b,StartLux-9B direct,0.766875,42466,0.766448452879951,0.766401356379221,0.7615740740740741,0.7744165946413137,3200,19
+cascade,StartLux-4B to Qwen3.5-9B cascade,0.7440625,35860,0.7411879531511434,0.7434188510875628,0.734337637494022,0.7579948141745895,3200,49

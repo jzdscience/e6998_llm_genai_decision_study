@@ -1,5 +1,8 @@
 # 在公司节点运行 StartLux9B 服务成本研究
 
+2026-11-10 更新：revision 4 预检与 36 个正式单元已完成并通过独立验收，结果见
+[9B 服务研究报告](../reports/upgrade-9b-serving-2026-11-09/RESULTS_ZH.md)。下文保留运行时的步骤记录。
+
 2026-11-08。配置见[协议](UPGRADE_STUDY_PROTOCOL_ZH.md)，审核意见见
 [11/8 审核](UPGRADE_STUDY_REVIEW_2026-11-08_ZH.md)。先做开发预检并回传审核，审核通过后再跑
 36 个正式单元。两步都在已获分配的公司节点上执行，使用同一个完整 commit。
