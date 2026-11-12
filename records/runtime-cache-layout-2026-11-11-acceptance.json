@@ -1,0 +1,145 @@
+{
+  "record": "runtime-cache-layout-2026-11-11",
+  "status": "ACCEPTED_FOR_NODE_VERIFY",
+  "accepted_at": "2026-11-12T01:35:50.014617+00:00",
+  "base_recovery_commit": "d1633be3e371c98ce491ae2a1b16bb8b935fb286",
+  "required_matrix_commit": "4b4e38ab9c040fe7eb02ae5075e87c595399d980",
+  "release_branch": "runtime-recovery-2026-11-11",
+  "implementation": {
+    "agent": "Claude Code",
+    "model": "claude-opus-5-5",
+    "effort": "max",
+    "session": "7b19cb91-83d1-46e9-9dc8-379ee8b1ff3d"
+  },
+  "independent_acceptance": "Codex: code review, independent temporary-filesystem probes, final focused suite, mutation failure-cause review, preservation audit.",
+  "scope": "Accept the native same-cache huggingface_hub shared blob layout in the recovery verifier; do not change installation pins, recovery state, frozen scientific code or matrix identity.",
+  "cache_contract": {
+    "legacy": "snapshot -> same-repository blobs/<ETag> regular file",
+    "shared": "snapshot -> same-repository blobs/<ETag> -> ../../blobs/<Xet first two hex>/<64 lower-case hex Xet hash> regular payload",
+    "store_marker": "same-cache blobs/.huggingface-shared-blobs, regular file containing exactly ASCII 1 followed by LF (hex 31 0a)",
+    "integrity": "Hash payload bytes against original repository blob ETag: SHA-256 for 64 hex, Git blob SHA-1 for 40 hex. The Xet store name is not the expected content digest.",
+    "path_checks": "Require real directories below the cache root, same repository first hop and exact shared-store second hop. Reject further symlinks, escapes, dangling links and invalid markers."
+  },
+  "files_sha256": {
+    "scripts/recover_node_runtime.py": "b140e16c8fee33346011095c7f56b548420eb2f2524cbf2a0577559139f7ebb3",
+    "tests/test_recover_node_runtime.py": "a8b0e1566f29efe696be26bcfaed3a985e96f1053497291f88d96b9222d8ee67",
+    "tests/test_recover_node_runtime_acceptance.py": "c2f12f41a1f13323dd60d11bdf35595f312dc8de577d7d1192d7485da3b72337",
+    "tests/test_recover_node_runtime_shared_blobs.py": "81ff49f434b435b13777886e12cf59ac1b88af0dc64d05a376ca6d7bfe7d5ca1",
+    "tests/recover_node_runtime_fakes.py": "1254cb0155c9b4fab06caf600a79297b3222786dd16fe25b87ee9d17fd91308b",
+    "tests/recover_node_runtime_runner.py": "bbd3a63f8a912d96ffd55eb0f2d02811c4a17b5cd13fc94cbe14622ce8031e38",
+    "configs/runtime_recovery_2026_11_11_pins.json": "7f3e27c095ead75991eef9a822695d211bb7fe649506687bead57806810c4e56"
+  },
+  "tests": {
+    "command": ".venv-lab/bin/python -B -m pytest -q -p no:cacheprovider tests/test_recover_node_runtime.py tests/test_recover_node_runtime_acceptance.py tests/test_recover_node_runtime_shared_blobs.py",
+    "passed": 74,
+    "new": 31,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "files_stable_during_run": true,
+    "log_sha256": "961fecbf260dd4e588ddbb9dfd81e85de2956449698febcc33d1264eda35f8c6"
+  },
+  "independent_probes": {
+    "cases": 18,
+    "status": "PASS",
+    "cache_trees_unchanged": true,
+    "report_sha256": "65799cf47930e8f54efa391c35a318bd35acbc6f26289cf33449685f018e6214",
+    "review_sha256": "ba449289abd7a8a0b8d16f3a306c556d39df4cefc42125ecd52b5cc5c9282e19"
+  },
+  "mutation_checks": {
+    "isolated_mutants_detected": 5,
+    "summary_sha256": "b689cc917007ce01981765c5405a278a3fa981ad6d83816892f41ff36c3917cc",
+    "mutants": [
+      {
+        "name": "M1-store-name-as-expected-digest",
+        "change": "the Xet store name replaces the repo ETag as the expected digest",
+        "exit_code": 1,
+        "summary": "5 failed, 26 passed in 7.45s"
+      },
+      {
+        "name": "M2-follow-arbitrary-links",
+        "change": "any link chain that ends in a regular file is accepted (realpath)",
+        "exit_code": 1,
+        "summary": "16 failed, 15 passed in 8.68s"
+      },
+      {
+        "name": "M3-marker-unchecked",
+        "change": "the version-1 store marker is neither required nor read",
+        "exit_code": 1,
+        "summary": "3 failed, 28 passed in 8.05s"
+      },
+      {
+        "name": "M4-prefix-unchecked",
+        "change": "the two-hex prefix directory need not equal the hash start",
+        "exit_code": 1,
+        "summary": "1 failed, 30 passed in 7.95s"
+      },
+      {
+        "name": "M5-store-directories-followed",
+        "change": "store and prefix directories are followed (lstat of the final name only)",
+        "exit_code": 1,
+        "summary": "7 failed, 24 passed in 7.78s"
+      }
+    ],
+    "causal_review": "M1 fails ETag-vs-Xet positive and corrupted-payload cases; M2 fails actual escape acceptance; M3 fails absent/incorrect/symlinked marker acceptance; M4 fails prefix mismatch acceptance; M5 fails prefix/store directory escape acceptance. Additional M5 diagnostic-string failures are not used as causal evidence."
+  },
+  "node_observed": {
+    "source": "User-provided node stdout and subsequent symlink-chain inspection",
+    "stdout_sha256": "b66ff9c48743ce37db1fad3d34e229c6226dfe6a05536cf1e083a1f58be2c480",
+    "phase_status": {
+      "env-kev": "complete",
+      "env-vllm": "complete",
+      "metadata": "complete",
+      "sources": "complete",
+      "toolkit": "complete",
+      "weights-kev": "complete",
+      "weights-qwen9b": "complete"
+    },
+    "environments": {
+      "kev": {
+        "environment": "kev",
+        "freeze_sha256": "8fda5f213b89e759328948a1e7e32a67bb57014d75a839d5d0ecd4ca911a1f9a",
+        "legacy_context": true,
+        "python_version": "3.12.8"
+      },
+      "vllm-0.31.0": {
+        "environment": "vllm-0.31.0",
+        "freeze_sha256": "3a97f698c87b307f3d5618e039fcd2c0b7a818d1c34d4c49973626ede49d6d8a",
+        "legacy_context": true,
+        "python_version": "3.12.8"
+      }
+    },
+    "toolkit_tree_sha256": "56cbb21dfa4c87d8d8c65f5714317f9f5d02e18a7b75fc6c43358766e38a0b22",
+    "old_verifier_status": "MATRIX_RUNTIME_NOT_READY",
+    "layout_rejections": 16,
+    "matrix_plans_computed": true,
+    "matrix_settings_verified": true,
+    "matrix_runtime_binding_present": false,
+    "gpu_preflight_started": false
+  },
+  "preservation": {
+    "base_tracked_files": 409,
+    "allowed_modified": [
+      "docs/CURRENT_STATE.md",
+      "docs/EXPERIMENT_LOG.md",
+      "docs/RECOVER_NODE_RUNTIME_ZH.md",
+      "scripts/recover_node_runtime.py"
+    ],
+    "remaining_baseline_files_unchanged": 405,
+    "historical_acceptance_record_sha256": "de45b4f1c4cb8d7f93e3dd9b58a39d3b42e6f6ccfc7bebb524fc8170992ac033",
+    "pins_unchanged": true,
+    "scientific_source_protocols_reports_and_historical_receipts_unchanged": true
+  },
+  "references": [
+    "https://huggingface.co/docs/hub/local-cache",
+    "https://huggingface.co/docs/huggingface_hub/en/guides/manage-cache"
+  ],
+  "next_node_action": "Update only the existing recovery checkout to the fixed release SHA; run verify with PYTHONPATH and PYTHONSTARTUP removed from that subprocess; only if READY run original matrix --preflight-only --retry-preflight. Do not rerun execute solely for this layout error.",
+  "limitations": [
+    "The patched verifier has not yet run against the real node cache. User output shows two representative shared-store chains exist; it is not a content-hash check of every payload.",
+    "Local tests use temporary caches, including one made with the installed huggingface_hub writer, and fake environment/download boundaries for full CLI rehearsal. No real model inference or GPU preflight ran locally.",
+    "Runtime READY verifies files and identities; actual CUDA/model startup and the eight new matrix cells remain pending.",
+    "Version and package freeze identity match archived records, but the exact original managed Python build was not archived."
+  ],
+  "local_validation_directory": ".validation/runtime-cache-layout-2026-11-11 (ignored; logs are not included in Git)"
+}

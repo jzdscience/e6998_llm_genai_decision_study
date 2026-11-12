@@ -1387,8 +1387,52 @@ def git_blob_sha1(path):
         os.close(fd)
 
 
+# huggingface_hub >= 1.32 (utils/_shared_blobs.py; the same rules in the archived 1.33.0 and 2.4.0) may move a Xet
+# download into one store per cache and turn the repo blob into a relative link to it. A regular marker file holding
+# "1\n" identifies the store. The payload is named by its Xet hash, not the raw file SHA-256 / Hub ETag.
+SHARED_BLOBS_MARKER = ".huggingface-shared-blobs"
+HUB_REPO_DIR = re.compile(r"(?:datasets|kernels|models|spaces)--.+")
+
+
+def hub_blob_payload(blob):
+    """The regular file holding the bytes of ``<cache>/<repo>/blobs/<etag>``, located without following links.
+
+    Accepted: the repo blob as a regular file, or exactly the link huggingface_hub writes into the same cache's marked
+    shared store, ``../../blobs/<xet[:2]>/<xet>`` with a 64-hex Xet hash and a regular payload. Each directory below
+    the cache root on the way must be a real directory. Anything else raises; nothing is written.
+    """
+    repo = blob.parent.parent
+    cache = repo.parent
+    info = lstat_chain(cache, f"{repo.name}/blobs")
+    if info is None or not stat.S_ISDIR(info.st_mode):
+        raise RecoveryError(f"no blobs directory: {repo / 'blobs'}")
+    info = os.lstat(blob)
+    if stat.S_ISREG(info.st_mode):
+        return blob
+    if not stat.S_ISLNK(info.st_mode):
+        raise RecoveryError(f"neither a regular file nor a link: {blob}")
+    target = os.readlink(blob)
+    parts = target.split("/")
+    if (not HUB_REPO_DIR.fullmatch(repo.name) or len(parts) != 5 or parts[:3] != ["..", "..", "blobs"]
+            or not re.fullmatch(r"[0-9a-f]{64}", parts[4]) or parts[3] != parts[4][:2]):
+        raise RecoveryError(f"unsupported link {target!r}; only ../../blobs/<xet[:2]>/<xet> from a hub repository "
+                            "folder of the same cache is accepted")
+    for relative in ("blobs/" + SHARED_BLOBS_MARKER, "/".join(parts[2:])):
+        info = lstat_chain(cache, relative)  # refuses a symlinked store, prefix directory, marker or payload
+        if info is None or not stat.S_ISREG(info.st_mode):
+            raise RecoveryError(f"missing or not a regular file: {cache / relative}")
+    fd = open_regular(cache / "blobs" / SHARED_BLOBS_MARKER)
+    try:
+        if os.read(fd, 8) != b"1\n":
+            raise RecoveryError(f"not a version-1 huggingface_hub shared blob store: {cache / 'blobs'}")
+    finally:
+        os.close(fd)
+    return cache.joinpath(*parts[2:])
+
+
 def verify_snapshot(snapshot, label, problems):
-    """Each entry links to a blob of its own repo whose content hash equals the blob name; shards present."""
+    """Each entry links to a blob of its own repo (a regular file or one shared-store link, see hub_blob_payload)
+    whose bytes hash to the blob name, the Hub ETag; shards present."""
     snapshot = Path(snapshot)
     if not snapshot.is_dir() or snapshot.is_symlink():
         problems.append(f"{label}: snapshot directory is missing: {snapshot}")
@@ -1406,13 +1450,17 @@ def verify_snapshot(snapshot, label, problems):
                 problems.append(f"{label}: snapshot entry is not a hub blob link: {relative}")
                 continue
             blob = Path(os.path.normpath(entry.parent / os.readlink(entry)))
-            if blob.parent != blobs or not blob.is_file() or blob.is_symlink():
-                problems.append(f"{label}: {relative} does not resolve to a blob of its repository")
+            try:
+                if blob.parent != blobs:
+                    raise RecoveryError("the link leaves the repository's blobs directory")
+                payload = hub_blob_payload(blob)
+            except (RecoveryError, OSError) as exc:
+                problems.append(f"{label}: {relative} does not resolve to a blob of its repository ({exc})")
                 continue
-            if re.fullmatch(r"[0-9a-f]{64}", blob.name):
-                actual = sha256_file(blob)
+            if re.fullmatch(r"[0-9a-f]{64}", blob.name):  # streamed over the payload, compared with the ETag only
+                actual = sha256_file(payload)
             elif re.fullmatch(r"[0-9a-f]{40}", blob.name):
-                actual = git_blob_sha1(blob)
+                actual = git_blob_sha1(payload)
             else:
                 problems.append(f"{label}: unexpected blob name for {relative}: {blob.name}")
                 continue

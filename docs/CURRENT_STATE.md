@@ -1,6 +1,28 @@
 # 当前状态
 
-最后核对：2026-11-10，America/Los_Angeles。证据内的原始 UTC 时间不改写。
+最后核对：2026-11-11，America/Los_Angeles。证据内的原始 UTC 时间不改写。
+
+## 11/11：节点运行时恢复七个阶段完成，共享 blob 布局使 verify 未通过；验证器已在本机修复，待节点只读复核
+
+节点上 `results/solo-v1/runtime/` 与 `results/solo-v3/runtime-work/` 被删除后，direct-matrix 缺少运行时。11/11 发布的
+恢复工具（分支 `runtime-recovery-2026-11-11`，提交 `d1633be`，[验收记录](../records/runtime-recovery-2026-11-11-acceptance.json)，
+[手册](RECOVER_NODE_RUNTIME_ZH.md)）已在节点上运行 plan 与 execute。
+
+| 层面 | 状态 |
+|---|---|
+| 节点 execute（UTC 2026-11-12T00:53） | plan 为 READY_TO_EXECUTE。七个阶段 complete；kev 与 vllm-0.31.0 的 freeze 哈希（`8fda5f21…`、`3a97f698…`）、CUDA 工具链 tree（`56cbb21d…`）和矩阵 settings（`28aa5eca…`）通过，冻结 `plans()` 已算出；两个源码检出只多出安装后生成的副本。最终 `MATRIX_RUNTIME_NOT_READY`，问题只有 16 条 `does not resolve to a blob of its repository` |
+| 原因 | huggingface_hub 1.32 起把 Xet 下载的大文件放进缓存根的共享存储 `blobs/<xet[:2]>/<xet>`，仓库内 `blobs/<etag>` 改为指向它的相对链接。原验证器只接受普通文件形式的仓库 blob，所以这 16 个大文件被判为无法解析，也还没有做内容哈希 |
+| 本机修复（Mac，独立验收通过） | `scripts/recover_node_runtime.py` 的 `verify_snapshot` 增加对这一种链接形式的支持，内容仍按 ETag 流式哈希；Codex 独立重跑原 43 项与新增 31 项，共 74 项通过，另有 18 项独立缓存探针通过；5 个有意破坏的版本的实际失败原因已复核 |
+| 节点 | 按交付消息固定修复提交，在现有恢复检出中只读 verify（手册第 8 节），READY 后在 GPU allocation 内运行矩阵 preflight。16 个大文件的内容哈希与 GPU 行为尚未验证，矩阵新单元仍为 0/8 |
+
+节点确认的两条链（Kev `head.pt` 与 StartLux-9B 第 1 个分片）都是“快照链接 → 仓库 `blobs/<etag>` 链接 → 缓存根
+`blobs/<两位前缀>/<Xet 哈希>` 普通文件”，与本机 huggingface_hub 2.4.0 源码和 1.33.0 源码的写入规则一致，Xet 名与 ETag 不同。
+修复后只接受这一种形式：同一缓存根、`../../blobs/<xet[:2]>/<xet>` 字面目标、版本 1 标记 `.huggingface-shared-blobs`、
+普通文件终点、沿途目录都是真实目录；普通文件形式的仓库 blob 按原规则验证。其他目标、多余跳转、悬空或循环链接与
+指向缓存外的目录链接都被拒绝，仓库 `blobs` 目录本身是链接时也被拒绝。验证不写缓存、不重新下载，pin、TOOL 常量、
+旧验收记录、冻结源码与配置不变；脚本 SHA-256 由 `c1d6118f…` 变为 `b140e16c…`。新增
+[共享缓存修复验收记录](../records/runtime-cache-layout-2026-11-11-acceptance.json)，旧验收记录保持原字节。
+交接与日志在本机 `.validation/runtime-cache-layout-2026-11-11/`。
 
 ## 11/10：直接准确率矩阵补全通过本机验收，等待节点采集（0/8）
 

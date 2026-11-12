@@ -722,3 +722,53 @@ README、README_ZH、`docs/README.md`、`docs/ARTIFACTS_ZH.md`、`scripts/README
 协议、报告、Lab 包与历史收据保持。本轮交付采用独立分支 matrix-completion-2026-11-10，节点按最终交付 SHA
 固定源码并运行自动预检与采集。运行说明用 git fetch origin 取得独立分支，并说明前置失败可能没有诊断包。
 真实 8 单元、20,400 条测试预测待节点运行及回传验收；不将假服务标签当作实验结果。
+
+## 2026-11-11：节点运行时恢复结果与共享 blob 验证修复（本机）
+
+节点用恢复工具 `d1633be` 运行了 plan 与 execute，终端输出存于本机
+`.validation/runtime-cache-layout-2026-11-11/node-recovery-output.txt`。plan 为 READY_TO_EXECUTE，可用磁盘 8,467.2 GiB，
+四个研究锁空闲。execute 的七个阶段全部完成：两个环境在 legacy 上下文中为 Python 3.12.8，freeze 哈希与存档一致；
+CUDA 工具链 tree `56cbb21d…`、安装器 `0a5f3eac…` 与需求文件 `5fd9773b…` 与存档收据一致；矩阵 settings（`28aa5eca…`）
+校验通过，冻结 `plans()` 已算出，尚无 binding。两个源码检出的状态为 extras，多出的是安装后生成的 `build/lib` 与
+egg-info。最终 verify 报 16 条快照问题（kev4b-adapter 3 条、kev4b-base 3 条、qwen9b 5 条、startlux9b 5 条），都是
+`does not resolve to a blob of its repository`，状态为 MATRIX_RUNTIME_NOT_READY。命令链使用 `set -e`，随后的矩阵
+preflight 没有运行。
+
+节点确认了两条真实链，每个环节都存在，只有最后一个文件是普通文件：Kev `head.pt -> ../../blobs/dd633435… ->
+../../blobs/fd/fdfd452d…`，StartLux-9B `model-00001-of-00004.safetensors -> ../../blobs/6de4c4ab… -> ../../blobs/76/76981d8e…`。
+Root 与独立复核者对照本机 huggingface_hub 2.4.0（与存档 kev 环境相同）的 `file_download.py`、`utils/_shared_blobs.py`
+和官方缓存文档，确认这是原生共享 blob 布局，独立复核还在临时快照中复现了同一报错。本会话经 WebFetch 读取
+1.33.0（存档 vLLM 环境）的 `_shared_blobs.py`，标记名、版本号与目标形式相同。仓库 blob 名是 ETag，共享存储里的
+文件名是 Xet 哈希，后者不是文件的 SHA-256。
+
+Claude Code（Opus 5.5，max effort）只修改 `scripts/recover_node_runtime.py`：新增 `hub_blob_payload` 与两个常量，
+`verify_snapshot` 改为经它定位负载（+54/−6 行，其中一行注释由 Root 在会话中改写）。普通文件形式的仓库 blob 沿用原规则；
+链接形式只接受 `../../blobs/<xet[:2]>/<64 位小写十六进制>` 字面目标，要求仓库目录名形如 `models--…`、缓存根
+`blobs/.huggingface-shared-blobs` 为内容 `1\n` 的普通文件、负载为普通文件，且缓存根以下的目录都不是链接。负载按仓库
+blob 名流式计算 SHA-256 或 Git blob SHA-1。仓库自己的 `blobs` 目录为链接时现在也拒绝，原版本会跟随。拒绝原因写在报错
+末尾的括号里。pin、TOOL 与 MATRIX_COMMIT 常量、旧验收记录、冻结源码与配置保持原样；脚本 SHA-256 由 `c1d6118f…`
+变为 `b140e16c…`。新增 `tests/test_recover_node_runtime_shared_blobs.py`（31 项），并更新恢复手册（原因与第 8 节只读
+verify 步骤）。
+
+本机验证：针对性探针中，原脚本对 huggingface_hub 2.4.0 自己写出的共享布局报出与节点相同的错误，修复后通过，篡改负载后
+报内容不符。新测试用真实临时缓存覆盖旧布局、共享布局、混合布局与跨仓库共用负载，18 种链接与目录逃逸，ETag 与 Xet 名
+互换的检测，旧布局与原脚本逐项对照，以及一次 CLI 演练（共享缓存 READY，篡改一个负载后 NOT READY），每次 verify 后都核对
+缓存未被写入。同一组新测试对原脚本运行时 24 项失败、7 项旧布局对照通过，CLI 演练得到与节点同类的报错。最终 74 项
+（原 43 + 新 31）一次运行通过，52.49 秒，运行期间文件不变。5 个隔离破坏版本（以 Xet 名作为期望摘要、任意跟随链接、
+不查标记、不查前缀、跟随存储目录链接）都被识别，失败原因已逐项查看。节点上 16 个大文件的内容哈希、GPU 与矩阵 preflight
+待节点复核；本会话没有运行 GPU、下载、安装或远端命令，没有提交或推送。交接见本机
+`.validation/runtime-cache-layout-2026-11-11/HANDOFF.md`。
+
+## 2026-11-11：Codex 独立验收共享缓存修复
+
+最终脚本 SHA-256 为 `b140e16c8fee33346011095c7f56b548420eb2f2524cbf2a0577559139f7ebb3`，pin 保持
+`7f3e27c095ead75991eef9a822695d211bb7fe649506687bead57806810c4e56`。Codex 独立重跑恢复测试：74 passed，
+exit 0，51.43 秒，无跳过，运行期间脚本与测试文件哈希不变；18 项独立临时缓存探针全部通过，缓存树保持原样。
+5 项隔离破坏测试的实际失败原因已复核；其中 M5 的目录逃逸被错误接受是有效证据，其余仅因诊断措辞不同的失败不计为有效证据。
+
+新增 `records/runtime-cache-layout-2026-11-11-acceptance.json`。与恢复发布 `d1633be` 的 409 个基线文件比较，
+只修改恢复脚本、恢复手册、当前状态与追加实验日志，其余 405 个文件保持原字节；新增 31 项测试文件与独立验收记录。
+旧验收、安装 pin、科学源码、协议、报告和矩阵提交身份均保持。
+
+本机验收允许用户更新现有恢复检出并运行只读 verify；七个恢复阶段无需因本次链接布局错误重做。节点修复后验证与 GPU
+preflight 仍待执行，新增矩阵实验仍为 0/8。本次没有在节点执行命令，也没有把本机假服务测试记为真实实验结果。
