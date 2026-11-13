@@ -772,3 +772,26 @@ exit 0，51.43 秒，无跳过，运行期间脚本与测试文件哈希不变�
 
 本机验收允许用户更新现有恢复检出并运行只读 verify；七个恢复阶段无需因本次链接布局错误重做。节点修复后验证与 GPU
 preflight 仍待执行，新增矩阵实验仍为 0/8。本次没有在节点执行命令，也没有把本机假服务测试记为真实实验结果。
+
+
+## 2026-11-12：开始执行 ANLI 可学习互补性扩展，完成本机审计与节点预检软件
+
+Ju 授权与 Claude Code max 协作实施。实际 Opus 5.5、max effort 完成三轮摘要讨论，原文保存在
+`records/anli-learnability-preparation-2026-11-12/claude-protocol-discussion.md`；没有把原始数据或完整仓库发送给 Claude。
+Codex 采用保留子集估计对象及多代子进程收养的建议，拒绝按功效换主总体、把程序解析标签等同方法暴露、
+要求 fitting 排除全部历史 train，以及未知上游训练来源就自动更换 encoder 等规则。
+
+固定 ANLI 原始 ZIP SHA，完成 UID／premise 审计及独立无 ID 精确文本核对。官方 dev 保留 1,737 条／1,540 组，
+原 3,200 条中的 1,463 条因与历史使用共享 premise 排除；候选清单 SHA 与检查范围写入 input-audit.json。
+本机 UID census 的 21 项测试通过，9 个定向 mutant 均在预期断言被发现；独立文本搜索的 24 项控制通过，
+强制返回零命中的错误 matcher 被发现。外部使用未确认，语义近重复和上游训练暴露不在本机检查保证范围内。
+训练配额检查使用 train 标签，未使用候选 dev 标签评分；24k 等额不可行，18k 仍需实际 whole-premise 角色分配。
+
+新 learnability_profile 独立绑定三个角色、旧 90 条开发输入及当前源码身份，复用旧环境／模型，不修改冻结 helper。
+只在新输出根写入。修复审阅发现的历史 PID 误杀风险、socket timeout 与返回验收期限混淆，以及耗时汇总未复算问题。
+Linux pidfd／subreaper CPU 自测是任何 GPU worker 前的强制门禁；同 allocation 不延时，新 allocation 必须核实旧 job 终止。
+失败尝试和诊断保留，完整采集、及时退出并停止核验后才接受角色。详细测试数、源码 SHA 和边界见 software-acceptance.json。
+
+仅新预检／审计代码及相应文档通过独立 worktree 发布到 `anli-learnability-preflight-2026-11-12`；原工作树分支、论文、
+CPU 矩阵和旧科学结果保持。Mac 定向测试不替代节点原生 Linux／GPU 验证；Docker 容器停在 created，已清理，未获得 Linux 结果。
+待用户在公司 code-server 执行并回传 profile bundle 后验收，再完成正式实验冻结与实现。没有新训练、新评价或正式成绩。

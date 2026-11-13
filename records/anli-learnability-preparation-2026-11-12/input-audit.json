@@ -1,0 +1,68 @@
+{
+  "date": "2026-11-12",
+  "status": "LOCAL_INPUT_AUDIT_COMPLETE_WITH_DECLARED_SCOPE_EXTERNAL_USAGE_UNCONFIRMED",
+  "source_sha256": "e5c058f2bb4e6190b0651badca2c590e45db95248f8b28cde674615ee40820bf",
+  "canonical_historical": {
+    "count": 5990,
+    "premise_count": 4952,
+    "round_counts": {
+      "R1": 1930,
+      "R2": 1930,
+      "R3": 2130
+    }
+  },
+  "candidate_dev": {
+    "count": 1737,
+    "premise_count": 1540,
+    "round_counts": {
+      "R1": 374,
+      "R2": 484,
+      "R3": 879
+    }
+  },
+  "candidate_membership_sha256": "558a4842c6513b8224625c3ca8527b98ff2aaf872ea38ea4d10817354e62b5a4",
+  "uid_census_report_sha256": "f9dc71ab9eb623c7bf8fc280fe9d89e9fe00d2f118c4a45c8312c7f91350a57e",
+  "uid_census_script_sha256": "3d8bc1196935973a18fe27c8adf7fd14a3088edb3db4978d3c7136d57eef111d",
+  "exact_text_check": {
+    "report_sha256": "63d28b97b7a42a1662753323844c1f1d1afa3b9f03fb58d0f36b63a263cf23ab",
+    "candidate_membership_sha256": "558a4842c6513b8224625c3ca8527b98ff2aaf872ea38ea4d10817354e62b5a4",
+    "matching_artifacts": 0,
+    "errors": [],
+    "scope": [
+      "Exact normalized premise substring search only, not semantic near-duplicates.",
+      "Structured JSON strings and one additional JSON-escaped string layer are decoded; arbitrary encrypted, encoded, compressed or concatenated source literals are not reconstructed.",
+      "Scope is the prior census inventory: current phase-one audit work and pinned raw source presence excluded, no other-machine/team or binary-document completeness claim.",
+      "Payloads were deduplicated by their actual SHA; each readable artifact was verified and current text searched even if its inventory hash changed.",
+      "Candidate dev gold/label values are discarded by source input projection and are not used, scored or output."
+    ]
+  },
+  "formal_data_split_frozen": false,
+  "candidate_gold_used_for_modeling_or_scoring": false,
+  "outside_machine_usage": "awaiting user/team confirmation",
+  "training_quota_check": {
+    "stage": "train quota feasibility before new holdout/selection allocation",
+    "candidate_dev_labels_used": false,
+    "train_labels_used_for_feasibility": true,
+    "counts": {
+      "R1/c": 2447,
+      "R1/e": 2865,
+      "R1/n": 3607,
+      "R2/c": 5559,
+      "R2/e": 8165,
+      "R2/n": 11484,
+      "R3/c": 19287,
+      "R3/e": 22727,
+      "R3/n": 28422
+    },
+    "minimum_stratum": 2447,
+    "equal_24000_requires_per_stratum_at_least": 2666,
+    "24000_equal_strata_feasible": false,
+    "18000_feasibility_note": "Need actual whole-premise fitting/selection/reserve allocation before approving 2000 per stratum"
+  },
+  "local_validation": {
+    "audit_tests_passed": 21,
+    "audit_targeted_mutants_caught": 9,
+    "unkeyed_fixture_assertions": 24
+  },
+  "evidence_directory": ".validation/anli-routing-phase1-2026-11-12"
+}

@@ -2,6 +2,28 @@
 
 最后核对：2026-11-11，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+
+## 11/12：ANLI 扩展第一阶段已实现；节点开发预检待运行
+
+Ju 已授权执行。实际 Claude Code Opus 5.5、max effort 又完成三轮审计门槛、候选总体与进程生命周期讨论；
+Codex 实现并独立复核本机输入审计与新的节点开发 profile。Claude 只收到方案／审计摘要，没有直接读仓库或原始数据。
+
+官方 dev 原始 3,200 条中，1,463 条与历史使用共享规范化 premise，留下 **1,737 条、1,540 个 premise 组**。
+本机 UID 清单及独立无 ID 精确文本检查已完成，未发现额外候选命中；外部机器／队员使用仍未确认。
+新主估计对象限于保留子集，不能推广成原始完整 dev 的无偏估计。24,000 条等 round/class 拟合不可行；
+改为先验证 1,800 / 6,000 / 18,000 的分组嵌套方案，正式分组、训练选择预算和评价协议仍未冻结。
+
+新入口只跑旧 V3 的 90 条 train 来源 development 输入，依次启动 StartLux4B、Qwen9B、StartLux9B，
+单模型份额 0.8、cap64、长度 8192。Linux CPU 进程所有权自测必须先通过，再启动 GPU；记录原始响应、token、
+成本与停止证据，不训练 router、不读取新评价 gold、不产生新准确率。本机定向软件测试与独立审阅通过，
+原生 Linux／真实 GPU 均待节点验证；本机 Docker 测试容器未成功启动，未把这一项记为通过。
+
+[执行协议草案](ANLI_LEARNABILITY_PROTOCOL_ZH.md)、[运行手册](RUN_ANLI_LEARNABILITY_ZH.md)、
+[输入审计记录](../records/anli-learnability-preparation-2026-11-12/input-audit.json)、
+[软件验收](../records/anli-learnability-preparation-2026-11-12/software-acceptance.json)。
+节点使用独立分支 `anli-learnability-preflight-2026-11-12`，保留原运行根与全部旧结果；论文和 CPU 矩阵未提交改动不混入该发布。
+下方历史条目中的“尚未审计”是当时状态，已由本节取代。正式训练和新 holdout 评价尚未发生。
+
 ## 11/11：节点运行时恢复七个阶段完成，共享 blob 布局使 verify 未通过；验证器已在本机修复，待节点只读复核
 
 节点上 `results/solo-v1/runtime/` 与 `results/solo-v3/runtime-work/` 被删除后，direct-matrix 缺少运行时。11/11 发布的

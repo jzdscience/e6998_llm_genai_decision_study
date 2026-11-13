@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "protocol": "anli-learnability-v1",
+  "revision": 1,
+  "status": "draft_after_local_exposure_audit_not_frozen_for_training_or_evaluation",
+  "authorization": "Ju authorized execution of the jointly discussed plan on 2026-11-12. Phase one performs local input-only audit and an already-exposed development-only node profile.",
+  "source_sha256": "e5c058f2bb4e6190b0651badca2c590e45db95248f8b28cde674615ee40820bf",
+  "primary": {
+    "task": "anli",
+    "front": "startlux4b",
+    "fallback": "qwen9b",
+    "evaluation_population": "The eligible official-dev subset after predeclared historical exposure and normalized premise/input exclusions; not the full original official-dev population",
+    "weighting": "question-weighted within the eligible subset",
+    "comparison": "accuracy(text_plus_front_information_gain_router) - accuracy(front_information_gain_router)",
+    "quota": 0.1,
+    "quota_semantics": "offline batch ranking; floor(0.1*N); fixed sample_id tie break; includes forced front failures within quota or fails the primary cell if forced failures alone exceed quota",
+    "fit_size": "largest approved nested size; proposed 18000 pending whole-premise role-allocation feasibility",
+    "not_selected_by_final_results": true
+  },
+  "fitting": {
+    "proposed_nested_sizes": [1800, 6000, 18000],
+    "superseded_proposal": "1800/8000/24000; 24000 equal-round/class is infeasible after current exclusions",
+    "strata": "equal round and class quotas with deterministic remainder rule, fixed across sizes",
+    "reuse": "Historical train-only fitting/selection/development inputs may be reused for fitting if disjoint from both new evaluation pools and all official-test premises",
+    "new_evaluation": "Exclude every historical USED premise/input and isolate both evaluation pools from each other and all fitting/selection inputs",
+    "head_family_proposal": "difference of two regularized correctness logistic heads; identical family, optimizer and tuning budget in both arms",
+    "text_representation_proposal": "one frozen encoder; candidate is the already pinned all-MiniLM-L6-v2; exact features, regularization and selection budget require a final protocol revision before fitting",
+    "selection_budget": "pending group-allocation feasibility; recorded separately from fitting labels",
+    "no_fallback_answer_or_gold_in_router_inputs": true
+  },
+  "secondary": {
+    "fallback_control": "startlux9b",
+    "comparators": ["direct_startlux4b", "direct_startlux9b", "lowest_confidence_10_percent", "matched_quota_random", "matched_quota_oracle"],
+    "other_evaluation": "new train-source premise-disjoint holdout, separately sealed",
+    "round_sensitivity_weights": {"R1": 0.3125, "R2": 0.3125, "R3": 0.375},
+    "weighting_limit": "Round standardization cannot recover excluded examples or remove within-round historical-selection bias",
+    "deployment": "freeze a selection-trained threshold allowing zero deferrals; report actual rate, net gain and direct-model comparisons separately from offline ranking"
+  },
+  "inference_limits": {
+    "uncertainty_unit": "normalized premise cluster, paired across arms; quota recomputed in bootstrap batches",
+    "conditional_on_fitted_models": true,
+    "minimum_useful_effect": "pending pre-evaluation justification; 1 percentage point remains a candidate, not an accepted equivalence margin",
+    "low_power_action": "retain the primary population and report precision/inconclusiveness; do not promote a secondary population after seeing scores",
+    "generalization": "conditional on eligible subset, tested recipes and released checkpoints; no causal isolation of distribution shift or pretraining contamination"
+  },
+  "phase_one": {
+    "audit_script": "scripts/audit_anli_exposure.py",
+    "profile_module": "decision_study.learnability_profile",
+    "profile_inputs": "the 90 already-exposed V3 development examples; official train only",
+    "profile_roles": ["startlux4b", "qwen9b", "startlux9b"],
+    "profile_only": "sequential single-model feasibility, exact tokens, startup and collection cost; no new evaluation gold, router fitting or SLO claims"
+  },
+  "formal_gates_pending": [
+    "record outside-machine/team exposure status; local input audit is complete within its declared scope",
+    "approve whole-premise fitting/selection/train-holdout allocation and nested quotas",
+    "review real node development-profile bundle and a representative train-only cost sample if needed",
+    "fix encoder provenance, features, optimizer, search limits, seeds, failure handling and all data hashes",
+    "fix primary inference rules, minimum useful effect and final-evaluation access receipt",
+    "independent implementation acceptance before formal collection/fitting/evaluation"
+  ],
+  "optional_scope": {
+    "task_finetuned_encoder": "not included in phase one; decide before final protocol freeze and before new evaluation access",
+    "online_service": "conditional on prespecified development-stage quality/cost criteria; separate protocol",
+    "cross_task_extension": false
+  }
+}

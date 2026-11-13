@@ -15,6 +15,13 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | Failures met during the project and their fixes (English) |
 | [ORIGINAL_PROPOSAL.md](ORIGINAL_PROPOSAL.md) | The submitted proposal, 26 Oct 2026 (English) |
 
+## ANLI extension preparation
+
+| Document | Scope |
+|---|---|
+| [ANLI_LEARNABILITY_PROTOCOL_ZH.md](ANLI_LEARNABILITY_PROTOCOL_ZH.md) | Local exposure audit and revised research draft; formal training/evaluation not frozen |
+| [RUN_ANLI_LEARNABILITY_ZH.md](RUN_ANLI_LEARNABILITY_ZH.md) | Separate node profile on the 90 already-exposed development inputs |
+
 ## Protocols, frozen before each run
 
 | Document | Study |

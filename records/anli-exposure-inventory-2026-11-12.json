@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "scope": "Pinned canonical input sources plus full current local text/ZIP and reachable Git-text census. Raw source presence is audit-only. No outside-machine completeness claim.",
+  "source": {
+    "root": "evidence",
+    "path": ".validation/v3-preparation-2026-11-03/sources/anli_v1.0.zip",
+    "sha256": "e5c058f2bb4e6190b0651badca2c590e45db95248f8b28cde674615ee40820bf"
+  },
+  "historical_inputs": [
+    {
+      "root": "evidence",
+      "path": "results/solo-v3-prepared/data/examples.jsonl",
+      "sha256": "a470ad0143224dd87906059651efc74b1c8342445dcfbffcea11768f37618544",
+      "count": 5990,
+      "schema": "v3",
+      "use": "prepared:calibration_validation_development_holdout"
+    },
+    {
+      "root": "evidence",
+      "path": "results/solo-v3/data/examples.jsonl",
+      "sha256": "a470ad0143224dd87906059651efc74b1c8342445dcfbffcea11768f37618544",
+      "count": 5990,
+      "schema": "v3",
+      "use": "prepared:runtime_copy"
+    },
+    {
+      "root": "evidence",
+      "path": "results/returned-v3-2026-11-03-152529/data/examples.jsonl",
+      "sha256": "a470ad0143224dd87906059651efc74b1c8342445dcfbffcea11768f37618544",
+      "count": 5990,
+      "schema": "v3",
+      "use": "collected:fit_selection_development_holdout"
+    },
+    {
+      "root": "evidence",
+      "path": "results/returned-size-control-complete-2026-11-06/data/examples.jsonl",
+      "sha256": "6bc83b03124cca680e0c394a3475bfac936a44e73a16b1b35c2950b3cfccaf09",
+      "count": 3290,
+      "schema": "v3",
+      "use": "size_control:development_holdout"
+    },
+    {
+      "root": "evidence",
+      "path": "results/aux-cpu-matrix-v1/prepared/training-anli.jsonl",
+      "sha256": "8ef2e9950552fe4e63e1ee5642aac0261b66c84a54cb0f0786d663b342709b48",
+      "count": 1600,
+      "schema": "cpu",
+      "use": "cpu_training"
+    },
+    {
+      "root": "evidence",
+      "path": "results/aux-cpu-matrix-v1/prepared/evaluation-anli.jsonl",
+      "sha256": "ca306912c4fc71b2e97dd8111441b1e0037ec737f0b12c32084c7c369f53a98b",
+      "count": 3200,
+      "schema": "cpu",
+      "use": "cpu_evaluation"
+    }
+  ],
+  "archives": [
+    {
+      "root": "evidence",
+      "path": "records/bundles/v3-return-20261103-232529-a8d0dc672d83.zip",
+      "sha256": "a8d0dc672d83c3edcb85d005e66fa4b3d000132729f98f0beaab6865dfc57a9e",
+      "input_members": [
+        {
+          "path": "data/examples.jsonl",
+          "sha256": "a470ad0143224dd87906059651efc74b1c8342445dcfbffcea11768f37618544",
+          "schema": "v3"
+        }
+      ]
+    },
+    {
+      "root": "evidence",
+      "path": "records/bundles/size-control-complete-20261106-f427f7762bac.zip",
+      "sha256": "f427f7762bac745d9316cb02195c09f98ab551794de1da047509be7f9fe7d1ed",
+      "input_members": [
+        {
+          "path": "data/examples.jsonl",
+          "sha256": "6bc83b03124cca680e0c394a3475bfac936a44e73a16b1b35c2950b3cfccaf09",
+          "schema": "v3"
+        }
+      ]
+    },
+    {
+      "root": "evidence",
+      "path": "records/bundles/upgrade-preflight-r3-20261109-c9392e10dfad.zip",
+      "sha256": "c9392e10dfad32fba5ba62ee513bdc4d0e93538cc44a2868b322f413595a6183",
+      "input_members": []
+    },
+    {
+      "root": "evidence",
+      "path": "records/bundles/upgrade-preflight-r4-20261109-8adafb29ff45.zip",
+      "sha256": "8adafb29ff4501e55c4a5c3e9572d97a63a5e6d82e63cf862d86b54d14589ce3",
+      "input_members": []
+    },
+    {
+      "root": "evidence",
+      "path": "records/bundles/upgrade-formal-20261109-9baeca3eb7f8.zip",
+      "sha256": "9baeca3eb7f84a86fdc1f63bc16114c1a91c756bbefe323840152d7901f91be7",
+      "input_members": []
+    },
+    {
+      "root": "evidence",
+      "path": "records/bundles/direct-matrix-preflight-20261112-015242-88e7392ab96f.zip",
+      "sha256": "88e7392ab96ffd6957c38c7d9d9469cc180a3e3df16e2a71b0bb39c824b50edb",
+      "input_members": [
+        {
+          "path": "data/dev/anli.jsonl",
+          "sha256": "058f3d1b15e299083bac17c102438e1c27b3676ed8cec2b3c990b1a4923f01ec",
+          "schema": "v3"
+        },
+        {
+          "path": "data/formal/anli.jsonl",
+          "sha256": "b344213dc61d4a56049d4c6013f2ce63fdff2b36b4cb2a19545c6d20f6137288",
+          "schema": "v3"
+        }
+      ]
+    },
+    {
+      "root": "evidence",
+      "path": "records/bundles/direct-matrix-formal-20261112-045015-689c0b68f5cb.zip",
+      "sha256": "689c0b68f5cb4fa094568ece96aea064e32de58aa8b78eea469db17a7e6875a2",
+      "input_members": [
+        {
+          "path": "data/dev/anli.jsonl",
+          "sha256": "058f3d1b15e299083bac17c102438e1c27b3676ed8cec2b3c990b1a4923f01ec",
+          "schema": "v3"
+        },
+        {
+          "path": "data/formal/anli.jsonl",
+          "sha256": "b344213dc61d4a56049d4c6013f2ce63fdff2b36b4cb2a19545c6d20f6137288",
+          "schema": "v3"
+        }
+      ]
+    },
+    {
+      "root": "evidence",
+      "path": "records/bundles/cpu-matrix-formal-20261112-89bf19f06b31.zip",
+      "sha256": "89bf19f06b31545246650467ce65acd1c3428364ae6a6e7f440d89739ce17d9a",
+      "input_members": [
+        {
+          "path": "prepared/evaluation-anli.jsonl",
+          "sha256": "ca306912c4fc71b2e97dd8111441b1e0037ec737f0b12c32084c7c369f53a98b",
+          "schema": "cpu"
+        },
+        {
+          "path": "prepared/training-anli.jsonl",
+          "sha256": "8ef2e9950552fe4e63e1ee5642aac0261b66c84a54cb0f0786d663b342709b48",
+          "schema": "cpu"
+        }
+      ]
+    }
+  ],
+  "scan_exclusions": [
+    {
+      "root": "repo",
+      "path": ".validation/anli-routing-phase1-2026-11-12",
+      "reason": "Current audit/protocol working area; not historical exposure"
+    }
+  ]
+}

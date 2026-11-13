@@ -1,0 +1,106 @@
+{
+  "date": "2026-11-12",
+  "status": "LOCAL_SOFTWARE_ACCEPTED_FOR_NODE_CPU_OWNERSHIP_GATE_THEN_DEVELOPMENT_GPU_PROFILE",
+  "scope": "Input exposure audit and 90 already-exposed V3 train-development inputs, not formal fitting or new evaluation",
+  "base_commit": "5db9d56",
+  "claude": {
+    "actual_model": "claude-opus-5-5",
+    "effort": "max",
+    "completed_rounds_this_phase": 3,
+    "scope": "Protocol, audit-summary and lifecycle-design discussion only; no direct raw-data or repository inspection",
+    "transcript": "claude-protocol-discussion.md"
+  },
+  "local_tests": {
+    "profile_passed": 32,
+    "profile_linux_only_skipped": 2,
+    "audit_passed": 21,
+    "shell_syntax": "PASS",
+    "isolated_release_tests": {
+      "passed": 53,
+      "skipped": 2,
+      "skip_scope": "Linux-native process tests",
+      "import_path_verified": true,
+      "bash_syntax": "PASS",
+      "git_diff_check": "PASS"
+    }
+  },
+  "mutation_checks": {
+    "profile_caught": 8,
+    "audit_caught": 9,
+    "profile_checks": [
+      {
+        "mutation": "m1-exited-pid-signal",
+        "test": "test_stop_child_never_signals_a_reused_exited_leader_pid",
+        "exit_code": 1
+      },
+      {
+        "mutation": "m2-pidfd-no-second-ancestry",
+        "test": "test_pidfd_signal_rechecks_ancestry_after_open",
+        "exit_code": 1
+      },
+      {
+        "mutation": "m3-fresh-foreign-pid-is-owned",
+        "test": "test_current_ancestry_excludes_recycled_recorded_pids_and_handles_deeper_adoptions",
+        "exit_code": 1
+      },
+      {
+        "mutation": "m4-no-latency-recomputation",
+        "test": "test_completed_attempt_rejects_semantic_tampering_after_rehash[aggregate]",
+        "exit_code": 1
+      },
+      {
+        "mutation": "m5-partial-start-not-recorded",
+        "test": "test_startup_failure_keeps_owned_engine_for_stop_verification",
+        "exit_code": 1
+      },
+      {
+        "mutation": "m6-no-late-response-immediate-rejection",
+        "test": "test_whole_worker_fake_service_records_rows_then_stops_before_complete[True]",
+        "exit_code": 1
+      },
+      {
+        "mutation": "m7-no-run-ownership-gate",
+        "test": "test_missing_or_changed_ownership_gate_prevents_model_work",
+        "exit_code": 1
+      },
+      {
+        "mutation": "m8-no-prewrite-validation",
+        "test": "test_cli_rejects_old_roots_before_any_lock_or_diagnostic_write",
+        "exit_code": 1
+      }
+    ],
+    "exact_text_search_positive_negative_assertions": 24,
+    "empty_matcher_mutant_caught": true,
+    "profile_tested_study_sha256": "078f8ebcdae7841cd92bdf5653c2b142186e63f2a5aaa47d0038927e6ece6422",
+    "post_mutation_change": "Removed one trailing blank line at EOF for git diff --check; executable text unchanged"
+  },
+  "review_fixes": [
+    "Historical numeric PIDs do not authorize signals; kernel pidfds and current ancestry are rechecked",
+    "Repeated bounded descendant discovery covers multiple adoptions; 120-second allocation cleanup reserve",
+    "120-second socket read timeout is separate from post-return acceptance; late raw row retained then rejected",
+    "Request latencies recomputed; finite monotonic startup/collection observations checked for internal consistency",
+    "Old/source output paths rejected before locks or diagnostics; native CPU ownership gate before any GPU worker"
+  ],
+  "source_sha256": {
+    "configs/anli_learnability_protocol.json": "0d721bcfcad01a342de5a06bcd392ac191cf09bcb0eb2ab36f40ee6d3992177e",
+    "decision_study/learnability_profile/__init__.py": "16ab0085d2d2e89621e7f968288037ca79abb1404b4acfcd3d32b80b79e1d441",
+    "decision_study/learnability_profile/__main__.py": "8498949eae3320cb53ca6c7487d126172884ad02baf19bf4afadf9b7c88c8914",
+    "decision_study/learnability_profile/ownership.py": "cceed331710596f6702862abb184e04315bc93d532523ed519fa62ccee8b1f12",
+    "decision_study/learnability_profile/study.py": "9d2f22921672552e194f678453ce0d41553a4ebddce245730df2474e4c1f4c7b",
+    "records/anli-exposure-inventory-2026-11-12.json": "2c61052dfccc1d2bc4a7adf5a27d54d219a8c418886be151bd7eac181410d606",
+    "scripts/audit_anli_exposure.py": "3d8bc1196935973a18fe27c8adf7fd14a3088edb3db4978d3c7136d57eef111d",
+    "scripts/run_learnability_profile.sh": "40df6ed2d6d0c0f0ee0184f828a8d23c01bd7afa9cb01b5ddcec2db5f2e0543d",
+    "tests/test_anli_exposure_audit.py": "25b6c3742421c92e2f06dd2f7a71b1d96a6e660e34403cc46ce49965a2678a16",
+    "tests/test_learnability_profile.py": "d8062819fcf3e6832c7339ea386264937556b68e6ea4ee866dcdfc9a888a8611"
+  },
+  "limits": [
+    "Mac tests do not validate Linux pidfd/subreaper or vLLM/CUDA",
+    "Docker Linux test container did not start; no native Linux PASS claimed",
+    "Node self-test must pass before loading models; a failure exports diagnostics and blocks",
+    "No local GPU execution, new training, model download or new holdout scores",
+    "90 old development examples are not a representative estimate of full future fitting cost",
+    "Startup timings are internally checked observations, not an independent external measurement",
+    "Other-machine/team exposure is unconfirmed; formal data split and experiment protocol remain drafts"
+  ],
+  "release_scope": "Only new phase-one code, protocols, evidence summaries and corresponding documentation on a separate branch; pre-existing paper/CPU work excluded"
+}
