@@ -1,0 +1,168 @@
+{
+  "configuration": {
+    "allocation": "train_holdout then selection then fitting; SHA-ranked premise groups; skip groups violating future stratum capacity; choose needed SHA-ranked rows; unselected group members remain unused",
+    "duplicate_rule": "drop conflicting normalized train inputs; same-label duplicates retain lexicographically first sample_id",
+    "external_usage": "unconfirmed; local historical-use audit only",
+    "fit_sizes": [
+      1800,
+      6000,
+      18000
+    ],
+    "id": "anli-learnability-data-v1",
+    "nested_remainder": "first strata in fixed order receive one additional row; each smaller size is a prefix per stratum",
+    "seed": 20261112,
+    "selection_per_stratum": 100,
+    "strata_order": [
+      [
+        "R1",
+        "entailment"
+      ],
+      [
+        "R1",
+        "neutral"
+      ],
+      [
+        "R1",
+        "contradiction"
+      ],
+      [
+        "R2",
+        "entailment"
+      ],
+      [
+        "R2",
+        "neutral"
+      ],
+      [
+        "R2",
+        "contradiction"
+      ],
+      [
+        "R3",
+        "entailment"
+      ],
+      [
+        "R3",
+        "neutral"
+      ],
+      [
+        "R3",
+        "contradiction"
+      ]
+    ],
+    "train_holdout_per_stratum": 200
+  },
+  "dev_labels_used": false,
+  "eligible_dev_membership_sha256": "558a4842c6513b8224625c3ca8527b98ff2aaf872ea38ea4d10817354e62b5a4",
+  "files": {
+    "data/examples.jsonl": {
+      "bytes": 31610280,
+      "sha256": "9e94e0ecbd2b74a46455c0cd7ffb5aac0be1712ebbfc9d43d560817ec812657f"
+    },
+    "data/fit_gold.json": {
+      "bytes": 1152903,
+      "sha256": "d8a0f49d6409ebae4eb8dfc7d777cc8e1e7009eb1292f074ef38004c9ce3e3ba"
+    },
+    "data/nested_fit_ids.json": {
+      "bytes": 1264252,
+      "sha256": "de2d40843297694c28ba40013b76ab9725f7cf54b9404fcfc37988619dc3a715"
+    }
+  },
+  "historical_count": 5990,
+  "historical_premise_groups": 4952,
+  "history_sha256": "a470ad0143224dd87906059651efc74b1c8342445dcfbffcea11768f37618544",
+  "holdout_target_population": "fixed SHA/group/quota-selected retained subsets, not unbiased estimates of the original complete source pools",
+  "official_test_premise_groups": 2854,
+  "remaining_before_fitting": {
+    "R1/contradiction": 2143,
+    "R1/entailment": 2497,
+    "R1/neutral": 3139,
+    "R2/contradiction": 5252,
+    "R2/entailment": 7755,
+    "R2/neutral": 10882,
+    "R3/contradiction": 18983,
+    "R3/entailment": 22285,
+    "R3/neutral": 27898
+  },
+  "roles": {
+    "eligible_dev": {
+      "count": 1737,
+      "membership_sha256": "558a4842c6513b8224625c3ca8527b98ff2aaf872ea38ea4d10817354e62b5a4",
+      "premise_groups": 1540,
+      "round_counts": {
+        "R1": 374,
+        "R2": 484,
+        "R3": 879
+      }
+    },
+    "fitting": {
+      "allocation_class_counts": {
+        "R1/contradiction": 2000,
+        "R1/entailment": 2000,
+        "R1/neutral": 2000,
+        "R2/contradiction": 2000,
+        "R2/entailment": 2000,
+        "R2/neutral": 2000,
+        "R3/contradiction": 2000,
+        "R3/entailment": 2000,
+        "R3/neutral": 2000
+      },
+      "count": 18000,
+      "membership_sha256": "757815f3d4274dea00382be9d973c345f6bc4a72830966a00769a0e0f3d79a2b",
+      "premise_groups": 4813,
+      "round_counts": {
+        "R1": 6000,
+        "R2": 6000,
+        "R3": 6000
+      }
+    },
+    "selection": {
+      "allocation_class_counts": {
+        "R1/contradiction": 100,
+        "R1/entailment": 100,
+        "R1/neutral": 100,
+        "R2/contradiction": 100,
+        "R2/entailment": 100,
+        "R2/neutral": 100,
+        "R3/contradiction": 100,
+        "R3/entailment": 100,
+        "R3/neutral": 100
+      },
+      "count": 900,
+      "membership_sha256": "6266363b2417c1d8dcacd8be5161dc09cecb74d5500ce123c5ab0ccca618d0f3",
+      "premise_groups": 93,
+      "round_counts": {
+        "R1": 300,
+        "R2": 300,
+        "R3": 300
+      }
+    },
+    "train_holdout": {
+      "allocation_class_counts": {
+        "R1/contradiction": 200,
+        "R1/entailment": 200,
+        "R1/neutral": 200,
+        "R2/contradiction": 200,
+        "R2/entailment": 200,
+        "R2/neutral": 200,
+        "R3/contradiction": 200,
+        "R3/entailment": 200,
+        "R3/neutral": 200
+      },
+      "count": 1800,
+      "membership_sha256": "fca80b2d4c5cba4414634227421b0f0cc9c39c6723d689a914052f5392255123",
+      "premise_groups": 199,
+      "round_counts": {
+        "R1": 600,
+        "R2": 600,
+        "R3": 600
+      }
+    }
+  },
+  "source_sha256": "e5c058f2bb4e6190b0651badca2c590e45db95248f8b28cde674615ee40820bf",
+  "train_labels_used_for_allocation": true,
+  "training_cleanup": {
+    "conflicting_rows_excluded": 2,
+    "same_label_duplicates_excluded": 112
+  }
+}

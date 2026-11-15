@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "protocol": "anli-learnability-full-v1",
+  "revision": 1,
+  "scope": "One-command fixed ANLI routing experiment; automatic integrity gates and allocation checkpoints; no manual successful-stage handoff",
+  "data": {
+    "source_sha256": "e5c058f2bb4e6190b0651badca2c590e45db95248f8b28cde674615ee40820bf",
+    "fit_sizes": [
+      1800,
+      6000,
+      18000
+    ],
+    "selection": 900,
+    "train_holdout": 1800,
+    "eligible_dev": 1737,
+    "allocation_seed": 20261112,
+    "group_rule": "SHA-random normalized-premise order with future-stratum capacity guard; deterministic row quota trimming inside assigned role; never prioritize group size",
+    "expected_files": {
+      "data/examples.jsonl": "9e94e0ecbd2b74a46455c0cd7ffb5aac0be1712ebbfc9d43d560817ec812657f",
+      "data/fit_gold.json": "d8a0f49d6409ebae4eb8dfc7d777cc8e1e7009eb1292f074ef38004c9ce3e3ba",
+      "data/nested_fit_ids.json": "de2d40843297694c28ba40013b76ab9725f7cf54b9404fcfc37988619dc3a715",
+      "data/manifest.json": "42bf89f228222ec45e17a390610991f5f6401e88d62448d599e4a0d7f2980815"
+    },
+    "historical_usage": "Local exact premise/input audit passed; outside-machine/team usage unconfirmed; not a globally uncontaminated confirmatory-data claim",
+    "train_labels": "Used only for stratified role allocation and fitting/selection before freeze; new evaluation labels enter quality evaluation only after frozen models and scores",
+    "nested_remainder": "For 6000, each stratum gets666; first six strata in fixed R1/R2/R3 then entailment/neutral/contradiction order getone extra. Each smaller size is a prefix within stratum."
+  },
+  "collection": {
+    "roles": [
+      "startlux4b",
+      "qwen9b",
+      "startlux9b"
+    ],
+    "development_examples_per_role": 90,
+    "formal_examples_per_role": 22437,
+    "formal_predictions": 67311,
+    "gpu_memory_utilization": 0.8,
+    "max_num_seqs": 64,
+    "max_model_len": 8192,
+    "concurrency": 1,
+    "request_acceptance_seconds": 120,
+    "allocation_cleanup_reserve_seconds": 120,
+    "chunk_size": 128,
+    "missing_prediction": "Block the cell; never silently drop input or invent a prediction"
+  },
+  "modeling": {
+    "arms": [
+      "front",
+      "text"
+    ],
+    "front_features": [
+      "3 label probabilities",
+      "3 predicted-label indicators",
+      "log1p state characters"
+    ],
+    "text_dimension": 1536,
+    "text_recipe": "l2 concat[u,v,abs(u-v),u*v]; each field full-token chunks254, content-count-weighted pooling, pinned MiniLM ONNX",
+    "encoder_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "fit_only_standardization": true,
+    "learner": "two binary correctness heads; gain = fallback probability - front probability",
+    "l2_grid": [
+      1.0,
+      0.1,
+      0.01
+    ],
+    "objective": "mean binary cross entropy + L2/2 squared slopes; intercept unpenalized",
+    "solver": "deterministic numpy L-BFGS history10 max1000 gradtol1e-6 Armijo1e-4",
+    "search": "one shared L2 per head pair;3 candidates perarm; selection exact10%quota correctcount; ties largerL2",
+    "constant_target": "Jeffreys (sum(y)+0.5)/(n+1)",
+    "threshold": "selection-only positive-gain cutoffs at <=10% total deferral; maximize netcorrect, ties fewerdeferrals, allow zero"
+  },
+  "evaluation": {
+    "primary_population": "eligible official-dev subset, question weighted",
+    "primary_comparison": "18k fitting, Qwen9B fallback, text gain minus front gain accuracy at exact floor(0.1*N) offline quota",
+    "tie_rule": "sample ID ascending; repeated bootstrap copies use stable occurrence order",
+    "bootstrap": {
+      "replicates": 2000,
+      "seed": 20261113,
+      "unit": "normalized premise",
+      "interval": "paired percentile95%; rerank quota within each draw; conditional on fitted models"
+    },
+    "minimum_useful_difference_pp": 1.0,
+    "minimum_effect_use": "descriptive reference only; no equivalence claim",
+    "secondary": "otherfit sizes/StartLux9B fallback/train holdout/threshold deployments/round-standardized sensitivity; no multiplicity correction",
+    "baselines": [
+      "direct4B",
+      "direct9B",
+      "confidence10%",
+      "fixed-seed matchedrandom",
+      "matchedquota hindsightoracle"
+    ],
+    "round_weights": {
+      "R1": 0.3125,
+      "R2": 0.3125,
+      "R3": 0.375
+    },
+    "round_limit": "Does not correct within-round exclusion or recover removed samples"
+  },
+  "automation": {
+    "successful_gates": "continue automatically",
+    "actual_new_allocation": "auto-detect different Slurm job and require terminal proof for old allocation",
+    "technical_failure": "retain evidence and stop; explicit --retry-failed after investigation",
+    "freeze": "all inputs/predictions/features/fitted models/evaluation scores before first evaluation_gold call",
+    "optional_encoder_finetuning": false,
+    "optional_online_SLO": false
+  }
+}

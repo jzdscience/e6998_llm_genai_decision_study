@@ -1,7 +1,24 @@
 # 当前状态
 
-最后核对：2026-11-11，America/Los_Angeles。证据内的原始 UTC 时间不改写。
+最后核对：2026-11-15，America/Los_Angeles。证据内的原始 UTC 时间不改写。
 
+
+
+## 11/13：完整 ANLI 实验改为单命令自动运行
+
+按 Ju 的反馈取消成功阶段间的人工交接。新入口 `scripts/run_learnability.sh` 自动完成数据准备、旧开发预检、
+三个模型的 67,311 条正式预测、固定 MiniLM 特征、路由器拟合／选择、参数与评价分数冻结、读取评价标签、评价和打包。
+正常余量不足保存 CHECKPOINT，实际新 allocation 上运行同一命令即可自动核实旧 job 并续跑；真正失败才保留诊断后停止。
+
+数据已在本机独立核验：18,000 fitting（4,813 premise组）、900 selection（93组）、1,800 train holdout（199组）、
+1,737 eligible dev（1,540组），四个角色 premise 隔离。6,000 嵌套配额按固定余数规则分配，未使用模型表现选例。
+新软件 71 项测试通过，含第一阶段合计 124 passed / 2 Linux-only skipped；40 个针对新代码的 mutant 被预期断言发现。
+真实固定 MiniLM 用三个人造文本对完成无截断烟测；完整模拟流水线与换 allocation 的续跑验证通过。
+
+见[完整协议](ANLI_LEARNABILITY_FULL_ZH.md)、[单命令手册](RUN_ANLI_LEARNABILITY_FULL_ZH.md)及
+[软件验收](../records/anli-learnability-full-2026-11-13/software-acceptance.json)。节点源码使用独立分支
+`anli-learnability-full-2026-11-13`，此前的分步预检入口仍保留为历史版本，不再是本轮推荐操作。
+本机没有进行正式 GPU 采集、真实 router 拟合或新评价；不宣称未知外部使用已排除。当前为完整软件交付，节点执行待开始。
 
 ## 11/12：ANLI 扩展第一阶段已实现；节点开发预检待运行
 

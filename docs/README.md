@@ -22,6 +22,13 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 | [ANLI_LEARNABILITY_PROTOCOL_ZH.md](ANLI_LEARNABILITY_PROTOCOL_ZH.md) | Local exposure audit and revised research draft; formal training/evaluation not frozen |
 | [RUN_ANLI_LEARNABILITY_ZH.md](RUN_ANLI_LEARNABILITY_ZH.md) | Separate node profile on the 90 already-exposed development inputs |
 
+## Complete ANLI extension
+
+| Document | Scope |
+|---|---|
+| [ANLI_LEARNABILITY_FULL_ZH.md](ANLI_LEARNABILITY_FULL_ZH.md) | Fixed complete recipe and local software acceptance; native node execution pending |
+| [RUN_ANLI_LEARNABILITY_FULL_ZH.md](RUN_ANLI_LEARNABILITY_FULL_ZH.md) | One command runs all stages and resumes verified new allocations |
+
 ## Protocols, frozen before each run
 
 | Document | Study |

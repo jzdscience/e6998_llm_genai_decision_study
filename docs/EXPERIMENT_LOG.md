@@ -795,3 +795,24 @@ Linux pidfd／subreaper CPU 自测是任何 GPU worker 前的强制门禁；同 
 仅新预检／审计代码及相应文档通过独立 worktree 发布到 `anli-learnability-preflight-2026-11-12`；原工作树分支、论文、
 CPU 矩阵和旧科学结果保持。Mac 定向测试不替代节点原生 Linux／GPU 验证；Docker 容器停在 created，已清理，未获得 Linux 结果。
 待用户在公司 code-server 执行并回传 profile bundle 后验收，再完成正式实验冻结与实现。没有新训练、新评价或正式成绩。
+
+
+## 2026-11-13：取消人工阶段交接，完成 ANLI 单命令研究实现
+
+Ju 质疑逐阶段回传是否必要。Codex 将正常科学顺序保留在程序内部，改成检查通过自动继续的完整入口。
+数据分配实际可行并独立复算：18k拟合、900选择、1800新train保留、1737eligibledev；manifest42bf89f2…，
+所有新评价结果尚未产生。采用 SHA 随机组序与容量约束，拒绝优先挑大 premise 组的初版分配规则。
+新增完整采集、固定 ONNX 字段特征、NumPy 两head gain、三档嵌套量、两个后级、冻结后评价、bootstrap、报告与紧凑包。
+
+71项新增软件测试通过，含phase-one为124 passed/2 nativeLinux skipped；40个新源码mutant被预期断言发现。
+独立审查修复了直接子进程停止异常可能跳过回收、换job停止证明未绑定旧job、冻结包含可变session、
+未完成模型缓存可能被信任、回传只验hash不复算数值、以及紧凑包重导出身份丢失问题。
+既有模型／环境只读复用，没有改冻结helper、旧科学结果、论文或CPU矩阵。
+实际固定 MiniLM 只跑三个人造文本对，包含1080内容token长字段，3×1536输出；不属于新任务成绩。
+
+正常allocation checkpoint使用同一命令续跑，读取真实Slurm余量并验证旧job终止；实际失败保留诊断且要求明确重试。
+新的完整入口先执行nativeLinuxownershipgate，随后自动运行三个旧开发预检并继续正式采集，不再要求用户每阶段回传。
+正式研究的数值结果、原生Linux／GPU验证仍待节点；软件收据明确区分模拟验证与真实执行。
+
+
+11/15 续作核对：源码与固定数据哈希未改变。完整流水线的两次 Claude Opus 5.5 max 追加摘要复核均返回网关504，未取得有效答复，不计为通过；此前三轮已完成的讨论及本次独立代码、测试、mutation验收分别保留。

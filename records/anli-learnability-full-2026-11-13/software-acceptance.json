@@ -1,0 +1,95 @@
+{
+  "date": "2026-11-13",
+  "status": "LOCAL_SOFTWARE_ACCEPTED_FOR_COMPLETE_NODE_RUN_NATIVE_LINUX_AND_GPU_PENDING",
+  "base_commit": "ced73ff0ae3d62f300cb99c84dba3439f7ea01d4",
+  "scope": "Single command automatically advances through preparation, preflight, collection, embedding, fitting, score freeze, evaluation, report and compact export; only failures/allocation checkpoints stop",
+  "prepared": {
+    "inputs": 22437,
+    "fitting": 18000,
+    "selection": 900,
+    "eligible_dev": 1737,
+    "train_holdout": 1800,
+    "formal_model_input_predictions": 67311,
+    "manifest_sha256": "42bf89f228222ec45e17a390610991f5f6401e88d62448d599e4a0d7f2980815",
+    "premise_groups": {
+      "fitting": 4813,
+      "selection": 93,
+      "eligible_dev": 1540,
+      "train_holdout": 199
+    }
+  },
+  "tests": {
+    "data": 16,
+    "modeling": 19,
+    "collection": 21,
+    "pipeline": 15,
+    "new_passed": 71,
+    "including_phase_one_passed": 124,
+    "linux_native_skipped": 2,
+    "scope": "Artificial fixtures plus independently checked real input allocation; no real new quality outcomes"
+  },
+  "source_mutation_checks": {
+    "data_caught": 8,
+    "modeling_caught": 10,
+    "collection_caught": 11,
+    "pipeline_caught": 11,
+    "total_caught": 40,
+    "failure_quality": "Each caught at its intended assertion; setup/import failures not counted"
+  },
+  "actual_encoder_smoke": {
+    "inputs": "three artificial premise/hypothesis pairs",
+    "shape": [
+      3,
+      1536
+    ],
+    "content_tokens_in_long_field": 1080,
+    "chunks": 10,
+    "truncation": 0,
+    "max_abs_short_pair_difference_from_legacy_encoder": 8.7e-08
+  },
+  "review_fixes": [
+    "Ancestry/pidfd cleanup even when direct-child stop raises",
+    "Plan-bound parent and old/new Slurm recovery receipts",
+    "Allocation-specific sessions excluded from scientific freeze; frozen roles reused on verified new jobs",
+    "Unreceipted partial models recomputed, completed cache bound to data/features/scores; no refitting after freeze",
+    "Raw prediction and frozen-score numerical result recomputation after hash verification",
+    "Compact bundles preserve feature omission identities and re-export without duplicate manifest members"
+  ],
+  "source_sha256": {
+    "configs/anli_learnability_full_protocol.json": "85cb503fea29e8a6407e8171ecb487feba8675d9c08aadfadbd6509adee22b9f",
+    "decision_study/learnability/__init__.py": "51aecc1e181fd377b4527a9a35f38e3000c9f25677b9e6071d5445ef1e825077",
+    "decision_study/learnability/__main__.py": "8498949eae3320cb53ca6c7487d126172884ad02baf19bf4afadf9b7c88c8914",
+    "decision_study/learnability/collection.py": "dd038a557381d4575ee61cff0c66880890c027975383a3c3611903c228fa3c54",
+    "decision_study/learnability/data.py": "d55f99ceae80adc3d7f24741f85484b6e88aa9dacbdba68125e63a88da6a4d62",
+    "decision_study/learnability/modeling.py": "56676c877d6a4fcbe7cf91511b93e1365d0820405df86703534e2aa6d7a9cf83",
+    "decision_study/learnability/study.py": "7e20aceaf8eeb3f5acba0fcfbf72b27895ba672bb510ad0e14090722c832b73a",
+    "scripts/run_learnability.sh": "5e0a4f89a0230200c7c52bcbfea51cbb6e6dba37631463b4530c861a8ddbb084",
+    "tests/test_learnability_collection.py": "8d77d9e80aa11ffa1b5eca63f509679fe12a3ddbb8b502c41cc4abcb05f44b6c",
+    "tests/test_learnability_data.py": "3d072c1117f4e221522bc55bf4f70b4b9a77780f2301ea85e7e0c15eabedf603",
+    "tests/test_learnability_modeling.py": "b5ed1eeb7302c22bc904a81b7d3794d00b11f7f1f597db020254283522361d5a",
+    "tests/test_learnability_pipeline.py": "67f61b8a8855a1889707c069b282747244e80653a20e69557dc7fe59a5d623fb"
+  },
+  "claude": {
+    "earlier_phase": "Three completed actual Opus5.5 max rounds supported the base design",
+    "one_command_review": {
+      "status": "NOT_COMPLETED",
+      "attempts": 2,
+      "failure": "provider gateway HTTP504 on both attempts; no substantive approval received",
+      "scope": "Only design summaries; tools disabled; no raw data or repository files sent",
+      "decision": "Proceed with independently accepted software; do not represent failed Claude calls as approval"
+    }
+  },
+  "not_run": [
+    "Native Linux pidfd/subreaper gate on this Mac",
+    "Real L40S/vLLM formal collection",
+    "Real router fitting or new holdout quality evaluation"
+  ],
+  "limits": [
+    "Local exact-input exposure audit only; outside-machine/team and upstream training use unconfirmed",
+    "Primary population is retained eligible dev subset, not original complete dev",
+    "Selection900 spans93premise groups; trainholdout1800 spans199groups; clustered uncertainty and target scope retained",
+    "Compact bundle omits feature matrix bytes; hashes retained, matrix available on node or regenerated for full model replay"
+  ],
+  "evidence_directory": ".validation/anli-learnability-full-2026-11-12",
+  "resumed_verification_date": "2026-11-15"
+}
