@@ -1,0 +1,64 @@
+{
+  "date_local": "2026-11-15",
+  "status": "PASS",
+  "scope": "CPU-only native Linux process ownership and related software tests; not model or GPU validation",
+  "environment": {
+    "python": "3.11.11 (main, Apr  8 2025, 09:48:09) [GCC 12.2.0]",
+    "kernel": "7.0.14-linuxkit",
+    "architecture": "aarch64",
+    "libc": [
+      "glibc",
+      "2.36"
+    ]
+  },
+  "packages": [
+    "iniconfig==2.3.1",
+    "numpy==2.2.6",
+    "packaging==26.3",
+    "pip==24.0",
+    "pluggy==1.7.0",
+    "Pygments==2.21.0",
+    "pytest==9.0.2",
+    "setuptools==65.5.1",
+    "wheel==0.45.1"
+  ],
+  "image": "python:3.11.11-slim",
+  "image_digest": "sha256:081075da77b2b55c23c088251026fb69a7b2bf92471e491ff5fd75c192fd38e5",
+  "baseline_native": {
+    "passed": 2,
+    "log": "baseline.log"
+  },
+  "final_candidate": {
+    "passed": 164,
+    "skipped": 2,
+    "seconds": 5.01,
+    "log": "candidate-final.log",
+    "skip_scope": "x86_64 raw-send native variants are excluded on aarch64; corresponding real proc-FD native-send variants passed"
+  },
+  "forced_proc_fresh_actor": {
+    "passed": 2,
+    "log": "forced-proc-ownership.log",
+    "test_only_override": "open_process returns actual _proc_descriptor with integer validation; native kernel send API retained; override inherited by fresh actor interpreters from separate source copy",
+    "base_pidfd_and_profile_source_unchanged_from_final": true
+  },
+  "source_hashes": {
+    "decision_study/learnability_profile/pidfd.py": "7ca32af9a2f09e61d01ef856726f7cc02ebbdbc2e0b38666ec16f4271680482f",
+    "decision_study/learnability_profile/study.py": "4d2a07caa3707b8d20f13b19487d5d18ef5dd4259bd48e7163e3edb572327ffc",
+    "decision_study/learnability/study.py": "f1ff560cd32f361a2380a02508698425dc04ce8b186d0776cc97b7a9f1f23aed",
+    "scripts/run_learnability.sh": "0c15de6ec9a5beaa289e87513bf20da4cef849c4fe214cfc6c63ed810d135055",
+    "tests/test_anli_exposure_audit.py": "25b6c3742421c92e2f06dd2f7a71b1d96a6e660e34403cc46ce49965a2678a16",
+    "tests/test_learnability_collection.py": "8d77d9e80aa11ffa1b5eca63f509679fe12a3ddbb8b502c41cc4abcb05f44b6c",
+    "tests/test_learnability_data.py": "3d072c1117f4e221522bc55bf4f70b4b9a77780f2301ea85e7e0c15eabedf603",
+    "tests/test_learnability_modeling.py": "b5ed1eeb7302c22bc904a81b7d3794d00b11f7f1f597db020254283522361d5a",
+    "tests/test_learnability_pidfd.py": "964c455a6909defb5089d7168fca277867260dc118862d76b61c6a825ef1738a",
+    "tests/test_learnability_pipeline.py": "a0bbec052ee85062481decb508b9ca8d38bb06b0f9796f33db93dc14fb8bfcbe",
+    "tests/test_learnability_profile.py": "d8062819fcf3e6832c7339ea386264937556b68e6ea4ee866dcdfc9a888a8611",
+    "tests/test_learnability_release.py": "bc585126a35343e9a5a22290e27b64882f56f924540b7b0c76be1d9ae228fba0"
+  },
+  "limitations": [
+    "Linuxkit 7.0.14 aarch64 is not the node RHEL8 x86_64 kernel.",
+    "Actual raw x86_64 ABI is unit-tested and user node self-probe passed; full node adversarial selftest still runs before GPU."
+  ],
+  "initial_environment_issue": "One early broad-suite run lacked git in slim image; after installing git the final complete selection passed. Earlier failure log retained.",
+  "no_model_weights_or_gpu": true
+}

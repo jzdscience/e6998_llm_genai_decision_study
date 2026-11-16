@@ -28,7 +28,7 @@ def pipeline(tmp_path, monkeypatch):
         folder = runtime/'results'/name
         folder.mkdir(parents=True)
         (folder/'keep.json').write_text('{"historical":true}\n')
-    output = runtime/'results/aux-anli-learnability-v1'
+    output = runtime/'results/aux-anli-learnability-v1-r2'
     template = tmp_path/'templates'
     template.mkdir()
     monkeypatch.setattr(m, 'FIT_SIZES', (18, 36))

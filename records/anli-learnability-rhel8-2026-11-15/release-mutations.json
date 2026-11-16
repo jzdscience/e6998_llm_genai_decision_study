@@ -1,0 +1,19 @@
+{
+  "wrapper_reuses_old_output": [
+    "E       AssertionError: assert '/private/var...arnability-v1' == '/private/var...ability-v1-r2'",
+    "E         ",
+    "E         Skipping 148 identical leading characters in diff, use -v to show",
+    "E         - nability-v1-r2",
+    "E         ?            ---",
+    "E         + nability-v1",
+    "FAILED tests/test_learnability_release.py::test_repair_wrapper_uses_new_output_and_keeps_failed_run"
+  ],
+  "rejects_repair_output": [
+    "E               decision_study.common.StudyError: Use the separate results/aux-anli-learnability-v1-r2 output (legacy v1 remains readable)",
+    "FAILED tests/test_learnability_release.py::test_repair_and_legacy_outputs_validate_but_unrelated_results_do_not"
+  ],
+  "accepts_unrelated_outputs": [
+    "E           Failed: DID NOT RAISE StudyError",
+    "FAILED tests/test_learnability_release.py::test_repair_and_legacy_outputs_validate_but_unrelated_results_do_not"
+  ]
+}

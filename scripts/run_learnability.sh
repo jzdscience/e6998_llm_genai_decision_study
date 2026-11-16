@@ -20,4 +20,4 @@ CONTROLLER="$RUNTIME_ROOT/.venv-controller/bin/python"
 export PYTHONDONTWRITEBYTECODE=1 TOKENIZERS_PARALLELISM=false
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1
 "$CONTROLLER" -B -m decision_study.learnability start --runtime-root "$RUNTIME_ROOT" \
-  --output-dir "$RUNTIME_ROOT/results/aux-anli-learnability-v1" ${ARGS[@]+"${ARGS[@]}"}
+  --output-dir "$RUNTIME_ROOT/results/aux-anli-learnability-v1-r2" ${ARGS[@]+"${ARGS[@]}"}

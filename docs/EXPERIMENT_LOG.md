@@ -816,3 +816,16 @@ Ju 质疑逐阶段回传是否必要。Codex 将正常科学顺序保留在程�
 
 
 11/15 续作核对：源码与固定数据哈希未改变。完整流水线的两次 Claude Opus 5.5 max 追加摘要复核均返回网关504，未取得有效答复，不计为通过；此前三轮已完成的讨论及本次独立代码、测试、mutation验收分别保留。
+
+## 2026-11-15：RHEL8 pidfd 兼容修复与独立输出验收
+节点已补回固定 StartLux-4B，13 个文件内容及两份旧 metadata SHA 通过。随后发现两套 Python
+缺少 pidfd API、内核 pidfd_open 返回 ENOSYS，但 /proc/self 描述符的 pidfd_send_signal(0) 实测通过。
+新 pidfd 兼容模块采用这条内核稳定句柄路径，保留前后归属核对、自检与停止证据，不使用数值 PID kill 降级。
+
+Mac 相关套件 160 passed / 6 Linux-only skipped；Linux aarch64 容器 164 passed / 2 x86-only skipped。
+另在验证副本中强制所有新 actor 使用 proc 描述符，两个原生对抗性清理测试通过；17 个定向 mutant 均被发现。
+独立代码复审无剩余生产阻断项。实际 Claude Code max 的摘要审阅请求在 240 秒超时，不计通过。
+科学配置、数据分配、模型和拟合/评价方法不变；固定代码身份改变，因此使用新输出 aux-anli-learnability-v1-r2，
+保留旧失败输出，不迁移验收收据或改写旧绑定。正式公司节点 Linux gate、GPU 预检及研究结果仍待执行。
+
+见[运行说明](RUN_ANLI_LEARNABILITY_RHEL8_ZH.md)、[软件验收](../records/anli-learnability-rhel8-2026-11-15/software-acceptance.json)。

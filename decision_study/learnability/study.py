@@ -46,8 +46,8 @@ def validate_output(output, runtime=None, *, existing=False):
         raise StudyError('Study output must be outside the source checkout')
     if runtime is not None:
         runtime = profile.normal(runtime)
-        if output.parent != runtime/'results' or output.name != 'aux-anli-learnability-v1':
-            raise StudyError('Use the separate results/aux-anli-learnability-v1 output')
+        if output.parent != runtime/'results' or output.name not in {'aux-anli-learnability-v1', 'aux-anli-learnability-v1-r2'}:
+            raise StudyError('Use the separate results/aux-anli-learnability-v1-r2 output (legacy v1 remains readable)')
     if marker.exists():
         if read_json(marker).get('protocol') != protocol():
             raise StudyError('Output belongs to another protocol; preserve it')
@@ -89,7 +89,8 @@ def prepare(output, runtime):
                 'runtime_root': str(runtime), 'scope': 'Fixed one-command experiment; no manual successful-stage handoff'}
     fixed_write(path(output, 'study.json'), settings)
     archive = path(output, 'source/anli_v1.0.zip')
-    candidates = [runtime/'results/solo-v3/source/anli_v1.0.zip',
+    candidates = [runtime/'results/aux-anli-learnability-v1/source/anli_v1.0.zip',
+                  runtime/'results/solo-v3/source/anli_v1.0.zip',
                   runtime/'results/solo-v3/data/anli_v1.0.zip']
     data.acquire_source(archive, candidates=candidates)
     data.prepare(archive, runtime/'results/solo-v3/data/examples.jsonl', output)

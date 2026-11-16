@@ -24,6 +24,7 @@ import zipfile
 from .. import runtime as frozen
 from ..adapters import ModelClient, decision_request, parse_response, qwen_request
 from ..common import StudyError, canonical, exclusive_run, file_hash, fingerprint, read_json, utc_now, write_json
+from . import pidfd
 from ..runtime_compat import legacy_environment
 from ..service_study.identity import fixed_write
 from ..service_study.resources import ResourceMonitor, hardware
@@ -472,16 +473,11 @@ def subreaper():
     """
     if sys.platform != "linux":
         raise StudyError("Actual profile workers require Linux child-subreaper ownership")
-    if not hasattr(os, "pidfd_open") or not hasattr(signal, "pidfd_send_signal"):
-        raise StudyError("Linux kernel pidfd support and Python os.pidfd_open/signal.pidfd_send_signal APIs are required for PID-reuse-safe orphan recovery")
     try:
-        fd = os.pidfd_open(os.getpid())
-        try:
-            signal.pidfd_send_signal(fd, 0)
-        finally:
-            os.close(fd)
+        pidfd.probe_self()
     except OSError as exc:
-        raise StudyError("Cannot establish kernel pidfd ownership; a supported Linux kernel (pidfd_open: 5.3+) and enabled pidfd APIs are required") from exc
+        raise StudyError(f"Cannot establish stable kernel process-descriptor ownership: {exc}; "
+                         "pidfd_send_signal must support pidfd_open or /proc/PID descriptors") from exc
     if any(r["ppid"] == os.getpid() for r in process_rows()):
         raise StudyError("Profile subreaper requires a sole worker; pre-existing controller children found")
     libc = ctypes.CDLL(None, use_errno=True)
@@ -554,14 +550,14 @@ def signal_descendant(pid, since, sig):
     if pid not in owned_descendants(since):
         return False
     try:
-        fd = os.pidfd_open(pid)
+        fd = pidfd.open_process(pid)
     except ProcessLookupError:
         return False
     try:
         if pid not in owned_descendants(since):
             return False
         try:
-            signal.pidfd_send_signal(fd, sig)
+            pidfd.send_signal(fd, sig)
         except ProcessLookupError:
             return False
         return True

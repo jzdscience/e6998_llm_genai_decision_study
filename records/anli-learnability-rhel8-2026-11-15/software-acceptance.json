@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-15",
+  "status": "LOCAL_SOFTWARE_VALIDATED_NODE_GPU_PENDING",
+  "base_commit": "c3c8b657285225225b4c81a177f1430ade3f7155",
+  "branch": "anli-learnability-rhel8-2026-11-15",
+  "scope": "Kernel-descriptor compatibility and separate retry output; no scientific-method changes",
+  "source_and_test_sha256": {
+    "decision_study/learnability_profile/pidfd.py": "7ca32af9a2f09e61d01ef856726f7cc02ebbdbc2e0b38666ec16f4271680482f",
+    "decision_study/learnability_profile/study.py": "4d2a07caa3707b8d20f13b19487d5d18ef5dd4259bd48e7163e3edb572327ffc",
+    "decision_study/learnability/study.py": "f1ff560cd32f361a2380a02508698425dc04ce8b186d0776cc97b7a9f1f23aed",
+    "scripts/run_learnability.sh": "0c15de6ec9a5beaa289e87513bf20da4cef849c4fe214cfc6c63ed810d135055",
+    "tests/test_anli_exposure_audit.py": "25b6c3742421c92e2f06dd2f7a71b1d96a6e660e34403cc46ce49965a2678a16",
+    "tests/test_learnability_collection.py": "8d77d9e80aa11ffa1b5eca63f509679fe12a3ddbb8b502c41cc4abcb05f44b6c",
+    "tests/test_learnability_data.py": "3d072c1117f4e221522bc55bf4f70b4b9a77780f2301ea85e7e0c15eabedf603",
+    "tests/test_learnability_modeling.py": "b5ed1eeb7302c22bc904a81b7d3794d00b11f7f1f597db020254283522361d5a",
+    "tests/test_learnability_pidfd.py": "964c455a6909defb5089d7168fca277867260dc118862d76b61c6a825ef1738a",
+    "tests/test_learnability_pipeline.py": "a0bbec052ee85062481decb508b9ca8d38bb06b0f9796f33db93dc14fb8bfcbe",
+    "tests/test_learnability_profile.py": "d8062819fcf3e6832c7339ea386264937556b68e6ea4ee866dcdfc9a888a8611",
+    "tests/test_learnability_release.py": "bc585126a35343e9a5a22290e27b64882f56f924540b7b0c76be1d9ae228fba0"
+  },
+  "protected_paths_unchanged_from_base": [
+    "configs",
+    "decision_study/adapters.py",
+    "decision_study/runtime.py",
+    "decision_study/common.py",
+    "decision_study/runner.py",
+    "decision_study/storage.py",
+    "decision_study/v2",
+    "decision_study/v3",
+    "decision_study/learnability/data.py",
+    "decision_study/learnability/modeling.py",
+    "decision_study/learnability/collection.py"
+  ],
+  "validation": {
+    "mac_related_suite": {
+      "passed": 160,
+      "skipped": 6,
+      "reason": "Linux-only process tests"
+    },
+    "linux_related_suite": {
+      "passed": 164,
+      "skipped": 2,
+      "reason": "x86 raw-syscall integration variants on aarch64 host",
+      "platform": "Linux 7.0.14-linuxkit aarch64",
+      "python": "3.11.11"
+    },
+    "linux_forced_proc_ownership": {
+      "passed": 2,
+      "scope": "Validation-only source copy forces proc-directory backend across fresh actor subprocesses; real Linux signal/ancestry/decoy tests"
+    },
+    "mutation_checks": {
+      "compatibility": 14,
+      "release_output": 3,
+      "all_detected_at_intended_behavior": true
+    },
+    "independent_code_review": "No remaining production blockers",
+    "bash_syntax": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "logs": {
+    "mac-final.log": "ba1cf7c93110ab33ae64cf58a7e774b8902449194e771ebd9b1f34cc4ad3628a",
+    "linux-final.log": "8156ccb66f29814a1a9da77f038515f5e139c29ba626def9e54cd5243309aacf",
+    "linux-forced-proc-ownership.log": "b1ae9bc510058b4c2cfccfe0627916956fc2fbedf4dd1bbbe4bf6d235b144c68",
+    "compatibility-mutations.json": "1b311d918c8889c44f699e3933f2de9d73c06596ddcb487d48cef96db150fdff",
+    "release-mutations.json": "e21ae5675df3fba7c8ef1b9b09f190eeeb19c7c6a3e42153eea3231bf251bbff",
+    "linux-validation.json": "cd040b34fdc8aca2b1d4cde66f271e47eba899b370690be81ebb2dd81f803334"
+  },
+  "claude_max_review": "Timed out after240 seconds, not an approval; see claude-review-status.json",
+  "node_evidence": "Raw pidfd_open ENOSYS and proc/self+pidfd_send_signal(signal0) PASS; see node-diagnosis.json",
+  "limitations": [
+    "No real company-node model startup or formal collection performed by this release yet",
+    "Local Linux kernel/architecture differs from company RHEL8 x86_64",
+    "Full native ownership gate remains mandatory on the node before any GPU worker"
+  ],
+  "new_output": "results/aux-anli-learnability-v1-r2",
+  "old_output": "results/aux-anli-learnability-v1 preserved"
+}

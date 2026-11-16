@@ -1,0 +1,198 @@
+{
+  "baseline": "................................ssss...                                  [100%]\n35 passed, 4 skipped in 0.14s\n",
+  "mutants": [
+    {
+      "mutation": "native-priority",
+      "test": "test_callable_native_apis_take_priority",
+      "exit": 1,
+      "failure_lines": [
+        "E   Failed: native APIs must take priority",
+        "FAILED tests/test_learnability_pidfd.py::test_callable_native_apis_take_priority"
+      ]
+    },
+    {
+      "mutation": "fallback-only-enosys",
+      "test": "test_open_does_not_hide_non_enosys_errors",
+      "exit": 1,
+      "failure_lines": [
+        "E   Failed: non-ENOSYS must not use another path",
+        "E   Failed: non-ENOSYS must not use another path",
+        "E   Failed: non-ENOSYS must not use another path",
+        "E   Failed: non-ENOSYS must not use another path",
+        "FAILED tests/test_learnability_pidfd.py::test_open_does_not_hide_non_enosys_errors[1]",
+        "FAILED tests/test_learnability_pidfd.py::test_open_does_not_hide_non_enosys_errors[22]",
+        "FAILED tests/test_learnability_pidfd.py::test_open_does_not_hide_non_enosys_errors[24]",
+        "FAILED tests/test_learnability_pidfd.py::test_open_does_not_hide_non_enosys_errors[3]"
+      ]
+    },
+    {
+      "mutation": "proc-zero-probe",
+      "test": "test_enosys_open_falls_back_to_cloexec_proc_descriptor_and_probes_it",
+      "exit": 1,
+      "failure_lines": [
+        "E       assert [] == [(37, 0)]",
+        "E         ",
+        "E         Right contains one more item: (37, 0)",
+        "E         Use -v to get more diff",
+        "E       assert [] == [(37, 0)]",
+        "E         ",
+        "E         Right contains one more item: (37, 0)",
+        "E         Use -v to get more diff",
+        "FAILED tests/test_learnability_pidfd.py::test_enosys_open_falls_back_to_cloexec_proc_descriptor_and_probes_it[True]",
+        "FAILED tests/test_learnability_pidfd.py::test_enosys_open_falls_back_to_cloexec_proc_descriptor_and_probes_it[False]"
+      ]
+    },
+    {
+      "mutation": "proc-cloexec",
+      "test": "test_enosys_open_falls_back_to_cloexec_proc_descriptor_and_probes_it",
+      "exit": 1,
+      "failure_lines": [
+        "E       AssertionError: assert [('/proc/123', 1048576)] == [('/proc/123', 17825792)]",
+        "E         ",
+        "E         At index 0 diff: ('/proc/123', 1048576) != ('/proc/123', 17825792)",
+        "E         Use -v to get more diff",
+        "E       AssertionError: assert [('/proc/123', 1048576)] == [('/proc/123', 17825792)]",
+        "E         ",
+        "E         At index 0 diff: ('/proc/123', 1048576) != ('/proc/123', 17825792)",
+        "E         Use -v to get more diff",
+        "FAILED tests/test_learnability_pidfd.py::test_enosys_open_falls_back_to_cloexec_proc_descriptor_and_probes_it[True]",
+        "FAILED tests/test_learnability_pidfd.py::test_enosys_open_falls_back_to_cloexec_proc_descriptor_and_probes_it[False]"
+      ]
+    },
+    {
+      "mutation": "raw-abi",
+      "test": "test_raw_calls_refuse_other_abis_before_loading_libc",
+      "exit": 1,
+      "failure_lines": [
+        "E   Failed: unsupported raw ABI reached libc",
+        "E   Failed: unsupported raw ABI reached libc",
+        "E   Failed: unsupported raw ABI reached libc",
+        "E   Failed: unsupported raw ABI reached libc",
+        "E   Failed: unsupported raw ABI reached libc",
+        "FAILED tests/test_learnability_pidfd.py::test_raw_calls_refuse_other_abis_before_loading_libc[darwin-x86_64-8-8-4]",
+        "FAILED tests/test_learnability_pidfd.py::test_raw_calls_refuse_other_abis_before_loading_libc[linux-aarch64-8-8-4]",
+        "FAILED tests/test_learnability_pidfd.py::test_raw_calls_refuse_other_abis_before_loading_libc[linux-x86_64-4-8-4]",
+        "FAILED tests/test_learnability_pidfd.py::test_raw_calls_refuse_other_abis_before_loading_libc[linux-x86_64-8-4-4]",
+        "FAILED tests/test_learnability_pidfd.py::test_raw_calls_refuse_other_abis_before_loading_libc[linux-x86_64-8-8-8]"
+      ]
+    },
+    {
+      "mutation": "raw-errno",
+      "test": "test_raw_errno_preserves_oserror_subclass",
+      "exit": 1,
+      "failure_lines": [
+        "E           OSError: [Errno 0] Undefined error: 0",
+        "E           OSError: [Errno 0] Undefined error: 0",
+        "E       AssertionError: assert 0 == 78",
+        "E        +  where 0 = OSError(0, 'Undefined error: 0').errno",
+        "E        +    where OSError(0, 'Undefined error: 0') = <ExceptionInfo OSError(0, 'Undefined error: 0') tblen=2>.value",
+        "FAILED tests/test_learnability_pidfd.py::test_raw_errno_preserves_oserror_subclass[3-ProcessLookupError]",
+        "FAILED tests/test_learnability_pidfd.py::test_raw_errno_preserves_oserror_subclass[1-PermissionError]",
+        "FAILED tests/test_learnability_pidfd.py::test_raw_errno_preserves_oserror_subclass[78-OSError]"
+      ]
+    },
+    {
+      "mutation": "narrowing-guard",
+      "test": "test_values_cannot_wrap_to_different_c_int_targets",
+      "exit": 1,
+      "failure_lines": [
+        "E   Failed: invalid PID reached native API",
+        "E   Failed: invalid PID reached native API",
+        "E   Failed: invalid PID reached native API",
+        "E   Failed: invalid signal reached native API",
+        "E   Failed: invalid signal reached native API",
+        "E   Failed: invalid signal reached native API",
+        "E   Failed: invalid signal reached native API",
+        "FAILED tests/test_learnability_pidfd.py::test_values_cannot_wrap_to_different_c_int_targets[open_process-args0]",
+        "FAILED tests/test_learnability_pidfd.py::test_values_cannot_wrap_to_different_c_int_targets[open_process-args1]",
+        "FAILED tests/test_learnability_pidfd.py::test_values_cannot_wrap_to_different_c_int_targets[open_process-args2]",
+        "FAILED tests/test_learnability_pidfd.py::test_values_cannot_wrap_to_different_c_int_targets[send_signal-args3]",
+        "FAILED tests/test_learnability_pidfd.py::test_values_cannot_wrap_to_different_c_int_targets[send_signal-args4]",
+        "FAILED tests/test_learnability_pidfd.py::test_values_cannot_wrap_to_different_c_int_targets[send_signal-args5]",
+        "FAILED tests/test_learnability_pidfd.py::test_values_cannot_wrap_to_different_c_int_targets[send_signal-args6]"
+      ]
+    },
+    {
+      "mutation": "probe-failure-closes",
+      "test": "test_failed_proc_signal_probe_closes_descriptor",
+      "exit": 1,
+      "failure_lines": [
+        "E       assert [] == [37]",
+        "E         ",
+        "E         Right contains one more item: 37",
+        "E         Use -v to get more diff",
+        "E       assert [] == [37]",
+        "E         ",
+        "E         Right contains one more item: 37",
+        "E         Use -v to get more diff",
+        "E       assert [] == [37]",
+        "E         ",
+        "E         Right contains one more item: 37",
+        "E         Use -v to get more diff",
+        "FAILED tests/test_learnability_pidfd.py::test_failed_proc_signal_probe_closes_descriptor[failure0]",
+        "FAILED tests/test_learnability_pidfd.py::test_failed_proc_signal_probe_closes_descriptor[failure1]",
+        "FAILED tests/test_learnability_pidfd.py::test_failed_proc_signal_probe_closes_descriptor[failure2]"
+      ]
+    },
+    {
+      "mutation": "subreaper-gate",
+      "test": "test_subreaper_uses_compatibility_gate_before_inventory",
+      "exit": 1,
+      "failure_lines": [
+        "E   Failed: ownership inventory reached before kernel capability gate",
+        "FAILED tests/test_learnability_pidfd.py::test_subreaper_uses_compatibility_gate_before_inventory"
+      ]
+    },
+    {
+      "mutation": "raw-send-number",
+      "test": "test_missing_or_noncallable_apis_use_exact_raw_abi",
+      "exit": 1,
+      "failure_lines": [
+        "E       assert [434, 434] == [434, 424]",
+        "E         ",
+        "E         At index 1 diff: 434 != 424",
+        "E         Use -v to get more diff",
+        "FAILED tests/test_learnability_pidfd.py::test_missing_or_noncallable_apis_use_exact_raw_abi"
+      ]
+    },
+    {
+      "mutation": "no-proc-fallback",
+      "test": "test_enosys_open_falls_back_to_cloexec_proc_descriptor_and_probes_it",
+      "exit": 1,
+      "failure_lines": [
+        "E       OSError: [Errno 78] no fallback",
+        "E       OSError: [Errno 78] no fallback",
+        "FAILED tests/test_learnability_pidfd.py::test_enosys_open_falls_back_to_cloexec_proc_descriptor_and_probes_it[True]",
+        "FAILED tests/test_learnability_pidfd.py::test_enosys_open_falls_back_to_cloexec_proc_descriptor_and_probes_it[False]"
+      ]
+    },
+    {
+      "mutation": "integrated-open",
+      "test": "test_signal_descendant_uses_compatibility_adapter",
+      "exit": 1,
+      "failure_lines": [
+        "E           TypeError: 'NoneType' object is not callable",
+        "FAILED tests/test_learnability_pidfd.py::test_signal_descendant_uses_compatibility_adapter"
+      ]
+    },
+    {
+      "mutation": "integrated-send",
+      "test": "test_signal_descendant_uses_compatibility_adapter",
+      "exit": 1,
+      "failure_lines": [
+        "E               TypeError: 'NoneType' object is not callable",
+        "FAILED tests/test_learnability_pidfd.py::test_signal_descendant_uses_compatibility_adapter"
+      ]
+    },
+    {
+      "mutation": "after-open-ancestry",
+      "test": "test_pidfd_signal_rechecks_ancestry_after_open",
+      "exit": 1,
+      "failure_lines": [
+        "E   Failed: PID no longer belongs to our ancestry",
+        "FAILED tests/test_learnability_profile.py::test_pidfd_signal_rechecks_ancestry_after_open"
+      ]
+    }
+  ],
+  "restored": "................................ssss...                                  [100%]\n35 passed, 4 skipped in 0.14s\n"
+}

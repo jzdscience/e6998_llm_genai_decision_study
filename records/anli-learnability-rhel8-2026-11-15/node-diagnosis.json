@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-15",
+  "source": "User-pasted node terminal output; diagnostic ZIP not yet received",
+  "source_commit": "c3c8b657285225225b4c81a177f1430ade3f7155",
+  "cache_repair": {
+    "status": "PASS_REPORTED_BY_NODE",
+    "verified_files": 13,
+    "receipt_dir": "/home/zhanj289/e6998/decision-study/results/startlux4b-cache-repair-WVnehbn0",
+    "lock_sha_check": "OK",
+    "installations_sha_check": "OK"
+  },
+  "new_blocker": {
+    "stage": "development-preflight",
+    "message": "Linux kernel pidfd support and Python os.pidfd_open/signal.pidfd_send_signal APIs are required for PID-reuse-safe orphan recovery",
+    "kernel": "4.18.0-553.8.1.el8_10.x86_64",
+    "controller_python": "3.11.5",
+    "vllm_python": "3.12.8",
+    "both_python_pidfd_apis": [
+      false,
+      false
+    ],
+    "kernel_syscalls": {
+      "pidfd_open_self": "ENOSYS",
+      "pidfd_send_signal_proc_self_zero": "PASS"
+    },
+    "gpu_started": false,
+    "wait_apis_present": true,
+    "sigchld_default": true
+  },
+  "diagnostic_bundle": "/home/zhanj289/e6998/decision-study/results/aux-anli-learnability-v1/exports/learnability_bundle-1794791298719775300.zip",
+  "status": "COMPATIBILITY_FIX_UNDER_VALIDATION"
+}

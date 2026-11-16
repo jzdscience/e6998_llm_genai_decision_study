@@ -1,0 +1,9 @@
+{
+  "requested_model": "claude-opus-5-5",
+  "requested_effort": "max",
+  "scope": "Tool-disabled review of supplied compatibility design summary, not repository access",
+  "status": "CLIENT_TIMEOUT_AFTER_240_SECONDS",
+  "successful_review": false,
+  "note": "No successful inference result received. This is not evidence of approval or of a diagnosed provider outage.",
+  "local_logs": ".validation/anli-learnability-pidfd-2026-11-15/claude-review/"
+}
