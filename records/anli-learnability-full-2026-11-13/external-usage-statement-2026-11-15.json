@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-15",
+  "timezone": "America/Los_Angeles",
+  "status": "USER_REPORT_NO_KNOWN_ADDITIONAL_USE",
+  "reported_by": "Ju",
+  "question": "除了当前 COMS6998 仓库、旧项目目录和已回传的结果包，队友或另一台电脑是否用 ANLI 官方 dev 做过模型预测、训练或方法选择？",
+  "answer_verbatim": "据我所知没有额外使用",
+  "interpretation": "Ju reports no known additional ANLI official-dev prediction, training or method-selection use beyond the locally audited repository, historical project directory and returned bundles.",
+  "evidence_type": "Qualified user statement; not an independent audit of other machines or teammates",
+  "scope_limits": [
+    "Does not establish absence of unknown external use or upstream model-training exposure",
+    "Does not remove the locally observed historical premise overlaps"
+  ],
+  "related_input_audit": "records/anli-learnability-preparation-2026-11-12/input-audit.json",
+  "eligible_dev_count_unchanged": 1737,
+  "candidate_membership_sha256_unchanged": "558a4842c6513b8224625c3ca8527b98ff2aaf872ea38ea4d10817354e62b5a4",
+  "published_run_commit_unchanged": "c3c8b657285225225b4c81a177f1430ade3f7155",
+  "effect": "Adds provenance to the unanswered external-usage question; no changes to code, fixed protocol, sampling, evaluation rules or existing evidence; no rerun required",
+  "publication": "Local evidence addendum; not pushed in this update"
+}

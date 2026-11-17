@@ -1,0 +1,271 @@
+{
+  "source_commit": "41dfb7547698691634fa0e5a4b8f87824436fc8f",
+  "source_files_checked": 152,
+  "allocation": {
+    "hostname": "sc1ns051is14",
+    "slurm_job_id": "3467005"
+  },
+  "native_gate": {
+    "status": "PASS",
+    "leaf_pid": 1866389,
+    "decoy_pid": 1866380,
+    "decoy_survived": true,
+    "actor_cleanup_seconds": 0.7947439588606358,
+    "outer_cleanup_seconds": 0.7928762547671795
+  },
+  "profile": {
+    "startlux4b": {
+      "count": 90,
+      "elapsed_seconds": 312.89328503608704,
+      "startup_seconds": 239.06886324845254,
+      "collection_seconds": 4.382732028141618,
+      "start_epoch": 1794793035.4465728,
+      "end_epoch": 1794793348.3398578
+    },
+    "qwen9b": {
+      "count": 90,
+      "elapsed_seconds": 156.32974076271057,
+      "startup_seconds": 107.96017736755311,
+      "collection_seconds": 26.525680787861347,
+      "start_epoch": 1794793348.769322,
+      "end_epoch": 1794793505.0990627
+    },
+    "startlux9b": {
+      "count": 90,
+      "elapsed_seconds": 144.186208486557,
+      "startup_seconds": 117.99088315293193,
+      "collection_seconds": 4.420655550435185,
+      "start_epoch": 1794793505.5219464,
+      "end_epoch": 1794793649.708155
+    }
+  },
+  "formal": {
+    "startlux4b": {
+      "count": 22437,
+      "chunks": 176,
+      "elapsed_seconds": 1292.7898933887482,
+      "startup_seconds": 194.02001133561134,
+      "request_latency_median_ms": 45.780569314956665,
+      "request_latency_max_ms": 183.90187993645668,
+      "start_epoch": 1794793653.4687185,
+      "end_epoch": 1794794946.258612,
+      "kv_cache_gib": [
+        25.81
+      ]
+    },
+    "qwen9b": {
+      "count": 22437,
+      "chunks": 176,
+      "elapsed_seconds": 6325.972711801529,
+      "startup_seconds": 88.9859629701823,
+      "request_latency_median_ms": 243.41745115816593,
+      "request_latency_max_ms": 908.2696232944727,
+      "start_epoch": 1794794948.1156793,
+      "end_epoch": 1794801274.088391,
+      "kv_cache_gib": [
+        16.24
+      ]
+    },
+    "startlux9b": {
+      "count": 22437,
+      "chunks": 176,
+      "elapsed_seconds": 1249.9327280521393,
+      "startup_seconds": 99.99660344794393,
+      "request_latency_median_ms": 46.85264080762863,
+      "request_latency_max_ms": 64.49584849178791,
+      "start_epoch": 1794801275.954738,
+      "end_epoch": 1794802525.887466,
+      "kv_cache_gib": [
+        16.24
+      ]
+    }
+  },
+  "cpu": {
+    "embeddings": {
+      "elapsed_seconds": 1292.4905817508698,
+      "start_epoch": 1794802525.9409032,
+      "end_epoch": 1794803818.431485
+    },
+    "fit-and-freeze-scores": {
+      "elapsed_seconds": 28.20291256904602,
+      "start_epoch": 1794803818.4347975,
+      "end_epoch": 1794803846.63771
+    },
+    "evaluate": {
+      "elapsed_seconds": 18.86574149131775,
+      "start_epoch": 1794803860.5418816,
+      "end_epoch": 1794803879.407623
+    }
+  },
+  "hardware": {
+    "hostname": "sc1ns051is14",
+    "platform": "Linux-4.18.0-553.8.1.el8_10.x86_64-x86_64-with-glibc2.28",
+    "controller_python": "3.11.5",
+    "slurm_memory_mb": "102400",
+    "affinity_logical_cpus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "gpu": [
+      {
+        "compute_capability": "8.9",
+        "driver": "580.126.09",
+        "memory_mb": 46068.0,
+        "name": "NVIDIA L40S"
+      }
+    ],
+    "vllm_python": "3.12.8",
+    "vllm": "0.31.0"
+  },
+  "status": "PASS_RECORDED_LIFECYCLE",
+  "formal_predictions": 67311,
+  "profile_predictions": 270,
+  "checks": {
+    "full source inventory matches release": 1,
+    "profile source matches release": 1,
+    "collection source matches release": 1,
+    "clean pinned source commit": 1,
+    "full protocol matches release": 1,
+    "collection study binding": 1,
+    "collection profile binding": 1,
+    "prepared equals collection inputs": 1,
+    "all unique formal inputs": 1,
+    "collection input identity": 1,
+    "bound file SHA": 1438,
+    "native gate identity": 1,
+    "native gate evidence SHA": 6,
+    "native decoy survived": 1,
+    "native leaf and decoy differ": 1,
+    "TERM ignoring leaf killed": 1,
+    "unrelated PID never signalled by actor": 1,
+    "native bounded cleanup": 1,
+    "native gate CPU only": 1,
+    "one profile attempt per role": 3,
+    "profile plan identity": 3,
+    "profile bound native gate": 3,
+    "profile accepted worker": 3,
+    "profile acceptance hashes": 3,
+    "profile bounded timeline": 3,
+    "profile completion file SHA": 18,
+    "profile completion rows": 3,
+    "GPU clear at parent stop": 9,
+    "bounded parent stop": 9,
+    "safe cleanup semantics": 9,
+    "fixed model revision": 6,
+    "frozen engine settings": 6,
+    "single L40S hardware": 6,
+    "deployment no leftover GPU processes": 6,
+    "one engine per deployment": 6,
+    "actual engine command bound": 18,
+    "startup timing consistency": 6,
+    "StartLux bidirectional health": 4,
+    "profile90 records": 3,
+    "prediction exact input membership": 67581,
+    "prediction input SHA": 67581,
+    "successful timely prediction": 67581,
+    "one request attempt": 67581,
+    "finite request timings": 67581,
+    "request deadline and latency": 67581,
+    "StartLux raw answer equals parsed answer": 45054,
+    "finite normalized probabilities": 45054,
+    "valid returned label": 67581,
+    "one formal attempt per role": 3,
+    "formal plan identity": 3,
+    "formal bound native gate": 3,
+    "formal accepted status": 3,
+    "formal accepted hashes": 3,
+    "formal worker completed full coverage": 3,
+    "formal bounded timeline": 3,
+    "parent stop plan identity": 6,
+    "176 formal chunks per role": 3,
+    "token check model runtime identity": 3,
+    "chunk gap-free range": 528,
+    "chunk role plan identity": 528,
+    "chunk all evidence bound": 528,
+    "chunks precede worker completion": 528,
+    "full unique ordered formal coverage": 3,
+    "hardware allocation binding": 3,
+    "Qwen raw label equals parsed label": 22527,
+    "one CPU attempt per stage": 3,
+    "CPU plan binding": 3,
+    "CPU bounded complete": 3,
+    "sequential stages no overlap": 8,
+    "omitted matrix hash bound to freeze": 176,
+    "models and both evalscore sets frozen": 4,
+    "pre-eval CPU evidence frozen": 6,
+    "evaluation occurs outside prefrozen state": 1,
+    "evaluation complete receipt linkage": 4,
+    "gold access bound to frozen state": 1,
+    "recorded freeze before evaluation gold chronology": 1,
+    "fitting excludes evalgold declaration": 1,
+    "overall complete status": 1,
+    "embedding identity count dimension": 1,
+    "embedding gap-free range": 176,
+    "embedding chunk identity": 176,
+    "embedding omitted bytes identity": 176,
+    "two tokenized fields per input": 176,
+    "full chunked token coverage": 176,
+    "all embedding IDs match inputs": 1,
+    "premise-disjoint assigned roles": 6,
+    "fixed split counts": 1,
+    "no returned failed/recovered attempts": 1
+  },
+  "assertion_count": 590543,
+  "max_request_seconds": 1.095746822655201,
+  "split_counts": {
+    "fitting": 18000,
+    "selection": 900,
+    "eligible_dev": 1737,
+    "train_holdout": 1800
+  },
+  "split_premise_counts": {
+    "fitting": 4813,
+    "selection": 93,
+    "eligible_dev": 1540,
+    "train_holdout": 199
+  },
+  "embedding": {
+    "inputs": 22437,
+    "dimensions": 1536,
+    "omitted_arrays": 176,
+    "encoder_chunks": 44874,
+    "max_field_content_tokens": 214
+  },
+  "chronology": {
+    "first_profile_epoch": 1794793035.4465728,
+    "all_formal_done_epoch": 1794802525.887466,
+    "fit_stopped_epoch": 1794803846.63771,
+    "eval_worker_started_epoch": 1794803860.5418816,
+    "eval_gold_access_utc": "2026-11-16T04:37:42.468767+00:00",
+    "final_status_utc": "2026-11-16T04:38:14.929624+00:00",
+    "elapsed_to_complete_seconds": 10859.483051300049
+  },
+  "limitations": [
+    "Evidence audit reconstructs recorded process checks and chronology; not a fresh live observation of node/GPU.",
+    "Proc backend is inferred from the pinned compatibility implementation and previously reported node capability probes; no syscall trace is in this bundle.",
+    "176 feature matrices are deliberately omitted; their receipt hashes and token coverage are checked, not numerical matrix contents or full fitting replay.",
+    "Freeze linkage and fixed code support the recorded pre-gold order; they cannot prove absence of unrelated external data usage."
+  ],
+  "parent_stop_summary": {
+    "receipts": 9,
+    "seconds_min": 0.2522591780871153,
+    "seconds_max": 0.373983072116971,
+    "gpu_empty_all": true,
+    "observed_owned_processes_total": 0,
+    "signals_total": 0
+  }
+}

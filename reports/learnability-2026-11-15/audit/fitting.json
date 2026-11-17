@@ -1,0 +1,363 @@
+{
+  "status": "PASS_WITH_STATED_SCOPE_LIMITS",
+  "audit_scope": "Independent inputs, gold binding, front-only numerics, candidate records, token coverage",
+  "protocol": {
+    "id": "anli-learnability-full-v1",
+    "revision": 1,
+    "config_sha256": "85cb503fea29e8a6407e8171ecb487feba8675d9c08aadfadbd6509adee22b9f",
+    "prepared_sha256": {
+      "data/examples.jsonl": "9e94e0ecbd2b74a46455c0cd7ffb5aac0be1712ebbfc9d43d560817ec812657f",
+      "data/fit_gold.json": "d8a0f49d6409ebae4eb8dfc7d777cc8e1e7009eb1292f074ef38004c9ce3e3ba",
+      "data/nested_fit_ids.json": "de2d40843297694c28ba40013b76ab9725f7cf54b9404fcfc37988619dc3a715",
+      "data/manifest.json": "42bf89f228222ec45e17a390610991f5f6401e88d62448d599e4a0d7f2980815"
+    }
+  },
+  "official_source": {
+    "sha256": "e5c058f2bb4e6190b0651badca2c590e45db95248f8b28cde674615ee40820bf",
+    "member_counts": {
+      "R1/train": 16946,
+      "R1/dev": 1000,
+      "R1/test": 1000,
+      "R2/train": 45460,
+      "R2/dev": 1000,
+      "R2/test": 1000,
+      "R3/train": 100459,
+      "R3/dev": 1200,
+      "R3/test": 1200
+    },
+    "exact_inputs_matched": 22437,
+    "gold_by_role": {
+      "fitting": 18000,
+      "train_holdout": 1800,
+      "selection": 900,
+      "eligible_dev": 1737
+    }
+  },
+  "data_roles": {
+    "fitting": {
+      "count": 18000,
+      "premise_groups": 4813,
+      "round_counts": {
+        "R1": 6000,
+        "R2": 6000,
+        "R3": 6000
+      },
+      "strata": {
+        "R1/contradiction": 2000,
+        "R1/entailment": 2000,
+        "R1/neutral": 2000,
+        "R2/contradiction": 2000,
+        "R2/entailment": 2000,
+        "R2/neutral": 2000,
+        "R3/contradiction": 2000,
+        "R3/entailment": 2000,
+        "R3/neutral": 2000
+      }
+    },
+    "selection": {
+      "count": 900,
+      "premise_groups": 93,
+      "round_counts": {
+        "R1": 300,
+        "R2": 300,
+        "R3": 300
+      },
+      "strata": {
+        "R1/contradiction": 100,
+        "R1/entailment": 100,
+        "R1/neutral": 100,
+        "R2/contradiction": 100,
+        "R2/entailment": 100,
+        "R2/neutral": 100,
+        "R3/contradiction": 100,
+        "R3/entailment": 100,
+        "R3/neutral": 100
+      }
+    },
+    "eligible_dev": {
+      "count": 1737,
+      "premise_groups": 1540,
+      "round_counts": {
+        "R1": 374,
+        "R2": 484,
+        "R3": 879
+      },
+      "strata": {
+        "R1/contradiction": 133,
+        "R1/entailment": 130,
+        "R1/neutral": 111,
+        "R2/contradiction": 158,
+        "R2/entailment": 161,
+        "R2/neutral": 165,
+        "R3/contradiction": 285,
+        "R3/entailment": 295,
+        "R3/neutral": 299
+      }
+    },
+    "train_holdout": {
+      "count": 1800,
+      "premise_groups": 199,
+      "round_counts": {
+        "R1": 600,
+        "R2": 600,
+        "R3": 600
+      },
+      "strata": {
+        "R1/contradiction": 200,
+        "R1/entailment": 200,
+        "R1/neutral": 200,
+        "R2/contradiction": 200,
+        "R2/entailment": 200,
+        "R2/neutral": 200,
+        "R3/contradiction": 200,
+        "R3/entailment": 200,
+        "R3/neutral": 200
+      }
+    }
+  },
+  "nested_fitting": {
+    "sizes": [
+      1800,
+      6000,
+      18000
+    ],
+    "sha_prefixes_match": true,
+    "premise_overlap": 0,
+    "duplicate_inputs": 0
+  },
+  "fitting": {
+    "cells": 12,
+    "candidate_pairs": 36,
+    "head_records": 72,
+    "unique_head_records": 54,
+    "front_head_records_numerically_checked": 36,
+    "max_recorded_gradient_norm": 9.884197390347058e-07,
+    "max_iterations": 71,
+    "max_front_objective_error": 1.1102230246251565e-16,
+    "max_front_gradient_norm_error": 1.1102230246251565e-16,
+    "max_front_standardization_error": 2.7755575615628914e-17,
+    "cells_summary": {
+      "qwen9b/n1800/front": {
+        "selected_l2": 1.0,
+        "selected_index": 0,
+        "selection_correct": [
+          825,
+          820,
+          819
+        ],
+        "deployment_threshold": {
+          "deferred": 0,
+          "net_correct": 0,
+          "threshold": null
+        }
+      },
+      "qwen9b/n1800/text": {
+        "selected_l2": 0.1,
+        "selected_index": 1,
+        "selection_correct": [
+          819,
+          827,
+          825
+        ],
+        "deployment_threshold": {
+          "deferred": 11,
+          "net_correct": 1,
+          "threshold": 0.25803283185603076
+        }
+      },
+      "qwen9b/n18000/front": {
+        "selected_l2": 1.0,
+        "selected_index": 0,
+        "selection_correct": [
+          823,
+          822,
+          815
+        ],
+        "deployment_threshold": {
+          "deferred": 0,
+          "net_correct": 0,
+          "threshold": null
+        }
+      },
+      "qwen9b/n18000/text": {
+        "selected_l2": 0.01,
+        "selected_index": 2,
+        "selection_correct": [
+          821,
+          822,
+          825
+        ],
+        "deployment_threshold": {
+          "deferred": 32,
+          "net_correct": 1,
+          "threshold": 0.10088580034342765
+        }
+      },
+      "qwen9b/n6000/front": {
+        "selected_l2": 1.0,
+        "selected_index": 0,
+        "selection_correct": [
+          825,
+          812,
+          811
+        ],
+        "deployment_threshold": {
+          "deferred": 0,
+          "net_correct": 0,
+          "threshold": null
+        }
+      },
+      "qwen9b/n6000/text": {
+        "selected_l2": 0.1,
+        "selected_index": 1,
+        "selection_correct": [
+          821,
+          823,
+          821
+        ],
+        "deployment_threshold": {
+          "deferred": 0,
+          "net_correct": 0,
+          "threshold": null
+        }
+      },
+      "startlux9b/n1800/front": {
+        "selected_l2": 0.01,
+        "selected_index": 2,
+        "selection_correct": [
+          828,
+          828,
+          830
+        ],
+        "deployment_threshold": {
+          "deferred": 14,
+          "net_correct": 2,
+          "threshold": 0.07945435463642014
+        }
+      },
+      "startlux9b/n1800/text": {
+        "selected_l2": 0.1,
+        "selected_index": 1,
+        "selection_correct": [
+          824,
+          827,
+          826
+        ],
+        "deployment_threshold": {
+          "deferred": 0,
+          "net_correct": 0,
+          "threshold": null
+        }
+      },
+      "startlux9b/n18000/front": {
+        "selected_l2": 0.01,
+        "selected_index": 2,
+        "selection_correct": [
+          828,
+          829,
+          833
+        ],
+        "deployment_threshold": {
+          "deferred": 87,
+          "net_correct": 5,
+          "threshold": 0.027109315183045934
+        }
+      },
+      "startlux9b/n18000/text": {
+        "selected_l2": 0.01,
+        "selected_index": 2,
+        "selection_correct": [
+          829,
+          830,
+          832
+        ],
+        "deployment_threshold": {
+          "deferred": 87,
+          "net_correct": 4,
+          "threshold": 0.09880094455059762
+        }
+      },
+      "startlux9b/n6000/front": {
+        "selected_l2": 0.01,
+        "selected_index": 2,
+        "selection_correct": [
+          828,
+          829,
+          831
+        ],
+        "deployment_threshold": {
+          "deferred": 66,
+          "net_correct": 4,
+          "threshold": 0.036051261565695714
+        }
+      },
+      "startlux9b/n6000/text": {
+        "selected_l2": 1.0,
+        "selected_index": 0,
+        "selection_correct": [
+          831,
+          831,
+          831
+        ],
+        "deployment_threshold": {
+          "deferred": 87,
+          "net_correct": 3,
+          "threshold": 0.02657089045335259
+        }
+      }
+    }
+  },
+  "front_evaluation_replay": {
+    "scores": 21222,
+    "max_abs_error": 2.220446049250313e-16,
+    "per_cell_errors": {
+      "eligible_dev/qwen9b/n1800/front": 2.220446049250313e-16,
+      "eligible_dev/qwen9b/n18000/front": 2.220446049250313e-16,
+      "eligible_dev/qwen9b/n6000/front": 2.220446049250313e-16,
+      "eligible_dev/startlux9b/n1800/front": 2.220446049250313e-16,
+      "eligible_dev/startlux9b/n18000/front": 2.220446049250313e-16,
+      "eligible_dev/startlux9b/n6000/front": 2.220446049250313e-16,
+      "train_holdout/qwen9b/n1800/front": 2.220446049250313e-16,
+      "train_holdout/qwen9b/n18000/front": 2.220446049250313e-16,
+      "train_holdout/qwen9b/n6000/front": 2.220446049250313e-16,
+      "train_holdout/startlux9b/n1800/front": 2.220446049250313e-16,
+      "train_holdout/startlux9b/n18000/front": 2.220446049250313e-16,
+      "train_holdout/startlux9b/n6000/front": 2.220446049250313e-16
+    },
+    "uses_evaluation_gold": false
+  },
+  "negative_controls_detected": 2,
+  "embeddings": {
+    "receipt_count": 176,
+    "examples": 22437,
+    "fields_independently_tokenized": 44874,
+    "content_tokens": 1902732,
+    "max_field_tokens": 214,
+    "fields_over_254_tokens": 0,
+    "full_coverage_chunks": 44874,
+    "tokenizer_overflows": 0,
+    "omitted_matrix_bytes": 137875456,
+    "matrix_shape_claim": "receipt dimension and byte size consistent with (count,1536) float32; actual matrices absent",
+    "tokenizer_sha256": "be50c3628f2bf5bb5e3a7f17b1f74611b2561a3a27eeab05e5aa30f411572037",
+    "numeric_text_vectors_replayed": false
+  },
+  "gold_separation": {
+    "fitting_selection_gold_ids": 18900,
+    "evaluation_gold_ids": 3537,
+    "overlap": 0,
+    "fit_and_score_source": "study.py:222-253 passes prepared fit_gold to fit_suite; score_suite receives no gold; sealed evaluation access is a separate freeze-gated stage",
+    "scope": "Input/gold binding uses evaluation labels only for auditing. Independent fitting/selection and scores never use evaluation gold."
+  },
+  "limitations": [
+    "All 176 embedding matrices are intentionally absent from this compact bundle; text-arm training gradients, scores and selection counts cannot be independently replayed numerically here. All 72 serialized heads are finite, protocol-converged and correctly target/count-bound; 36 front-head records have independently recomputed objectives/gradients.",
+    "Text-arm L2 winners agree with saved selection counts and fixed tie rule; text threshold numeric optimization is not replayed without matrices.",
+    "Historical external-use text is stale relative to Ju's qualified statement that he knows of no additional use; that statement is not a global contamination guarantee. Frozen evidence remains unchanged.",
+    "The two holdouts are fixed retained subsets, not unbiased samples of all ANLI source pools. Train labels were intentionally used for allocation.",
+    "Offline exact-quota evaluation is not an online service/SLO experiment."
+  ],
+  "audit_implementation_sha256": "7de83cbdd03ed8a8f57bd273c67661ee1f8a01dec44ab984166a32792aa1b570",
+  "local_environment": {
+    "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 16.0.0 (clang-1600.0.26.6)]",
+    "numpy": "2.3.5"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "zip_sha256": "08d88006855aef956bac8722293e24f333afd6cb4249f400dd9393cdf9649874",
+  "zip_bytes": 76459118,
+  "members": 1457,
+  "manifest_verified_files": 1455,
+  "uncompressed_bytes": 380118840,
+  "omitted_feature_matrices_bound_to_freeze": 176,
+  "metadata_exclusions": [
+    "BUNDLE_MANIFEST.json",
+    "OMITTED_FEATURES.json"
+  ],
+  "unsafe_or_duplicate_members": 0,
+  "status": "PASS"
+}

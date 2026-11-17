@@ -12,6 +12,15 @@ holds the evaluation harness, frozen protocols, audited results, a CPU-only demo
 The report is [paper/main.pdf](paper/main.pdf) (ACL format, first draft). A Chinese guide to the reading order,
 the demo and the presentation is [docs/START_HERE_ZH.md](docs/START_HERE_ZH.md).
 
+## Node branch: StartLux 4B→9B budget-serving study
+
+Branch `anli-budget-serving-2026-11-16` adds the online budget and serving study `anli-budget-serving-v1` on top of
+`41dfb75`. On the node, one command runs it and resumes after a genuinely new allocation:
+`bash scripts/run_budget_serving.sh /home/zhanj289/e6998/decision-study`. See
+[docs/RUN_BUDGET_SERVING_ZH.md](docs/RUN_BUDGET_SERVING_ZH.md), the fixed design in
+[docs/BUDGET_SERVING_PROTOCOL_ZH.md](docs/BUDGET_SERVING_PROTOCOL_ZH.md) and the software acceptance in
+[records/budget-serving-2026-11-16](records/budget-serving-2026-11-16/README.md). The formal 60-cell run has not happened yet.
+
 ## Results at a glance
 
 | Question | Finding |

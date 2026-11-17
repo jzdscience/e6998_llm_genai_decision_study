@@ -1,5 +1,15 @@
 # 当前状态
 
+## 11/16：StartLux 4B→9B 在线预算与服务研究节点分支（软件已验收，节点待运行）
+
+本分支在 `41dfb75` 之上加入 `anli-budget-serving-v1` 的完整软件：`decision_study/budget_serving/`、
+`configs/budget_serving_protocol.json`、`scripts/run_budget_serving.sh`、可选的 Study 4 embedding 补存助手及全部测试。
+节点在实际 L40S allocation 中运行 `bash scripts/run_budget_serving.sh /home/zhanj289/e6998/decision-study`；
+同一命令在真正的新 allocation 中续跑，完成后按 `exports/TRANSFER-*.json` 一次下载结果。
+本机只做过合成数据的整条命令模拟（10 个单元、40 条输入、约 1 秒窗口、伪造的 Slurm/GPU/模型服务边界），
+正式协议的 60 个单元尚未在节点运行。见[运行手册](RUN_BUDGET_SERVING_ZH.md)与
+[软件验收](../records/budget-serving-2026-11-16/README.md)。下方为本分支基线的历史状态。
+
 ## 11/15：RHEL8 进程句柄兼容修复已通过本机验收
 
 节点已补回固定 StartLux-4B，13 个文件内容及两份旧 metadata SHA 通过。随后发现两套 Python

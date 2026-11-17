@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "scope": "Captured real ModelClient output on public ANLI inputs; no credentials, private runtime paths or new model inference. Timing remains historical evidence, not a latency expectation.",
+  "accepted_bundle_sha256": "08d88006855aef956bac8722293e24f333afd6cb4249f400dd9393cdf9649874",
+  "sources": {
+    "startlux4b": {
+      "member": "collection/collection/attempts/startlux4b/1794793653467056907/chunks/00000000/rows.json",
+      "row_index": 0,
+      "original_row_canonical_sha256": "1aa36ad6c838141365b72224dfb212bebe26f0094f50a6497cf49c872e3db0f6",
+      "raw_response_canonical_sha256": "c04f6a2cf8c6dc2a2d8d54db71b4ede5b60202dad1b1c69e887db797e05fe3c0"
+    },
+    "startlux9b": {
+      "member": "collection/collection/attempts/startlux9b/1794801275953616240/chunks/00000000/rows.json",
+      "row_index": 0,
+      "original_row_canonical_sha256": "8ac6819491878b57e3cc0e7bc2f1d8122088d1cb72c5fef90238189cc6b8cff3",
+      "raw_response_canonical_sha256": "e4b6180a7362df287d051b1699fdbfecd3a16e0b856974a58dc0f65d74c0b3aa"
+    }
+  },
+  "example": {
+    "criteria": {
+      "contradiction": "The premise supports the hypothesis as necessarily false.",
+      "entailment": "The premise supports the hypothesis as necessarily true.",
+      "neutral": "The premise neither entails nor contradicts the hypothesis."
+    },
+    "group_id": "anli:premise:bd47d82c77303c04dad8a93f8e4a55ef84901c15220f37a9538d6f3daf50fd5f",
+    "input_hash": "55818c32019cdaabddb6f2cd55940142b249b02bf3e1fd8140e7b68398c2430d",
+    "instructions": "Classify the relationship between the premise and hypothesis. Use only the given premise. Select entailment when the hypothesis must be true, contradiction when it must be false, and neutral when neither follows. Return exactly one listed label; do not use outside knowledge.",
+    "labels": [
+      "entailment",
+      "neutral",
+      "contradiction"
+    ],
+    "premise_hash": "bd47d82c77303c04dad8a93f8e4a55ef84901c15220f37a9538d6f3daf50fd5f",
+    "round": "R2",
+    "sample_id": "anli:00058a0f-a5ac-4f79-867b-29dc0a0e626b",
+    "source_split": "train",
+    "split": "fitting",
+    "state": "Premise:\nNew Day is a 1949 book by Jamaican author V. S. Reid. It was Reid's first novel. \"New Day\" deals with the political history of Jamaica as told by a character named Campbell, who is a boy at the time of the Morant Bay Rebellion (in 1865) and an old man during its final chapters. It may have been the first novel to use Jamaican vernacular as its language of narration.\n\nHypothesis:\nNew Day is a 1949 book by Jamaican author V. S. Reid. It is over 50 years old",
+    "task": "anli"
+  },
+  "responses": {
+    "startlux4b": {
+      "attempts": [
+        {
+          "attempt": 1,
+          "latency_ms": 183.8881652802229,
+          "request_id": "47158093-dbab-4454-805c-8de483767b4a",
+          "server_request_id": "47158093-dbab-4454-805c-8de483767b4a",
+          "status": "ok"
+        }
+      ],
+      "error": null,
+      "latency_ms": 183.90187993645668,
+      "model": "startlux",
+      "prediction": "entailment",
+      "probabilities": {
+        "contradiction": 0.07948452187211653,
+        "entailment": 0.8453816260844373,
+        "neutral": 0.07513385204344607
+      },
+      "raw_response": {
+        "answers": {
+          "decision": {
+            "choice": "entailment",
+            "confidence": 0.768072439126656,
+            "probabilities": {
+              "contradiction": 0.07948452187211653,
+              "entailment": 0.8453816260844373,
+              "neutral": 0.07513385204344607
+            },
+            "type": "choice"
+          }
+        },
+        "model": "startlux",
+        "usage": {
+          "input_tokens": 273,
+          "output_tokens": 0
+        }
+      },
+      "sample_id": "anli:00058a0f-a5ac-4f79-867b-29dc0a0e626b",
+      "split": "fitting",
+      "status": "ok",
+      "task": "anli",
+      "token_counts": {
+        "input_tokens": 273,
+        "output_tokens": 0
+      }
+    },
+    "startlux9b": {
+      "attempts": [
+        {
+          "attempt": 1,
+          "latency_ms": 53.6836925894022,
+          "request_id": "495a0f4a-91b3-45cf-af69-e791d10df48d",
+          "server_request_id": "495a0f4a-91b3-45cf-af69-e791d10df48d",
+          "status": "ok"
+        }
+      ],
+      "error": null,
+      "latency_ms": 53.697286173701286,
+      "model": "startlux",
+      "prediction": "entailment",
+      "probabilities": {
+        "contradiction": 0.019696993510833944,
+        "entailment": 0.960606012978332,
+        "neutral": 0.019696993510833944
+      },
+      "raw_response": {
+        "answers": {
+          "decision": {
+            "choice": "entailment",
+            "confidence": 0.940909019467498,
+            "probabilities": {
+              "contradiction": 0.019696993510833944,
+              "entailment": 0.960606012978332,
+              "neutral": 0.019696993510833944
+            },
+            "type": "choice"
+          }
+        },
+        "model": "startlux",
+        "usage": {
+          "input_tokens": 273,
+          "output_tokens": 0
+        }
+      },
+      "sample_id": "anli:00058a0f-a5ac-4f79-867b-29dc0a0e626b",
+      "split": "fitting",
+      "status": "ok",
+      "task": "anli",
+      "token_counts": {
+        "input_tokens": 273,
+        "output_tokens": 0
+      }
+    }
+  },
+  "policy_source": {
+    "member": "fitting/models.json",
+    "sha256": "7f0cf28ad22de16b0e4b292e2ba75f1f457371eda1ba2161f5f92f5e3c4bc0df",
+    "cell": "startlux9b/n18000/front",
+    "selected_index": 2
+  },
+  "policy": {
+    "local_head": {
+      "coefficients": [
+        2.4186362307405473,
+        -0.16076990321009949,
+        0.3066594022079317,
+        -0.14463184640177032,
+        0.29052018012075564,
+        -0.4850515414456732,
+        0.20750867619725297,
+        -0.0718342563497367
+      ],
+      "gradient_inf_norm": 1.9338487928541624e-07,
+      "iterations": 13,
+      "kind": "logistic",
+      "l2": 0.01,
+      "mean": [
+        0.30635462076289904,
+        0.36720310158832287,
+        0.32644227764877276,
+        0.32,
+        0.3577222222222222,
+        0.3222777777777778,
+        5.984022089559897
+      ],
+      "n": 18000,
+      "objective": 0.2847890665225421,
+      "positives": 16459,
+      "scale": [
+        0.4075267384988095,
+        0.40546073445067926,
+        0.4066899068553491,
+        0.4664761515876675,
+        0.47932977578135955,
+        0.4673487046396281,
+        0.20375098659723193
+      ]
+    },
+    "fallback_head": {
+      "coefficients": [
+        2.5762860252873185,
+        -0.0021508311185995457,
+        0.11915799759599358,
+        -0.11664259975596486,
+        0.10304869383044458,
+        -0.2597056362149514,
+        0.16350721740168203,
+        -0.049733406685041046
+      ],
+      "gradient_inf_norm": 3.6384654316171106e-07,
+      "iterations": 13,
+      "kind": "logistic",
+      "l2": 0.01,
+      "mean": [
+        0.30635462076289904,
+        0.36720310158832287,
+        0.32644227764877276,
+        0.32,
+        0.3577222222222222,
+        0.3222777777777778,
+        5.984022089559897
+      ],
+      "n": 18000,
+      "objective": 0.25702878919844846,
+      "positives": 16697,
+      "scale": [
+        0.4075267384988095,
+        0.40546073445067926,
+        0.4066899068553491,
+        0.4664761515876675,
+        0.47932977578135955,
+        0.4673487046396281,
+        0.20375098659723193
+      ]
+    },
+    "threshold": 0.027109315183045934,
+    "l2": 0.01
+  }
+}

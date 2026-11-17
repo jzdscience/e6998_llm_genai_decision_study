@@ -29,6 +29,13 @@ keep their path and bytes. Study 1, 2 and 3 in the report correspond to V1, V2 a
 | [ANLI_LEARNABILITY_FULL_ZH.md](ANLI_LEARNABILITY_FULL_ZH.md) | Fixed complete recipe and local software acceptance; native node execution pending |
 | [RUN_ANLI_LEARNABILITY_FULL_ZH.md](RUN_ANLI_LEARNABILITY_FULL_ZH.md) | One command runs all stages and resumes verified new allocations |
 
+## StartLux 4B→9B budget-serving study
+
+| Document | Scope |
+|---|---|
+| [BUDGET_SERVING_PROTOCOL_ZH.md](BUDGET_SERVING_PROTOCOL_ZH.md) | Fixed design: five deployments, causal 9B-call cap, 60 cells, gold read after the trace freeze |
+| [RUN_BUDGET_SERVING_ZH.md](RUN_BUDGET_SERVING_ZH.md) | One command for preflights, 60 cells, freeze, evaluation and export; same command resumes a verified new allocation |
+
 ## Protocols, frozen before each run
 
 | Document | Study |

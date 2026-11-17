@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "accepted_on": "2026-11-15",
+  "timezone": "America/Los_Angeles",
+  "status": "PASS_PACKAGED_EVIDENCE_AND_INDEPENDENT_AUDITS",
+  "scope": "Completed study with independent data, front-only fitting objective/gradient checks, selection/score replay, lifecycle and all reported metric replay; text-matrix replay remains unavailable in compact bundle.",
+  "archive": {
+    "archive": "records/bundles/anli-learnability-complete-20261115-08d88006855a.zip",
+    "zip_sha256": "08d88006855aef956bac8722293e24f333afd6cb4249f400dd9393cdf9649874",
+    "extracted_directory": "results/returned-learnability-complete-2026-11-15"
+  },
+  "archive_path_base": "external_artifact_root in BUNDLE_INDEX.json",
+  "archive_bytes": 76459118,
+  "zip_members": 1457,
+  "manifest_files_verified": 1455,
+  "manifest_metadata_exclusions": [
+    "BUNDLE_MANIFEST.json",
+    "OMITTED_FEATURES.json"
+  ],
+  "post_audit_packaged_evidence_unchanged": true,
+  "non_bundle_metadata": "Only macOS .DS_Store files outside the ZIP ignored during extraction-tree inventory.",
+  "source_commit": "41dfb7547698691634fa0e5a4b8f87824436fc8f",
+  "source_files_checked": 152,
+  "allocation": {
+    "hostname": "sc1ns051is14",
+    "slurm_job_id": "3467005"
+  },
+  "formal_predictions": 67311,
+  "preflight_predictions": 270,
+  "split_counts": {
+    "fitting": 18000,
+    "selection": 900,
+    "eligible_dev": 1737,
+    "train_holdout": 1800
+  },
+  "split_premise_groups": {
+    "fitting": 4813,
+    "selection": 93,
+    "eligible_dev": 1540,
+    "train_holdout": 199
+  },
+  "chronology": {
+    "first_profile_epoch": 1794793035.4465728,
+    "all_formal_done_epoch": 1794802525.887466,
+    "fit_stopped_epoch": 1794803846.63771,
+    "eval_worker_started_epoch": 1794803860.5418816,
+    "eval_gold_access_utc": "2026-11-16T04:37:42.468767+00:00",
+    "final_status_utc": "2026-11-16T04:38:14.929624+00:00",
+    "elapsed_to_complete_seconds": 10859.483051300049
+  },
+  "stops": {
+    "receipts": 9,
+    "seconds_min": 0.2522591780871153,
+    "seconds_max": 0.373983072116971,
+    "gpu_empty_all": true,
+    "observed_owned_processes_total": 0,
+    "signals_total": 0
+  },
+  "official_audit_status": "PASS_PACKAGED_EVIDENCE",
+  "independent_checks": {
+    "all_raw_answers_reparsed": 67311,
+    "official_source": {
+      "sha256": "e5c058f2bb4e6190b0651badca2c590e45db95248f8b28cde674615ee40820bf",
+      "member_counts": {
+        "R1/train": 16946,
+        "R1/dev": 1000,
+        "R1/test": 1000,
+        "R2/train": 45460,
+        "R2/dev": 1000,
+        "R2/test": 1000,
+        "R3/train": 100459,
+        "R3/dev": 1200,
+        "R3/test": 1200
+      },
+      "exact_inputs_matched": 22437,
+      "gold_by_role": {
+        "fitting": 18000,
+        "train_holdout": 1800,
+        "selection": 900,
+        "eligible_dev": 1737
+      }
+    },
+    "front_score_replay": {
+      "scores": 21222,
+      "max_abs_error": 2.220446049250313e-16,
+      "per_cell_errors": {
+        "eligible_dev/qwen9b/n1800/front": 2.220446049250313e-16,
+        "eligible_dev/qwen9b/n18000/front": 2.220446049250313e-16,
+        "eligible_dev/qwen9b/n6000/front": 2.220446049250313e-16,
+        "eligible_dev/startlux9b/n1800/front": 2.220446049250313e-16,
+        "eligible_dev/startlux9b/n18000/front": 2.220446049250313e-16,
+        "eligible_dev/startlux9b/n6000/front": 2.220446049250313e-16,
+        "train_holdout/qwen9b/n1800/front": 2.220446049250313e-16,
+        "train_holdout/qwen9b/n18000/front": 2.220446049250313e-16,
+        "train_holdout/qwen9b/n6000/front": 2.220446049250313e-16,
+        "train_holdout/startlux9b/n1800/front": 2.220446049250313e-16,
+        "train_holdout/startlux9b/n18000/front": 2.220446049250313e-16,
+        "train_holdout/startlux9b/n6000/front": 2.220446049250313e-16
+      },
+      "uses_evaluation_gold": false
+    },
+    "statistics_status": "PASS_INDEPENDENT_NUMERICAL_AUDIT",
+    "fitting_status": "PASS_WITH_STATED_SCOPE_LIMITS",
+    "lifecycle_status": "PASS_RECORDED_LIFECYCLE",
+    "paired_bootstrap_replicates_per_population": 2000
+  },
+  "primary": {
+    "population": "eligible_dev",
+    "n": 1737,
+    "fitting_labels": 18000,
+    "fallback": "qwen9b",
+    "contrast": "text minus front",
+    "accuracy_difference_pp": 0.921128382268277,
+    "ci95_pp": [
+      -0.11396499238964992,
+      1.881819621363276
+    ],
+    "direct_startlux4b": {
+      "accuracy": 0.7271157167530224,
+      "correct": 1263,
+      "n": 1737
+    },
+    "text_route": {
+      "accuracy": 0.719055843408175,
+      "correct": 1249,
+      "defer_fraction": 0.09959700633275763,
+      "deferred": 173,
+      "deployment_threshold_result": {
+        "accuracy": 0.7230857800805988,
+        "correct": 1256,
+        "defer_fraction": 0.03684513529073115,
+        "deferred": 64,
+        "harms": 11,
+        "n": 1737,
+        "net_correct_vs_front": -7,
+        "rescues": 4
+      },
+      "harms": 28,
+      "n": 1737,
+      "net_correct_vs_front": -14,
+      "rescues": 14
+    }
+  },
+  "report": "reports/learnability-2026-11-15/RESULTS_ZH.md",
+  "selected_evidence": {
+    "reports/learnability-2026-11-15/audit/archive-check.json": "feeb69500719cd79bd6786ec6219ef52dedd862dd6a406a89d8cfae0643e5a6a",
+    "reports/learnability-2026-11-15/audit/fitting.json": "13d9e4e394faa44676304953d22e89f377b976cb07d6164aca4671e52b38c387",
+    "reports/learnability-2026-11-15/audit/lifecycle.json": "706b9cf83c23565892e4ca3919b57f68b31c5e4b888bf1b21a209c22d510b21f",
+    "reports/learnability-2026-11-15/audit/official-audit.json": "18a3e2591ecc74ec197991755683e6c5191a05116d804e88fd8dbd8ff5a3c452",
+    "reports/learnability-2026-11-15/audit/source-proof.json": "a58ca25cbc975621925b5e91d082af8434864737c0cc87b526cb79afdcaf7b31",
+    "reports/learnability-2026-11-15/audit/statistics.json": "6bdd125f3503ca9c534ea713ab916d5e965ca258ae8d35167a15257cfecc6265",
+    "reports/learnability-2026-11-15/results.json": "27bcca5b43a3064a50f20e567342f7dd3d6403761ae1a6a0fa6fe7ab14d1d15b"
+  },
+  "raw_report_copy": {
+    "path": "reports/learnability-2026-11-15/NODE_REPORT.md",
+    "sha256": "649f60cb572f08aaf4f5928f0bc72538ad047304ad1361e6f1b852a0a1a91da0",
+    "byte_identical_to": "REPORT.md in original archive"
+  },
+  "audit_archive": "records/audits/anli-learnability-2026-11-15",
+  "local_validation_directory": ".validation/anli-learnability-return-2026-11-15-08d88006855a",
+  "limitations": [
+    "176 frozen embedding matrices intentionally omitted; text-arm fit gradients, frozen scores and threshold optimization cannot be independently replayed from this compact bundle. All reported text metrics were independently recomputed from frozen scores.",
+    "Primary population is the locally audited 1737-example eligible subset, not all3200 official dev; conditional bootstrap excludes training/selection resampling uncertainty.",
+    "Ju reports no known extra ANLI dev use; this qualified statement is not independent global exposure verification. Historical frozen report preserved.",
+    "Recorded native gate and GPU-stop evidence verified offline; current node not observed. Serial collection is not serving/SLO evaluation.",
+    "Selection-set threshold cap is not online or evaluation-set budget enforcement. StartLux9B/n18000/front deferred438 of1737 (25.22%).",
+    "All evaluation results now viewed; new method selection on them cannot be claimed independently confirmatory.",
+    "New report/plot and records only; paper PDF/demo not yet integrated. Existing source, protocols and frozen artifacts unchanged. No new GPU experiment."
+  ],
+  "report_artifacts_sha256": {
+    "reports/learnability-2026-11-15/NODE_REPORT.md": "649f60cb572f08aaf4f5928f0bc72538ad047304ad1361e6f1b852a0a1a91da0",
+    "reports/learnability-2026-11-15/RESULTS_ZH.md": "04d81b52beabef0f3c67d97df590f52724b97d8d24d1b5ff40c06d4393370337",
+    "reports/learnability-2026-11-15/audit/README.md": "69afcd79915e44f75687fa36808a037e3e59a3756cab74fbb9b0bce1d205ee3f",
+    "reports/learnability-2026-11-15/learning_curve.pdf": "097de30a48e1d279675bddb3155714ea865e09c5c6d6c9c881f424be0e4c9bd0",
+    "reports/learnability-2026-11-15/learning_curve.png": "0366076b1b77689b5083921d1db7464ae1fc4e0b9638bb7fed6785131d1a1203",
+    "reports/learnability-2026-11-15/plot_results.py": "51815f535efd9b88cf9a673ed40262f7b979df38e8df71fa915feffa1faf5cfc"
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "status": "PASS_INDEPENDENT_NUMERICAL_AUDIT",
+  "independence": "stdlib+numpy only; no project imports; Python tuple ranking and independent percentile interpolation",
+  "source": "Returned raw model answers, frozen routing score vectors, prepared IDs and sealed evaluation gold",
+  "roles": {
+    "startlux4b": {
+      "rows": 22437,
+      "chunks": 176,
+      "status": "ALL_OK"
+    },
+    "qwen9b": {
+      "rows": 22437,
+      "chunks": 176,
+      "status": "ALL_OK"
+    },
+    "startlux9b": {
+      "rows": 22437,
+      "chunks": 176,
+      "status": "ALL_OK"
+    }
+  },
+  "checks": {
+    "probability_vectors": 44874,
+    "raw_answer_reparses": 67311,
+    "scalar_comparisons": 934
+  },
+  "populations": {
+    "eligible_dev": {
+      "n": 1737,
+      "groups": 1540,
+      "main": {
+        "accuracy_difference": 0.00921128382268277,
+        "text_cell": "qwen9b/n18000/text",
+        "front_cell": "qwen9b/n18000/front",
+        "primary": true,
+        "interval": {
+          "status": "PASS",
+          "replicates": 2000,
+          "seed": 20261113,
+          "ci95": [
+            -0.0011396499238964992,
+            0.01881819621363276
+          ],
+          "premise_groups": 1540,
+          "scope": "conditional on fitted models; paired normalized-premise percentile bootstrap; rerank exact quota per draw"
+        },
+        "official_round_weight_sensitivity": 0.008490839570533317,
+        "weighting_limit": "Cannot remove within-round historical exclusion bias or recover excluded examples"
+      },
+      "rounds": {
+        "R1": {
+          "n": 374,
+          "groups": 306,
+          "startlux4b": 0.8475935828877005,
+          "qwen9b": 0.7112299465240641,
+          "startlux9b": 0.8475935828877005
+        },
+        "R2": {
+          "n": 484,
+          "groups": 416,
+          "startlux4b": 0.7066115702479339,
+          "qwen9b": 0.5764462809917356,
+          "startlux9b": 0.7169421487603306
+        },
+        "R3": {
+          "n": 879,
+          "groups": 819,
+          "startlux4b": 0.6871444823663254,
+          "qwen9b": 0.5995449374288965,
+          "startlux9b": 0.7178612059158134
+        }
+      }
+    },
+    "train_holdout": {
+      "n": 1800,
+      "groups": 199,
+      "main": {
+        "accuracy_difference": -0.006111111111111178,
+        "text_cell": "qwen9b/n18000/text",
+        "front_cell": "qwen9b/n18000/front",
+        "primary": false,
+        "interval": {
+          "status": "PASS",
+          "replicates": 2000,
+          "seed": 20261113,
+          "ci95": [
+            -0.012115256426280049,
+            0.002200524255965418
+          ],
+          "premise_groups": 199,
+          "scope": "conditional on fitted models; paired normalized-premise percentile bootstrap; rerank exact quota per draw"
+        },
+        "official_round_weight_sensitivity": -0.005729166666666667,
+        "weighting_limit": "Cannot remove within-round historical exclusion bias or recover excluded examples"
+      },
+      "rounds": {
+        "R1": {
+          "n": 600,
+          "groups": 97,
+          "startlux4b": 0.8583333333333333,
+          "qwen9b": 0.7733333333333333,
+          "startlux9b": 0.8733333333333333
+        },
+        "R2": {
+          "n": 600,
+          "groups": 52,
+          "startlux4b": 0.9166666666666666,
+          "qwen9b": 0.85,
+          "startlux9b": 0.94
+        },
+        "R3": {
+          "n": 600,
+          "groups": 50,
+          "startlux4b": 0.9066666666666666,
+          "qwen9b": 0.8033333333333333,
+          "startlux9b": 0.925
+        }
+      }
+    }
+  },
+  "negative_controls": {
+    "wrong_correct": {
+      "status": "CAUGHT",
+      "mismatch": "('wrong_correct/eligible_dev/cells/qwen9b/n18000/text/correct', 1250, 1249)"
+    },
+    "wrong_interval": {
+      "status": "CAUGHT",
+      "mismatch": "('wrong_interval/eligible_dev/comparisons/qwen9b/n18000/interval/ci95/0', 0.0, -0.0011396499238964992)"
+    }
+  },
+  "limits": [
+    "Text embedding matrices omitted; this audit does not regenerate embeddings or replay text logistic heads.",
+    "Statistical intervals condition on fitted models and retained eligible population; no multiplicity-adjusted or equivalence claim.",
+    "Returned evidence is not a fresh live GPU/process observation."
+  ],
+  "seconds": 5.422
+}

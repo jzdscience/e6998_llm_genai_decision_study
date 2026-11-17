@@ -1,0 +1,153 @@
+{
+  "collaboration": {
+    "implementation": "Claude Code Opus 5.5 (max effort): budget_serving core except runtime.py, wrapper, runbook, two main test files, all fixes",
+    "independent_review": "Codex reviewers (protocol, core, measurement, artifact/captured, runtime) wrote review notes and three regression files; Root coordinated decisions, acceptance and push",
+    "protocol": "Codex: configs/budget_serving_protocol.json and the protocol prose (execution conventions appended by Claude on Root's decision)",
+    "records": "Session streams, prompts and hidden reasoning are not part of this record",
+    "runtime": "Codex: decision_study/budget_serving/runtime.py and its tests"
+  },
+  "date": "2026-11-16",
+  "final_round_fixes": [
+    "Freeze verification recomputes every binding from disk: exact evidence inventory and digests (session, self-test pointer, status and Finder metadata excluded), token, three preflight, all cell receipts and the source fingerprint; the reviewer's empty-manifest rewrite now fails the full offline audit.",
+    "Each accepted receipt requires the stage's attempt folders to equal its recorded prior attempts plus itself, so a failed or interrupted attempt cannot be deleted.",
+    "Unusable HTTP 200 bodies (JSON null, non-JSON, non-UTF-8, oversized, invalid answer) are failed calls with an explicit decode phase that the audit replays; a valid answer cannot be relabelled as a failure.",
+    "Trace rows tolerate NaN/Infinity and lone surrogates from malformed answers (Python JSON tokens, ASCII escapes) instead of failing the cell; HTTP errors are classified before the size bound."
+  ],
+  "fixed_execution_conventions": "docs/RUN_BUDGET_SERVING_ZH.md section 实验前固定的执行约定 and docs/BUDGET_SERVING_PROTOCOL_ZH.md section 实现定稿时确定的执行约定",
+  "independent_acceptance_reported_by_root": {
+    "captured_mutants": 7,
+    "captured_suite": "14/14",
+    "protocol_audit_regressions": "10/10",
+    "runtime_suite": "28 passed, 2 Linux-only skipped (their run)"
+  },
+  "inventory_sha256": {
+    "README.md": "0912f2396f73a6ffd0ffbdc936bd01191510336db5a054c3028a9c66130ed19c",
+    "configs/budget_serving_protocol.json": "8d5869132cc0358dabbc364985b1744dc2e41a857de2115e6a2672fde5ee189c",
+    "decision_study/budget_serving/__init__.py": "4e6734b34d1338b7594e95cb0cb4f819a7543cd88c56c83f4705216608c770e8",
+    "decision_study/budget_serving/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "decision_study/budget_serving/cli.py": "5af693ae777b84dbf60a0ac4edcb1ef7e77ca9d23fb07f8a5f0b3f98bf6c492c",
+    "decision_study/budget_serving/client.py": "d9ef9c91430667268f23764e2434d5090dc6c26669f732ff055860ad4e565d98",
+    "decision_study/budget_serving/evaluation.py": "e02d7f0048a9b058e92f74c5279964be06cabe65f23fd905e83991932069b960",
+    "decision_study/budget_serving/export.py": "cb712c8b9a1e31cb7d3f826c91c2222db26359de1a6225a3b5b408be952a0c1f",
+    "decision_study/budget_serving/inputs.py": "0a68125704d6e059b52f0b146e52b48a5c79dcf034cdfa0724be98f439a97b9e",
+    "decision_study/budget_serving/ledger.py": "7f975250f75af11136ba435ef464e03bc518f4c06b43a3cf615d59dd743d4b68",
+    "decision_study/budget_serving/measurement.py": "e80c1112ae0da365150c0761974331a77119a7e1794eac932f19253933ded0f0",
+    "decision_study/budget_serving/pipeline.py": "06df7a7440cbcc557f4ffd2477657699060cbecb1cc5491d4d83119df0d9efd5",
+    "decision_study/budget_serving/protocol.py": "81d7ab7d9b9eb6663d4d9aba17f3053957a5a2eb16d73e97e47cecffdd089aa1",
+    "decision_study/budget_serving/router.py": "fd3ecda1b6d7b06df64be22f99b68fade772ba79e5ff0af0443b789aea0441ae",
+    "decision_study/budget_serving/runtime.py": "4bf685221e26a2789c05c84c8d890f9d34b2f2f1791a26ecf54a481846823e4e",
+    "decision_study/budget_serving/serve.py": "bd95febabb8dc49cdd8b242a2b97d12542e6630f308ea4e56616735b0e21b68a",
+    "decision_study/budget_serving/study.py": "47464a371641895bb46ae098c04c4ac978036233cd3cf217f750ee9edb1b50a1",
+    "decision_study/budget_serving/verify.py": "8386a7788086a29764bbd8243ea08cf3381f6f0e38fd9684a07c2e38bcd8942f",
+    "decision_study/budget_serving/worker.py": "9bdbd848ae1c6efbd7426228027c22f42e2f17dc9580d0ca9808e445c152a73b",
+    "docs/BUDGET_SERVING_PROTOCOL_ZH.md": "8e30e2532b3243b157886deb813e9011fdb9601f247ba230fe149a5f74e306d3",
+    "docs/CURRENT_STATE.md": "69e09c871a58c30803dff0411e6ae7d7ef410c8707c44ea3498289c1c208bc02",
+    "docs/README.md": "c5b01642800e356bf52c7a056b8c1f40d2da52f4a5bc30dc6d660fbed161bfd2",
+    "docs/RUN_BUDGET_SERVING_ZH.md": "ea0c21b70a198a2059017edbed2659c9e6dbd843499c0913b4caaeede0d02e81",
+    "records/anli-learnability-2026-11-15-acceptance.json": "7e5614c4ef07bd1e700d4b9cf932080ded4ffde4e7c11d934433037ad41aa999",
+    "records/anli-learnability-full-2026-11-13/external-usage-statement-2026-11-15.json": "a69efd7f835339a49878ffbba5bf57fae612ce935d84bf8e99478b11b3aa6e47",
+    "reports/learnability-2026-11-15/NODE_REPORT.md": "649f60cb572f08aaf4f5928f0bc72538ad047304ad1361e6f1b852a0a1a91da0",
+    "reports/learnability-2026-11-15/RESULTS_ZH.md": "04d81b52beabef0f3c67d97df590f52724b97d8d24d1b5ff40c06d4393370337",
+    "reports/learnability-2026-11-15/audit/README.md": "69afcd79915e44f75687fa36808a037e3e59a3756cab74fbb9b0bce1d205ee3f",
+    "reports/learnability-2026-11-15/audit/archive-check.json": "feeb69500719cd79bd6786ec6219ef52dedd862dd6a406a89d8cfae0643e5a6a",
+    "reports/learnability-2026-11-15/audit/fitting.json": "13d9e4e394faa44676304953d22e89f377b976cb07d6164aca4671e52b38c387",
+    "reports/learnability-2026-11-15/audit/lifecycle.json": "706b9cf83c23565892e4ca3919b57f68b31c5e4b888bf1b21a209c22d510b21f",
+    "reports/learnability-2026-11-15/audit/official-audit.json": "18a3e2591ecc74ec197991755683e6c5191a05116d804e88fd8dbd8ff5a3c452",
+    "reports/learnability-2026-11-15/audit/source-proof.json": "a58ca25cbc975621925b5e91d082af8434864737c0cc87b526cb79afdcaf7b31",
+    "reports/learnability-2026-11-15/audit/statistics.json": "6bdd125f3503ca9c534ea713ab916d5e965ca258ae8d35167a15257cfecc6265",
+    "reports/learnability-2026-11-15/learning_curve.pdf": "097de30a48e1d279675bddb3155714ea865e09c5c6d6c9c881f424be0e4c9bd0",
+    "reports/learnability-2026-11-15/learning_curve.png": "0366076b1b77689b5083921d1db7464ae1fc4e0b9638bb7fed6785131d1a1203",
+    "reports/learnability-2026-11-15/plot_results.py": "51815f535efd9b88cf9a673ed40262f7b979df38e8df71fa915feffa1faf5cfc",
+    "reports/learnability-2026-11-15/results.json": "27bcca5b43a3064a50f20e567342f7dd3d6403761ae1a6a0fa6fe7ab14d1d15b",
+    "scripts/archive_learnability_embeddings.py": "e1c7cf461b79e81e8105aac404862bb622386bcacd25cfe0e81c80452acd2786",
+    "scripts/run_budget_serving.sh": "d3cf012bd55f557c8b61a89b73a333cc624aeb2f004d0c1d91fb19f91904f728",
+    "tests/fixtures/budget_startlux_responses.json": "69bcf7a2382fc2a227c3229d2f5314f389b1cb2c0b08067579bf8e7ee42f04f2",
+    "tests/test_archive_learnability_embeddings.py": "e3fbf313a98087a918eb42fbae07ef8c56193df31093da06664225ce6a03ffbb",
+    "tests/test_budget_serving.py": "863c57a2072f41bbc573ad600b747fd24fd5e4a2e3dc633b6f78adc6358dea81",
+    "tests/test_budget_serving_audit_regressions.py": "b812eb260c0cccf03a73ffce6416581d57e5dff27c1fec0c9041013ecd0759c9",
+    "tests/test_budget_serving_captured.py": "d3ebc1f07173e8cfa97dd6ae107efdd320db59c41c5bb6313fa7bcca0dc3ff3a",
+    "tests/test_budget_serving_integration.py": "db1a876f90e71820d5b7b0e6f0736077d6513a978067385d3febc7e6d0bdea0c",
+    "tests/test_budget_serving_measurement_regressions.py": "3d012985c038ce377911fabbac40d49d99ac68885ef44fe7a00603760281186f",
+    "tests/test_budget_serving_runtime.py": "3264c8bed4f57f365e341489d6ded6faa9159690e20084fbc2e1961ca1cd0799"
+  },
+  "known_limits": [
+    "No node, GPU, co-residency, KV, latency or formal-cell run has happened.",
+    "Native Linux ownership and pidfd tests are skipped on macOS; the node runs the native self-test before any GPU work.",
+    "Driver identity is fixed: a node with a different driver cannot continue this study without a new revision and output.",
+    "Offline audit must use the same released source checkout recorded in study.json."
+  ],
+  "mutations": {
+    "claude_isolated_copies_final_round": {
+      "evidence": "full pytest logs per mutant in .validation (outside Git)",
+      "killed_at_intended_assertion": 7,
+      "mutants": [
+        "freeze-bindings-unchecked",
+        "freeze-inventory-unchecked",
+        "attempt-history-unchecked",
+        "null-body-text-dropped",
+        "json-claim-not-replayed",
+        "null-claim-byte-count-unchecked",
+        "strict-json-trace-writer"
+      ],
+      "production_tree_unchanged": true,
+      "run": 7
+    },
+    "claude_self_scratch": {
+      "evidence": "summaries only (scratch harness)",
+      "killed": 25,
+      "run": 26,
+      "survivor": "explicit 9B-start >= permit check, implied by the checked journal ordering"
+    },
+    "codex_independent_isolated": {
+      "archive_helper": 5,
+      "captured": 7,
+      "runtime": 6
+    }
+  },
+  "protocol_revision": 1,
+  "release": {
+    "base_commit": "41dfb7547698691634fa0e5a4b8f87824436fc8f",
+    "branch": "anli-budget-serving-2026-11-16",
+    "commit": "recorded outside this commit in .validation/budget-serving-2026-11-16/claude-core/RELEASE-HANDOFF.md and by Root",
+    "default_output": "results/aux-anli-budget-serving-v1",
+    "node_command": "bash scripts/run_budget_serving.sh /home/zhanj289/e6998/decision-study"
+  },
+  "schema_version": 1,
+  "status": "SOFTWARE_ACCEPTED_LOCALLY_NODE_PENDING",
+  "study": "anli-budget-serving-v1",
+  "tests": {
+    "main_worktree_budget_and_archive_files": {
+      "collected": {
+        "tests/test_archive_learnability_embeddings.py": 20,
+        "tests/test_budget_serving.py": 33,
+        "tests/test_budget_serving_audit_regressions.py": 10,
+        "tests/test_budget_serving_captured.py": 14,
+        "tests/test_budget_serving_integration.py": 2,
+        "tests/test_budget_serving_measurement_regressions.py": 6,
+        "tests/test_budget_serving_runtime.py": 24
+      },
+      "result": "107 passed, 2 skipped (Linux-native runtime)"
+    },
+    "note": "The earlier 929 passed / 22 skipped run was the dirty main worktree before the final fixes; it is not this release's count.",
+    "release_clean_checkout_full_suite": {
+      "exit": 0,
+      "interpreter": "root .venv-lab Python 3.13.3",
+      "pythonpath": "release checkout first; decision_study imported from the release",
+      "result": "828 passed, 46 skipped, 64 subtests passed",
+      "seconds": 191.2,
+      "skips": {
+        "test_budget_serving.py": "1: accepted Study 4 extraction is not present in the release tree (ran and passed in the main worktree)",
+        "test_budget_serving_runtime.py": "2: actual Linux subreaper/process descriptors required",
+        "test_cheap_baselines.py": "1: isolated cheap-baseline environment",
+        "test_data.py": "1: verified official-source cache",
+        "test_direct_matrix.py": "20: accepted V1/V2/V3/size-control returns not installed",
+        "test_learnability_pidfd.py": "4: real Linux proc-FD/subreaper",
+        "test_learnability_profile.py": "2: native Linux node gate",
+        "test_light_baseline.py": "1: optional baseline CPU environment",
+        "test_upgrade_study.py": "6: audited V1/V3/size-control returns not installed",
+        "test_v2_lab.py": "8: archived v1 evidence not installed"
+      }
+    },
+    "simulation_fixture": "Whole-CLI rehearsal with 10 cells (5 conditions x 2 rates x 1 repeat), 40 synthetic eligible-dev inputs, 90 synthetic development rows, about 1 s windows and fake Slurm, subreaper/descendant recovery, native self-test, GPU listing and StartLux services. Real controller, runtime.supervise, worker command, acceptance, freeze, gold gate, audit and export. The production protocol stays 60 cells, 1,737 inputs, 120 s windows."
+  }
+}

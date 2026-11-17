@@ -1,0 +1,298 @@
+{
+  "schema_version": 1,
+  "protocol": "anli-budget-serving-v1",
+  "revision": 1,
+  "status": "fixed_design_pending_software_and_node_validation",
+  "scope": "Retrospectively selected frozen decision-model cascade: actual online budget, quality and serving tradeoffs on already-viewed inputs. No new training or confirmatory quality claim.",
+  "seed": 20261116,
+  "task": "anli",
+  "conditions": [
+    "direct4b",
+    "direct9b",
+    "threshold",
+    "budget",
+    "random"
+  ],
+  "condition_services": {
+    "direct4b": [
+      "startlux4b"
+    ],
+    "direct9b": [
+      "startlux9b"
+    ],
+    "threshold": [
+      "startlux4b",
+      "startlux9b"
+    ],
+    "budget": [
+      "startlux4b",
+      "startlux9b"
+    ],
+    "random": [
+      "startlux4b",
+      "startlux9b"
+    ]
+  },
+  "models": {
+    "startlux4b": {
+      "interface": "startlux",
+      "repo": "startlux-models/StartLux-Decision-v1.1-4B-Instant",
+      "revision": "416088f77cfce09633906a3675c7cd2e5dabcf10",
+      "native_temperature": 1.1103,
+      "port": 18380,
+      "engine_port": 18381,
+      "snapshot_source": "results/solo-v1/runtime/installations.json: models.startlux; read-only"
+    },
+    "startlux9b": {
+      "interface": "startlux",
+      "repo": "startlux-models/StartLux-Decision-v1.1-9B-Instant",
+      "revision": "18a17f734966b213b2f00fa9c915e8b9af2a9b20",
+      "native_temperature": 1.1014,
+      "port": 18390,
+      "engine_port": 18391,
+      "snapshot_source": "results/aux-size-control-v1-r2/runtime-controls/startlux9b/runtime/installations.json: models.startlux; read-only"
+    }
+  },
+  "memory_by_condition": {
+    "direct4b": {
+      "startlux4b": 0.9
+    },
+    "direct9b": {
+      "startlux9b": 0.9
+    },
+    "threshold": {
+      "startlux4b": 0.4,
+      "startlux9b": 0.5
+    },
+    "budget": {
+      "startlux4b": 0.4,
+      "startlux9b": 0.5
+    },
+    "random": {
+      "startlux4b": 0.4,
+      "startlux9b": 0.5
+    }
+  },
+  "engine": {
+    "max_num_seqs": 64,
+    "max_model_len": 8192,
+    "precision": "bfloat16",
+    "prefix_cache": false,
+    "truncate": false,
+    "applies_to": [
+      "startlux4b",
+      "startlux9b"
+    ],
+    "memory_allocation": "One L40S for every condition; direct0.90 or pair0.40+0.50. Co-residency is unverified until this protocol passes on the node. No automatic quantization, memory search or model substitution."
+  },
+  "source_study": {
+    "protocol": "anli-learnability-full-v1",
+    "default_directory": "results/aux-anli-learnability-v1-r2",
+    "source_commit": "41dfb7547698691634fa0e5a4b8f87824436fc8f",
+    "accepted_archive_sha256": "08d88006855aef956bac8722293e24f333afd6cb4249f400dd9393cdf9649874",
+    "accepted_on": "2026-11-15"
+  },
+  "source_files": {
+    "data/examples.jsonl": "9e94e0ecbd2b74a46455c0cd7ffb5aac0be1712ebbfc9d43d560817ec812657f",
+    "data/manifest.json": "42bf89f228222ec45e17a390610991f5f6401e88d62448d599e4a0d7f2980815",
+    "fitting/models.json": "7f0cf28ad22de16b0e4b292e2ba75f1f457371eda1ba2161f5f92f5e3c4bc0df",
+    "fitting/complete.json": "60aa7480caf3c18decee12e5e966a05326f13fb2a2797b4861c9f18d698586f8",
+    "fitting/scores-eligible_dev.json": "0540d539e0cc303fff638d067bfaa53d2f33105cffd826d6f6813f02ca4ef02c",
+    "freeze.json": "a1b4d4e2b17ce3f57cda7de7d8c1190f21e89601da04ab2b084647b901f6a967",
+    "sealed/evaluation_gold.json": "d5ca013d206caa7c47004da95f294fd116e125d4b126c5f963c4babbfc7dcea6",
+    "evaluation/results.json": "27bcca5b43a3064a50f20e567342f7dd3d6403761ae1a6a0fa6fe7ab14d1d15b"
+  },
+  "policy": {
+    "source_file": "fitting/models.json",
+    "cell": "startlux9b/n18000/front",
+    "selected_index": 2,
+    "l2": 0.01,
+    "threshold": 0.027109315183045934,
+    "comparison": "gain >= threshold",
+    "feature_function": "decision_study.learnability.modeling.front_features",
+    "score_function": "decision_study.learnability.modeling.score_head",
+    "gain": "fallback_head probability minus local_head probability, evaluated on live startlux4b output and unmodified input",
+    "features": [
+      "probability_entailment",
+      "probability_neutral",
+      "probability_contradiction",
+      "predicted_entailment",
+      "predicted_neutral",
+      "predicted_contradiction",
+      "log1p_state_chars"
+    ],
+    "offline_regression": {
+      "selection_deferred": 87,
+      "selection_count": 900,
+      "eligible_dev_threshold_deferred": 438,
+      "eligible_dev_count": 1737,
+      "eligible_dev_exact_quota_deferred": 173,
+      "eligible_dev_exact_quota_correct": 1290
+    },
+    "role": "Fixed retrospectively chosen secondary configuration. No head fitting, L2 selection, threshold calibration, saved-score routing or test-based controller selection during this study."
+  },
+  "workload": {
+    "source_file": "data/examples.jsonl",
+    "split": "eligible_dev",
+    "count": 1737,
+    "premise_groups": 1540,
+    "labels": [
+      "entailment",
+      "neutral",
+      "contradiction"
+    ],
+    "cycling": "Seeded shuffled complete cycles; identical input and Poisson arrival sequence for every condition within each repeat/rate",
+    "identity": "Unmodified accepted examples; sample IDs unique in population; repetitions are offered workload instances, not new independent quality observations."
+  },
+  "gold": {
+    "source_file": "sealed/evaluation_gold.json",
+    "sha256": "d5ca013d206caa7c47004da95f294fd116e125d4b126c5f963c4babbfc7dcea6",
+    "source_count": 3537,
+    "selection": "Exact IDs of the1737 eligible_dev examples",
+    "interpret_after": "All60 cells, raw traces, budget ledgers and verified service stops are frozen. Early file hashing may verify bytes without using labels in decisions. These labels were already viewed in the prior study."
+  },
+  "development": {
+    "source_file": "results/solo-v3/data/examples.jsonl",
+    "source_sha256": "a470ad0143224dd87906059651efc74b1c8342445dcfbffcea11768f37618544",
+    "function": "decision_study.learnability_profile.study.inputs",
+    "rows_fingerprint": "40f2d5fa8a611eb210e19166accf57d86803bc807f4dc363a49f43890503a458",
+    "count": 90,
+    "order": "sample_id ascending as returned by profile.inputs",
+    "source_split": "train",
+    "quality_gate": false
+  },
+  "budget": {
+    "numerator": 1,
+    "denominator": 10,
+    "applies_to": [
+      "budget",
+      "random"
+    ],
+    "accounting": "Wall-time prefix of offers already received, including client-rejected offers; not final sample-index prefixes or sliding windows",
+    "initial_reservations": 0,
+    "rule": "Register each offer under a lock before admission. At fallback reservation, atomically permit iff reserved < offered //10, then increment reserved. No future schedule credit, refund or retry. Counters reset for every stage/cell.",
+    "candidate_order": "Actual live front-completion/reservation order; no wait for future scores or reranking",
+    "valid_front_when_denied": "Return the original front prediction",
+    "failed_front_when_denied": "Keep request failure; never fabricate a label or bypass the cap",
+    "failed_front_when_granted": "One fallback attempt within the remaining shared deadline",
+    "expired_reservation": "Keep charged reservation and explicitly record no actual fallback attempt; no refund",
+    "random_probability": 0.1,
+    "random_order": "Preassign one seeded Bernoulli(.10) flag per offer, independent of labels and worker completion; a valid front is a candidate iff flagged. A failed front is a forced candidate but still obeys the cap.",
+    "random_execution": "Post-front random transfer: all admitted requests first pay for4B; the random arm uses the same hard cap, not necessarily the same realized call count as the learned policy.",
+    "records": [
+      "offered_received",
+      "reservation_sequence",
+      "candidate",
+      "candidate_reason",
+      "budget_granted",
+      "budget_denied",
+      "reserved_before",
+      "reserved_after",
+      "offered_at_reservation",
+      "fallback_attempted",
+      "unused_reservation_reason"
+    ],
+    "claims": "Reserved attempts and actual attempts are reported separately. Random underfill and shedding are measured outcomes, not a reason to retune p."
+  },
+  "rates_per_second": [
+    10,
+    20,
+    40,
+    80
+  ],
+  "duration_seconds": 120,
+  "repeats": 3,
+  "cell_count": 60,
+  "workers": 16,
+  "max_inflight": 64,
+  "slo_ms": 500,
+  "secondary_slo_ms": 1000,
+  "request_timeout_seconds": 30,
+  "drain_seconds": 60,
+  "watchdog_grace_seconds": 5,
+  "startup_timeout_seconds": 1200,
+  "cleanup_margin_seconds": 180,
+  "max_attempts_per_model_call": 1,
+  "request_budget": "Client queueing and dispatch lag count toward the SLO. Once a worker starts, both model stages share min(30 seconds, remaining cell drain). Late successful HTTP responses keep raw evidence but are deadline failures and never initiate a fallback. No model-call retry.",
+  "order": "For each repeat, seeded shuffled rates; for each repeat/rate, all five conditions in seeded shuffled order, using the same schedule. All prespecified cells are retained regardless of performance.",
+  "warmup": {
+    "count": 30,
+    "selection": "First30 rows from development inputs in their fixed sample_id order",
+    "mode": "Serial; direct calls its one role, pair conditions force both roles through a shared30-second request deadline",
+    "budget_carryover": false,
+    "formal_evidence": false
+  },
+  "preflight": {
+    "deployments": [
+      "direct4b",
+      "direct9b",
+      "pair"
+    ],
+    "serial_count": 90,
+    "serial_mode": "Direct deployment calls its one model; pair forces both models on each input under the shared30-second request deadline",
+    "concurrent": {
+      "rate_per_second": 10,
+      "duration_seconds": 30,
+      "workers": 16,
+      "max_inflight": 64,
+      "pair_mode": "Force both models for every admitted request, separately labeled preflight_forced_both and excluded from formal budget evidence"
+    },
+    "policy_smoke": {
+      "conditions": [
+        "direct4b",
+        "direct9b",
+        "threshold",
+        "budget",
+        "random"
+      ],
+      "rate_per_second": 10,
+      "duration_seconds": 10,
+      "inputs": "The90 already-viewed development inputs",
+      "mode": "Actual policy and budget logic with a fresh ledger for each condition; no required positive quality gain or minimum learned-policy transfer count"
+    },
+    "token_check": "Both roles over all1737 formal and90 development inputs; full coverage, pinned tokenizer/config, no truncation; raw reports bound by SHA",
+    "acceptance": "Owned-process native self-check; successful startup; all serial responses valid; concurrent and policy smoke without model/interface/timeout/deadline/client-rejection errors; verified budget invariants; service health after load; overlapping HTTP-call intervals from distinct roles (client-observed in-flight overlap only; no GPU-kernel concurrency claim); verified stop and GPU ownership cleanup.500ms SLO performance and correctness are descriptive, not pass gates.",
+    "no_tuning": "A failed engineering check preserves evidence and stops; no automatic memory, precision, threshold, model or budget-policy search. Scientific changes need a new protocol/output identity."
+  },
+  "watchdog": "Absolute parent deadlines cover each owned stage. A complete deployment attempt is bounded by number_of_roles*1200 + serial_count*30 + all planned concurrent/smoke durations and drains +5 seconds watchdog grace +180 seconds cleanup reserve. These are worst-case safety ceilings, not predicted runtime. Late receipts after a watchdog deadline are unaccepted.",
+  "cell_isolation": "Fresh owned services and warmup per formal cell, front first for co-resident pair. A cell is complete only when raw measurement evidence and verified service-stop evidence both validate. No signalling of unrelated or reused PIDs; use accepted Linux/RHEL8 ownership and stable-handle support. Incomplete or unverified attempts remain preserved and unaccepted.",
+  "primary_metric": "Actual timely-correct answers per120-second offer window at500ms SLO. Report every condition/rate/repeat, with median/min/max over3 repeats; no significance claim from3 repeated workload runs.",
+  "secondary_metrics": [
+    "1000ms timely-correct goodput",
+    "all offers/admitted/rejected/failed/late/successful counts",
+    "correct per all offers and accuracy among successful responses with explicit denominators",
+    "actual9B attempts per all offers, reservations, candidates, grants and denials",
+    "actual front-to-fallback rescue/harm where both successful live predictions exist, with applicability/denominator",
+    "p50/p95/p99 arrival-to-completion and queueing",
+    "measured GPU memory and model/router timing",
+    "per-cell allocation/card identity and actual stage response variability"
+  ],
+  "analysis": "Recompute all metrics and budget invariants from raw traces/ledgers after freeze. Missing, invalid, late and rejected offers remain in service denominators. No multiplication of historical accuracy by throughput. No omitted adverse cell or selected best-load victory. System run ranges do not provide new independent quality-sample uncertainty.",
+  "automation": {
+    "default_output": "results/aux-anli-budget-serving-v1",
+    "flow": [
+      "verify-source-and-frozen-inputs",
+      "actual-slurm-and-native-ownership-check",
+      "token-and-co-residency-preflight",
+      "all60-fixed-cells",
+      "freeze",
+      "evaluate",
+      "archive"
+    ],
+    "successful_gates": "Continue automatically without user handoff between successful stages",
+    "allocation": "Read actual current Slurm job and remaining time, finite0<hours<=24; do not read a user HOURS_LEFT variable or reuse an old deadline. The same command resumes on a genuinely different allocation only after terminal proof for the previous job.",
+    "checkpoint": "Checkpoint before starting an attempt that cannot fit its bounded stage and cleanup reserve; retain completed cells. Actual technical failure is preserved and blocks until explicitly retried under the same scientific identity.",
+    "calendar": "Planning dates are not executable expiry gates",
+    "export": "Timestamped compact archive with protocol/source identities, selected historical artifacts, raw offers/stages/budget ledgers, lifecycle receipts and analysis. Exclude weights, environments, caches and unrelated historical experiments; do not drop evidence required by the audit."
+  },
+  "interpretation_limits": [
+    "The candidate was selected after viewing a secondary result; all quality inputs have already been evaluated. No fresh confirmatory quality improvement or equivalence claim.",
+    "1737 eligible-dev inputs are a selected subset, not all3200 ANLI dev. Repeated requests are workload instances, not extra independent examples.",
+    "One GPU ceiling per condition; direct0.90 vs pair0.40+0.50 changes per-role memory as well as co-residency. This is a deployment comparison, not isolation of a pure model-size/router/architecture effect.",
+    "Budget is a9B-call cap, not a proportional GPU-billing discount. No dollar-cost or parameter-count FLOP saving is inferred.",
+    "Random uses the same hard cap but may consume fewer actual9B calls; learned-versus-random performance cannot alone isolate scoring quality at identical realized cost.",
+    "The measured points need not dominate both direct models to show a tradeoff. A line interpolated between single-model points is not a measured co-resident random-serving baseline.",
+    "The old Qwen serving workload used ANLI test and is not a matched control for this new eligible-dev workload.",
+    "176 omitted embedding arrays/full text-head refitting and separate refit-stability analyses remain separate work; this front-only serving study does not complete them."
+  ]
+}
